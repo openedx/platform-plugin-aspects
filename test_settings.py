@@ -14,6 +14,7 @@ def root(*args):
     """
     return join(abspath(dirname(__file__)), *args)
 
+DEBUG = True
 
 DATABASES = {
     'default': {
@@ -39,8 +40,6 @@ LOCALE_PATHS = [
     root('platform_plugin_aspects', 'conf', 'locale'),
 ]
 
-ROOT_URLCONF = 'platform_plugin_aspects.urls'
-
 SECRET_KEY = 'insecure-secret-key'
 
 MIDDLEWARE = (
@@ -59,3 +58,13 @@ TEMPLATES = [{
         ],
     },
 }]
+
+ASPECTS_INSTRUCTOR_DASHBOARD_UUID = "test-dashboard-uuid"
+
+SUPERSET_CONFIG = {
+    "url": "http://dummy-superset-url:8088",
+    "username": "superset",
+    "password": "superset",
+}
+
+SUPERSET_EXTRA_FILTERS_FORMAT = []
