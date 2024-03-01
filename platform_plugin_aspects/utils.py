@@ -4,6 +4,7 @@ Utilities for the Aspects app.
 
 import logging
 import os
+from importlib import import_module
 
 from crum import get_current_user
 from django.conf import settings
@@ -116,14 +117,6 @@ def generate_guest_token(user, course, dashboard_uuid, filters):
         logger.error(exc)
         return None, exc
 
-"""Utility functions for event_sink_clickhouse."""
-import logging
-from importlib import import_module
-
-from django.conf import settings
-
-log = logging.getLogger(__name__)
-
 
 def get_model(model_setting):
     """Load a model from a setting."""
@@ -131,24 +124,24 @@ def get_model(model_setting):
 
     model_config = MODEL_CONFIG.get(model_setting)
     if not model_config:
-        log.error("Unable to find model config for %s", model_setting)
+        logger.error("Unable to find model config for %s", model_setting)
         return None
 
     module = model_config.get("module")
     if not module:
-        log.error("Module was not specified in %s", model_setting)
+        logger.error("Module was not specified in %s", model_setting)
         return None
 
     model_name = model_config.get("model")
     if not model_name:
-        log.error("Model was not specified in %s", model_setting)
+        logger.error("Model was not specified in %s", model_setting)
         return None
 
     try:
         model = getattr(import_module(module), model_name)
         return model
     except (ImportError, AttributeError, ModuleNotFoundError):
-        log.error("Unable to load model %s.%s", module, model_name)
+        logger.error("Unable to load model %s.%s", module, model_name)
 
     return None
 

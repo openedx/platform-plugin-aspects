@@ -20,7 +20,7 @@ class TestUtils(unittest.TestCase):
         "EVENT_SINK_CLICKHOUSE_MODEL_CONFIG",
         {"my_model": {"module": "myapp.models", "model": "MyModel"}},
     )
-    @patch("platform_plugin_aspects.utils.log")
+    @patch("platform_plugin_aspects.utils.logger")
     def test_get_model_success(self, mock_log, mock_import_module):
         mock_model = Mock(__name__="MyModel")
         mock_import_module.return_value = Mock(MyModel=mock_model)

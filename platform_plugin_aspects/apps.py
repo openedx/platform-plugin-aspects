@@ -44,11 +44,9 @@ class PlatformPluginAspectsConfig(AppConfig):
     def ready(self):
         """Load modules of Aspects."""
         super().ready()
-        from platform_plugin_aspects.extensions import filters  # pylint: disable=unused-import, import-outside-toplevel
-
         from platform_plugin_aspects import (  # pylint: disable=import-outside-toplevel, unused-import
             signals,
             sinks,
             tasks,
         )
-
+        from platform_plugin_aspects.extensions import filters  # pylint: disable=unused-import, import-outside-toplevel
