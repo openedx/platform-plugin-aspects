@@ -26,11 +26,18 @@ class TestPluginSettings(TestCase):
         self.assertIn("password", settings.SUPERSET_CONFIG)
         self.assertIsNotNone(settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID)
         self.assertIsNotNone(settings.SUPERSET_EXTRA_FILTERS_FORMAT)
+        for key in ("url", "username", "password", "database", "timeout_secs"):
+            assert key in settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG
 
     def test_production_settings(self):
         """
         Test production settings
         """
+        test_url = "https://foo.bar"
+        test_username = "bob"
+        test_password = "secret"
+        test_database = "cool_data"
+        test_timeout = 1
         settings.ENV_TOKENS = {
             "SUPERSET_CONFIG": {
                 "url": "http://superset.local.overhang.io:8088",
@@ -42,6 +49,13 @@ class TestPluginSettings(TestCase):
                 "dashboard_uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
             },
             "SUPERSET_EXTRA_FILTERS_FORMAT": [],
+            'EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG': {
+                "url": test_url,
+                "username": test_username,
+                "password": test_password,
+                "database": test_database,
+                "timeout_secs": test_timeout
+            }
         }
         production_setttings.plugin_settings(settings)
         self.assertEqual(
@@ -55,3 +69,13 @@ class TestPluginSettings(TestCase):
             settings.SUPERSET_EXTRA_FILTERS_FORMAT,
             settings.ENV_TOKENS["SUPERSET_EXTRA_FILTERS_FORMAT"],
         )
+
+        for key, val in (
+            ("url", test_url),
+            ("username", test_username),
+            ("password", test_password),
+            ("database", test_database),
+            ("timeout_secs", test_timeout),
+        ):
+            assert key in settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG
+            assert settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG[key] == val
