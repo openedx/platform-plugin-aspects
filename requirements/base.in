@@ -2,6 +2,9 @@
 -c constraints.txt
 
 Django             # Web application framework
-
-
 openedx-atlas
+openedx-filters
+web_fragments
+superset-api-client
+web_fragments
+django_crum

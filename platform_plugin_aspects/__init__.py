@@ -1,5 +1,10 @@
 """
-Aspects plugins for edx-platform
+Aspects plugins for edx-platform.
 """
 
-__version__ = '0.1.0'
+import os
+from pathlib import Path
+
+__version__ = "0.1.0"
+
+ROOT_DIRECTORY = Path(os.path.dirname(os.path.abspath(__file__)))

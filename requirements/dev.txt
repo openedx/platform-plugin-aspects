@@ -17,7 +17,7 @@ backports-zoneinfo==0.2.1
     # via
     #   -r requirements/quality.txt
     #   django
-build==1.0.3
+build==1.1.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -25,11 +25,19 @@ cachetools==5.3.3
     # via
     #   -r requirements/ci.txt
     #   tox
+certifi==2024.2.2
+    # via
+    #   -r requirements/quality.txt
+    #   requests
 chardet==5.2.0
     # via
     #   -r requirements/ci.txt
     #   diff-cover
     #   tox
+charset-normalizer==3.3.2
+    # via
+    #   -r requirements/quality.txt
+    #   requests
 click==8.1.7
     # via
     #   -r requirements/pip-tools.txt
@@ -68,7 +76,11 @@ django==4.2.10
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
+    #   django-crum
     #   edx-i18n-tools
+    #   openedx-filters
+django-crum==0.7.9
+    # via -r requirements/quality.txt
 edx-i18n-tools==1.3.0
     # via -r requirements/dev.in
 edx-lint==5.3.6
@@ -82,6 +94,10 @@ filelock==3.13.1
     #   -r requirements/ci.txt
     #   tox
     #   virtualenv
+idna==3.6
+    # via
+    #   -r requirements/quality.txt
+    #   requests
 importlib-metadata==7.0.1
     # via
     #   -r requirements/pip-tools.txt
@@ -109,7 +125,13 @@ mccabe==0.7.0
     # via
     #   -r requirements/quality.txt
     #   pylint
+oauthlib==3.2.2
+    # via
+    #   -r requirements/quality.txt
+    #   requests-oauthlib
 openedx-atlas==0.6.0
+    # via -r requirements/quality.txt
+openedx-filters==1.6.0
     # via -r requirements/quality.txt
 packaging==23.2
     # via
@@ -197,6 +219,16 @@ pyyaml==6.0.1
     #   -r requirements/quality.txt
     #   code-annotations
     #   edx-i18n-tools
+    #   superset-api-client
+requests==2.31.0
+    # via
+    #   -r requirements/quality.txt
+    #   requests-oauthlib
+    #   superset-api-client
+requests-oauthlib==1.3.1
+    # via
+    #   -r requirements/quality.txt
+    #   superset-api-client
 six==1.16.0
     # via
     #   -r requirements/quality.txt
@@ -213,6 +245,8 @@ stevedore==5.2.0
     # via
     #   -r requirements/quality.txt
     #   code-annotations
+superset-api-client==0.6.0
+    # via -r requirements/quality.txt
 text-unidecode==1.3
     # via
     #   -r requirements/quality.txt
@@ -242,10 +276,16 @@ typing-extensions==4.10.0
     #   asgiref
     #   astroid
     #   pylint
+urllib3==2.2.1
+    # via
+    #   -r requirements/quality.txt
+    #   requests
 virtualenv==20.25.1
     # via
     #   -r requirements/ci.txt
     #   tox
+web-fragments==2.1.0
+    # via -r requirements/quality.txt
 wheel==0.42.0
     # via
     #   -r requirements/pip-tools.txt
