@@ -38,7 +38,9 @@ from test_utils.helpers import (
 @patch(
     "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.serialize_item"
 )
-@patch("platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.get_model")
+@patch(
+    "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.get_model"
+)
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 @patch("platform_plugin_aspects.tasks.get_ccx_courses")
@@ -102,7 +104,9 @@ def test_course_publish_success(
 @patch(
     "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.serialize_item"
 )
-@patch("platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.get_model")
+@patch(
+    "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.get_model"
+)
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 # pytest:disable=unused-argument
