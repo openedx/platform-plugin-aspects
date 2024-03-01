@@ -1,6 +1,7 @@
 """
 Signal handler functions, mapped to specific signals in apps.py.
 """
+
 from django.db.models.signals import post_save
 from django.dispatch import Signal, receiver
 
@@ -23,7 +24,9 @@ def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cov
     Receives COURSE_PUBLISHED signal and queues the dump job.
     """
     # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
-    from platform_plugin_aspects.tasks import dump_course_to_clickhouse  # pylint: disable=import-outside-toplevel
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_course_to_clickhouse,
+    )
 
     dump_course_to_clickhouse.delay(str(course_key))
 
@@ -36,7 +39,9 @@ def on_user_profile_updated(  # pylint: disable=unused-argument  # pragma: no co
     Receives post save signal and queues the dump job.
     """
     # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
-    from platform_plugin_aspects.tasks import dump_data_to_clickhouse  # pylint: disable=import-outside-toplevel
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_data_to_clickhouse,
+    )
 
     sink = UserProfileSink(None, None)
     dump_data_to_clickhouse.delay(
@@ -54,7 +59,9 @@ def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover
     Receives post save signal and queues the dump job.
     """
     # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
-    from platform_plugin_aspects.tasks import dump_data_to_clickhouse  # pylint: disable=import-outside-toplevel
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_data_to_clickhouse,
+    )
 
     sink = ExternalIdSink(None, None)
     dump_data_to_clickhouse.delay(
@@ -72,7 +79,9 @@ def on_user_retirement(  # pylint: disable=unused-argument  # pragma: no cover
     Receives a user retirement signal and queues the retire_user job.
     """
     # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
-    from platform_plugin_aspects.tasks import dump_data_to_clickhouse  # pylint: disable=import-outside-toplevel
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_data_to_clickhouse,
+    )
 
     sink = UserRetirementSink(None, None)
     dump_data_to_clickhouse.delay(

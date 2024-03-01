@@ -20,30 +20,33 @@ COURSE = "testcourse"
 COURSE_RUN = "2023_Fall"
 
 FakeCourse = namedtuple("FakeCourse", ["id"])
-FakeCourseOverview = namedtuple("FakeCourseOverview", [
-    # Key fields we keep at the top level
-    "id",
-    "org",
-    "display_name",
-    "start",
-    "end",
-    "enrollment_start",
-    "enrollment_end",
-    "self_paced",
-    "created",
-    "modified",
-    # Fields we stuff in JSON
-    "advertised_start",
-    "announcement",
-    "lowest_passing_grade",
-    "invitation_only",
-    "max_student_enrollments_allowed",
-    "effort",
-    "enable_proctored_exams",
-    "entrance_exam_enabled",
-    "external_id",
-    "language",
-])
+FakeCourseOverview = namedtuple(
+    "FakeCourseOverview",
+    [
+        # Key fields we keep at the top level
+        "id",
+        "org",
+        "display_name",
+        "start",
+        "end",
+        "enrollment_start",
+        "enrollment_end",
+        "self_paced",
+        "created",
+        "modified",
+        # Fields we stuff in JSON
+        "advertised_start",
+        "announcement",
+        "lowest_passing_grade",
+        "invitation_only",
+        "max_student_enrollments_allowed",
+        "effort",
+        "enable_proctored_exams",
+        "entrance_exam_enabled",
+        "external_id",
+        "language",
+    ],
+)
 
 FakeUser = namedtuple("FakeUser", ["id"])
 
@@ -52,7 +55,10 @@ class FakeXBlock:
     """
     Fakes the parameters of an XBlock that we care about.
     """
-    def __init__(self, identifier, block_type="vertical", graded=False, completion_mode="unknown"):
+
+    def __init__(
+        self, identifier, block_type="vertical", graded=False, completion_mode="unknown"
+    ):
         self.block_type = block_type
         self.scope_ids = Mock()
         self.scope_ids.usage_id.course_key = course_key_factory()
@@ -91,8 +97,10 @@ def block_usage_locator_factory():
     """
     Create a BlockUsageLocator with a random id.
     """
-    block_id = ''.join(random.choices(string.ascii_letters, k=10))
-    return BlockUsageLocator(course_key_factory(), block_type="category", block_id=block_id, deprecated=True)
+    block_id = "".join(random.choices(string.ascii_letters, k=10))
+    return BlockUsageLocator(
+        course_key_factory(), block_type="category", block_id=block_id, deprecated=True
+    )
 
 
 def fake_course_overview_factory(modified=None):
@@ -102,26 +110,26 @@ def fake_course_overview_factory(modified=None):
     Modified is overridable, but can also be None.
     """
     return FakeCourseOverview(
-        course_key_factory(),                  # id
-        ORG,                                   # org
-        "Test Course",                         # display_name
-        datetime.now() - timedelta(days=90),   # start
-        datetime.now() + timedelta(days=90),   # end
-        datetime.now() - timedelta(days=90),   # enrollment_start
-        datetime.now() + timedelta(days=90),   # enrollment_end
-        False,                                 # self_paced
+        course_key_factory(),  # id
+        ORG,  # org
+        "Test Course",  # display_name
+        datetime.now() - timedelta(days=90),  # start
+        datetime.now() + timedelta(days=90),  # end
+        datetime.now() - timedelta(days=90),  # enrollment_start
+        datetime.now() + timedelta(days=90),  # enrollment_end
+        False,  # self_paced
         datetime.now() - timedelta(days=180),  # created
-        modified,                              # modified
-        datetime.now() - timedelta(days=90),   # advertised_start
-        datetime.now() - timedelta(days=90),   # announcement
-        71.05,                                 # lowest_passing_grade
-        False,                                 # invitation_only
-        1000,                                  # max_student_enrollments_allowed
-        "Pretty easy",                         # effort
-        False,                                 # enable_proctored_exams
-        True,                                  # entrance_exam_enabled
-        "abcd1234",                            # external_id
-        "Polish"                               # language
+        modified,  # modified
+        datetime.now() - timedelta(days=90),  # advertised_start
+        datetime.now() - timedelta(days=90),  # announcement
+        71.05,  # lowest_passing_grade
+        False,  # invitation_only
+        1000,  # max_student_enrollments_allowed
+        "Pretty easy",  # effort
+        False,  # enable_proctored_exams
+        True,  # entrance_exam_enabled
+        "abcd1234",  # external_id
+        "Polish",  # language
     )
 
 
@@ -173,7 +181,7 @@ def mock_detached_xblock_types():
     Mock the return results of xmodule.modulestore.store_utilities.DETACHED_XBLOCK_TYPES
     """
     # Current values as of 2023-05-01
-    return {'static_tab', 'about', 'course_info'}
+    return {"static_tab", "about", "course_info"}
 
 
 def get_clickhouse_http_params():
@@ -183,12 +191,12 @@ def get_clickhouse_http_params():
     overview_params = {
         "input_format_allow_errors_num": 1,
         "input_format_allow_errors_ratio": 0.1,
-        "query": "INSERT INTO cool_data.course_overviews FORMAT CSV"
+        "query": "INSERT INTO cool_data.course_overviews FORMAT CSV",
     }
     blocks_params = {
         "input_format_allow_errors_num": 1,
         "input_format_allow_errors_ratio": 0.1,
-        "query": "INSERT INTO cool_data.course_blocks FORMAT CSV"
+        "query": "INSERT INTO cool_data.course_blocks FORMAT CSV",
     }
 
     return overview_params, blocks_params
@@ -200,7 +208,9 @@ def course_factory():
     """
     # Create a base block
     top_block = FakeXBlock("top", block_type="course")
-    course = [top_block, ]
+    course = [
+        top_block,
+    ]
 
     # Create a few sections
     for i in range(3):
@@ -244,6 +254,7 @@ def check_overview_csv_matcher(course_overview):
     This is a matcher for the "responses" library. It returns a function
     that actually does the matching.
     """
+
     def match(request):
         body = request.body
 
@@ -268,14 +279,27 @@ def check_overview_csv_matcher(course_overview):
                 # real JSON, compare values
                 dumped_json = json.loads(row[8])
 
-                assert dumped_json["advertised_start"] == str(course_overview.advertised_start)
+                assert dumped_json["advertised_start"] == str(
+                    course_overview.advertised_start
+                )
                 assert dumped_json["announcement"] == str(course_overview.announcement)
-                assert dumped_json["lowest_passing_grade"] == float(course_overview.lowest_passing_grade)
+                assert dumped_json["lowest_passing_grade"] == float(
+                    course_overview.lowest_passing_grade
+                )
                 assert dumped_json["invitation_only"] == course_overview.invitation_only
-                assert dumped_json["max_student_enrollments_allowed"] == course_overview.max_student_enrollments_allowed
+                assert (
+                    dumped_json["max_student_enrollments_allowed"]
+                    == course_overview.max_student_enrollments_allowed
+                )
                 assert dumped_json["effort"] == course_overview.effort
-                assert dumped_json["enable_proctored_exams"] == course_overview.enable_proctored_exams
-                assert dumped_json["entrance_exam_enabled"] == course_overview.entrance_exam_enabled
+                assert (
+                    dumped_json["enable_proctored_exams"]
+                    == course_overview.enable_proctored_exams
+                )
+                assert (
+                    dumped_json["entrance_exam_enabled"]
+                    == course_overview.entrance_exam_enabled
+                )
                 assert dumped_json["external_id"] == course_overview.external_id
                 assert dumped_json["language"] == course_overview.language
 
@@ -286,6 +310,7 @@ def check_overview_csv_matcher(course_overview):
         except EOFError as e:
             return False, f"Mismatch in row {i}: {e}"
         return True, ""
+
     return match
 
 
@@ -296,6 +321,7 @@ def check_block_csv_matcher(course):
     This is a matcher for the "responses" library. It returns a function
     that actually does the matching.
     """
+
     def match(request):
         body = request.body.decode("utf-8")
         lines = body.split("\n")[:-1]
@@ -319,9 +345,9 @@ def check_block_csv_matcher(course):
                 assert row[3] == block.display_name_with_default
 
                 block_json_data = {
-                    'course': block.location.course,
-                    'run': block.location.run,
-                    'block_type': str(block.block_type),
+                    "course": block.location.course,
+                    "run": block.location.run,
+                    "block_type": str(block.block_type),
                 }
                 csv_json = json.loads(row[4])
 
@@ -333,4 +359,5 @@ def check_block_csv_matcher(course):
         except AssertionError as e:
             return False, f"Mismatch in row {i}: {e}"
         return True, ""
+
     return match

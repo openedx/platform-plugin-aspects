@@ -1,4 +1,5 @@
 """User profile sink"""
+
 from platform_plugin_aspects.serializers import UserProfileSerializer
 from platform_plugin_aspects.sinks.base_sink import ModelBaseSink
 

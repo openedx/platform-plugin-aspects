@@ -29,7 +29,9 @@ def dump_course_to_clickhouse(course_key_string, connection_overrides=None):
     """
     if CourseOverviewSink.is_enabled():  # pragma: no cover
         course_key = CourseKey.from_string(course_key_string)
-        sink = CourseOverviewSink(connection_overrides=connection_overrides, log=celery_log)
+        sink = CourseOverviewSink(
+            connection_overrides=connection_overrides, log=celery_log
+        )
         sink.dump(course_key)
 
         ccx_courses = get_ccx_courses(course_key)

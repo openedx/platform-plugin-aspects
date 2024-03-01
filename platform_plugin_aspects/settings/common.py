@@ -5,6 +5,7 @@ https://docs.djangoproject.com/en/2.22/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.22/ref/settings/
 """
+
 from platform_plugin_aspects import ROOT_DIRECTORY
 
 
@@ -57,5 +58,5 @@ def plugin_settings(settings):
         "custom_course_edx": {
             "module": "lms.djangoapps.ccx.models",
             "model": "CustomCourseForEdX",
-        }
+        },
     }

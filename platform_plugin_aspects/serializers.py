@@ -1,4 +1,5 @@
 """Django serializers for the event_sink_clickhouse app."""
+
 import json
 import uuid
 

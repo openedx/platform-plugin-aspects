@@ -132,7 +132,7 @@ def dump_command_basic_options():
             expected_logs=[
                 "Now dumping 1 Dummy to ClickHouse",
                 "Dumped 2 objects to ClickHouse",
-                "Last ID: 3"
+                "Last ID: 3",
             ],
         ),
         CommandOptions(

@@ -49,13 +49,13 @@ class TestPluginSettings(TestCase):
                 "dashboard_uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
             },
             "SUPERSET_EXTRA_FILTERS_FORMAT": [],
-            'EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG': {
+            "EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG": {
                 "url": test_url,
                 "username": test_username,
                 "password": test_password,
                 "database": test_database,
-                "timeout_secs": test_timeout
-            }
+                "timeout_secs": test_timeout,
+            },
         }
         production_setttings.plugin_settings(settings)
         self.assertEqual(

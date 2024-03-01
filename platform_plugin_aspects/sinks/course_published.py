@@ -9,6 +9,7 @@ Does the following:
 Note that the serialization format does not include all fields as there may be things like
 LTI passwords and other secrets. We just take the fields necessary for reporting at this time.
 """
+
 import datetime
 import json
 
@@ -87,9 +88,9 @@ class XBlockSink(ModelBaseSink):
             fields["xblock_data_json"]["unit"] = unit_idx
 
             fields["xblock_data_json"] = json.dumps(fields["xblock_data_json"])
-            location_to_node[
-                XBlockSink.strip_branch_and_version(block.location)
-            ] = fields
+            location_to_node[XBlockSink.strip_branch_and_version(block.location)] = (
+                fields
+            )
 
         return list(location_to_node.values())
 

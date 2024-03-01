@@ -1,6 +1,7 @@
 """
 Tests for the course_published sinks.
 """
+
 import json
 import logging
 from datetime import datetime
@@ -13,7 +14,10 @@ from django.test.utils import override_settings
 from responses import matchers
 from responses.registries import OrderedRegistry
 
-from platform_plugin_aspects.sinks.course_published import CourseOverviewSink, XBlockSink
+from platform_plugin_aspects.sinks.course_published import (
+    CourseOverviewSink,
+    XBlockSink,
+)
 from platform_plugin_aspects.tasks import dump_course_to_clickhouse
 from test_utils.helpers import (
     check_block_csv_matcher,
@@ -27,9 +31,13 @@ from test_utils.helpers import (
 )
 
 
-@responses.activate(registry=OrderedRegistry)  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+@responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    registry=OrderedRegistry
+)
 @override_settings(EVENT_SINK_CLICKHOUSE_COURSE_OVERVIEW_ENABLED=True)
-@patch("platform_plugin_aspects.sinks.course_published.CourseOverviewSink.serialize_item")
+@patch(
+    "platform_plugin_aspects.sinks.course_published.CourseOverviewSink.serialize_item"
+)
 @patch("platform_plugin_aspects.sinks.course_published.CourseOverviewSink.get_model")
 @patch("platform_plugin_aspects.sinks.course_published.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_published.get_modulestore")
@@ -39,7 +47,7 @@ def test_course_publish_success(
     mock_modulestore,
     mock_detached,
     mock_overview,
-    mock_serialize_item
+    mock_serialize_item,
 ):
     """
     Test of a successful end-to-end run.
@@ -49,7 +57,9 @@ def test_course_publish_success(
     course_overview = fake_course_overview_factory(modified=datetime.now())
     mock_modulestore.return_value.get_items.return_value = course
 
-    mock_serialize_item.return_value = fake_serialize_fake_course_overview(course_overview)
+    mock_serialize_item.return_value = fake_serialize_fake_course_overview(
+        course_overview
+    )
 
     # Fake the "detached types" list since we can't import it here
     mock_detached.return_value = mock_detached_xblock_types()
@@ -66,14 +76,14 @@ def test_course_publish_success(
         "https://foo.bar/",
         match=[
             matchers.query_param_matcher(course_overview_params),
-            check_overview_csv_matcher(course_overview)
+            check_overview_csv_matcher(course_overview),
         ],
     )
     responses.post(
         "https://foo.bar/",
         match=[
             matchers.query_param_matcher(blocks_params),
-            check_block_csv_matcher(course)
+            check_block_csv_matcher(course),
         ],
     )
 
@@ -86,13 +96,19 @@ def test_course_publish_success(
     mock_get_ccx_courses.assert_called_once_with(course_overview.id)
 
 
-@responses.activate(registry=OrderedRegistry)  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
-@patch("platform_plugin_aspects.sinks.course_published.CourseOverviewSink.serialize_item")
+@responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    registry=OrderedRegistry
+)
+@patch(
+    "platform_plugin_aspects.sinks.course_published.CourseOverviewSink.serialize_item"
+)
 @patch("platform_plugin_aspects.sinks.course_published.CourseOverviewSink.get_model")
 @patch("platform_plugin_aspects.sinks.course_published.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_published.get_modulestore")
 # pytest:disable=unused-argument
-def test_course_publish_clickhouse_error(mock_modulestore, mock_detached, mock_overview, mock_serialize_item, caplog):
+def test_course_publish_clickhouse_error(
+    mock_modulestore, mock_detached, mock_overview, mock_serialize_item, caplog
+):
     """
     Test the case where a ClickHouse POST fails.
     """
@@ -103,14 +119,12 @@ def test_course_publish_clickhouse_error(mock_modulestore, mock_detached, mock_o
     course_overview = fake_course_overview_factory(modified=datetime.now())
     mock_overview.return_value.get_from_id.return_value = course_overview
 
-    mock_serialize_item.return_value = fake_serialize_fake_course_overview(course_overview)
+    mock_serialize_item.return_value = fake_serialize_fake_course_overview(
+        course_overview
+    )
 
     # This will raise an exception when we try to post to ClickHouse
-    responses.post(
-        "https://foo.bar/",
-        body="Test Bad Request error",
-        status=400
-    )
+    responses.post("https://foo.bar/", body="Test Bad Request error", status=400)
 
     course = course_str_factory()
 
@@ -119,7 +133,9 @@ def test_course_publish_clickhouse_error(mock_modulestore, mock_detached, mock_o
 
     # Make sure our log messages went through.
     assert "Test Bad Request error" in caplog.text
-    assert f"Error trying to dump Course Overview {course} to ClickHouse!" in caplog.text
+    assert (
+        f"Error trying to dump Course Overview {course} to ClickHouse!" in caplog.text
+    )
 
 
 def test_get_course_last_published():
@@ -130,12 +146,16 @@ def test_get_course_last_published():
     course_overview = fake_course_overview_factory(modified=datetime.now())
 
     # Confirm that the string date we get back is a valid date
-    last_published_date = CourseOverviewSink(None, None).get_course_last_published(course_overview)
+    last_published_date = CourseOverviewSink(None, None).get_course_last_published(
+        course_overview
+    )
     dt = datetime.strptime(last_published_date, "%Y-%m-%d %H:%M:%S.%f")
     assert dt
 
 
-@responses.activate(registry=OrderedRegistry)  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+@responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    registry=OrderedRegistry
+)
 def test_no_last_published_date():
     """
     Test that we get a None value back for courses that don't have a modified date.
@@ -148,10 +168,7 @@ def test_no_last_published_date():
     # should_dump_course will reach out to ClickHouse for the last dump date
     # we'll fake the response here to have any date, such that we'll exercise
     # all the "no modified date" code.
-    responses.get(
-        "https://foo.bar/",
-        body="2023-05-03 15:47:39.331024+00:00"
-    )
+    responses.get("https://foo.bar/", body="2023-05-03 15:47:39.331024+00:00")
 
     # Confirm that the string date we get back is a valid date
     sink = CourseOverviewSink(connection_overrides={}, log=logging.getLogger())
@@ -161,20 +178,21 @@ def test_no_last_published_date():
     assert reason == "No last modified date in CourseOverview"
 
 
-@responses.activate(registry=OrderedRegistry)  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+@responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    registry=OrderedRegistry
+)
 def test_should_dump_item():
     """
     Test that we get the expected results from should_dump_item.
     """
-    course_overview = fake_course_overview_factory(modified=datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f+00:00"))
+    course_overview = fake_course_overview_factory(
+        modified=datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f+00:00")
+    )
 
     # should_dump_course will reach out to ClickHouse for the last dump date
     # we'll fake the response here to have any date, such that we'll exercise
     # all the "no modified date" code.
-    responses.get(
-        "https://foo.bar/",
-        body="2023-05-03 15:47:39.331024+00:00"
-    )
+    responses.get("https://foo.bar/", body="2023-05-03 15:47:39.331024+00:00")
 
     # Confirm that the string date we get back is a valid date
     sink = CourseOverviewSink(connection_overrides={}, log=logging.getLogger())
@@ -184,16 +202,17 @@ def test_should_dump_item():
     assert "Course has been published since last dump time - " in reason
 
 
-@responses.activate(registry=OrderedRegistry)  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+@responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    registry=OrderedRegistry
+)
 def test_should_dump_item_not_in_clickhouse():
     """
     Test that a course gets dumped if it's never been dumped before
     """
-    course_overview = fake_course_overview_factory(modified=datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f+00:00"))
-    responses.get(
-        "https://foo.bar/",
-        body=""
+    course_overview = fake_course_overview_factory(
+        modified=datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f+00:00")
     )
+    responses.get("https://foo.bar/", body="")
 
     sink = CourseOverviewSink(connection_overrides={}, log=logging.getLogger())
     should_dump_course, reason = sink.should_dump_item(course_overview)
@@ -202,17 +221,16 @@ def test_should_dump_item_not_in_clickhouse():
     assert "Course is not present in ClickHouse" == reason
 
 
-@responses.activate(registry=OrderedRegistry)  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+@responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    registry=OrderedRegistry
+)
 def test_should_dump_item_no_needs_dump():
     """
     Test that a course gets dumped if it's never been dumped before
     """
     modified = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f+00:00")
     course_overview = fake_course_overview_factory(modified=modified)
-    responses.get(
-        "https://foo.bar/",
-        body=modified
-    )
+    responses.get("https://foo.bar/", body=modified)
 
     sink = CourseOverviewSink(connection_overrides={}, log=logging.getLogger())
     should_dump_course, reason = sink.should_dump_item(course_overview)
@@ -221,7 +239,9 @@ def test_should_dump_item_no_needs_dump():
     assert "Course has NOT been published since last dump time - " in reason
 
 
-@responses.activate(registry=OrderedRegistry)  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+@responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    registry=OrderedRegistry
+)
 def test_course_not_present_in_clickhouse():
     """
     Test that a course gets dumped if it's never been dumped before
@@ -229,10 +249,7 @@ def test_course_not_present_in_clickhouse():
     # Request our course last published date
     course_key = course_str_factory()
 
-    responses.get(
-        "https://foo.bar/",
-        body=""
-    )
+    responses.get("https://foo.bar/", body="")
 
     # Confirm that the string date we get back is a valid date
     sink = CourseOverviewSink(connection_overrides={}, log=logging.getLogger())
@@ -240,7 +257,9 @@ def test_course_not_present_in_clickhouse():
     assert last_published_date is None
 
 
-@responses.activate(registry=OrderedRegistry)  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+@responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    registry=OrderedRegistry
+)
 def test_get_last_dump_time():
     """
     Test that we return the expected thing from last dump time.
@@ -250,10 +269,7 @@ def test_get_last_dump_time():
 
     # Mock out the response we expect to get from ClickHouse, just a random
     # datetime in the correct format.
-    responses.get(
-        "https://foo.bar/",
-        body="2023-05-03 15:47:39.331024+00:00"
-    )
+    responses.get("https://foo.bar/", body="2023-05-03 15:47:39.331024+00:00")
 
     # Confirm that the string date we get back is a valid date
     sink = CourseOverviewSink(connection_overrides={}, log=logging.getLogger())
@@ -277,13 +293,17 @@ def test_xblock_tree_structure(mock_modulestore, mock_detached):
     # Fake the "detached types" list since we can't import it here
     mock_detached.return_value = mock_detached_xblock_types()
 
-    fake_serialized_course_overview = fake_serialize_fake_course_overview(course_overview)
+    fake_serialized_course_overview = fake_serialize_fake_course_overview(
+        course_overview
+    )
     sink = XBlockSink(connection_overrides={}, log=MagicMock())
 
     initial_data = {"dump_id": "xyz", "time_last_dumped": "2023-09-05"}
     results = sink.serialize_item(fake_serialized_course_overview, initial=initial_data)
 
-    def _check_tree_location(block, expected_section=0, expected_subsection=0, expected_unit=0):
+    def _check_tree_location(
+        block, expected_section=0, expected_subsection=0, expected_unit=0
+    ):
         """
         Assert the expected values in certain returned blocks or print useful debug information.
         """
@@ -332,13 +352,17 @@ def test_xblock_graded_completable_mode(mock_modulestore, mock_detached):
     # Fake the "detached types" list since we can't import it here
     mock_detached.return_value = mock_detached_xblock_types()
 
-    fake_serialized_course_overview = fake_serialize_fake_course_overview(course_overview)
+    fake_serialized_course_overview = fake_serialize_fake_course_overview(
+        course_overview
+    )
     sink = XBlockSink(connection_overrides={}, log=MagicMock())
 
     initial_data = {"dump_id": "xyz", "time_last_dumped": "2023-09-05"}
     results = sink.serialize_item(fake_serialized_course_overview, initial=initial_data)
 
-    def _check_item_serialized_location(block, expected_graded=0, expected_completion_mode="unknown"):
+    def _check_item_serialized_location(
+        block, expected_graded=0, expected_completion_mode="unknown"
+    ):
         """
         Assert the expected values in certain returned blocks or print useful debug information.
         """

@@ -17,4 +17,6 @@ def test_get_queryset(mock_get_queryset):
     sink.get_queryset()
 
     mock_get_queryset.assert_called_once_with(None)
-    mock_get_queryset.return_value.select_related.assert_called_once_with("user", "external_id_type")
+    mock_get_queryset.return_value.select_related.assert_called_once_with(
+        "user", "external_id_type"
+    )

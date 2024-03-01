@@ -1,11 +1,16 @@
 """
 Tests for signal handlers.
 """
+
 from unittest.mock import Mock, patch
 
 from django.test import TestCase
 
-from platform_plugin_aspects.signals import on_externalid_saved, on_user_retirement, receive_course_publish
+from platform_plugin_aspects.signals import (
+    on_externalid_saved,
+    on_user_retirement,
+    receive_course_publish,
+)
 from platform_plugin_aspects.sinks.external_id_sink import ExternalIdSink
 from platform_plugin_aspects.sinks.user_retire import UserRetirementSink
 

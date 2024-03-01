@@ -1,6 +1,7 @@
 """
 Tests for the base sinks.
 """
+
 import logging
 from unittest.mock import MagicMock, Mock, patch
 
@@ -44,13 +45,16 @@ class TestBaseSink(TestCase):
         """
         Test that connection_overrides() returns the correct data.
         """
-        child_sink = ChildSink(connection_overrides={
-            "url": "http://dummy:8123",
-            "username": "dummy_username",
-            "password": "dummy_password",
-            "database": "dummy_database",
-            "timeout_secs": 0,
-        }, log=logging.getLogger())
+        child_sink = ChildSink(
+            connection_overrides={
+                "url": "http://dummy:8123",
+                "username": "dummy_username",
+                "password": "dummy_password",
+                "database": "dummy_database",
+                "timeout_secs": 0,
+            },
+            log=logging.getLogger(),
+        )
 
         self.assertEqual(child_sink.ch_url, "http://dummy:8123")
         self.assertEqual(child_sink.ch_auth, ("dummy_username", "dummy_password"))

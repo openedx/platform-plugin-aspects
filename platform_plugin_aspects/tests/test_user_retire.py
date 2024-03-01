@@ -1,6 +1,7 @@
 """
 Tests for the user_retire sinks.
 """
+
 import logging
 from unittest.mock import patch
 

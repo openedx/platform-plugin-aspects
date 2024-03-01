@@ -1,6 +1,7 @@
 """
 Base classes for event sinks
 """
+
 import csv
 import datetime
 import io
@@ -258,9 +259,9 @@ class ModelBaseSink(BaseSink):
         params = self.CLICKHOUSE_BULK_INSERT_PARAMS.copy()
 
         # "query" is a special param for the query, it's the best way to get the FORMAT CSV in there.
-        params[
-            "query"
-        ] = f"INSERT INTO {self.ch_database}.{self.clickhouse_table_name} FORMAT CSV"
+        params["query"] = (
+            f"INSERT INTO {self.ch_database}.{self.clickhouse_table_name} FORMAT CSV"
+        )
 
         output = io.StringIO()
         writer = csv.writer(output, quoting=csv.QUOTE_NONNUMERIC)
@@ -281,7 +282,9 @@ class ModelBaseSink(BaseSink):
 
         self._send_clickhouse_request(request)
 
-    def fetch_target_items(self, start_pk=None, ids=None, skip_ids=None, force_dump=False, batch_size=None):
+    def fetch_target_items(
+        self, start_pk=None, ids=None, skip_ids=None, force_dump=False, batch_size=None
+    ):
         """
         Fetch the items that should be dumped to ClickHouse
         """
@@ -295,7 +298,7 @@ class ModelBaseSink(BaseSink):
             queryset = queryset.exclude(pk__in=skip_ids)
 
         paginator = Paginator(queryset, batch_size)
-        for i in range(1, paginator.num_pages+1):
+        for i in range(1, paginator.num_pages + 1):
             page = paginator.page(i)
             items = page.object_list
             for item in items:

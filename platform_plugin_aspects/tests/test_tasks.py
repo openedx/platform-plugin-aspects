@@ -1,6 +1,7 @@
 """
 Tests for the tasks module.
 """
+
 import unittest
 from unittest.mock import MagicMock, patch
 
@@ -37,9 +38,7 @@ class TestTasks(unittest.TestCase):
         mock_Sink_instance.dump.assert_called_once_with("object_id")
 
     @patch("platform_plugin_aspects.tasks.import_module")
-    def test_dump_data_to_clickhouse_disabled_sink(
-        self, mock_import_module
-    ):
+    def test_dump_data_to_clickhouse_disabled_sink(self, mock_import_module):
         # Mock the required objects and methods
         mock_Sink_class = MagicMock()
         mock_Sink_class.is_enabled.return_value = False

@@ -17,9 +17,7 @@ if settings.DEBUG:
 
 
 def generate_superset_context(  # pylint: disable=dangerous-default-value
-    context,
-    dashboard_uuid="",
-    filters=[]
+    context, dashboard_uuid="", filters=[]
 ):
     """
     Update context with superset token and dashboard id.

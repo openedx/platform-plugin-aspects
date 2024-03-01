@@ -1,4 +1,5 @@
 """User retirement sink"""
+
 import requests
 from django.conf import settings
 

@@ -49,4 +49,6 @@ class PlatformPluginAspectsConfig(AppConfig):
             sinks,
             tasks,
         )
-        from platform_plugin_aspects.extensions import filters  # pylint: disable=unused-import, import-outside-toplevel
+        from platform_plugin_aspects.extensions import (  # pylint: disable=unused-import, import-outside-toplevel
+            filters,
+        )
