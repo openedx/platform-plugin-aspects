@@ -17,3 +17,11 @@ def plugin_settings(settings):
     settings.SUPERSET_EXTRA_FILTERS_FORMAT = getattr(settings, "ENV_TOKENS", {}).get(
         "SUPERSET_EXTRA_FILTERS_FORMAT", settings.SUPERSET_EXTRA_FILTERS_FORMAT
     )
+    settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = settings.ENV_TOKENS.get(
+        "EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG",
+        settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG,
+    )
+    settings.EVENT_SINK_CLICKHOUSE_PII_MODELS = settings.ENV_TOKENS.get(
+        "EVENT_SINK_CLICKHOUSE_PII_MODELS",
+        settings.EVENT_SINK_CLICKHOUSE_PII_MODELS,
+    )

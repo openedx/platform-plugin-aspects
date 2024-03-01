@@ -21,3 +21,41 @@ def plugin_settings(settings):
     }
     settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID = "1d6bf904-f53f-47fd-b1c9-6cd7e284d286"
     settings.SUPERSET_EXTRA_FILTERS_FORMAT = []
+    settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = {
+        # URL to a running ClickHouse server's HTTP interface. ex: https://foo.openedx.org:8443/ or
+        # http://foo.openedx.org:8123/ . Note that we only support the ClickHouse HTTP interface
+        # to avoid pulling in more dependencies to the platform than necessary.
+        "url": "http://clickhouse:8123",
+        "username": "ch_cms",
+        "password": "password",
+        "database": "event_sink",
+        "timeout_secs": 5,
+    }
+
+    settings.EVENT_SINK_CLICKHOUSE_PII_MODELS = [
+        "user_profile",
+        "external_id",
+    ]
+
+    settings.EVENT_SINK_CLICKHOUSE_MODEL_CONFIG = {
+        "auth_user": {
+            "module": "django.contrib.auth.models",
+            "model": "User",
+        },
+        "user_profile": {
+            "module": "common.djangoapps.student.models",
+            "model": "UserProfile",
+        },
+        "course_overviews": {
+            "module": "openedx.core.djangoapps.content.course_overviews.models",
+            "model": "CourseOverview",
+        },
+        "external_id": {
+            "module": "openedx.core.djangoapps.external_user_ids.models",
+            "model": "ExternalId",
+        },
+        "custom_course_edx": {
+            "module": "lms.djangoapps.ccx.models",
+            "model": "CustomCourseForEdX",
+        }
+    }
