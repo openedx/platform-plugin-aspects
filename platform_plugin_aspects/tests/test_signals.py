@@ -12,7 +12,7 @@ from platform_plugin_aspects.signals import (
     receive_course_publish,
 )
 from platform_plugin_aspects.sinks.external_id_sink import ExternalIdSink
-from platform_plugin_aspects.sinks.user_retire import UserRetirementSink
+from platform_plugin_aspects.sinks.user_retire_sink import UserRetirementSink
 
 
 class SignalHandlersTestCase(TestCase):

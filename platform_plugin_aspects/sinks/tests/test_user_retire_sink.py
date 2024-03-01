@@ -9,7 +9,7 @@ import responses
 from django.test.utils import override_settings
 from responses.registries import OrderedRegistry
 
-from platform_plugin_aspects.sinks.user_retire import UserRetirementSink
+from platform_plugin_aspects.sinks.user_retire_sink import UserRetirementSink
 from platform_plugin_aspects.tasks import dump_data_to_clickhouse
 from test_utils.helpers import FakeUser
 

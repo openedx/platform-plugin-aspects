@@ -1,5 +1,5 @@
 """
-Tests for the course_published sinks.
+Tests for the course_overview_sink sinks.
 """
 
 import json
@@ -14,7 +14,7 @@ from django.test.utils import override_settings
 from responses import matchers
 from responses.registries import OrderedRegistry
 
-from platform_plugin_aspects.sinks.course_published import (
+from platform_plugin_aspects.sinks.course_overview_sink import (
     CourseOverviewSink,
     XBlockSink,
 )
@@ -36,11 +36,11 @@ from test_utils.helpers import (
 )
 @override_settings(EVENT_SINK_CLICKHOUSE_COURSE_OVERVIEW_ENABLED=True)
 @patch(
-    "platform_plugin_aspects.sinks.course_published.CourseOverviewSink.serialize_item"
+    "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.serialize_item"
 )
-@patch("platform_plugin_aspects.sinks.course_published.CourseOverviewSink.get_model")
-@patch("platform_plugin_aspects.sinks.course_published.get_detached_xblock_types")
-@patch("platform_plugin_aspects.sinks.course_published.get_modulestore")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.get_model")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 @patch("platform_plugin_aspects.tasks.get_ccx_courses")
 def test_course_publish_success(
     mock_get_ccx_courses,
@@ -100,11 +100,11 @@ def test_course_publish_success(
     registry=OrderedRegistry
 )
 @patch(
-    "platform_plugin_aspects.sinks.course_published.CourseOverviewSink.serialize_item"
+    "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.serialize_item"
 )
-@patch("platform_plugin_aspects.sinks.course_published.CourseOverviewSink.get_model")
-@patch("platform_plugin_aspects.sinks.course_published.get_detached_xblock_types")
-@patch("platform_plugin_aspects.sinks.course_published.get_modulestore")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.get_model")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 # pytest:disable=unused-argument
 def test_course_publish_clickhouse_error(
     mock_modulestore, mock_detached, mock_overview, mock_serialize_item, caplog
@@ -278,8 +278,8 @@ def test_get_last_dump_time():
     assert dt
 
 
-@patch("platform_plugin_aspects.sinks.course_published.get_detached_xblock_types")
-@patch("platform_plugin_aspects.sinks.course_published.get_modulestore")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 # pytest:disable=unused-argument
 def test_xblock_tree_structure(mock_modulestore, mock_detached):
     """
@@ -338,8 +338,8 @@ def test_xblock_tree_structure(mock_modulestore, mock_detached):
     _check_tree_location(results[27], 3, 3, 3)
 
 
-@patch("platform_plugin_aspects.sinks.course_published.get_detached_xblock_types")
-@patch("platform_plugin_aspects.sinks.course_published.get_modulestore")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 def test_xblock_graded_completable_mode(mock_modulestore, mock_detached):
     """
     Test that our grading and completion fields serialize.

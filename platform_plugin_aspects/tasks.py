@@ -9,7 +9,7 @@ from celery import shared_task
 from edx_django_utils.monitoring import set_code_owner_attribute
 from opaque_keys.edx.keys import CourseKey
 
-from platform_plugin_aspects.sinks.course_published import CourseOverviewSink
+from platform_plugin_aspects.sinks.course_overview_sink import CourseOverviewSink
 from platform_plugin_aspects.utils import get_ccx_courses
 
 log = logging.getLogger(__name__)
