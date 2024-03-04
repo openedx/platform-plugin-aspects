@@ -4,10 +4,10 @@ Test the external_id_sink module.
 
 from unittest.mock import patch
 
-from platform_plugin_aspects.sinks.external_id_sink import ExternalIdSink
+from platform_plugin_aspects.sinks import ExternalIdSink
 
 
-@patch("platform_plugin_aspects.sinks.external_id_sink.ModelBaseSink.get_queryset")
+@patch("platform_plugin_aspects.sinks.ModelBaseSink.get_queryset")
 def test_get_queryset(mock_get_queryset):
     """
     Test the get_queryset method.

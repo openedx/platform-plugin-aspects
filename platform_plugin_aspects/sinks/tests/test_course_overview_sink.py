@@ -14,7 +14,7 @@ from django.test.utils import override_settings
 from responses import matchers
 from responses.registries import OrderedRegistry
 
-from platform_plugin_aspects.sinks.course_overview_sink import (
+from platform_plugin_aspects.sinks import (
     CourseOverviewSink,
     XBlockSink,
 )
@@ -36,10 +36,10 @@ from test_utils.helpers import (
 )
 @override_settings(EVENT_SINK_CLICKHOUSE_COURSE_OVERVIEW_ENABLED=True)
 @patch(
-    "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.serialize_item"
+    "platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item"
 )
 @patch(
-    "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.get_model"
+    "platform_plugin_aspects.sinks.CourseOverviewSink.get_model"
 )
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
@@ -102,10 +102,10 @@ def test_course_publish_success(
     registry=OrderedRegistry
 )
 @patch(
-    "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.serialize_item"
+    "platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item"
 )
 @patch(
-    "platform_plugin_aspects.sinks.course_overview_sink.CourseOverviewSink.get_model"
+    "platform_plugin_aspects.sinks.CourseOverviewSink.get_model"
 )
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")

@@ -9,7 +9,7 @@ import responses
 from django.test.utils import override_settings
 from responses.registries import OrderedRegistry
 
-from platform_plugin_aspects.sinks.user_retire_sink import UserRetirementSink
+from platform_plugin_aspects.sinks import UserRetirementSink
 from platform_plugin_aspects.tasks import dump_data_to_clickhouse
 from test_utils.helpers import FakeUser
 
@@ -20,9 +20,9 @@ log = logging.getLogger(__name__)
     registry=OrderedRegistry
 )
 @override_settings(EVENT_SINK_CLICKHOUSE_PII_MODELS=["user_profile", "external_id"])
-@patch("platform_plugin_aspects.sinks.user_retire.UserRetirementSink.serialize_item")
-@patch("platform_plugin_aspects.sinks.user_retire.UserRetirementSink.is_enabled")
-@patch("platform_plugin_aspects.sinks.user_retire.UserRetirementSink.get_model")
+@patch("platform_plugin_aspects.sinks.UserRetirementSink.serialize_item")
+@patch("platform_plugin_aspects.sinks.UserRetirementSink.is_enabled")
+@patch("platform_plugin_aspects.sinks.UserRetirementSink.get_model")
 def test_retire_user(mock_user_model, mock_is_enabled, mock_serialize_item):
     """
     Test of a successful user retirement.
@@ -74,7 +74,7 @@ def test_retire_user(mock_user_model, mock_is_enabled, mock_serialize_item):
     registry=OrderedRegistry
 )
 @override_settings(EVENT_SINK_CLICKHOUSE_PII_MODELS=["user_profile"])
-@patch("platform_plugin_aspects.sinks.user_retire.UserRetirementSink.serialize_item")
+@patch("platform_plugin_aspects.sinks.UserRetirementSink.serialize_item")
 def test_retire_many_users(mock_serialize_item):
     """
     Test of a successful "many users" retirement.

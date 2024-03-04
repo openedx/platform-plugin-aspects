@@ -7,7 +7,7 @@ from unittest.mock import patch
 from platform_plugin_aspects.sinks.user_profile_sink import UserProfileSink
 
 
-@patch("platform_plugin_aspects.sinks.external_id_sink.ModelBaseSink.get_queryset")
+@patch("platform_plugin_aspects.sinks.ModelBaseSink.get_queryset")
 def test_get_queryset(mock_get_queryset):
     """
     Test the get_queryset method.
