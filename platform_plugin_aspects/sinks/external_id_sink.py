@@ -1,7 +1,7 @@
 """User profile sink"""
 
-from platform_plugin_aspects.sinks.serializers import UserExternalIDSerializer
 from platform_plugin_aspects.sinks.base_sink import ModelBaseSink
+from platform_plugin_aspects.sinks.serializers import UserExternalIDSerializer
 
 
 class ExternalIdSink(ModelBaseSink):  # pylint: disable=abstract-method

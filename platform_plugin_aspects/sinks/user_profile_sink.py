@@ -1,7 +1,7 @@
 """User profile sink"""
 
-from platform_plugin_aspects.sinks.serializers import UserProfileSerializer
 from platform_plugin_aspects.sinks.base_sink import ModelBaseSink
+from platform_plugin_aspects.sinks.serializers import UserProfileSerializer
 
 
 class UserProfileSink(ModelBaseSink):  # pylint: disable=abstract-method

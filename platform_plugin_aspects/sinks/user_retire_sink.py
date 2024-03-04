@@ -3,8 +3,8 @@
 import requests
 from django.conf import settings
 
-from platform_plugin_aspects.sinks.serializers import UserRetirementSerializer
 from platform_plugin_aspects.sinks.base_sink import ModelBaseSink
+from platform_plugin_aspects.sinks.serializers import UserRetirementSerializer
 
 
 class UserRetirementSink(ModelBaseSink):  # pylint: disable=abstract-method

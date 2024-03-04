@@ -15,8 +15,8 @@ import json
 
 from opaque_keys.edx.keys import CourseKey
 
-from platform_plugin_aspects.sinks.serializers import CourseOverviewSerializer
 from platform_plugin_aspects.sinks.base_sink import ModelBaseSink
+from platform_plugin_aspects.sinks.serializers import CourseOverviewSerializer
 from platform_plugin_aspects.utils import get_detached_xblock_types, get_modulestore
 
 # Defaults we want to ensure we fail early on bulk inserts
