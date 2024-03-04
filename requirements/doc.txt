@@ -129,7 +129,7 @@ pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.9.6
+pkginfo==1.10.0
     # via twine
 pluggy==1.4.0
     # via
@@ -149,7 +149,7 @@ pygments==2.17.2
     #   sphinx
 pyproject-hooks==1.0.0
     # via build
-pytest==8.0.2
+pytest==8.1.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
