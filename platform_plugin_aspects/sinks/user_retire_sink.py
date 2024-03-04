@@ -3,7 +3,7 @@
 import requests
 from django.conf import settings
 
-from platform_plugin_aspects.serializers import UserRetirementSerializer
+from platform_plugin_aspects.sinks.serializers import UserRetirementSerializer
 from platform_plugin_aspects.sinks.base_sink import ModelBaseSink
 
 
