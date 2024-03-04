@@ -26,6 +26,8 @@ billiard==4.2.0
     # via
     #   -r requirements/test.txt
     #   celery
+black==24.2.0
+    # via -r requirements/quality.in
 celery==5.3.6
     # via -r requirements/test.txt
 certifi==2024.2.2
@@ -43,6 +45,7 @@ charset-normalizer==3.3.2
 click==8.1.7
     # via
     #   -r requirements/test.txt
+    #   black
     #   celery
     #   click-didyoumean
     #   click-log
@@ -153,6 +156,8 @@ model-bakery==1.17.0
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
+mypy-extensions==1.0.0
+    # via black
 newrelic==9.7.0
     # via
     #   -r requirements/test.txt
@@ -168,13 +173,18 @@ openedx-filters==1.6.0
 packaging==23.2
     # via
     #   -r requirements/test.txt
+    #   black
     #   pytest
+pathspec==0.12.1
+    # via black
 pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
 platformdirs==4.2.0
-    # via pylint
+    # via
+    #   black
+    #   pylint
 pluggy==1.4.0
     # via
     #   -r requirements/test.txt
@@ -282,6 +292,7 @@ text-unidecode==1.3
 tomli==2.0.1
     # via
     #   -r requirements/test.txt
+    #   black
     #   coverage
     #   pylint
     #   pytest
@@ -292,6 +303,7 @@ typing-extensions==4.10.0
     #   -r requirements/test.txt
     #   asgiref
     #   astroid
+    #   black
     #   edx-opaque-keys
     #   kombu
     #   pylint
