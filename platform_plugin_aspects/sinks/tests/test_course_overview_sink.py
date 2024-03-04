@@ -14,10 +14,7 @@ from django.test.utils import override_settings
 from responses import matchers
 from responses.registries import OrderedRegistry
 
-from platform_plugin_aspects.sinks import (
-    CourseOverviewSink,
-    XBlockSink,
-)
+from platform_plugin_aspects.sinks import CourseOverviewSink, XBlockSink
 from platform_plugin_aspects.tasks import dump_course_to_clickhouse
 from test_utils.helpers import (
     check_block_csv_matcher,
@@ -35,12 +32,8 @@ from test_utils.helpers import (
     registry=OrderedRegistry
 )
 @override_settings(EVENT_SINK_CLICKHOUSE_COURSE_OVERVIEW_ENABLED=True)
-@patch(
-    "platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item"
-)
-@patch(
-    "platform_plugin_aspects.sinks.CourseOverviewSink.get_model"
-)
+@patch("platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item")
+@patch("platform_plugin_aspects.sinks.CourseOverviewSink.get_model")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 @patch("platform_plugin_aspects.tasks.get_ccx_courses")
@@ -101,12 +94,8 @@ def test_course_publish_success(
 @responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
     registry=OrderedRegistry
 )
-@patch(
-    "platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item"
-)
-@patch(
-    "platform_plugin_aspects.sinks.CourseOverviewSink.get_model"
-)
+@patch("platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item")
+@patch("platform_plugin_aspects.sinks.CourseOverviewSink.get_model")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 # pytest:disable=unused-argument

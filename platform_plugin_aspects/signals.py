@@ -5,9 +5,11 @@ Signal handler functions, mapped to specific signals in apps.py.
 from django.db.models.signals import post_save
 from django.dispatch import Signal, receiver
 
-from platform_plugin_aspects.sinks import ExternalIdSink
-from platform_plugin_aspects.sinks import UserProfileSink
-from platform_plugin_aspects.sinks import UserRetirementSink
+from platform_plugin_aspects.sinks import (
+    ExternalIdSink,
+    UserProfileSink,
+    UserRetirementSink,
+)
 from platform_plugin_aspects.utils import get_model
 
 try:
