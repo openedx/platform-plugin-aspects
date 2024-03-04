@@ -59,7 +59,7 @@ pbr==6.0.0
     # via stevedore
 pluggy==1.4.0
     # via pytest
-pytest==8.0.2
+pytest==8.1.0
     # via
     #   pytest-cov
     #   pytest-django
