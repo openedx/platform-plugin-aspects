@@ -94,7 +94,7 @@ top_level_doc = "index"
 project = "platform-plugin-aspects"
 copyright = f"{datetime.now().year}, Axim Collaborative, Inc."  # pylint: disable=redefined-builtin
 author = "Axim Collaborative, Inc."
-project_title = "platform-plugin-aspects"
+project_title = "Platform Plugin Aspects"
 documentation_title = f"{project_title}"
 
 # Set display_github to False if you don't want "edit on Github" button
