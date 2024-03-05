@@ -33,15 +33,15 @@ def get_version(*file_paths):
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
     if version_match:
         return version_match.group(1)
-    raise RuntimeError('Unable to find version string.')
+    raise RuntimeError("Unable to find version string.")
 
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(REPO_ROOT)
 
-VERSION = get_version('../platform_plugin_aspects', '__init__.py')
+VERSION = get_version("../platform_plugin_aspects", "__init__.py")
 # Configure Django for autodoc usage
-os.environ['DJANGO_SETTINGS_MODULE'] = 'test_settings'
+os.environ["DJANGO_SETTINGS_MODULE"] = "test_settings"
 django_setup()
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -62,46 +62,46 @@ django_setup()
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.ifconfig',
-    'sphinx.ext.napoleon'
+    "sphinx.ext.autodoc",
+    "sphinx.ext.doctest",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.ifconfig",
+    "sphinx.ext.napoleon",
 ]
 
 # A list of warning types to suppress arbitrary warning messages.
 suppress_warnings = [
-    'image.nonlocal_uri',
+    "image.nonlocal_uri",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 # The encoding of source files.
 #
 # source_encoding = 'utf-8-sig'
 
 # The top level toctree document.
-top_level_doc = 'index'
+top_level_doc = "index"
 
 # General information about the project.
-project = 'platform-plugin-aspects'
-copyright = f'{datetime.now().year}, Axim Collaborative, Inc.'  # pylint: disable=redefined-builtin
-author = 'Axim Collaborative, Inc.'
-project_title = 'platform-plugin-aspects'
+project = "platform-plugin-aspects"
+copyright = f"{datetime.now().year}, Axim Collaborative, Inc."  # pylint: disable=redefined-builtin
+author = "Axim Collaborative, Inc."
+project_title = "platform-plugin-aspects"
 documentation_title = f"{project_title}"
 
 # Set display_github to False if you don't want "edit on Github" button
 html_context = {
     "display_github": True,  # Integrate GitHub
     "github_user": "edx",  # Username
-    "github_repo": 'platform-plugin-aspects',  # Repo name
+    "github_repo": "platform-plugin-aspects",  # Repo name
     "github_version": "main",  # Version
     "conf_py_path": "/docs/",  # Path in the checkout to the docs root
 }
@@ -120,7 +120,7 @@ release = VERSION
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = 'en'
+language = "en"
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -135,12 +135,12 @@ language = 'en'
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
 exclude_patterns = [
-    '_build',
-    'Thumbs.db',
-    '.DS_Store',
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
     # This file is intended as a guide for developers browsing the source tree,
     # not to be rendered into the output docs.
-    'decisions/README.rst',
+    "decisions/README.rst",
 ]
 
 # The reST default role (used for this markup: `text`) to use for all
@@ -163,7 +163,7 @@ exclude_patterns = [
 # show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # A list of ignored prefixes for module index sorting.
 # modindex_common_prefix = []
@@ -179,7 +179,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html_theme = 'sphinx_book_theme'
+html_theme = "sphinx_book_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -187,7 +187,7 @@ html_theme = 'sphinx_book_theme'
 #
 html_theme_options = {
     "repository_url": "https://github.com/openedx/platform-plugin-aspects",
-    "repository_branch": 'main',
+    "repository_branch": "main",
     "path_to_docs": "docs/",
     "home_page_in_toc": True,
     "use_repository_button": True,
@@ -214,7 +214,7 @@ html_theme_options = {
                 rel="license"
                 href="https://creativecommons.org/licenses/by-sa/4.0/"
             >Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-    """
+    """,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -244,7 +244,7 @@ html_favicon = "https://logos.openedx.org/open-edx-favicon.ico"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -324,7 +324,7 @@ html_static_path = ['_static']
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = f'{project}doc'
+htmlhelp_basename = f"{project}doc"
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -332,15 +332,12 @@ latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     #
     # 'preamble': '',
-
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
@@ -349,10 +346,9 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-latex_target = f'{project}.tex'
+latex_target = f"{project}.tex"
 latex_documents = [
-    (top_level_doc, latex_target, documentation_title,
-     author, 'manual'),
+    (top_level_doc, latex_target, documentation_title, author, "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -392,10 +388,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (top_level_doc, project_title, documentation_title,
-     [author], 1)
-]
+man_pages = [(top_level_doc, project_title, documentation_title, [author], 1)]
 
 # If true, show URL addresses after external links.
 #
@@ -408,9 +401,15 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (top_level_doc, project_title, documentation_title,
-     author, project_title, 'Aspects plugins for edx-platform',
-     'Miscellaneous'),
+    (
+        top_level_doc,
+        project_title,
+        documentation_title,
+        author,
+        project_title,
+        "Aspects plugins for edx-platform",
+        "Miscellaneous",
+    ),
 ]
 
 # Documents to append as an appendix to all manuals.
@@ -484,7 +483,7 @@ epub_copyright = copyright
 # epub_post_files = []
 
 # A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
+epub_exclude_files = ["search.html"]
 
 # The depth of the table of contents in toc.ncx.
 #
@@ -517,9 +516,12 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3.8', None),
-    'django': ('https://docs.djangoproject.com/en/3.2/', 'https://docs.djangoproject.com/en/3.2/_objects/'),
-    'model_utils': ('https://django-model-utils.readthedocs.io/en/latest/', None),
+    "python": ("https://docs.python.org/3.8", None),
+    "django": (
+        "https://docs.djangoproject.com/en/3.2/",
+        "https://docs.djangoproject.com/en/3.2/_objects/",
+    ),
+    "model_utils": ("https://django-model-utils.readthedocs.io/en/latest/", None),
 }
 
 
@@ -531,17 +533,24 @@ def on_init(app):  # pylint: disable=unused-argument
     avoid checking in the generated reStructuredText files.
     """
     docs_path = os.path.abspath(os.path.dirname(__file__))
-    root_path = os.path.abspath(os.path.join(docs_path, '..'))
-    apidoc_path = 'sphinx-apidoc'
-    if hasattr(sys, 'real_prefix'):  # Check to see if we are in a virtualenv
+    root_path = os.path.abspath(os.path.join(docs_path, ".."))
+    apidoc_path = "sphinx-apidoc"
+    if hasattr(sys, "real_prefix"):  # Check to see if we are in a virtualenv
         # If we are, assemble the path manually
-        bin_path = os.path.abspath(os.path.join(sys.prefix, 'bin'))
+        bin_path = os.path.abspath(os.path.join(sys.prefix, "bin"))
         apidoc_path = os.path.join(bin_path, apidoc_path)
-    check_call([apidoc_path, '-o', docs_path, os.path.join(root_path, 'platform_plugin_aspects'),
-                os.path.join(root_path, 'platform_plugin_aspects/migrations')])
+    check_call(
+        [
+            apidoc_path,
+            "-o",
+            docs_path,
+            os.path.join(root_path, "platform_plugin_aspects"),
+            os.path.join(root_path, "platform_plugin_aspects/migrations"),
+        ]
+    )
 
 
 def setup(app):
     """Sphinx extension: run sphinx-apidoc."""
-    event = 'builder-inited'
+    event = "builder-inited"
     app.connect(event, on_init)

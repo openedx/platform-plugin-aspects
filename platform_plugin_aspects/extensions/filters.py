@@ -37,9 +37,7 @@ class AddSupersetTab(PipelineStep):
 
         filters = ASPECTS_SECURITY_FILTERS_FORMAT + extra_filters_format
 
-        context = generate_superset_context(
-            context, dashboard_uuid, filters
-        )
+        context = generate_superset_context(context, dashboard_uuid, filters)
 
         template = Template(self.resource_string("static/html/superset.html"))
         html = template.render(Context(context))

@@ -4,45 +4,147 @@
 #
 #    make upgrade
 #
+amqp==5.2.0
+    # via kombu
 asgiref==3.7.2
     # via django
-backports-zoneinfo==0.2.1
-    # via django
+backports-zoneinfo[tzdata]==0.2.1
+    # via
+    #   celery
+    #   django
+    #   kombu
+billiard==4.2.0
+    # via celery
+celery==5.3.6
+    # via -r requirements/base.in
 certifi==2024.2.2
     # via requests
+cffi==1.16.0
+    # via pynacl
 charset-normalizer==3.3.2
     # via requests
-django==4.2.10
+click==8.1.7
+    # via
+    #   celery
+    #   click-didyoumean
+    #   click-plugins
+    #   click-repl
+    #   code-annotations
+    #   edx-django-utils
+click-didyoumean==0.3.0
+    # via celery
+click-plugins==1.1.1
+    # via celery
+click-repl==0.3.0
+    # via celery
+code-annotations==1.6.0
+    # via edx-toggles
+django==4.2.11
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
     #   django-crum
+    #   django-waffle
+    #   djangorestframework
+    #   edx-django-utils
+    #   edx-toggles
     #   openedx-filters
 django-crum==0.7.9
+    # via
+    #   -r requirements/base.in
+    #   edx-django-utils
+    #   edx-toggles
+django-rest-framework==0.1.0
+    # via -r requirements/base.in
+django-waffle==4.1.0
+    # via
+    #   edx-django-utils
+    #   edx-toggles
+djangorestframework==3.14.0
+    # via django-rest-framework
+edx-django-utils==5.10.1
+    # via
+    #   -r requirements/base.in
+    #   edx-toggles
+edx-opaque-keys==2.5.1
+    # via -r requirements/base.in
+edx-toggles==5.1.1
     # via -r requirements/base.in
 idna==3.6
     # via requests
+jinja2==3.1.3
+    # via code-annotations
+kombu==5.3.5
+    # via celery
+markupsafe==2.1.5
+    # via jinja2
+newrelic==9.7.0
+    # via edx-django-utils
 oauthlib==3.2.2
     # via requests-oauthlib
 openedx-atlas==0.6.0
     # via -r requirements/base.in
 openedx-filters==1.6.0
     # via -r requirements/base.in
+pbr==6.0.0
+    # via stevedore
+prompt-toolkit==3.0.43
+    # via click-repl
+psutil==5.9.8
+    # via edx-django-utils
+pycparser==2.21
+    # via cffi
+pymongo==3.13.0
+    # via edx-opaque-keys
+pynacl==1.5.0
+    # via edx-django-utils
+python-dateutil==2.9.0.post0
+    # via celery
+python-slugify==8.0.4
+    # via code-annotations
+pytz==2024.1
+    # via djangorestframework
 pyyaml==6.0.1
-    # via superset-api-client
+    # via
+    #   code-annotations
+    #   superset-api-client
 requests==2.31.0
     # via
+    #   -r requirements/base.in
     #   requests-oauthlib
     #   superset-api-client
 requests-oauthlib==1.3.1
     # via superset-api-client
+six==1.16.0
+    # via python-dateutil
 sqlparse==0.4.4
     # via django
+stevedore==5.2.0
+    # via
+    #   code-annotations
+    #   edx-django-utils
+    #   edx-opaque-keys
 superset-api-client==0.6.0
     # via -r requirements/base.in
+text-unidecode==1.3
+    # via python-slugify
 typing-extensions==4.10.0
-    # via asgiref
+    # via
+    #   asgiref
+    #   edx-opaque-keys
+    #   kombu
+tzdata==2024.1
+    # via
+    #   backports-zoneinfo
+    #   celery
 urllib3==2.2.1
     # via requests
+vine==5.1.0
+    # via
+    #   amqp
+    #   celery
+    #   kombu
+wcwidth==0.2.13
+    # via prompt-toolkit
 web-fragments==2.1.0
     # via -r requirements/base.in

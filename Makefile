@@ -72,6 +72,10 @@ test: clean ## run tests in the current virtualenv
 diff_cover: test ## find diff lines that need test coverage
 	diff-cover coverage.xml
 
+format:
+	isort platform_plugin_aspects
+	black .
+
 test-all: quality pii_check ## run tests on every supported Python/Django combination
 	tox
 	tox -e docs

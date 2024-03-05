@@ -1,10 +1,16 @@
 # Core requirements for using this application
 -c constraints.txt
 
-Django             # Web application framework
 openedx-atlas
 openedx-filters
 web_fragments
 superset-api-client
 web_fragments
 django_crum
+celery             # Asynchronous task execution library
+Django             # Web application framework
+requests           # HTTP request library
+edx-django-utils   # Django utilities, we use caching and monitoring
+edx-opaque-keys    # Parsing library for course and usage keys
+django-rest-framework     # REST API framework
+edx-toggles

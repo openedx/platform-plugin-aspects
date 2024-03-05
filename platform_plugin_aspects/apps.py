@@ -3,6 +3,7 @@ platform_plugin_aspects Django application initialization.
 """
 
 from django.apps import AppConfig
+from edx_django_utils.plugins import PluginSettings, PluginSignals
 
 
 class PlatformPluginAspectsConfig(AppConfig):
@@ -13,18 +14,41 @@ class PlatformPluginAspectsConfig(AppConfig):
     name = "platform_plugin_aspects"
 
     plugin_app = {
-        "settings_config": {
+        PluginSettings.CONFIG: {
             "lms.djangoapp": {
-                "common": {"relative_path": "settings.common"},
-                "production": {"relative_path": "settings.production"},
+                "production": {PluginSettings.RELATIVE_PATH: "settings.production"},
+                "common": {PluginSettings.RELATIVE_PATH: "settings.common"},
             },
             "cms.djangoapp": {
-                "common": {"relative_path": "settings.common"},
-                "production": {"relative_path": "settings.production"},
+                "production": {PluginSettings.RELATIVE_PATH: "settings.production"},
+                "common": {PluginSettings.RELATIVE_PATH: "settings.common"},
             },
+        },
+        # Configuration setting for Plugin Signals for this app.
+        PluginSignals.CONFIG: {
+            # Configure the Plugin Signals for each Project Type, as needed.
+            "cms.djangoapp": {
+                # List of all plugin Signal receivers for this app and project type.
+                PluginSignals.RECEIVERS: [
+                    {
+                        # The name of the app's signal receiver function.
+                        PluginSignals.RECEIVER_FUNC_NAME: "receive_course_publish",
+                        # The full path to the module where the signal is defined.
+                        PluginSignals.SIGNAL_PATH: "xmodule.modulestore.django.COURSE_PUBLISHED",
+                    }
+                ],
+            }
         },
     }
 
     def ready(self):
         """Load modules of Aspects."""
-        from platform_plugin_aspects.extensions import filters  # pylint: disable=unused-import, import-outside-toplevel
+        super().ready()
+        from platform_plugin_aspects import (  # pylint: disable=import-outside-toplevel, unused-import
+            signals,
+            sinks,
+            tasks,
+        )
+        from platform_plugin_aspects.extensions import (  # pylint: disable=unused-import, import-outside-toplevel
+            filters,
+        )
