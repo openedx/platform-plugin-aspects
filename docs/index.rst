@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-platform-plugin-aspects
+Platform Plugin Aspects
 =======================
 
 Aspects plugins for edx-platform
