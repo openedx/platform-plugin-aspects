@@ -14,7 +14,7 @@ from xblock.reference.user_service import XBlockUser
 
 logger = logging.getLogger(__name__)
 
-if settings.DEBUG:
+if settings.DEBUG:  # pragma: no cover
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 

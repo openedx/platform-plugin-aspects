@@ -10,6 +10,8 @@ appdirs==1.4.4
     # via fs
 asgiref==3.8.1
     # via django
+async-timeout==4.0.3
+    # via redis
 backports-zoneinfo[tzdata]==0.2.1
     # via
     #   celery
@@ -123,6 +125,8 @@ pyyaml==6.0.1
     #   code-annotations
     #   superset-api-client
     #   xblock
+redis==5.0.3
+    # via -r requirements/base.in
 requests==2.31.0
     # via
     #   -r requirements/base.in
