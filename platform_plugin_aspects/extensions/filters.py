@@ -3,6 +3,7 @@ Open edX Filters needed for Aspects integration.
 """
 
 import pkg_resources
+from crum import get_current_user
 from django.conf import settings
 from django.template import Context, Template
 from openedx_filters import PipelineStep
@@ -21,7 +22,18 @@ ASPECTS_SECURITY_FILTERS_FORMAT = [
 
 
 class AddSupersetTab(PipelineStep):
-    """Add superset tab to instructor dashboard."""
+    """
+    Add superset tab to instructor dashboard.
+
+    Enable in the LMS by adding this stanza to OPEN_EDX_FILTERS_CONFIG:
+
+      "org.openedx.learning.instructor.dashboard.render.started.v1": {
+        "fail_silently": False,
+        "pipeline": [
+          "platform_plugin_aspects.extensions.filters.AddSupersetTab",
+        ]
+      }
+    """
 
     def run_filter(
         self, context, template_name
@@ -37,7 +49,14 @@ class AddSupersetTab(PipelineStep):
 
         filters = ASPECTS_SECURITY_FILTERS_FORMAT + extra_filters_format
 
-        context = generate_superset_context(context, dashboard_uuid, filters)
+        user = get_current_user()
+
+        context = generate_superset_context(
+            context,
+            user,
+            dashboard_uuid=dashboard_uuid,
+            filters=filters,
+        )
 
         template = Template(self.resource_string("static/html/superset.html"))
         html = template.render(Context(context))

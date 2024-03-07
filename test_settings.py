@@ -61,10 +61,11 @@ TEMPLATES = [
 
 ASPECTS_INSTRUCTOR_DASHBOARD_UUID = "test-dashboard-uuid"
 
+SUPERSET_EXTRA_FILTERS_FORMAT = []
+
 SUPERSET_CONFIG = {
-    "url": "http://dummy-superset-url:8088",
+    "internal_service_url": "http://superset:8088",
+    "service_url": "http://dummy-superset-url",
     "username": "superset",
     "password": "superset",
 }
-
-SUPERSET_EXTRA_FILTERS_FORMAT = []

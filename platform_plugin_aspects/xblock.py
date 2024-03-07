@@ -1,55 +1,36 @@
-"""XBlock to embed a Superset dashboards in Open edX."""
+"""XBlock to embed Superset dashboards in Open edX."""
+
 from __future__ import annotations
 
 import logging
-from typing import Tuple
 
 import pkg_resources
-from django.conf import settings
 from django.utils import translation
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.fields import List, Scope, String
-from xblockutils.resources import ResourceLoader
+from xblock.utils.resources import ResourceLoader
+from xblock.utils.studio_editable import StudioEditableXBlockMixin
 
-from .utils import _, update_context
+from .utils import _, generate_superset_context
 
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
 
 
-@XBlock.wants("user")
+@XBlock.needs("user")
 @XBlock.needs("i18n")
-class SupersetXBlock(XBlock):
+class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
     """
-    Superset XBlock provides a way to embed dashboards from Superset in a course.
+    XBlock provides a way to embed dashboards from Superset in a course.
     """
+
+    editable_fields = ("display_name", "dashboard_uuid", "filters")
 
     display_name = String(
         display_name=_("Display name"),
         help=_("Display name"),
         default="Superset Dashboard",
-        scope=Scope.settings,
-    )
-
-    superset_url = String(
-        display_name=_("Superset URL"),
-        help=_("Superset URL to embed the dashboard."),
-        default="",
-        scope=Scope.settings,
-    )
-
-    superset_username = String(
-        display_name=_("Superset Username"),
-        help=_("Superset Username"),
-        default="",
-        scope=Scope.settings,
-    )
-
-    superset_password = String(
-        display_name=_("Superset Password"),
-        help=_("Superset Password"),
-        default="",
         scope=Scope.settings,
     )
 
@@ -65,19 +46,14 @@ class SupersetXBlock(XBlock):
     filters = List(
         display_name=_("Filters"),
         help=_(
-            """Semicolon separated list of SQL filters to apply to the
-               dashboard. E.g: org='edX'; country in ('us', 'co').
+            """List of SQL filters to apply to the
+               dashboard. E.g: ["org='edX'", "country in ('us', 'co')"]
                The fields used here must be available on every dataset used by the dashboard.
                """
         ),
         default=[],
         scope=Scope.settings,
     )
-
-    def resource_string(self, path):
-        """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode("utf8")
 
     def render_template(self, template_path, context=None) -> str:
         """
@@ -96,123 +72,49 @@ class SupersetXBlock(XBlock):
             template_path, context, i18n_service=self.runtime.service(self, "i18n")
         )
 
-    def user_is_staff(self, user) -> bool:
-        """
-        Check whether the user has course staff permissions for this XBlock.
-        """
-        return user.opt_attrs.get("edx-platform.user_is_staff")
-
-    def is_student(self, user) -> bool:
+    def user_is_student(self, user) -> bool:
         """
         Check if the user is a student.
         """
-        return user.opt_attrs.get("edx-platform.user_role") == "student"
-
-    def anonymous_user_id(self, user) -> str:
-        """
-        Return the anonymous user ID of the user.
-        """
-        return user.opt_attrs.get("edx-platform.anonymous_user_id")
+        return not user or user.opt_attrs.get("edx-platform.user_role") == "student"
 
     def student_view(self, context=None):
         """
-        Render the view shown to students.
+        Render the view shown to users of this XBlock.
         """
         user_service = self.runtime.service(self, "user")
         user = user_service.get_current_user()
 
+        context = context or {}
         context.update(
             {
-                "self": self,
-                "user": user,
-                "course": self.course_id,
+                "course": self.runtime.course_id,
                 "display_name": self.display_name,
             }
         )
 
-        superset_config = getattr(settings, "SUPERSET_CONFIG", {})
-
-        xblock_superset_config = {
-            "username": self.superset_username or superset_config.get("username"),
-            "password": self.superset_password or superset_config.get("password"),
-        }
-
-        if self.superset_url:
-            xblock_superset_config["service_url"] = self.superset_url
-
-        if self.dashboard_uuid:
-            context = update_context(
-                context=context,
-                superset_config=xblock_superset_config,
-                dashboard_uuid=self.dashboard_uuid,
-                filters=self.filters,
+        # Hide Superset content from non-course staff.
+        if self.user_is_student(user):
+            frag = Fragment()
+            frag.add_content(
+                self.render_template("static/html/superset_student.html", context)
             )
+            return frag
 
-            context["xblock_id"] = self.scope_ids.usage_id.block_id
-
-        frag = Fragment()
-        frag.add_content(self.render_template("static/html/superset.html", context))
-        frag.add_css(self.resource_string("static/css/superset.css"))
-        frag.add_javascript(self.resource_string("static/js/install_required.js"))
-
-        # Add i18n js
-        statici18n_js_url = self._get_statici18n_js_url()
-        if statici18n_js_url:
-            frag.add_javascript_url(
-                self.runtime.local_resource_url(self, statici18n_js_url)
-            )
-        frag.add_javascript(self.resource_string("static/js/embed_dashboard.js"))
-        frag.add_javascript(self.resource_string("static/js/superset.js"))
-        frag.initialize_js(
-            "SupersetXBlock",
-            json_args={
-                "superset_url": self.superset_url or superset_config.get("host"),
-                "superset_username": self.superset_username,
-                "superset_password": self.superset_password,
-                "dashboard_uuid": self.dashboard_uuid,
-                "superset_token": context.get("superset_token"),
-                "xblock_id": self.scope_ids.usage_id.block_id,
-            },
+        context = generate_superset_context(
+            context=context,
+            user=user,
+            dashboard_uuid=self.dashboard_uuid,
+            filters=self.filters,
         )
-        return frag
-
-    def studio_view(self, context=None):
-        """
-        Render the view shown to course authors.
-        """
-        filters = "; ".join(self.filters)
-        context = {
-            "display_name": self.display_name,
-            "superset_url": self.superset_url,
-            "superset_username": self.superset_username,
-            "superset_password": self.superset_password,
-            "dashboard_uuid": self.dashboard_uuid,
-            "filters": filters,
-            "display_name_field": self.fields[  # pylint: disable=unsubscriptable-object
-                "display_name"
-            ],
-            "superset_url_field": self.fields[  # pylint: disable=unsubscriptable-object
-                "superset_url"
-            ],
-            "superset_username_field": self.fields[  # pylint: disable=unsubscriptable-object
-                "superset_username"
-            ],
-            "superset_password_field": self.fields[  # pylint: disable=unsubscriptable-object
-                "superset_password"
-            ],
-            "dashboard_uuid_field": self.fields[  # pylint: disable=unsubscriptable-object
-                "dashboard_uuid"
-            ],
-            "filters_field": self.fields[  # pylint: disable=unsubscriptable-object
-                "filters"
-            ],
-        }
+        context["xblock_id"] = str(self.scope_ids.usage_id.block_id)
 
         frag = Fragment()
         frag.add_content(
-            self.render_template("static/html/superset_edit.html", context)
+            self.render_template("static/html/superset.html", context)
         )
-        frag.add_css(self.resource_string("static/css/superset.css"))
+        frag.add_css(loader.load_unicode("static/css/superset.css"))
+        frag.add_javascript(loader.load_unicode("static/js/install_required.js"))
 
         # Add i18n js
         statici18n_js_url = self._get_statici18n_js_url()
@@ -220,49 +122,18 @@ class SupersetXBlock(XBlock):
             frag.add_javascript_url(
                 self.runtime.local_resource_url(self, statici18n_js_url)
             )
-
-        frag.add_javascript(self.resource_string("static/js/superset_edit.js"))
-        frag.initialize_js("SupersetXBlock")
+        frag.add_javascript(loader.load_unicode("static/js/embed_dashboard.js"))
+        frag.add_javascript(loader.load_unicode("static/js/superset.js"))
+        frag.initialize_js(
+            "SupersetXBlock",
+            json_args={
+                "dashboard_uuid": context.get("dashboard_uuid"),
+                "superset_url": context.get("superset_url"),
+                "superset_token": context.get("superset_token"),
+                "xblock_id": context.get("xblock_id"),
+            },
+        )
         return frag
-
-    @XBlock.json_handler
-    def studio_submit(self, data, suffix=""):  # pylint: disable=unused-argument
-        """
-        Save studio updates.
-        """
-        self.display_name = data.get("display_name")
-        self.superset_url = data.get("superset_url")
-        self.superset_username = data.get("superset_username")
-        self.superset_password = data.get("superset_password")
-        self.dashboard_uuid = data.get("dashboard_uuid")
-        filters = data.get("filters")
-        self.filters = []
-        if filters:
-            for rlsf in filters.split(";"):
-                rlsf = rlsf.strip()
-                self.filters.append(rlsf)
-
-    @staticmethod
-    def get_fullname(user) -> Tuple[str, str]:
-        """
-        Return the full name of the user.
-
-        args:
-            user: The user to get the fullname
-
-        returns:
-            A tuple containing the first name and last name of the user
-        """
-        first_name, last_name = "", ""
-
-        if user.full_name:
-            fullname = user.full_name.split(" ", 1)
-            first_name = fullname[0]
-
-            if fullname[1:]:
-                last_name = fullname[1]
-
-        return first_name, last_name
 
     @staticmethod
     def workbench_scenarios():
@@ -302,10 +173,3 @@ class SupersetXBlock(XBlock):
             ):
                 return text_js.format(locale_code=code)
         return None
-
-    @staticmethod
-    def get_dummy():
-        """
-        Return dummy method to generate initial i18n.
-        """
-        return translation.gettext_noop("Dummy")
