@@ -16,6 +16,60 @@ if settings.DEBUG:
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 
+def _(text):
+    """
+    Define a dummy `gettext` replacement to make string extraction tools scrape strings marked for translation.
+    """
+    return text
+
+
+def update_context(  # pylint: disable=dangerous-default-value
+    context,
+    superset_config={},
+    dashboard_uuid="",
+    filters=[],
+    user=None,
+):
+    """
+    Update context with superset token and dashboard id.
+
+    Args:
+        context (dict): the context for the instructor dashboard. It must include a course object
+        superset_config (dict): superset config.
+        dashboard_uuid (str): superset dashboard uuid.
+        filters (list): list of filters to apply to the dashboard.
+        user (User): user object.
+    """
+    course = context["course"]
+
+    if user is None:
+        user = get_current_user()
+    superset_token, dashboard_uuid = generate_guest_token(
+        user=user,
+        course=course,
+        superset_config=superset_config,
+        dashboard_uuid=dashboard_uuid,
+        filters=filters,
+    )
+
+    if superset_token:
+        context.update(
+            {
+                "superset_token": superset_token,
+                "dashboard_uuid": dashboard_uuid,
+                "superset_url": superset_config.get("service_url"),
+            }
+        )
+    else:
+        context.update(
+            {
+                "exception": dashboard_uuid,
+            }
+        )
+
+    return context
+
+
 def generate_superset_context(  # pylint: disable=dangerous-default-value
     context, dashboard_uuid="", filters=[]
 ):

@@ -1,0 +1,96 @@
+{% load i18n %}
+
+<div class="wrapper-comp-settings is-active editor-with-buttons" id="settings-tab">
+    <ul class="list-input settings-list">
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="superset_display_name">{% trans "Display name" %}</label>
+                <input
+                    class="input setting-input"
+                    name="superset_display_name"
+                    id="superset_display_name"
+                    value="{{display_name}}"
+                    type="text"
+                />
+            </div>
+            <span class="tip setting-help"> {% trans display_name_field.help %} </span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="superset_superset_url">{% trans "Superset URL" %}</label>
+                <input
+                    class="input setting-input"
+                    name="superset_superset_url"
+                    id="superset_superset_url"
+                    value="{{superset_url}}"
+                    type="text"
+                />
+            </div>
+            <span class="tip setting-help"> {% trans superset_url_field.help %} </span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="superset_superset_username">{% trans "Superset Username" %}</label>
+                <input
+                    class="input setting-input"
+                    name="superset_superset_username"
+                    id="superset_superset_username"
+                    value="{{superset_username}}"
+                    type="text"
+                />
+            </div>
+            <span class="tip setting-help"> {% trans superset_username_field.help %} </span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="superset_superset_password">{% trans "Superset Password" %}</label>
+                <input
+                    class="input setting-input"
+                    name="superset_superset_password"
+                    id="superset_superset_password"
+                    value="{{superset_password}}"
+                    type="text"
+                />
+            </div>
+            <span class="tip setting-help"> {% trans dashboard_uuid_field.help %} </span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="superset_dashboard_uuid">{% trans "Dashboard UUID" %}</label>
+                <input
+                    class="input setting-input"
+                    name="superset_dashboard_uuid"
+                    id="superset_dashboard_uuid"
+                    value="{{dashboard_uuid}}"
+                    type="text"
+                />
+            </div>
+            <span class="tip setting-help"> {% trans dashboard_uuid_field.help %} </span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="superset_filters">{% trans "Filters" %}</label>
+                <input
+                    class="input setting-input"
+                    name="superset_filters"
+                    id="superset_filters"
+                    value="{{filters}}"
+                    type="text"
+                />
+            </div>
+            <span class="tip setting-help"> {% trans filters_field.help %} </span>
+        </li>
+
+    </ul>
+
+    <div class="xblock-actions">
+        <ul>
+            <li class="action-item">
+                <a href="#" class="button action-primary save-button">{% trans "Save" %}</a>
+            </li>
+            <li class="action-item">
+                <a href="#" class="button cancel-button">{% trans "Cancel" %}</a>
+            </li>
+        </ul>
+    </div>
+</div>
