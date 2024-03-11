@@ -27,12 +27,12 @@ class AddSupersetTab(PipelineStep):
 
     Enable in the LMS by adding this stanza to OPEN_EDX_FILTERS_CONFIG:
 
-      "org.openedx.learning.instructor.dashboard.render.started.v1": {
-        "fail_silently": False,
-        "pipeline": [
-          "platform_plugin_aspects.extensions.filters.AddSupersetTab",
-        ]
-      }
+    "org.openedx.learning.instructor.dashboard.render.started.v1": {
+      "fail_silently": False,
+      "pipeline": [
+        "platform_plugin_aspects.extensions.filters.AddSupersetTab",
+      ]
+    }
     """
 
     def run_filter(
