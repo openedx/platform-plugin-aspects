@@ -62,7 +62,7 @@ django-waffle==4.1.0
     #   edx-toggles
 djangorestframework==3.14.0
     # via django-rest-framework
-edx-django-utils==5.10.1
+edx-django-utils==5.11.0
     # via
     #   -r requirements/base.in
     #   edx-toggles
@@ -113,7 +113,7 @@ requests==2.31.0
     #   -r requirements/base.in
     #   requests-oauthlib
     #   superset-api-client
-requests-oauthlib==1.3.1
+requests-oauthlib==1.4.0
     # via superset-api-client
 six==1.16.0
     # via python-dateutil
