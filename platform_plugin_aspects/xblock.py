@@ -30,7 +30,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
     display_name = String(
         display_name=_("Display name"),
         help=_("Display name"),
-        default="Superset Dashboard",
+        default=_("Superset Dashboard"),
         scope=Scope.settings,
     )
 

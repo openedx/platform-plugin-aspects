@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: static/html/superset.html templates/xblock/superset.html
+#: static/html/superset.html
 msgid ""
 "Superset is not configured properly. Please contact your system "
 "administrator."
@@ -25,33 +25,25 @@ msgstr ""
 "Süpérsét ïs nöt çönfïgüréd pröpérlý. Pléäsé çöntäçt ýöür sýstém "
 "ädmïnïsträtör. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєт#"
 
-#: static/html/superset_edit.html xblock.py xblock.py
-msgid "Display name"
-msgstr "Dïspläý nämé Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
-
-#: static/html/superset_edit.html xblock.py
-msgid "Dashboard UUID"
-msgstr "Däshßöärd ÛÛÌD Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт#"
-
-#: static/html/superset_edit.html xblock.py
-msgid "Filters"
-msgstr "Fïltérs Ⱡ'σяєм ιρѕυм #"
-
-#: static/html/superset_edit.html
-msgid "Save"
-msgstr "Sävé Ⱡ'σяєм ι#"
-
-#: static/html/superset_edit.html
-msgid "Cancel"
-msgstr "Çänçél Ⱡ'σяєм ιρѕυ#"
-
-#: templates/xblock/superset_student.html
+#: static/html/superset_student.html
 msgid ""
 "Superset is only visible to course staff and instructors. Please contact "
 "your system administrator."
 msgstr ""
 "Süpérsét ïs önlý vïsïßlé tö çöürsé stäff änd ïnstrüçtörs. Pléäsé çöntäçt "
 "ýöür sýstém ädmïnïsträtör. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт#"
+
+#: xblock.py xblock.py
+msgid "Display name"
+msgstr "Dïspläý nämé Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: xblock.py
+msgid "Superset Dashboard"
+msgstr "Süpérsét Däshßöärd Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт#"
+
+#: xblock.py
+msgid "Dashboard UUID"
+msgstr "Däshßöärd ÛÛÌD Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт#"
 
 #: xblock.py
 msgid ""
@@ -60,6 +52,10 @@ msgid ""
 msgstr ""
 "Thé ÌD öf thé däshßöärd tö émßéd. Àväïläßlé ïn thé Süpérsét émßéd däshßöärd "
 "ÛÌ. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєт#"
+
+#: xblock.py
+msgid "Filters"
+msgstr "Fïltérs Ⱡ'σяєм ιρѕυм #"
 
 #: xblock.py
 msgid ""
