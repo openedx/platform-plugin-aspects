@@ -5,7 +5,6 @@ Test basic SupersetXBlock display function
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
-from django.conf import settings
 from opaque_keys.edx.locator import CourseLocator
 from xblock.field_data import DictFieldData
 
@@ -21,7 +20,7 @@ def make_an_xblock(user_role, **kwargs):
         opt_attrs={"edx-platform.user_role": user_role},
     )
 
-    def service(block, service):
+    def service(block, service):  # pylint: disable=unused-argument
         # Mock the user service
         if service == "user":
             return Mock(get_current_user=Mock(return_value=mock_user))
