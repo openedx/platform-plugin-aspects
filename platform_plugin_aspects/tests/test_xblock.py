@@ -90,3 +90,20 @@ class TestRender(TestCase):
                 url_resource = resource
         self.assertIsNotNone(url_resource, "No 'url' resource found in fragment")
         self.assertIn("eo/text.js", url_resource.data)
+
+    @patch("platform_plugin_aspects.xblock.translation.get_language")
+    @patch("platform_plugin_aspects.utils._generate_guest_token")
+    def test_render_no_translations(
+        self,
+        mock_generate_guest_token,
+        mock_get_language,
+    ):
+        """
+        Ensure translated javascript is served.
+        """
+        mock_generate_guest_token.return_value = ("test-token", "test-dashboard-uuid")
+        mock_get_language.return_value = None
+        xblock = make_an_xblock("instructor")
+        student_view = xblock.student_view()
+        for resource in student_view.resources:
+            assert resource.kind != "url"

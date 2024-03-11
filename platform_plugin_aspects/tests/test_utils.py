@@ -99,7 +99,7 @@ class TestUtils(TestCase):
         "SUPERSET_CONFIG",
         {
             "internal_service_url": "http://superset:8088",
-            "service_url": "http://superset-dummy-url",
+            "service_url": "http://superset-dummy-url/",
             "username": "superset",
             "password": "superset",
         },

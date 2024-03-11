@@ -110,9 +110,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         context["xblock_id"] = str(self.scope_ids.usage_id.block_id)
 
         frag = Fragment()
-        frag.add_content(
-            self.render_template("static/html/superset.html", context)
-        )
+        frag.add_content(self.render_template("static/html/superset.html", context))
         frag.add_css(loader.load_unicode("static/css/superset.css"))
         frag.add_javascript(loader.load_unicode("static/js/install_required.js"))
 
