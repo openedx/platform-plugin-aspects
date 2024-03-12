@@ -134,7 +134,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         return frag
 
     @staticmethod
-    def workbench_scenarios():
+    def workbench_scenarios():  # pragma: no cover
         """Return a canned scenario for display in the workbench."""
         return [
             (

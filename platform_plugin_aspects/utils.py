@@ -151,11 +151,9 @@ def _superset_user_data(user: XBlockUser) -> dict:
     # Django User
     if hasattr(user, "username"):
         username = user.username
-    # XBlockUser
-    elif hasattr(user, "opt_attrs"):
-        username = user.opt_attrs.get("edx-platform.username")
     else:
-        raise NotImplementedError(f"Unsupported user type {user}")
+        assert isinstance(user, XBlockUser)
+        username = user.opt_attrs.get("edx-platform.username")
 
     return {
         "username": username,

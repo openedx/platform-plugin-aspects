@@ -7,6 +7,7 @@ from unittest.mock import Mock, patch
 
 from opaque_keys.edx.locator import CourseLocator
 from xblock.field_data import DictFieldData
+from xblock.reference.user_service import XBlockUser
 
 from ..xblock import SupersetXBlock
 
@@ -17,7 +18,11 @@ def make_an_xblock(user_role, **kwargs):
     """
     course_id = CourseLocator("foo", "bar", "baz")
     mock_user = Mock(
-        opt_attrs={"edx-platform.user_role": user_role},
+        spec=XBlockUser,
+        opt_attrs={
+            "edx-platform.username": user_role,
+            "edx-platform.user_role": user_role,
+        },
     )
 
     def service(block, service):  # pylint: disable=unused-argument
@@ -47,14 +52,21 @@ class TestRender(TestCase):
     Test the HTML rendering of the XBlock
     """
 
-    @patch("platform_plugin_aspects.utils._generate_guest_token")
-    def test_render_instructor(self, mock_generate_guest_token):
+    @patch("platform_plugin_aspects.utils.SupersetClient")
+    def test_render_instructor(self, mock_superset_client):
         """
         Ensure staff can see the Superset dashboard.
         """
-        mock_generate_guest_token.return_value = ("test-token", "test-dashboard-uuid")
+        mock_superset_client.return_value = Mock(
+            session=Mock(
+                post=Mock(
+                    return_value=Mock(json=Mock(return_value={"token": "test_token"}))
+                )
+            )
+        )
         xblock = make_an_xblock("instructor")
         student_view = xblock.student_view()
+        mock_superset_client.assert_called_once()
         html = student_view.content
         self.assertIsNotNone(html)
         self.assertIn("superset-embedded-container", html)
