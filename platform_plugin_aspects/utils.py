@@ -84,7 +84,7 @@ def _generate_guest_token(user, course, superset_config, dashboard_uuid, filters
         or None, exception if Superset is missconfigured or cannot generate guest token.
     """
     superset_internal_host = _fix_service_url(
-        superset_config.get("internal_service_url", superset_config.get("service_url"))
+        superset_config.get("service_url", superset_config.get("internal_service_url"))
     )
     superset_username = superset_config.get("username")
     superset_password = superset_config.get("password")

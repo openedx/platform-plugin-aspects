@@ -17,7 +17,6 @@ def plugin_settings(settings):
     settings.MAKO_TEMPLATE_DIRS_BASE.append(ROOT_DIRECTORY / "templates")
     settings.SUPERSET_CONFIG = {
         "internal_service_url": "http://superset:8088",
-        "service_url": "http://superset.local.edly.io:8088",
         "username": "superset",
         "password": "superset",
     }

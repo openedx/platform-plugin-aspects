@@ -22,7 +22,7 @@ class TestPluginSettings(TestCase):
         common_settings.plugin_settings(settings)
         self.assertIn("MAKO_TEMPLATE_DIRS_BASE", settings.__dict__)
         self.assertIn("internal_service_url", settings.SUPERSET_CONFIG)
-        self.assertIn("service_url", settings.SUPERSET_CONFIG)
+        self.assertNotIn("service_url", settings.SUPERSET_CONFIG)
         self.assertIn("username", settings.SUPERSET_CONFIG)
         self.assertIn("password", settings.SUPERSET_CONFIG)
         self.assertIsNotNone(settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID)
