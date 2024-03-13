@@ -14,3 +14,4 @@ edx-django-utils   # Django utilities, we use caching and monitoring
 edx-opaque-keys    # Parsing library for course and usage keys
 django-rest-framework     # REST API framework
 edx-toggles
+XBlock

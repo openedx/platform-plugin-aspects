@@ -31,6 +31,7 @@ class TestFilters(TestCase):
         """
         mock_generate_superset_context.return_value = {
             "sections": [],
+            "superset_url": "http://superset.testing",
         }
 
         context = self.filter.run_filter(self.context, self.template_name)
@@ -40,6 +41,7 @@ class TestFilters(TestCase):
                 "course_id": str(self.context["course"].id),
                 "section_key": BLOCK_CATEGORY,
                 "section_display_name": BLOCK_CATEGORY.title(),
+                "superset_url": "http://superset.testing",
                 "template_path_prefix": "/instructor_dashboard/",
             },
             context["context"]["sections"][0],

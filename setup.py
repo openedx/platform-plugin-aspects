@@ -181,5 +181,8 @@ setup(
         "cms.djangoapp": [
             "platform_plugin_aspects = platform_plugin_aspects.apps:PlatformPluginAspectsConfig",
         ],
+        "xblock.v1": [
+            "superset = platform_plugin_aspects.xblock:SupersetXBlock",
+        ],
     },
 )

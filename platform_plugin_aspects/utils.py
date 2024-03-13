@@ -2,13 +2,15 @@
 Utilities for the Aspects app.
 """
 
+from __future__ import annotations
+
 import logging
 import os
 from importlib import import_module
 
-from crum import get_current_user
 from django.conf import settings
 from supersetapiclient.client import SupersetClient
+from xblock.reference.user_service import XBlockUser
 
 logger = logging.getLogger(__name__)
 
@@ -16,47 +18,60 @@ if settings.DEBUG:
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 
+def _(text):
+    """
+    Define a dummy `gettext` replacement to make string extraction tools scrape strings marked for translation.
+    """
+    return text
+
+
 def generate_superset_context(  # pylint: disable=dangerous-default-value
-    context, dashboard_uuid="", filters=[]
+    context,
+    user,
+    dashboard_uuid=None,
+    filters=[],
 ):
     """
     Update context with superset token and dashboard id.
 
     Args:
         context (dict): the context for the instructor dashboard. It must include a course object
+        user (XBlockUser or User): the current user.
         superset_config (dict): superset config.
         dashboard_uuid (str): superset dashboard uuid.
         filters (list): list of filters to apply to the dashboard.
     """
     course = context["course"]
-    user = get_current_user()
+    superset_config = settings.SUPERSET_CONFIG
 
-    superset_token, dashboard_uuid = generate_guest_token(
+    superset_token, dashboard_uuid = _generate_guest_token(
         user=user,
         course=course,
+        superset_config=superset_config,
         dashboard_uuid=dashboard_uuid,
         filters=filters,
     )
 
     if superset_token:
+        superset_url = _fix_service_url(superset_config.get("service_url"))
         context.update(
             {
                 "superset_token": superset_token,
                 "dashboard_uuid": dashboard_uuid,
-                "superset_url": settings.SUPERSET_CONFIG.get("host"),
+                "superset_url": superset_url,
             }
         )
     else:
         context.update(
             {
-                "exception": dashboard_uuid,
+                "exception": str(dashboard_uuid),
             }
         )
 
     return context
 
 
-def generate_guest_token(user, course, dashboard_uuid, filters):
+def _generate_guest_token(user, course, superset_config, dashboard_uuid, filters):
     """
     Generate a Superset guest token for the user.
 
@@ -68,9 +83,9 @@ def generate_guest_token(user, course, dashboard_uuid, filters):
         tuple: Superset guest token and dashboard id.
         or None, exception if Superset is missconfigured or cannot generate guest token.
     """
-    superset_config = settings.SUPERSET_CONFIG
-
-    superset_internal_host = superset_config.get("service_url")
+    superset_internal_host = _fix_service_url(
+        superset_config.get("service_url", superset_config.get("internal_service_url"))
+    )
     superset_username = superset_config.get("username")
     superset_password = superset_config.get("password")
 
@@ -86,17 +101,11 @@ def generate_guest_token(user, course, dashboard_uuid, filters):
 
     formatted_filters = [filter.format(course=course, user=user) for filter in filters]
 
+    if not dashboard_uuid:
+        dashboard_uuid = settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID
+
     data = {
-        "user": {
-            "username": user.username,
-            # We can send more info about the user to superset
-            # but Open edX only provides the full name. For now is not needed
-            # and doesn't add any value so we don't send it.
-            # {
-            #    "first_name": "John",
-            #    "last_name": "Doe",
-            # }
-        },
+        "user": _superset_user_data(user),
         "resources": [{"type": "dashboard", "id": dashboard_uuid}],
         "rls": [{"clause": filter} for filter in formatted_filters],
     }
@@ -114,6 +123,41 @@ def generate_guest_token(user, course, dashboard_uuid, filters):
     except Exception as exc:  # pylint: disable=broad-except
         logger.error(exc)
         return None, exc
+
+
+def _fix_service_url(url: str) -> str:
+    """
+    Append a trailing slash to the given url, if missing.
+
+    SupersetClient requires a trailing slash for service URLs.
+    """
+    if url and url[-1] != "/":
+        url += "/"
+    return url
+
+
+def _superset_user_data(user: XBlockUser) -> dict:
+    """
+    Return the user properties sent to the Superset API.
+    """
+    # We can send more info about the user to superset
+    # but Open edX only provides the full name. For now is not needed
+    # and doesn't add any value so we don't send it.
+    # {
+    #    "first_name": "John",
+    #    "last_name": "Doe",
+    # }
+    username = None
+    # Django User
+    if hasattr(user, "username"):
+        username = user.username
+    else:
+        assert isinstance(user, XBlockUser)
+        username = user.opt_attrs.get("edx-platform.username")
+
+    return {
+        "username": username,
+    }
 
 
 def get_model(model_setting):

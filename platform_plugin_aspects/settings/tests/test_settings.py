@@ -21,7 +21,8 @@ class TestPluginSettings(TestCase):
         settings.MAKO_TEMPLATE_DIRS_BASE = []
         common_settings.plugin_settings(settings)
         self.assertIn("MAKO_TEMPLATE_DIRS_BASE", settings.__dict__)
-        self.assertIn("url", settings.SUPERSET_CONFIG)
+        self.assertIn("internal_service_url", settings.SUPERSET_CONFIG)
+        self.assertNotIn("service_url", settings.SUPERSET_CONFIG)
         self.assertIn("username", settings.SUPERSET_CONFIG)
         self.assertIn("password", settings.SUPERSET_CONFIG)
         self.assertIsNotNone(settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID)
@@ -40,14 +41,12 @@ class TestPluginSettings(TestCase):
         test_timeout = 1
         settings.ENV_TOKENS = {
             "SUPERSET_CONFIG": {
-                "url": "http://superset.local.overhang.io:8088",
+                "internal_service_url": "http://superset:8088",
+                "service_url": "http://superset.local.overhang.io",
                 "username": "superset",
                 "password": "superset",
             },
-            "ASPECTS_INSTRUCTOR_DASHBOARD_UUID": {
-                "dashboard_slug": "instructor-dashboard",
-                "dashboard_uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
-            },
+            "ASPECTS_INSTRUCTOR_DASHBOARD_UUID": "test-settings-dashboard-uuid",
             "SUPERSET_EXTRA_FILTERS_FORMAT": [],
             "EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG": {
                 "url": test_url,

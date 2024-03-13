@@ -1,0 +1,70 @@
+# edX translation file.
+# Copyright (C) 2024 EdX
+# This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+# EdX Team <info@edx.org>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1a\n"
+"Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
+"POT-Creation-Date: 2023-06-13 08:00+0000\n"
+"PO-Revision-Date: 2023-06-13 09:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/html/superset.html
+msgid ""
+"Superset is not configured properly. Please contact your system "
+"administrator."
+msgstr ""
+"Süpérsét ïs nöt çönfïgüréd pröpérlý. Pléäsé çöntäçt ýöür sýstém "
+"ädmïnïsträtör. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєт#"
+
+#: static/html/superset_student.html
+msgid ""
+"Superset is only visible to course staff and instructors. Please contact "
+"your system administrator."
+msgstr ""
+"Süpérsét ïs önlý vïsïßlé tö çöürsé stäff änd ïnstrüçtörs. Pléäsé çöntäçt "
+"ýöür sýstém ädmïnïsträtör. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт#"
+
+#: xblock.py xblock.py
+msgid "Display name"
+msgstr "Dïspläý nämé Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: xblock.py
+msgid "Superset Dashboard"
+msgstr "Süpérsét Däshßöärd Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт#"
+
+#: xblock.py
+msgid "Dashboard UUID"
+msgstr "Däshßöärd ÛÛÌD Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт#"
+
+#: xblock.py
+msgid ""
+"The ID of the dashboard to embed. Available in the Superset embed dashboard "
+"UI."
+msgstr ""
+"Thé ÌD öf thé däshßöärd tö émßéd. Àväïläßlé ïn thé Süpérsét émßéd däshßöärd "
+"ÛÌ. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєт#"
+
+#: xblock.py
+msgid "Filters"
+msgstr "Fïltérs Ⱡ'σяєм ιρѕυм #"
+
+#: xblock.py
+msgid ""
+"List of SQL filters to apply to the\n"
+"               dashboard. E.g: [\"org='edX'\", \"country in ('us', 'co')\"]\n"
+"               The fields used here must be available on every dataset used by the dashboard.\n"
+"               "
+msgstr ""
+"Lïst öf SQL fïltérs tö äpplý tö thé\n"
+"               däshßöärd. É.g: [\"örg='édX'\", \"çöüntrý ïn ('üs', 'çö')\"]\n"
+"               Thé fïélds üséd héré müst ßé äväïläßlé ön évérý dätäsét üséd ßý thé däshßöärd.\n"
+"                Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тємρσя ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм νєηιαм, qυιѕ ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα ¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт єѕѕє ¢ιłłυм ∂σłσяє єυ ƒυgιαт ηυłłα ραяιαт#"

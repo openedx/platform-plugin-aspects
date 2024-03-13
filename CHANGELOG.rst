@@ -16,6 +16,13 @@ Unreleased
 
 *
 
+0.3.0 – 2024-03-10
+******************
+Added
+=====
+
+* Imported XBlock code from platform-plugin-superset
+
 0.2.0 – 2024-03-05
 ******************
 Added
