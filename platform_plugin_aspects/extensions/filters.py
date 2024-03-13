@@ -59,6 +59,7 @@ class AddSupersetTab(PipelineStep):
             "section_key": BLOCK_CATEGORY,
             "section_display_name": BLOCK_CATEGORY.title(),
             "course_id": str(course.id),
+            "superset_url": str(context.get("superset_url")),
             "template_path_prefix": TEMPLATE_ABSOLUTE_PATH,
         }
         context["sections"].append(section_data)

@@ -1,8 +1,21 @@
+## mako
+
 <%page args="section_data" expression_filter="h"/>
-<%! from openedx.core.djangolib.markup import HTML %>
+<%!
+from django.utils.translation import gettext as _
+from openedx.core.djangolib.markup import HTML
+%>
 
 <%include file="/courseware/xqa_interface.html/"/>
+<%
+superset_url = section_data.get("superset_url")
+%>
 
 <section class="superset">
+    % if superset_url:
+    <div class="superset-link">
+      <a href="${superset_url}">${_("Go to Superset")}</a>
+    </div>
+    % endif
     ${HTML(section_data['fragment'].body_html())}
 </section>
