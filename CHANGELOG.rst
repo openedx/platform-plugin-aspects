@@ -16,6 +16,14 @@ Unreleased
 
 *
 
+0.3.1 - 2024-03-14
+******************
+
+Added
+=====
+
+* Fixed development server configuration.
+
 0.3.0 – 2024-03-10
 ******************
 Added
