@@ -104,7 +104,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         context = generate_superset_context(
             context=context,
             user=user,
-            dashboard_uuid=self.dashboard_uuid,
+            dashboards=[{"name": self.display_name, "uuid": self.dashboard_uuid}],
             filters=self.filters,
         )
         context["xblock_id"] = str(self.scope_ids.usage_id.block_id)
@@ -125,7 +125,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         frag.initialize_js(
             "SupersetXBlock",
             json_args={
-                "dashboard_uuid": context.get("dashboard_uuid"),
+                "dashboard_uuid": self.dashboard_uuid,
                 "superset_url": context.get("superset_url"),
                 "superset_token": context.get("superset_token"),
                 "xblock_id": context.get("xblock_id"),

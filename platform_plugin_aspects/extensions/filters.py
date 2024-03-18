@@ -35,7 +35,7 @@ class AddSupersetTab(PipelineStep):
             _ (str): instructor dashboard template name.
         """
         course = context["course"]
-        dashboard_uuid = settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID
+        dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS
         extra_filters_format = settings.SUPERSET_EXTRA_FILTERS_FORMAT
 
         filters = ASPECTS_SECURITY_FILTERS_FORMAT + extra_filters_format
@@ -45,7 +45,7 @@ class AddSupersetTab(PipelineStep):
         context = generate_superset_context(
             context,
             user,
-            dashboard_uuid=dashboard_uuid,
+            dashboards=dashboards,
             filters=filters,
         )
 

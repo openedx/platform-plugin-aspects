@@ -28,7 +28,7 @@ def _(text):
 def generate_superset_context(  # pylint: disable=dangerous-default-value
     context,
     user,
-    dashboard_uuid=None,
+    dashboards,
     filters=[],
 ):
     """
@@ -38,17 +38,17 @@ def generate_superset_context(  # pylint: disable=dangerous-default-value
         context (dict): the context for the instructor dashboard. It must include a course object
         user (XBlockUser or User): the current user.
         superset_config (dict): superset config.
-        dashboard_uuid (str): superset dashboard uuid.
+        dashboards (list): list of superset dashboard uuid.
         filters (list): list of filters to apply to the dashboard.
     """
     course = context["course"]
     superset_config = settings.SUPERSET_CONFIG
 
-    superset_token, dashboard_uuid = _generate_guest_token(
+    superset_token, dashboards = _generate_guest_token(
         user=user,
         course=course,
         superset_config=superset_config,
-        dashboard_uuid=dashboard_uuid,
+        dashboards=dashboards,
         filters=filters,
     )
 
@@ -57,21 +57,21 @@ def generate_superset_context(  # pylint: disable=dangerous-default-value
         context.update(
             {
                 "superset_token": superset_token,
-                "dashboard_uuid": dashboard_uuid,
+                "superset_dashboards": dashboards,
                 "superset_url": superset_url,
             }
         )
     else:
         context.update(
             {
-                "exception": str(dashboard_uuid),
+                "exception": str(dashboards),
             }
         )
 
     return context
 
 
-def _generate_guest_token(user, course, superset_config, dashboard_uuid, filters):
+def _generate_guest_token(user, course, superset_config, dashboards, filters):
     """
     Generate a Superset guest token for the user.
 
@@ -102,16 +102,16 @@ def _generate_guest_token(user, course, superset_config, dashboard_uuid, filters
 
     formatted_filters = [filter.format(course=course, user=user) for filter in filters]
 
-    if not dashboard_uuid:
-        dashboard_uuid = settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID
-
     data = {
         "user": _superset_user_data(user),
-        "resources": [{"type": "dashboard", "id": dashboard_uuid}],
+        "resources": [
+            {"type": "dashboard", "id": dashboard["uuid"]} for dashboard in dashboards
+        ],
         "rls": [{"clause": filter} for filter in formatted_filters],
     }
 
     try:
+        logger.info(f"Requesting guest token from Superset, {data}")
         response = client.session.post(
             url=f"{superset_internal_host}api/v1/security/guest_token/",
             json=data,
@@ -120,7 +120,7 @@ def _generate_guest_token(user, course, superset_config, dashboard_uuid, filters
         response.raise_for_status()
         token = response.json()["token"]
 
-        return token, dashboard_uuid
+        return token, dashboards
     except Exception as exc:  # pylint: disable=broad-except
         logger.error(exc)
         return None, exc
