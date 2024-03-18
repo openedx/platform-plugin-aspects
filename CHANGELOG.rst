@@ -16,6 +16,14 @@ Unreleased
 
 *
 
+0.4.0 - 2024-03-18
+******************
+
+Added
+=====
+
+* Embed multiple Superset Dashboards.
+
 0.3.1 - 2024-03-14
 ******************
 
