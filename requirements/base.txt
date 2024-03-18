@@ -14,6 +14,7 @@ backports-zoneinfo[tzdata]==0.2.1
     # via
     #   celery
     #   django
+    #   djangorestframework
     #   kombu
 billiard==4.2.0
     # via celery
@@ -39,7 +40,7 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
-code-annotations==1.6.0
+code-annotations==1.7.0
     # via edx-toggles
 django==4.2.11
     # via
@@ -62,7 +63,7 @@ django-waffle==4.1.0
     # via
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.14.0
+djangorestframework==3.15.0
     # via django-rest-framework
 edx-django-utils==5.11.0
     # via
@@ -116,9 +117,7 @@ python-dateutil==2.9.0.post0
 python-slugify==8.0.4
     # via code-annotations
 pytz==2024.1
-    # via
-    #   djangorestframework
-    #   xblock
+    # via xblock
 pyyaml==6.0.1
     # via
     #   code-annotations

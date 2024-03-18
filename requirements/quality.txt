@@ -25,12 +25,13 @@ backports-zoneinfo[tzdata]==0.2.1
     #   -r requirements/test.txt
     #   celery
     #   django
+    #   djangorestframework
     #   kombu
 billiard==4.2.0
     # via
     #   -r requirements/test.txt
     #   celery
-black==24.2.0
+black==24.3.0
     # via -r requirements/quality.in
 celery==5.3.6
     # via -r requirements/test.txt
@@ -72,12 +73,12 @@ click-repl==0.3.0
     # via
     #   -r requirements/test.txt
     #   celery
-code-annotations==1.6.0
+code-annotations==1.7.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.4.3
+coverage[toml]==7.4.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -111,7 +112,7 @@ django-waffle==4.1.0
     #   -r requirements/test.txt
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.14.0
+djangorestframework==3.15.0
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -266,7 +267,6 @@ python-slugify==8.0.4
 pytz==2024.1
     # via
     #   -r requirements/test.txt
-    #   djangorestframework
     #   xblock
 pyyaml==6.0.1
     # via
