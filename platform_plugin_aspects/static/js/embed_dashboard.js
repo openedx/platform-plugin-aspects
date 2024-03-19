@@ -28,7 +28,6 @@ function embedDashboard(dashboard_uuid, superset_url, superset_token, xblock_id)
 
 if (window.superset_dashboards !== undefined) {
   window.superset_dashboards.forEach(function(dashboard) {
-    console.log(dashboard)
     embedDashboard(dashboard.uuid, window.superset_url, window.superset_token, dashboard.uuid);
   });
 }
