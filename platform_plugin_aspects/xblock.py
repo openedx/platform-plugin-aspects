@@ -55,6 +55,15 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         scope=Scope.settings,
     )
 
+    def dashboards(self):
+        """
+        Returns an array of dashboards configured for this XBlock.
+        """
+        if self.dashboard_uuid:
+            return [{"name": self.display_name, "uuid": self.dashboard_uuid}]
+        else:
+            return []
+
     def render_template(self, template_path, context=None) -> str:
         """
         Render a template with the given context.
@@ -104,7 +113,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         context = generate_superset_context(
             context=context,
             user=user,
-            dashboards=[{"name": self.display_name, "uuid": self.dashboard_uuid}],
+            dashboards=self.dashboards(),
             filters=self.filters,
         )
         context["xblock_id"] = str(self.scope_ids.usage_id.block_id)
