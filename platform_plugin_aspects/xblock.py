@@ -57,7 +57,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
 
     def dashboards(self):
         """
-        Returns an array of dashboards configured for this XBlock.
+        Return an array of dashboards configured for this XBlock.
         """
         if self.dashboard_uuid:
             return [{"name": self.display_name, "uuid": self.dashboard_uuid}]

@@ -69,7 +69,10 @@ class TestRender(TestCase):
         mock_superset_client.assert_called_once()
         html = student_view.content
         self.assertIsNotNone(html)
-        self.assertIn("superset-embedded-container", html)
+        self.assertIn(
+            "Dashboard UUID is not set. Please set the dashboard UUID in the Studio.",
+            html,
+        )
 
     def test_render_student(self):
         """
