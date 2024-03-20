@@ -25,7 +25,7 @@ class TestPluginSettings(TestCase):
         self.assertNotIn("service_url", settings.SUPERSET_CONFIG)
         self.assertIn("username", settings.SUPERSET_CONFIG)
         self.assertIn("password", settings.SUPERSET_CONFIG)
-        self.assertIsNotNone(settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID)
+        self.assertIsNotNone(settings.ASPECTS_INSTRUCTOR_DASHBOARDS)
         self.assertIsNotNone(settings.SUPERSET_EXTRA_FILTERS_FORMAT)
         for key in ("url", "username", "password", "database", "timeout_secs"):
             assert key in settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG
@@ -46,7 +46,12 @@ class TestPluginSettings(TestCase):
                 "username": "superset",
                 "password": "superset",
             },
-            "ASPECTS_INSTRUCTOR_DASHBOARD_UUID": "test-settings-dashboard-uuid",
+            "ASPECTS_INSTRUCTOR_DASHBOARDS": [
+                {
+                    "name": "Instructor Dashboard",
+                    "uuid": "test-settings-dashboard-uuid",
+                }
+            ],
             "SUPERSET_EXTRA_FILTERS_FORMAT": [],
             "EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG": {
                 "url": test_url,
@@ -61,8 +66,8 @@ class TestPluginSettings(TestCase):
             settings.SUPERSET_CONFIG, settings.ENV_TOKENS["SUPERSET_CONFIG"]
         )
         self.assertEqual(
-            settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID,
-            settings.ENV_TOKENS["ASPECTS_INSTRUCTOR_DASHBOARD_UUID"],
+            settings.ASPECTS_INSTRUCTOR_DASHBOARDS,
+            settings.ENV_TOKENS["ASPECTS_INSTRUCTOR_DASHBOARDS"],
         )
         self.assertEqual(
             settings.SUPERSET_EXTRA_FILTERS_FORMAT,

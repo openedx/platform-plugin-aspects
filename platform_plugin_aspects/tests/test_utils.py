@@ -113,17 +113,18 @@ class TestUtils(TestCase):
         filter_mock = Mock()
         user_mock = Mock()
         context = {"course": course_mock}
-        mock_generate_guest_token.return_value = ("test-token", "test-dashboard-uuid")
+        dashboards = [{"name": "test", "uuid": "test-dashboard-uuid"}]
+        mock_generate_guest_token.return_value = ("test-token", dashboards)
 
         context = generate_superset_context(
             context,
             user_mock,
-            dashboard_uuid="test-dashboard-uuid",
+            dashboards=dashboards,
             filters=[filter_mock],
         )
 
         self.assertEqual(context["superset_token"], "test-token")
-        self.assertEqual(context["dashboard_uuid"], "test-dashboard-uuid")
+        self.assertEqual(context["superset_dashboards"], dashboards)
         self.assertEqual(context["superset_url"], "http://superset-dummy-url/")
         self.assertNotIn("exception", context)
 
@@ -143,7 +144,7 @@ class TestUtils(TestCase):
         context = generate_superset_context(
             context,
             user_mock,
-            dashboard_uuid="test-dashboard-uuid",
+            dashboards=[{"name": "test", "uuid": "test-dashboard-uuid"}],
             filters=[filter_mock],
         )
 
@@ -175,14 +176,17 @@ class TestUtils(TestCase):
             "token": "test-token",
         }
 
+        dashboards = [{"name": "test", "uuid": "test-dashboard-uuid"}]
+
         context = generate_superset_context(
             context,
             user_mock,
+            dashboards=dashboards,
             filters=[filter_mock],
         )
 
         self.assertEqual(context["superset_token"], "test-token")
-        self.assertEqual(context["dashboard_uuid"], "test-settings-dashboard-uuid")
+        self.assertEqual(context["superset_dashboards"], dashboards)
         self.assertEqual(context["superset_url"], "http://dummy-superset-url/")
 
     def test_generate_superset_context_with_exception(self):
@@ -198,7 +202,7 @@ class TestUtils(TestCase):
         context = generate_superset_context(
             context,
             user_mock,
-            dashboard_uuid="test-dashboard-uuid",
+            dashboards=[{"name": "test", "uuid": "test-dashboard-uuid"}],
             filters=[filter_mock],
         )
 

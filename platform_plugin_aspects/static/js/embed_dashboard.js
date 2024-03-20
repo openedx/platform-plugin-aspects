@@ -24,7 +24,10 @@ function embedDashboard(dashboard_uuid, superset_url, superset_token, xblock_id)
       when the dashboard is loaded
       */
     });
-}
-if (window.dashboard_uuid !== undefined) {
-  embedDashboard(window.dashboard_uuid, window.superset_url, window.superset_token, window.xblock_id);
+};
+
+if (window.superset_dashboards !== undefined) {
+  window.superset_dashboards.forEach(function(dashboard) {
+    embedDashboard(dashboard.uuid, window.superset_url, window.superset_token, dashboard.uuid);
+  });
 }

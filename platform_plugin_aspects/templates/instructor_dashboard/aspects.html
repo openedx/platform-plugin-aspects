@@ -14,7 +14,7 @@ superset_url = section_data.get("superset_url")
 <section class="superset">
     % if superset_url:
     <div class="superset-link">
-      <a href="${superset_url}">${_("Go to Superset")}</a>
+      <a href="${superset_url}login/openedxsso">${_("Go to Superset to create new or further customize the reports below.")}</a>
     </div>
     % endif
     ${HTML(section_data['fragment'].body_html())}

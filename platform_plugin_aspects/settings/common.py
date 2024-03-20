@@ -20,7 +20,12 @@ def plugin_settings(settings):
         "username": "superset",
         "password": "superset",
     }
-    settings.ASPECTS_INSTRUCTOR_DASHBOARD_UUID = "1d6bf904-f53f-47fd-b1c9-6cd7e284d286"
+    settings.ASPECTS_INSTRUCTOR_DASHBOARDS = [
+        {
+            "name": "Instructor Dashboard",
+            "uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
+        },
+    ]
     settings.SUPERSET_EXTRA_FILTERS_FORMAT = []
     settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = {
         # URL to a running ClickHouse server's HTTP interface. ex: https://foo.openedx.org:8443/ or
