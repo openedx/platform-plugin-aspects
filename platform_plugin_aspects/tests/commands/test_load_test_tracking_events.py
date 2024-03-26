@@ -81,6 +81,14 @@ def test_load_test_run_until_killed(caplog):
         "platform_plugin_aspects.management.commands.load_test_tracking_events"
     )
 
+    def fake_sleep_or_raise(sleep_time):
+        # Magic 5 is the hard coded time for start/end events
+        if sleep_time == 5:
+            return
+        # We use the sleep at the end of the loop to break out of it
+        else:
+            raise KeyboardInterrupt()
+
     with patch.multiple(
         f"{patch_prefix}",
         create_new_course_in_store=fake_course,
@@ -90,7 +98,7 @@ def test_load_test_run_until_killed(caplog):
         ModuleStoreEnum=DEFAULT,
         RUNNING_IN_PLATFORM=True,
         requests=DEFAULT,
-        sleep=Mock(side_effect=KeyboardInterrupt),
+        sleep=Mock(side_effect=fake_sleep_or_raise),
     ) as _:
         call_command(
             "load_test_tracking_events", **{"run_until_killed": True, "sleep_time": 0}

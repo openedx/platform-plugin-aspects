@@ -226,6 +226,7 @@ class Monitor:
         )
 
         response.raise_for_status()
+
         resp = response.json()["data"][0]
         log.info(f"Clickhouse lag seconds: {resp['lag_seconds']}")
 
@@ -427,12 +428,7 @@ class Command(BaseCommand):
         )
 
         monitor = Monitor(options["sleep_time"], options["backend"])
-
-        try:
-            monitor.run()
-        except KeyboardInterrupt:
-            log.warning("Killed by keyboard, finishing.")
-            # monitor.send_end_event()
+        monitor.run()
 
         end = datetime.datetime.now()
         log.info(f"Monitored from {start} to {end} (duration {end - start}).")
