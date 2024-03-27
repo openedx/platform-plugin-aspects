@@ -21,6 +21,10 @@ astroid==3.1.0
     #   -r requirements/quality.txt
     #   pylint
     #   pylint-celery
+async-timeout==4.0.3
+    # via
+    #   -r requirements/quality.txt
+    #   redis
 backports-zoneinfo[tzdata]==0.2.1
     # via
     #   -r requirements/quality.txt
@@ -364,6 +368,8 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
+redis==5.0.3
+    # via -r requirements/quality.txt
 requests==2.31.0
     # via
     #   -r requirements/quality.txt

@@ -20,6 +20,10 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
+async-timeout==4.0.3
+    # via
+    #   -r requirements/test.txt
+    #   redis
 babel==2.14.0
     # via
     #   pydata-sphinx-theme
@@ -304,6 +308,8 @@ pyyaml==6.0.1
     #   xblock
 readme-renderer==43.0
     # via twine
+redis==5.0.3
+    # via -r requirements/test.txt
 requests==2.31.0
     # via
     #   -r requirements/test.txt

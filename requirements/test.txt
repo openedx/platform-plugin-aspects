@@ -16,6 +16,10 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
+async-timeout==4.0.3
+    # via
+    #   -r requirements/base.txt
+    #   redis
 backports-zoneinfo[tzdata]==0.2.1
     # via
     #   -r requirements/base.txt
@@ -213,6 +217,8 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
+redis==5.0.3
+    # via -r requirements/base.txt
 requests==2.31.0
     # via
     #   -r requirements/base.txt
