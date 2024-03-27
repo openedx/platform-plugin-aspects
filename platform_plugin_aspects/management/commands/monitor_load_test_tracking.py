@@ -215,6 +215,7 @@ class Monitor:
                 max(emission_time) as most_recent,
                 date_diff('second', max(emission_time), now()) as lag_seconds
             FROM {self.ch_xapi_table}
+            FINAL
             FORMAT JSON
         """
 
