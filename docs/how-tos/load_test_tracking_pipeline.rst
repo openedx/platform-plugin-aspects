@@ -52,6 +52,48 @@ Running a test
 
 #. Check the table in ClickHouse for the results of the run: ``event_sink.load_test_stats`` and ``event_sink.load_test_runs``. Each run has a unique identifier, and each row has a timestamp. The stats themselves are stored in JSON as they differ a great deal between backends. With this information you should be able to chart a run and see how the system performs at various levels of load.
 
+Reporting on Tests
+------------------
+
+We are currently using the following query to report on the various runs. Note that it is currently hard coded to a 5 second sleep time on the monitor script, but can be updated to use the time between rows instead::
+
+    with starts as (
+        select run_id, timestamp, stats, runs.extra,
+                row_number() over (
+                    partition by run_id order by timestamp
+                ) as rn
+        from event_sink.load_test_stats stats
+        inner join event_sink.load_test_runs runs
+            on stats.run_id = runs.run_id
+            and runs.event_type = 'start'
+    )
+
+    select run_id,
+        timestamp,
+        starts.timestamp as start_time,
+        JSONExtractKeys(stats)[2] as backend,
+        multiIf(
+            backend = 'celery', JSON_VALUE(stats, '$.celery.lag'),
+            backend = 'vector', JSON_VALUE(stats, '$.vector.lag'),
+            backend = 'redis_bus', JSON_VALUE(stats, '$.redis_bus.lag'),
+            backend = 'kafka_bus', JSON_VALUE(stats, '$.kafka_bus.lag'),
+            ''
+        ) as service_lag_1,
+        if(service_lag_1 = '', '0', service_lag_1) as service_lag,
+        JSON_VALUE(stats, '$.clickhouse.lag_seconds') as clickhouse_lag,
+        JSON_VALUE(stats, '$.clickhouse.total_rows')::Int - JSON_VALUE(starts.stats, '$.clickhouse.total_rows')::Int as clickhouse_rows,
+
+        lagInFrame(clickhouse_rows, 1) over (PARTITION BY run_id, tags ORDER BY timestamp) as last_rows,
+        (clickhouse_rows - last_rows) / 5 as rps,
+
+        ceiling(dateDiff('second', starts.timestamp, timestamp)/5.0) * 5 as secs_into_test,
+        trim(BOTH '"' FROM arrayJoin(JSONExtractArrayRaw(starts.extra, 'tags'))) tags,
+        backend || ' (' || run_id || ', '|| start_time::String || ')' as name
+    from event_sink.load_test_stats stats
+    inner join starts on stats.run_id = starts.run_id
+    where starts.rn = 1;
+
+
 Celery Notes
 ------------
 
