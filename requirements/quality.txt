@@ -117,7 +117,7 @@ djangorestframework==3.15.1
     #   -r requirements/test.txt
     #   django-mock-queries
     #   django-rest-framework
-edx-django-utils==5.11.0
+edx-django-utils==5.12.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -151,11 +151,11 @@ jinja2==3.1.3
     # via
     #   -r requirements/test.txt
     #   code-annotations
-kombu==5.3.5
+kombu==5.3.6
     # via
     #   -r requirements/test.txt
     #   celery
-lxml==5.1.0
+lxml==5.2.0
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -177,7 +177,7 @@ model-bakery==1.17.0
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==9.7.1
+newrelic==9.8.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -218,7 +218,7 @@ psutil==5.9.8
     #   edx-django-utils
 pycodestyle==2.11.1
     # via -r requirements/quality.in
-pycparser==2.21
+pycparser==2.22
     # via
     #   -r requirements/test.txt
     #   cffi
