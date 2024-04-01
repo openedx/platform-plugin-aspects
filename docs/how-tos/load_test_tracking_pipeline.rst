@@ -30,7 +30,7 @@ Each backend stores different statistics, since they each have unique properties
 Running a test
 --------------
 
-**The test will create persistent data in your environment! Do not run on production server!**
+**The test will create persistent data in your environment and may overwhelm your LMS! Do not run on production server!**
 
 #. Make sure you have an isolated test system that is configured in a way that you understand. The point of the test is to stress the system, so using shared infrastructure will skew the test results or potentially cause outages.
 
@@ -46,14 +46,16 @@ Running a test
 
 #. Alternatively you can run a test that will continue until stopped, and configure a prefix to your user names if you want to separate them from other tests in the database: ``tutor local run cms ./manage.py cms load_test_tracking_events --num_users 10 --run_until_killed --sleep_time 0.5 --username_prefix loadtest2_``
 
-#. Stop the test and monitor with ``ctrl-c``, you may want to let the monitor run until the queue of your system is cleared to get full data on how long it takes to recover from a backlog of events.
+#. Runs can be tagged with any number of tags that may help identify and compare different runs. For instance ``--tags celery 10k batch10 2workers``
 
-#. Check the table in ClickHouse for the results of the run: ``event_sink.load_test_stats``. Each run has a unique identifier, and each row has a timestamp. The stats themselves are stored in JSON as they differ a great deal between backends. With this information you should be able to chart a run and see how the system performs at various levels of load.
+#. You can stop the test and monitor with ``ctrl-c``, but the monitor will automatically stop once it detects that the run has ended and the queue of events has been drained from the backend.
+
+#. Check the table in ClickHouse for the results of the run: ``event_sink.load_test_stats`` and ``event_sink.load_test_runs``. Each run has a unique identifier, and each row has a timestamp. The stats themselves are stored in JSON as they differ a great deal between backends. With this information you should be able to chart a run and see how the system performs at various levels of load.
 
 Celery Notes
 ------------
 
-Celery can be scaled by adding more CMS workers.
+Celery can be scaled by adding more CMS workers and changing the `batch sizes`_.
 
 The JSON in ClickHouse for Celery looks like this::
 
@@ -65,7 +67,8 @@ The JSON in ClickHouse for Celery looks like this::
         },
         "celery": {
             "lms_queue_length": 0,  # Size of the redis queue of pending Celery tasks for the LMS workers
-            "cms_queue_length": 0   # Size of the redis queue of pending Celery tasks for the CMS workers
+            "cms_queue_length": 0,  # Size of the redis queue of pending Celery tasks for the CMS workers
+            "lag": 0                # Total of LMS and CMS queue lengths
         }
     }
 
@@ -74,6 +77,8 @@ Vector Notes
 ------------
 
 Vector scales differently depending on your deployment strategy. Note that Vector's stats are different from other backends. We are only able to calculate the lag between when Vector reads a line from the logs and when it is sent to ClickHouse. There is no way of telling how far behind the log Vector is, but this lag is still useful to see if ClickHouse insert times are slowing down Vector. Instead we should rely on the ClickHouse lag_seconds metric to get a better idea of how far behind Vector is.
+
+Event-routing-backends batch settings don't generally impact Vector. Vector will automatically perform batch inserts to ClickHouse. See the Vector `ClickHouse sink docs`_ for relevant settings to tweak.
 
 The JSON in ClickHouse for Vector looks like this::
 
@@ -96,7 +101,7 @@ The JSON in ClickHouse for Vector looks like this::
 Redis Bus Notes
 ---------------
 
-The redis bus can be scaled by adding more consumers.
+The redis bus can be scaled by adding more consumers or adjusting the `batch sizes`_.
 
 The JSON in ClickHouse for redis bus looks like this::
 
@@ -108,13 +113,7 @@ The JSON in ClickHouse for redis bus looks like this::
         },
         "redis_bus": {
             "total_events": 77,  # Total number of events that have been added to the redis Stream
-            "consumers": [
-                {
-                    "name": "aspects",  # Name of each consumer in the consumer group
-                    "processing": 0,       # How many events are currently being processed by that consumer (should be 0 or 1)
-                    "queue_length": 0      # How many events are waiting to be processed in the stream
-                }
-            ]
+            "lag": 10            # Number of events waiting in the stream to be handled
         }
     }
 
@@ -139,7 +138,11 @@ The JSON in ClickHouse for the Kafka bus looks like this::
                     "partition": 0,  # The index of the partition
                     "lag": 150       # How many events are waiting to be processed by the partition
                 }
-            ]
+            ],
+            "lag": 150               # Total waiting events across all partitions
         }
     }
 
+
+.. _batch sizes: https://event-routing-backends.readthedocs.io/en/latest/getting_started.html?#batching-configuration
+.. _ClickHouse sink docs: https://vector.dev/docs/reference/configuration/sinks/clickhouse/
