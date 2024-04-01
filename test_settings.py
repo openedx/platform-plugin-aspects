@@ -24,7 +24,6 @@ DATABASES = {
     },
 }
 
-
 INSTALLED_APPS = ("platform_plugin_aspects",)
 
 EVENT_SINK_CLICKHOUSE_MODEL_CONFIG = {

@@ -16,6 +16,15 @@ Unreleased
 
 *
 
+0.5.0 - 2024-04-01
+******************
+
+Added
+=====
+
+* Load testing and test monitoring scripts.
+
+
 0.4.0 - 2024-03-18
 ******************
 
