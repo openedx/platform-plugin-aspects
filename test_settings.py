@@ -58,13 +58,6 @@ TEMPLATES = [
     }
 ]
 
-ASPECTS_INSTRUCTOR_DASHBOARDS = [
-    {
-        "name": "Instructor Dashboard",
-        "uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
-    },
-]
-
 SUPERSET_EXTRA_FILTERS_FORMAT = []
 
 SUPERSET_CONFIG = {
@@ -73,3 +66,27 @@ SUPERSET_CONFIG = {
     "username": "superset",
     "password": "superset",
 }
+
+SUPERSET_CONFIG = {
+    "internal_service_url": "http://superset:8088",
+    "service_url": "http://superset.local.overhang.io",
+    "username": "superset",
+    "password": "superset",
+}
+ASPECTS_INSTRUCTOR_DASHBOARDS = [
+    {
+        "name": "Instructor Dashboard",
+        "slug": "instructor-dashboard",
+        "uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
+        "allow_translations": True,
+    }
+]
+EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = {
+    "url": "https://foo.bar",
+    "username": "bob",
+    "password": "secret",
+    "database": "cool_data",
+    "timeout_secs": 1,
+}
+
+SUPERSET_DASHBOARD_LOCALES = ["en_US", "es_419"]

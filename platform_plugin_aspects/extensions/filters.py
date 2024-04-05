@@ -9,7 +9,7 @@ from django.template import Context, Template
 from openedx_filters import PipelineStep
 from web_fragments.fragment import Fragment
 
-from platform_plugin_aspects.utils import generate_superset_context
+from platform_plugin_aspects.utils import _, generate_superset_context, get_model
 
 TEMPLATE_ABSOLUTE_PATH = "/instructor_dashboard/"
 BLOCK_CATEGORY = "aspects"
@@ -42,11 +42,19 @@ class AddSupersetTab(PipelineStep):
 
         user = get_current_user()
 
+        user_language = (
+            get_model("user_preference").get_value(user, "pref-lang") or "en_US"
+        )
+        formatted_language = user_language.replace("-", "_")
+        if formatted_language not in settings.SUPERSET_DASHBOARD_LOCALES:
+            formatted_language = "en_US"
+
         context = generate_superset_context(
             context,
             user,
             dashboards=dashboards,
             filters=filters,
+            language=formatted_language,
         )
 
         template = Template(self.resource_string("static/html/superset.html"))
@@ -57,7 +65,7 @@ class AddSupersetTab(PipelineStep):
         section_data = {
             "fragment": frag,
             "section_key": BLOCK_CATEGORY,
-            "section_display_name": BLOCK_CATEGORY.title(),
+            "section_display_name": _("Analytics"),
             "course_id": str(course.id),
             "superset_url": str(context.get("superset_url")),
             "template_path_prefix": TEMPLATE_ABSOLUTE_PATH,

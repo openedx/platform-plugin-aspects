@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import logging
 import os
+import uuid
 from importlib import import_module
 
 from django.conf import settings
@@ -30,6 +31,7 @@ def generate_superset_context(  # pylint: disable=dangerous-default-value
     user,
     dashboards,
     filters=[],
+    language=None,
 ):
     """
     Update context with superset token and dashboard id.
@@ -40,9 +42,17 @@ def generate_superset_context(  # pylint: disable=dangerous-default-value
         superset_config (dict): superset config.
         dashboards (list): list of superset dashboard uuid.
         filters (list): list of filters to apply to the dashboard.
+        language (str): the language code of the end user.
     """
     course = context["course"]
     superset_config = settings.SUPERSET_CONFIG
+
+    if language:
+        for dashboard in dashboards:
+            if not dashboard["allow_translations"]:
+                continue
+            dashboard["slug"] = f"{dashboard['slug']}-{language}"
+            dashboard["uuid"] = str(get_uuid5(dashboard["uuid"], language))
 
     superset_token, dashboards = _generate_guest_token(
         user=user,
@@ -220,3 +230,12 @@ def get_ccx_courses(course_id):
     if settings.FEATURES.get("CUSTOM_COURSES_EDX"):
         return get_model("custom_course_edx").objects.filter(course_id=course_id)
     return []
+
+
+def get_uuid5(base_uuid, language):
+    """
+    Generate an idempotent uuid.
+    """
+    base_uuid = uuid.UUID(base_uuid)
+    base_namespace = uuid.uuid5(base_uuid, "superset")
+    return uuid.uuid5(base_namespace, language)

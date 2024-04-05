@@ -3,10 +3,10 @@ Test utils.
 """
 
 from collections import namedtuple
-from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from django.conf import settings
+from django.test import TestCase
 
 from platform_plugin_aspects.utils import (
     generate_superset_context,
@@ -113,7 +113,16 @@ class TestUtils(TestCase):
         filter_mock = Mock()
         user_mock = Mock()
         context = {"course": course_mock}
-        dashboards = [{"name": "test", "uuid": "test-dashboard-uuid"}]
+        dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS
+
+        dashboards.append(
+            {
+                "slug": "test-slug",
+                "uuid": "3ea6e738-989d-4325-8f93-82bb684dab5c",
+                "allow_translations": False,
+            }
+        )
+
         mock_generate_guest_token.return_value = ("test-token", dashboards)
 
         context = generate_superset_context(
@@ -121,6 +130,7 @@ class TestUtils(TestCase):
             user_mock,
             dashboards=dashboards,
             filters=[filter_mock],
+            language="en_US",
         )
 
         self.assertEqual(context["superset_token"], "test-token")

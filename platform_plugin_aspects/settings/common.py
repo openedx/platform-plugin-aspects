@@ -23,10 +23,13 @@ def plugin_settings(settings):
     settings.ASPECTS_INSTRUCTOR_DASHBOARDS = [
         {
             "name": "Instructor Dashboard",
+            "slug": "instructor-dashboard",
             "uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
+            "allow_translations": True,
         },
     ]
     settings.SUPERSET_EXTRA_FILTERS_FORMAT = []
+    settings.SUPERSET_DASHBOARD_LOCALES = ["en_US"]
     settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = {
         # URL to a running ClickHouse server's HTTP interface. ex: https://foo.openedx.org:8443/ or
         # http://foo.openedx.org:8123/ . Note that we only support the ClickHouse HTTP interface
@@ -63,5 +66,9 @@ def plugin_settings(settings):
         "custom_course_edx": {
             "module": "lms.djangoapps.ccx.models",
             "model": "CustomCourseForEdX",
+        },
+        "user_preference": {
+            "module": "openedx.core.djangoapps.user_api.models",
+            "model": "UserPreference",
         },
     }
