@@ -1,5 +1,6 @@
 [run]
 branch = True
+relative_files = True
 data_file = .coverage
 source=platform_plugin_aspects
 omit =
