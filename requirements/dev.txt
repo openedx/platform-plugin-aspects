@@ -97,7 +97,7 @@ click-repl==0.3.0
     # via
     #   -r requirements/quality.txt
     #   celery
-code-annotations==1.7.0
+code-annotations==1.8.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -161,7 +161,7 @@ edx-lint==5.3.6
     # via -r requirements/quality.txt
 edx-opaque-keys==2.5.1
     # via -r requirements/quality.txt
-edx-toggles==5.1.1
+edx-toggles==5.2.0
     # via -r requirements/quality.txt
 exceptiongroup==1.2.0
     # via
@@ -202,7 +202,7 @@ kombu==5.3.6
     # via
     #   -r requirements/quality.txt
     #   celery
-lxml==5.2.0
+lxml==5.2.1
     # via
     #   -r requirements/quality.txt
     #   edx-i18n-tools
@@ -251,7 +251,7 @@ packaging==24.0
     #   pyproject-api
     #   pytest
     #   tox
-path==16.10.0
+path==16.12.1
     # via edx-i18n-tools
 pathspec==0.12.1
     # via
@@ -429,7 +429,7 @@ tomlkit==0.12.4
     #   pylint
 tox==4.14.2
     # via -r requirements/ci.txt
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/quality.txt
     #   asgiref
@@ -462,7 +462,7 @@ wcwidth==0.2.13
     # via
     #   -r requirements/quality.txt
     #   prompt-toolkit
-web-fragments==2.1.0
+web-fragments==2.2.0
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -474,7 +474,7 @@ wheel==0.43.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock==3.0.0
+xblock==3.1.0
     # via -r requirements/quality.txt
 zipp==3.18.1
     # via
