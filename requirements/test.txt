@@ -66,7 +66,7 @@ click-repl==0.3.0
     # via
     #   -r requirements/base.txt
     #   celery
-code-annotations==1.7.0
+code-annotations==1.8.0
     # via
     #   -r requirements/base.txt
     #   -r requirements/test.in
@@ -108,7 +108,7 @@ edx-django-utils==5.12.0
     #   edx-toggles
 edx-opaque-keys==2.5.1
     # via -r requirements/base.txt
-edx-toggles==5.1.1
+edx-toggles==5.2.0
     # via -r requirements/base.txt
 exceptiongroup==1.2.0
     # via pytest
@@ -130,7 +130,7 @@ kombu==5.3.6
     # via
     #   -r requirements/base.txt
     #   celery
-lxml==5.2.0
+lxml==5.2.1
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -257,7 +257,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/base.txt
     #   asgiref
@@ -283,7 +283,7 @@ wcwidth==0.2.13
     # via
     #   -r requirements/base.txt
     #   prompt-toolkit
-web-fragments==2.1.0
+web-fragments==2.2.0
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -291,7 +291,7 @@ webob==1.8.7
     # via
     #   -r requirements/base.txt
     #   xblock
-xblock==3.0.0
+xblock==3.1.0
     # via -r requirements/base.txt
 
 # The following packages are considered to be unsafe in a requirements file:
