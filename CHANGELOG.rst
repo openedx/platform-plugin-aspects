@@ -16,6 +16,14 @@ Unreleased
 
 *
 
+0.6.0 - 2024-04-08
+******************
+
+Added
+=====
+
+* Allow to embed translated Superset Dashboards.
+
 0.5.0 - 2024-04-01
 ******************
 
@@ -23,7 +31,6 @@ Added
 =====
 
 * Load testing and test monitoring scripts.
-
 
 0.4.0 - 2024-03-18
 ******************
@@ -43,6 +50,7 @@ Added
 
 0.3.0 – 2024-03-10
 ******************
+
 Added
 =====
 
@@ -50,6 +58,7 @@ Added
 
 0.2.0 – 2024-03-05
 ******************
+
 Added
 =====
 
