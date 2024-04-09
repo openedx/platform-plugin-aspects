@@ -17,6 +17,9 @@ def plugin_settings(settings):
     settings.SUPERSET_EXTRA_FILTERS_FORMAT = getattr(settings, "ENV_TOKENS", {}).get(
         "SUPERSET_EXTRA_FILTERS_FORMAT", settings.SUPERSET_EXTRA_FILTERS_FORMAT
     )
+    settings.SUPERSET_DASHBOARD_LOCALES = getattr(settings, "ENV_TOKENS", {}).get(
+        "SUPERSET_DASHBOARD_LOCALES", settings.SUPERSET_DASHBOARD_LOCALES
+    )
     settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = settings.ENV_TOKENS.get(
         "EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG",
         settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG,
