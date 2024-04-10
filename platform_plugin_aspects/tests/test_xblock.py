@@ -2,10 +2,12 @@
 """
 Test basic SupersetXBlock display function
 """
+import json
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from opaque_keys.edx.locator import CourseLocator
+from webob import Request
 from xblock.field_data import DictFieldData
 from xblock.reference.user_service import XBlockUser
 
@@ -35,11 +37,21 @@ def make_an_xblock(user_role, **kwargs):
     def local_resource_url(_self, url):
         return url
 
+    def handler_url(_self, handler, *args, **kwargs):
+        """
+        Mock runtime.handlerUrl
+
+        The LMS and CMS runtimes implement handlerUrl, but we have to mock it here.
+        """
+        return f"/{handler}"
+
     runtime = Mock(
         course_id=course_id,
         service=service,
         local_resource_url=Mock(side_effect=local_resource_url),
+        handlerUrl=Mock(side_effect=handler_url),
     )
+
     scope_ids = Mock()
     field_data = DictFieldData(kwargs)
     xblock = SupersetXBlock(runtime, field_data, scope_ids)
@@ -52,21 +64,12 @@ class TestRender(TestCase):
     Test the HTML rendering of the XBlock
     """
 
-    @patch("platform_plugin_aspects.utils.SupersetClient")
-    def test_render_instructor(self, mock_superset_client):
+    def test_render_instructor(self):
         """
         Ensure staff can see the Superset dashboard.
         """
-        mock_superset_client.return_value = Mock(
-            session=Mock(
-                post=Mock(
-                    return_value=Mock(json=Mock(return_value={"token": "test_token"}))
-                )
-            )
-        )
         xblock = make_an_xblock("instructor")
         student_view = xblock.student_view()
-        mock_superset_client.assert_called_once()
         html = student_view.content
         self.assertIsNotNone(html)
         self.assertIn(
@@ -87,14 +90,10 @@ class TestRender(TestCase):
 
     @patch("platform_plugin_aspects.xblock.pkg_resources.resource_exists")
     @patch("platform_plugin_aspects.xblock.translation.get_language")
-    @patch("platform_plugin_aspects.utils._generate_guest_token")
-    def test_render_translations(
-        self, mock_generate_guest_token, mock_get_language, mock_resource_exists
-    ):
+    def test_render_translations(self, mock_get_language, mock_resource_exists):
         """
         Ensure translated javascript is served.
         """
-        mock_generate_guest_token.return_value = ("test-token", "test-dashboard-uuid")
         mock_get_language.return_value = "eo"
         mock_resource_exists.return_value = True
         xblock = make_an_xblock("instructor")
@@ -104,20 +103,34 @@ class TestRender(TestCase):
                 url_resource = resource
         self.assertIsNotNone(url_resource, "No 'url' resource found in fragment")
         self.assertIn("eo/text.js", url_resource.data)
+        mock_get_language.assert_called_once()
+        mock_resource_exists.assert_called_once()
 
     @patch("platform_plugin_aspects.xblock.translation.get_language")
-    @patch("platform_plugin_aspects.utils._generate_guest_token")
     def test_render_no_translations(
         self,
-        mock_generate_guest_token,
         mock_get_language,
     ):
         """
         Ensure translated javascript is served.
         """
-        mock_generate_guest_token.return_value = ("test-token", "test-dashboard-uuid")
         mock_get_language.return_value = None
         xblock = make_an_xblock("instructor")
         student_view = xblock.student_view()
         for resource in student_view.resources:
             assert resource.kind != "url"
+        mock_get_language.assert_called_once()
+
+    @patch("platform_plugin_aspects.xblock.generate_guest_token")
+    def test_guest_token_handler(self, mock_generate_guest_token):
+        mock_generate_guest_token.return_value = ("test-token", "test-dashboard-uuid")
+        request = Request.blank("/")
+        request.method = "POST"
+        request.body = b"{}"
+        xblock = make_an_xblock("instructor")
+        response = xblock.get_superset_guest_token(request)
+
+        assert response.status_code == 200
+        data = json.loads(response.body.decode("utf-8"))
+        assert data.get("guestToken") == "test-token"
+        mock_generate_guest_token.assert_called_once()

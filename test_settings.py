@@ -24,9 +24,28 @@ DATABASES = {
     },
 }
 
-INSTALLED_APPS = ("platform_plugin_aspects",)
+INSTALLED_APPS = (
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "platform_plugin_aspects",
+)
+
+ROOT_URLCONF = 'platform_plugin_aspects.urls'
+
+SECRET_KEY = 'very-insecure-key'
+
+MIDDLEWARE = [
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+]
 
 EVENT_SINK_CLICKHOUSE_MODEL_CONFIG = {
+    "auth_user": {
+        "module": "django.contrib.auth.models",
+        "model": "User",
+    },
     "user_profile": {
         "module": "common.djangoapps.student.models",
         "model": "UserProfile",
@@ -34,6 +53,14 @@ EVENT_SINK_CLICKHOUSE_MODEL_CONFIG = {
     "course_overviews": {
         "module": "openedx.core.djangoapps.content.course_overviews.models",
         "model": "CourseOverview",
+    },
+    "external_id": {
+        "module": "openedx.core.djangoapps.external_user_ids.models",
+        "model": "ExternalId",
+    },
+    "user_preference": {
+        "module": "openedx.core.djangoapps.user_api.models",
+        "model": "UserPreference",
     },
 }
 

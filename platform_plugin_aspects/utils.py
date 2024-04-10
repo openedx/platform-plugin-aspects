@@ -10,6 +10,7 @@ import uuid
 from importlib import import_module
 
 from django.conf import settings
+from django.urls import NoReverseMatch, reverse
 from supersetapiclient.client import SupersetClient
 from xblock.reference.user_service import XBlockUser
 
@@ -26,18 +27,16 @@ def _(text):
     return text
 
 
-def generate_superset_context(  # pylint: disable=dangerous-default-value
+def generate_superset_context(
     context,
-    user,
     dashboards,
-    filters=[],
     language=None,
 ):
     """
     Update context with superset token and dashboard id.
 
     Args:
-        context (dict): the context for the instructor dashboard. It must include a course object
+        context (dict): the context for the instructor dashboard. It must include a course ID
         user (XBlockUser or User): the current user.
         superset_config (dict): superset config.
         dashboards (list): list of superset dashboard uuid.
@@ -49,50 +48,57 @@ def generate_superset_context(  # pylint: disable=dangerous-default-value
 
     if language:
         for dashboard in dashboards:
-            if not dashboard["allow_translations"]:
+            if not dashboard.get("allow_translations"):
                 continue
             dashboard["slug"] = f"{dashboard['slug']}-{language}"
             dashboard["uuid"] = str(get_uuid5(dashboard["uuid"], language))
 
-    superset_token, dashboards = _generate_guest_token(
-        user=user,
-        course=course,
-        superset_config=superset_config,
-        dashboards=dashboards,
-        filters=filters,
-    )
+    superset_url = _fix_service_url(superset_config.get("service_url"))
 
-    if superset_token:
-        superset_url = _fix_service_url(superset_config.get("service_url"))
-        context.update(
-            {
-                "superset_token": superset_token,
-                "superset_dashboards": dashboards,
-                "superset_url": superset_url,
-            }
+    # FIXME -- namespace issue with plugin-registered urls?
+    try:
+        guest_token_url = reverse(
+            "platform_plugin_aspects:superset_guest_token",
+            kwargs={"course_id": course},
         )
-    else:
-        context.update(
-            {
-                "exception": str(dashboards),
-            }
+    except NoReverseMatch:
+        logger.error(
+            "Error reversing platform_plugin_aspects:superset_guest_token, trying without namespace"
         )
+        try:
+            guest_token_url = reverse(
+                "superset_guest_token",
+                kwargs={"course_id": course},
+            )
+            logger.info("Reversing superset_guest_token worked")
+        except NoReverseMatch:
+            logger.critical("Error reversing superset_guest_token, giving up")
+            guest_token_url = ""
+
+    context.update(
+        {
+            "superset_dashboards": dashboards,
+            "superset_url": superset_url,
+            "superset_guest_token_url": guest_token_url,
+        }
+    )
 
     return context
 
 
-def _generate_guest_token(user, course, superset_config, dashboards, filters):
+def generate_guest_token(user, course, dashboards, filters):
     """
     Generate a Superset guest token for the user.
 
     Args:
         user: User object.
-        course: Course object.
+        course: string Course ID
 
     Returns:
         tuple: Superset guest token and dashboard id.
         or None, exception if Superset is missconfigured or cannot generate guest token.
     """
+    superset_config = settings.SUPERSET_CONFIG
     superset_internal_host = _fix_service_url(
         superset_config.get("internal_service_url")
         or superset_config.get("service_url")

@@ -3,7 +3,7 @@ platform_plugin_aspects Django application initialization.
 """
 
 from django.apps import AppConfig
-from edx_django_utils.plugins import PluginSettings, PluginSignals
+from edx_django_utils.plugins import PluginSettings, PluginSignals, PluginURLs
 
 
 class PlatformPluginAspectsConfig(AppConfig):
@@ -14,6 +14,13 @@ class PlatformPluginAspectsConfig(AppConfig):
     name = "platform_plugin_aspects"
 
     plugin_app = {
+        PluginURLs.CONFIG: {
+            "lms.djangoapp": {
+                PluginURLs.NAMESPACE: name,
+                PluginURLs.REGEX: r"^aspects/",
+                PluginURLs.RELATIVE_PATH: "urls",
+            },
+        },
         PluginSettings.CONFIG: {
             "lms.djangoapp": {
                 "production": {PluginSettings.RELATIVE_PATH: "settings.production"},

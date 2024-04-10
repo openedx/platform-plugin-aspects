@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
+import json
 import logging
 
 import pkg_resources
 from django.utils import translation
 from web_fragments.fragment import Fragment
-from xblock.core import XBlock
+from webob import Response
+from xblock.core import JsonHandlerError, XBlock
 from xblock.fields import List, Scope, String
 from xblock.utils.resources import ResourceLoader
 from xblock.utils.studio_editable import StudioEditableXBlockMixin
 
-from .utils import _, generate_superset_context
+from .utils import _, generate_guest_token, generate_superset_context
 
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
@@ -112,11 +114,14 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
 
         context = generate_superset_context(
             context=context,
-            user=user,
             dashboards=self.dashboards(),
-            filters=self.filters,
         )
         context["xblock_id"] = str(self.scope_ids.usage_id.block_id)
+
+        # Use our xblock handler instead of the platform plugin's view.
+        context["superset_guest_token_url"] = self.runtime.handlerUrl(
+            self, "get_superset_guest_token"
+        )
 
         frag = Fragment()
         frag.add_content(self.render_template("static/html/superset.html", context))
@@ -180,3 +185,33 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
             ):
                 return text_js.format(locale_code=code)
         return None
+
+    @XBlock.json_handler
+    def get_superset_guest_token(
+        self, request_body, suffix=""
+    ):  # pylint: disable=unused-argument
+        """Return a guest token for Superset."""
+        user_service = self.runtime.service(self, "user")
+        user = user_service.get_current_user()
+
+        guest_token, exception = generate_guest_token(
+            user=user,
+            course=self.runtime.course_id,
+            dashboards=self.dashboards(),
+            filters=self.filters,
+        )
+
+        if not guest_token:
+            raise JsonHandlerError(
+                500,
+                _(
+                    "Unable to fetch Superset guest token, "
+                    "mostly likely due to invalid settings.SUPERSET_CONFIG: {exception}"
+                ).format(exception=exception),
+            )
+
+        return Response(
+            json.dumps({"guestToken": guest_token}),
+            content_type="application/json",
+            charset="UTF-8",
+        )

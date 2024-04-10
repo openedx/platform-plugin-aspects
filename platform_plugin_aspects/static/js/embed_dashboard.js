@@ -1,11 +1,24 @@
-function embedDashboard(dashboard_uuid, superset_url, superset_token, xblock_id) {
+function embedDashboard(dashboard_uuid, superset_url, guest_token_url, xblock_id) {
   xblock_id = xblock_id || "";
+
+  async fetchGuestToken() {
+    // Fetch the guest token from your backend
+    const response = await fetch(guest_token_url, {
+      method: 'POST',
+      body: JSON.stringify({
+        // TODO csrf_token: csrf_token,
+      })
+    });
+    const data = await response.json();
+    return data.guestToken;
+  }
+
   window.supersetEmbeddedSdk
     .embedDashboard({
       id: dashboard_uuid, // given by the Superset embedding UI
       supersetDomain: superset_url, // your Superset instance
       mountPoint: document.getElementById(`superset-embedded-container-${xblock_id}`), // any html element that can contain an iframe
-      fetchGuestToken: () => superset_token, // function that returns a Promise with the guest token
+      fetchGuestToken: fetchGuestToken,
       dashboardUiConfig: {
         // dashboard UI config: hideTitle, hideTab, hideChartControls, filters.visible, filters.expanded (optional)
         hideTitle: true,
@@ -28,6 +41,6 @@ function embedDashboard(dashboard_uuid, superset_url, superset_token, xblock_id)
 
 if (window.superset_dashboards !== undefined) {
   window.superset_dashboards.forEach(function(dashboard) {
-    embedDashboard(dashboard.uuid, window.superset_url, window.superset_token, dashboard.uuid);
+    embedDashboard(dashboard.uuid, window.superset_url, window.superset_guest_token_url);
   });
 }
