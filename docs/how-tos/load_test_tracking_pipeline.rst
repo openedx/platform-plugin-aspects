@@ -1,3 +1,5 @@
+.. _load-test-tracking-event-pipelines:
+
 Load Testing Tracking Event Pipelines
 #####################################
 
