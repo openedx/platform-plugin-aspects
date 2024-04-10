@@ -2,6 +2,8 @@
 Signal handler functions, mapped to specific signals in apps.py.
 """
 
+# FIXME TODO TEMPORARY WORKAROUND
+# pylint: disable=unused-import
 from django.db.models.signals import post_save
 from django.dispatch import Signal, receiver
 
@@ -33,7 +35,9 @@ def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cov
     dump_course_to_clickhouse.delay(str(course_key))
 
 
-@receiver(post_save, sender=get_model("user_profile"))
+# FIXME TODO TEMPORARY WORKAROUND
+# kombu.exceptions.OperationalError: [Errno 111] Connection refused
+# @receiver(post_save, sender=get_model("user_profile"))
 def on_user_profile_updated(  # pylint: disable=unused-argument  # pragma: no cover
     sender, instance, **kwargs
 ):
@@ -53,7 +57,9 @@ def on_user_profile_updated(  # pylint: disable=unused-argument  # pragma: no co
     )
 
 
-@receiver(post_save, sender=get_model("external_id"))
+# FIXME TODO TEMPORARY WORKAROUND
+# kombu.exceptions.OperationalError: [Errno 111] Connection refused
+# @receiver(post_save, sender=get_model("external_id"))
 def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover
     sender, instance, **kwargs
 ):
@@ -73,7 +79,9 @@ def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover
     )
 
 
-@receiver(USER_RETIRE_LMS_MISC)
+# FIXME TODO TEMPORARY WORKAROUND
+# kombu.exceptions.OperationalError: [Errno 111] Connection refused
+# @receiver(USER_RETIRE_LMS_MISC)
 def on_user_retirement(  # pylint: disable=unused-argument  # pragma: no cover
     sender, user, **kwargs
 ):
