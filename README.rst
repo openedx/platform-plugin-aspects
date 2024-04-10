@@ -41,12 +41,16 @@ In addition to being an event listener, this package provides the following comm
   Do not use this command in production as it will generate a large amount of data
   and will slow down the system.
 
+  See `Load Test Tracking Pipeline`_ for more details.
+
     ``python manage.py cms load_test_tracking_events``
 
 - `monitor_load_test_tracking` - Monitors the load test tracking script and saves
   output for later analysis.
 
     ``python manage.py cms monitor_load_test_tracking``
+
+    See `Load Test Tracking Pipeline`_ for more details.
 
 Instructor Dashboard Integration
 ================================
@@ -226,3 +230,4 @@ Please do not report security issues in public. Please email security@openedx.or
 .. _Aspects: https://docs.openedx.org/projects/openedx-aspects/en/latest/index.html
 .. _Superset Embedded SDK: https://www.npmjs.com/package/@superset-ui/embedded-sdk
 .. _Open edX Filters: https://docs.openedx.org/projects/openedx-filters/en/latest/
+.. _Load Test Tracking Pipeline: https://docs.openedx.org/projects/platform-plugin-aspects/en/latest/how-tos/load_test_tracking_pipeline.html
