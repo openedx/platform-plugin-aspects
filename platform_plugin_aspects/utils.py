@@ -28,6 +28,7 @@ def _(text):
 
 
 def generate_superset_context(
+    course,
     context,
     dashboards,
     language=None,
@@ -43,7 +44,6 @@ def generate_superset_context(
         filters (list): list of filters to apply to the dashboard.
         language (str): the language code of the end user.
     """
-    course = context["course"]
     superset_config = settings.SUPERSET_CONFIG
 
     if language:
@@ -55,25 +55,10 @@ def generate_superset_context(
 
     superset_url = _fix_service_url(superset_config.get("service_url"))
 
-    # FIXME -- namespace issue with plugin-registered urls?
-    try:
-        guest_token_url = reverse(
-            "platform_plugin_aspects:superset_guest_token",
-            kwargs={"course_id": course},
-        )
-    except NoReverseMatch:
-        logger.error(
-            "Error reversing platform_plugin_aspects:superset_guest_token, trying without namespace"
-        )
-        try:
-            guest_token_url = reverse(
-                "superset_guest_token",
-                kwargs={"course_id": course},
-            )
-            logger.info("Reversing superset_guest_token worked")
-        except NoReverseMatch:
-            logger.critical("Error reversing superset_guest_token, giving up")
-            guest_token_url = ""
+    guest_token_url = reverse(
+        "platform_plugin_aspects:superset_guest_token",
+        kwargs={"course_id": str(course)},
+    )
 
     context.update(
         {

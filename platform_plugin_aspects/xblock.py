@@ -113,6 +113,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
             return frag
 
         context = generate_superset_context(
+            course=self.runtime.course_id,
             context=context,
             dashboards=self.dashboards(),
         )
