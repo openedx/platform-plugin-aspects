@@ -89,7 +89,8 @@ selfcheck: ## check that the Makefile is well-formed
 
 extract_translations: ## extract strings to be translated, outputting .mo files
 	rm -rf docs/_build
-	cd platform_plugin_aspects && i18n_tool extract --no-segment
+	cd platform_plugin_aspects && django-admin makemessages -l en -v1 -d django
+	cd platform_plugin_aspects && django-admin makemessages -l en -v1 -d djangojs
 
 compile_translations: ## compile translation files, outputting .po files for each supported language
 	cd platform_plugin_aspects && i18n_tool generate
