@@ -14,7 +14,7 @@ app_name = "platform_plugin_aspects"
 urlpatterns = [
     re_path(
         rf"superset_guest_token/{COURSE_ID_PATTERN}/?$",
-        views.superset_guest_token,
+        views.SupersetView.as_view(),
         name="superset_guest_token",
     ),
 ]

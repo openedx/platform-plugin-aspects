@@ -92,7 +92,9 @@ def generate_guest_token(user, course, dashboards, filters):
 
     Args:
         user: User object.
-        course: string Course ID
+        course: Course object, used to populate `filters` template strings.
+        dashboards: list of dashboard UUIDs to grant access to.
+        filters: list of string filters to apply.
 
     Returns:
         tuple: Superset guest token and dashboard id.

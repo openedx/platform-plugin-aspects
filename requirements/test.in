@@ -9,4 +9,3 @@ code-annotations          # provides commands used by the pii_check make target.
 responses                 # mocks for the requests library
 ddt
 django-mock-queries
-xblock-sdk                # for testing XBlock handlers
