@@ -15,7 +15,6 @@ from rest_framework.response import Response
 
 from .utils import _, generate_guest_token, get_model
 
-
 try:
     from openedx.core.lib.api.permissions import IsCourseStaffInstructor
 except ImportError:
