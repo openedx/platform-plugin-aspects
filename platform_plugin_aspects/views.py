@@ -8,8 +8,9 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
-from rest_framework import exceptions, permissions
+from rest_framework import permissions
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.exceptions import APIException, NotFound
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
@@ -68,19 +69,23 @@ class SupersetView(GenericAPIView):
         try:
             course_key = CourseKey.from_string(course_id)
         except InvalidKeyError as exc:
-            raise exceptions.NotFound(
+            raise NotFound(
                 _("Invalid course id: '{course_id}'").format(course_id=course_id)
             ) from exc
 
         # Fetch the CourseOverview (if we're running in edx-platform)
+        display_name = ""
         CourseOverview = get_model("course_overviews")
         if CourseOverview:
-            course_overview = CourseOverview.objects.get(id=course_key)
-            course = Course(
-                course_id=course_key, display_name=course_overview.display_name
-            )
-        else:
-            course = Course(course_id=course_key, display_name="")
+            try:
+                course_overview = CourseOverview.objects.get(id=course_key)
+                display_name = course_overview.display_name
+            except CourseOverview.DoesNotExist as exc:
+                raise NotFound(
+                    _("Course not found: '{course_id}'").format(course_id=course_id)
+                ) from exc
+
+        course = Course(course_id=course_key, display_name=display_name)
 
         # May raise a permission denied
         self.check_object_permissions(self.request, course)
@@ -101,19 +106,14 @@ class SupersetView(GenericAPIView):
         dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS
         extra_filters_format = settings.SUPERSET_EXTRA_FILTERS_FORMAT
 
-        guest_token, exception = generate_guest_token(
-            user=request.user,
-            course=course,
-            dashboards=dashboards,
-            filters=built_in_filters + extra_filters_format,
-        )
-
-        if not guest_token:
-            raise ImproperlyConfigured(
-                _(
-                    "Unable to fetch Superset guest token, "
-                    "mostly likely due to invalid settings.SUPERSET_CONFIG: {exception}"
-                ).format(exception=exception)
+        try:
+            guest_token = generate_guest_token(
+                user=request.user,
+                course=course,
+                dashboards=dashboards,
+                filters=built_in_filters + extra_filters_format,
             )
+        except ImproperlyConfigured as exc:
+            raise APIException() from exc
 
         return Response({"guestToken": guest_token})

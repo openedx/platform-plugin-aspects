@@ -5,6 +5,7 @@ Test utils.
 from unittest.mock import Mock, patch
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
 from platform_plugin_aspects.utils import (
@@ -144,16 +145,15 @@ class TestUtils(TestCase):
         user_mock = Mock()
         mock_superset_client.side_effect = Exception("test-exception")
 
-        token, exception = generate_guest_token(
-            user=user_mock,
-            course=COURSE_ID,
-            dashboards=[{"name": "test", "uuid": "test-dashboard-uuid"}],
-            filters=[filter_mock],
-        )
+        with self.assertRaises(ImproperlyConfigured):
+            generate_guest_token(
+                user=user_mock,
+                course=COURSE_ID,
+                dashboards=[{"name": "test", "uuid": "test-dashboard-uuid"}],
+                filters=[filter_mock],
+            )
 
         mock_superset_client.assert_called_once()
-        self.assertIsNone(token)
-        self.assertEqual(str(exception), "test-exception")
 
     @patch.object(
         settings,
@@ -180,7 +180,7 @@ class TestUtils(TestCase):
         user_mock = Mock()
         dashboards = [{"name": "test", "uuid": "test-dashboard-uuid"}]
 
-        token, _errors = generate_guest_token(
+        token = generate_guest_token(
             user=user_mock,
             course=COURSE_ID,
             dashboards=dashboards,

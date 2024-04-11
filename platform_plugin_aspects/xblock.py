@@ -6,6 +6,7 @@ import json
 import logging
 
 import pkg_resources
+from django.core.exceptions import ImproperlyConfigured
 from django.utils import translation
 from web_fragments.fragment import Fragment
 from webob import Response
@@ -194,21 +195,15 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         user_service = self.runtime.service(self, "user")
         user = user_service.get_current_user()
 
-        guest_token, exception = generate_guest_token(
-            user=user,
-            course=self.runtime.course_id,
-            dashboards=self.dashboards(),
-            filters=self.filters,
-        )
-
-        if not guest_token:
-            raise JsonHandlerError(
-                500,
-                _(
-                    "Unable to fetch Superset guest token, "
-                    "mostly likely due to invalid settings.SUPERSET_CONFIG: {exception}"
-                ).format(exception=exception),
+        try:
+            guest_token = generate_guest_token(
+                user=user,
+                course=self.runtime.course_id,
+                dashboards=self.dashboards(),
+                filters=self.filters,
             )
+        except ImproperlyConfigured as exc:
+            raise JsonHandlerError(500, str(exc)) from exc
 
         return Response(
             json.dumps({"guestToken": guest_token}),

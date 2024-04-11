@@ -10,6 +10,7 @@ import uuid
 from importlib import import_module
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import NoReverseMatch, reverse
 from supersetapiclient.client import SupersetClient
 from xblock.reference.user_service import XBlockUser
@@ -31,7 +32,7 @@ def generate_superset_context(
     context,
     dashboards,
     language=None,
-):
+) -> dict:
     """
     Update context with superset token and dashboard id.
 
@@ -86,9 +87,11 @@ def generate_superset_context(
     return context
 
 
-def generate_guest_token(user, course, dashboards, filters):
+def generate_guest_token(user, course, dashboards, filters) -> str:
     """
-    Generate a Superset guest token for the user.
+    Generate and return a Superset guest token for the user.
+
+    Raise ImproperlyConfigured if the Superset API client request fails for any reason.
 
     Args:
         user: User object.
@@ -108,16 +111,6 @@ def generate_guest_token(user, course, dashboards, filters):
     superset_username = superset_config.get("username")
     superset_password = superset_config.get("password")
 
-    try:
-        client = SupersetClient(
-            host=superset_internal_host,
-            username=superset_username,
-            password=superset_password,
-        )
-    except Exception as exc:  # pylint: disable=broad-except
-        logger.error(exc)
-        return None, exc
-
     formatted_filters = [filter.format(course=course, user=user) for filter in filters]
 
     data = {
@@ -129,6 +122,12 @@ def generate_guest_token(user, course, dashboards, filters):
     }
 
     try:
+        client = SupersetClient(
+            host=superset_internal_host,
+            username=superset_username,
+            password=superset_password,
+        )
+
         logger.info(f"Requesting guest token from Superset, {data}")
         response = client.session.post(
             url=f"{superset_internal_host}api/v1/security/guest_token/",
@@ -138,10 +137,16 @@ def generate_guest_token(user, course, dashboards, filters):
         response.raise_for_status()
         token = response.json()["token"]
 
-        return token, dashboards
-    except Exception as exc:  # pylint: disable=broad-except
+        return token
+
+    except Exception as exc:
         logger.error(exc)
-        return None, exc
+        raise ImproperlyConfigured(
+            _(
+                "Unable to fetch Superset guest token, "
+                "mostly likely due to invalid settings.SUPERSET_CONFIG"
+            )
+        ) from exc
 
 
 def _fix_service_url(url: str) -> str:

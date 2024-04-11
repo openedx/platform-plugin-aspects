@@ -31,13 +31,13 @@ INSTALLED_APPS = (
     "platform_plugin_aspects",
 )
 
-ROOT_URLCONF = 'platform_plugin_aspects.urls'
+ROOT_URLCONF = "platform_plugin_aspects.urls"
 
-SECRET_KEY = 'very-insecure-key'
+SECRET_KEY = "very-insecure-key"
 
 MIDDLEWARE = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
 ]
 
 EVENT_SINK_CLICKHOUSE_MODEL_CONFIG = {
