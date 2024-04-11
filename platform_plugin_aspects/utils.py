@@ -11,7 +11,7 @@ from importlib import import_module
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.urls import NoReverseMatch, reverse
+from django.urls import reverse
 from supersetapiclient.client import SupersetClient
 from xblock.reference.user_service import XBlockUser
 
@@ -56,25 +56,10 @@ def generate_superset_context(
 
     superset_url = _fix_service_url(superset_config.get("service_url"))
 
-    # FIXME -- namespace issue with plugin-registered urls?
-    try:
-        guest_token_url = reverse(
-            "platform_plugin_aspects:superset_guest_token",
-            kwargs={"course_id": course},
-        )
-    except NoReverseMatch:
-        logger.error(
-            "Error reversing platform_plugin_aspects:superset_guest_token, trying without namespace"
-        )
-        try:
-            guest_token_url = reverse(
-                "superset_guest_token",
-                kwargs={"course_id": course},
-            )
-            logger.info("Reversing superset_guest_token worked")
-        except NoReverseMatch:
-            logger.critical("Error reversing superset_guest_token, giving up")
-            guest_token_url = ""
+    guest_token_url = reverse(
+        "platform_plugin_aspects:superset_guest_token",
+        kwargs={"course_id": course},
+    )
 
     context.update(
         {

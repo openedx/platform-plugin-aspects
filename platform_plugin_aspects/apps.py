@@ -16,7 +16,7 @@ class PlatformPluginAspectsConfig(AppConfig):
     plugin_app = {
         PluginURLs.CONFIG: {
             "lms.djangoapp": {
-                PluginURLs.NAMESPACE: name,
+                PluginURLs.NAMESPACE: "",
                 PluginURLs.REGEX: r"^aspects/",
                 PluginURLs.RELATIVE_PATH: "urls",
             },

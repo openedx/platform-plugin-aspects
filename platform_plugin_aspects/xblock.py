@@ -10,7 +10,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils import translation
 from web_fragments.fragment import Fragment
 from webob import Response
-from xblock.core import JsonHandlerError, XBlock
+from xblock.core import XBlock
+from xblock.exceptions import JsonHandlerError
 from xblock.fields import List, Scope, String
 from xblock.utils.resources import ResourceLoader
 from xblock.utils.studio_editable import StudioEditableXBlockMixin

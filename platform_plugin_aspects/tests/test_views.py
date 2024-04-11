@@ -8,7 +8,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.test import TestCase
-from django.urls import reverse
 from opaque_keys.edx.keys import CourseKey
 from rest_framework.test import APIClient
 
@@ -29,10 +28,7 @@ class ViewsTestCase(TestCase):
         """
         super().setUp()
         self.client = APIClient()
-        self.superset_guest_token_url = reverse(
-            "superset_guest_token",
-            kwargs={"course_id": COURSE_ID},
-        )
+        self.superset_guest_token_url = f"/superset_guest_token/{COURSE_ID}"
         self.user = User.objects.create(
             username="user",
             email="user@example.com",
@@ -50,10 +46,7 @@ class ViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_guest_token_invalid_course_id(self):
-        superset_guest_token_url = reverse(
-            "superset_guest_token",
-            kwargs={"course_id": "block-v1:org+course+run"},
-        )
+        superset_guest_token_url = "/superset_guest_token/block-v1:org+course+run"
         self.client.login(username="user", password="password")
         response = self.client.post(superset_guest_token_url)
         self.assertEqual(response.status_code, 404)
