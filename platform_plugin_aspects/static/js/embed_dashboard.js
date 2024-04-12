@@ -16,7 +16,7 @@ function getCookie(name) {
 
 async function fetchGuestToken() {
   const response = await fetch(superset_guest_token_url, {
-    method: 'POST',
+    method: 'GET',
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),
     }

@@ -6,6 +6,8 @@ from collections import namedtuple
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from rest_framework import permissions
@@ -76,7 +78,7 @@ class SupersetView(GenericAPIView):
         """
         Only POST is allowed for this view.
         """
-        return ["post", "options", "head"]
+        return ["get", "options", "head"]
 
     def get_object(self):
         """
@@ -109,7 +111,8 @@ class SupersetView(GenericAPIView):
 
         return course
 
-    def post(self, request, *args, **kwargs):
+    @method_decorator(cache_page(60 * 5))
+    def get(self, request, *args, **kwargs):
         """
         Return a guest token for accessing the Superset API.
         """
