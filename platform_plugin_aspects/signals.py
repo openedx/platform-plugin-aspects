@@ -56,7 +56,7 @@ def on_user_profile_updated(  # pylint: disable=unused-argument  # pragma: no co
 # (prevents celery errors during tests)
 _user_profile = get_model("user_profile")
 if _user_profile:
-    post_save.connect(on_user_profile_updated, sender=_user_profile)
+    post_save.connect(on_user_profile_updated, sender=_user_profile)  # pragma: no cover
 
 
 def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover
@@ -82,7 +82,7 @@ def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover
 # (prevents celery errors during tests)
 _external_id = get_model("external_id")
 if _external_id:
-    post_save.connect(on_externalid_saved, sender=_external_id)
+    post_save.connect(on_externalid_saved, sender=_external_id)  # pragma: no cover
 
 
 @receiver(USER_RETIRE_LMS_MISC)

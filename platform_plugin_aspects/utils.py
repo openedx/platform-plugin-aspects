@@ -8,10 +8,12 @@ import logging
 import os
 import uuid
 from importlib import import_module
+from urllib.parse import urljoin
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
+from requests.exceptions import HTTPError
 from supersetapiclient.client import SupersetClient
 from xblock.reference.user_service import XBlockUser
 
@@ -37,14 +39,14 @@ def generate_superset_context(
     Update context with superset token and dashboard id.
 
     Args:
-        context (dict): the context for the instructor dashboard. It must include a course ID
+        context (dict): the context for the instructor dashboard. It must include a course_id.
         user (XBlockUser or User): the current user.
         superset_config (dict): superset config.
         dashboards (list): list of superset dashboard uuid.
         filters (list): list of filters to apply to the dashboard.
         language (str): the language code of the end user.
     """
-    course = context["course"]
+    course_id = context["course_id"]
     superset_config = settings.SUPERSET_CONFIG
 
     if language:
@@ -56,9 +58,13 @@ def generate_superset_context(
 
     superset_url = _fix_service_url(superset_config.get("service_url"))
 
-    guest_token_url = reverse(
-        "platform_plugin_aspects:superset_guest_token",
-        kwargs={"course_id": course},
+    # Use an absolute LMS URL here, just in case we're being rendered in an MFE.
+    guest_token_url = urljoin(
+        settings.LMS_ROOT_URL,
+        reverse(
+            "platform_plugin_aspects:superset_guest_token",
+            kwargs={"course_id": course_id},
+        ),
     )
 
     context.update(
@@ -112,17 +118,26 @@ def generate_guest_token(user, course, dashboards, filters) -> str:
             username=superset_username,
             password=superset_password,
         )
-
-        logger.info(f"Requesting guest token from Superset, {data}")
         response = client.session.post(
             url=f"{superset_internal_host}api/v1/security/guest_token/",
             json=data,
             headers={"Content-Type": "application/json"},
         )
         response.raise_for_status()
-        token = response.json()["token"]
-
+        token = response.json().get("token")
         return token
+
+    except HTTPError as err:
+        # Superset server errors sometimes come with messages, so log the response.
+        logger.error(
+            f"{err.response.status_code} {err.response.json()} for url: {err.response.url}, data: {data}"
+        )
+        raise ImproperlyConfigured(
+            _(
+                "Unable to fetch Superset guest token, "
+                "Superset server error {server_response}"
+            ).format(server_response=err.response.json())
+        ) from err
 
     except Exception as exc:
         logger.error(exc)

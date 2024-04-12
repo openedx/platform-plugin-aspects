@@ -2,7 +2,7 @@
 function SupersetXBlock(runtime, element, context) {
   const dashboard_uuid = context.dashboard_uuid;
   const superset_url = context.superset_url;
-  const superset_guest_token_url = context.superset_guest_token_url;
+  const superset_guest_token_url = runtime.handlerUrl(element, 'get_superset_guest_token');
   const xblock_id = context.xblock_id
 
   function initSuperset(supersetEmbeddedSdk) {

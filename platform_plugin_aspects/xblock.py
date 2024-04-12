@@ -101,7 +101,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         context = context or {}
         context.update(
             {
-                "course": self.runtime.course_id,
+                "course_id": self.runtime.course_id,
                 "display_name": self.display_name,
             }
         )
@@ -120,10 +120,9 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         )
         context["xblock_id"] = str(self.scope_ids.usage_id.block_id)
 
-        # Use our xblock handler instead of the platform plugin's view.
-        context["superset_guest_token_url"] = self.runtime.handlerUrl(
-            self, "get_superset_guest_token"
-        )
+        # Remove this URL from the context to avoid confusion.
+        # Our XBlock handler URL will be used instead, provided in superset.js
+        del context["superset_guest_token_url"]
 
         frag = Fragment()
         frag.add_content(self.render_template("static/html/superset.html", context))
