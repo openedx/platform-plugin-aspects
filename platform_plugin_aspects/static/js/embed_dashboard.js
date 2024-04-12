@@ -1,37 +1,39 @@
-function embedDashboard(dashboard_uuid, superset_url, guest_token_url, xblock_id) {
-  xblock_id = xblock_id || "";
-
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== "") {
-      const cookies = document.cookie.split(";");
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        // Does this cookie string begin with the name we want?
-        if (cookie.substring(0, name.length + 1) === name + "=") {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
       }
     }
-    return cookieValue;
+  }
+  return cookieValue;
+}
+
+async function fetchGuestToken() {
+  const response = await fetch(superset_guest_token_url, {
+    method: 'POST',
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+    }
+  });
+
+  if (!response.ok) {
+    console.error(await response.json());
+    // TODO: Handle error
+    return null;
   }
 
-  async function fetchGuestToken() {
-    return fetch(guest_token_url, {
-      method: 'POST',
-      headers: {
-        "X-CSRFToken": getCookie('csrftoken'),
-      },
-    }).then(response => {
-        if (response.ok) {
-          const data = response.json();
-          return data.guestToken;
-        } else {
-          console.error(response);
-        }
-    });
-  }
+  const data = await response.json();
+  return data.guestToken;
+}
+
+function embedDashboard(dashboard_uuid, superset_url, xblock_id) {
+  xblock_id = xblock_id || "";
 
   window.supersetEmbeddedSdk
     .embedDashboard({
@@ -61,6 +63,6 @@ function embedDashboard(dashboard_uuid, superset_url, guest_token_url, xblock_id
 
 if (window.superset_dashboards !== undefined) {
   window.superset_dashboards.forEach(function(dashboard) {
-    embedDashboard(dashboard.uuid, window.superset_url, window.superset_guest_token_url, dashboard.uuid);
+    embedDashboard(dashboard.uuid, window.superset_url, dashboard.uuid);
   });
 }
