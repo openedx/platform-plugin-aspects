@@ -16,6 +16,14 @@ Unreleased
 
 *
 
+0.7.0 - 2024-04-12
+******************
+
+Added
+=====
+
+* Add endpoint for fetchGuestToken
+
 0.6.0 - 2024-04-08
 ******************
 
