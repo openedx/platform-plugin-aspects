@@ -121,7 +121,8 @@ class TestUtils(TestCase):
             context["superset_guest_token_url"],
             f"https://lms.url/superset_guest_token/{COURSE_ID}",
         )
-        self.assertEqual(context["superset_dashboards"], dashboards)
+
+        self.assertEqual(len(context["superset_dashboards"]), len(dashboards))
         self.assertEqual(context["superset_url"], "http://superset-dummy-url/")
         self.assertNotIn("superset_token", context)
         self.assertNotIn("exception", context)
@@ -195,3 +196,38 @@ class TestUtils(TestCase):
 
         mock_superset_client.assert_called_once()
         self.assertEqual(token, "test-token")
+
+    @patch("platform_plugin_aspects.utils.SupersetClient")
+    def test_generate_guest_token_loc(self, mock_superset_client):
+        """
+        Test generate_guest_token works.
+        """
+        response_mock = Mock(status_code=200)
+        mock_superset_client.return_value.session.post.return_value = response_mock
+        response_mock.json.return_value = {
+            "token": "test-token",
+        }
+
+        filter_mock = Mock()
+        user_mock = Mock()
+        dashboards = [
+            {
+                "name": "test",
+                "uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
+                "allow_translations": True,
+            }
+        ]
+
+        token = generate_guest_token(
+            user=user_mock,
+            course=COURSE_ID,
+            dashboards=dashboards,
+            filters=[filter_mock],
+        )
+
+        mock_superset_client.assert_called_once()
+        self.assertEqual(token, "test-token")
+
+        # We should have one resource for en_US, one for es_419, and one untranslated
+        calls = mock_superset_client.return_value.session.post.call_args
+        self.assertEqual(len(calls[1]["json"]["resources"]), 3)

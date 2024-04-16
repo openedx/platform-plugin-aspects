@@ -55,7 +55,7 @@ class AddSupersetTab(PipelineStep):
         section_data = {
             "fragment": frag,
             "section_key": BLOCK_CATEGORY,
-            "section_display_name": _("Analytics"),
+            "section_display_name": _("Reports"),
             "course_id": str(context.get("course_id")),
             "superset_guest_token_url": str(context.get("superset_guest_token_url")),
             "superset_url": str(context.get("superset_url")),

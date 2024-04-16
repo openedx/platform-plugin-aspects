@@ -42,7 +42,7 @@ class TestFilters(TestCase):
             {
                 "course_id": self.course_id,
                 "section_key": BLOCK_CATEGORY,
-                "section_display_name": "Analytics",
+                "section_display_name": "Reports",
                 "superset_url": "http://superset-dummy-url/",
                 "superset_guest_token_url": f"https://lms.url/superset_guest_token/{self.course_id}",
                 "template_path_prefix": "/instructor_dashboard/",
@@ -70,7 +70,7 @@ class TestFilters(TestCase):
             {
                 "course_id": self.course_id,
                 "section_key": BLOCK_CATEGORY,
-                "section_display_name": "Analytics",
+                "section_display_name": "Reports",
                 "superset_url": "http://superset-dummy-url/",
                 "superset_guest_token_url": f"https://lms.url/superset_guest_token/{self.course_id}",
                 "template_path_prefix": "/instructor_dashboard/",

@@ -29,7 +29,7 @@
     {% endif %}
 
     <script type="text/javascript">
-        window.superset_dashboards = {{superset_dashboards | safe }};
+        window.superset_dashboards = {{superset_dashboards_json | safe }};
         window.superset_url = "{{superset_url}}";
         window.superset_guest_token_url = "{{superset_guest_token_url}}";
     </script>
