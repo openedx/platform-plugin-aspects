@@ -14,12 +14,6 @@ from platform_plugin_aspects.utils import _, generate_superset_context, get_mode
 TEMPLATE_ABSOLUTE_PATH = "/instructor_dashboard/"
 BLOCK_CATEGORY = "aspects"
 
-ASPECTS_SECURITY_FILTERS_FORMAT = [
-    "org = '{course.org}'",
-    "course_name = '{course.display_name}'",
-    "course_run = '{course.id.run}'",
-]
-
 
 class AddSupersetTab(PipelineStep):
     """
@@ -36,9 +30,6 @@ class AddSupersetTab(PipelineStep):
         """
         course = context["course"]
         dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS
-        extra_filters_format = settings.SUPERSET_EXTRA_FILTERS_FORMAT
-
-        filters = ASPECTS_SECURITY_FILTERS_FORMAT + extra_filters_format
 
         user = get_current_user()
 
@@ -49,11 +40,10 @@ class AddSupersetTab(PipelineStep):
         if formatted_language not in settings.SUPERSET_DASHBOARD_LOCALES:
             formatted_language = "en_US"
 
+        context["course_id"] = course.id
         context = generate_superset_context(
             context,
-            user,
             dashboards=dashboards,
-            filters=filters,
             language=formatted_language,
         )
 
@@ -66,7 +56,8 @@ class AddSupersetTab(PipelineStep):
             "fragment": frag,
             "section_key": BLOCK_CATEGORY,
             "section_display_name": _("Analytics"),
-            "course_id": str(course.id),
+            "course_id": str(context.get("course_id")),
+            "superset_guest_token_url": str(context.get("superset_guest_token_url")),
             "superset_url": str(context.get("superset_url")),
             "template_path_prefix": TEMPLATE_ABSOLUTE_PATH,
         }

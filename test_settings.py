@@ -24,7 +24,28 @@ DATABASES = {
     },
 }
 
-INSTALLED_APPS = ("platform_plugin_aspects",)
+INSTALLED_APPS = (
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "platform_plugin_aspects",
+)
+
+# Disable caching in tests.
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
+ROOT_URLCONF = "platform_plugin_aspects.urls"
+
+SECRET_KEY = "very-insecure-key"
+
+MIDDLEWARE = [
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+]
 
 EVENT_SINK_CLICKHOUSE_MODEL_CONFIG = {
     "user_profile": {
@@ -42,6 +63,8 @@ EVENT_SINK_CLICKHOUSE_COURSE_OVERVIEWS_ENABLED = True
 FEATURES = {
     "CUSTOM_COURSES_EDX": True,
 }
+
+LMS_ROOT_URL = "https://lms.url"
 
 DEBUG = True
 
@@ -61,18 +84,12 @@ TEMPLATES = [
 SUPERSET_EXTRA_FILTERS_FORMAT = []
 
 SUPERSET_CONFIG = {
-    "internal_service_url": "http://superset:8088",
-    "service_url": "http://dummy-superset-url",
+    "internal_service_url": "http://superset:8088/",
+    "service_url": "http://superset-dummy-url",
     "username": "superset",
     "password": "superset",
 }
 
-SUPERSET_CONFIG = {
-    "internal_service_url": "http://superset:8088",
-    "service_url": "http://superset.local.overhang.io",
-    "username": "superset",
-    "password": "superset",
-}
 ASPECTS_INSTRUCTOR_DASHBOARDS = [
     {
         "name": "Instructor Dashboard",
@@ -81,6 +98,7 @@ ASPECTS_INSTRUCTOR_DASHBOARDS = [
         "allow_translations": True,
     }
 ]
+
 EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = {
     "url": "https://foo.bar",
     "username": "bob",

@@ -33,7 +33,6 @@ def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cov
     dump_course_to_clickhouse.delay(str(course_key))
 
 
-@receiver(post_save, sender=get_model("user_profile"))
 def on_user_profile_updated(  # pylint: disable=unused-argument  # pragma: no cover
     sender, instance, **kwargs
 ):
@@ -53,7 +52,13 @@ def on_user_profile_updated(  # pylint: disable=unused-argument  # pragma: no co
     )
 
 
-@receiver(post_save, sender=get_model("external_id"))
+# Connect the UserProfile.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_user_profile = get_model("user_profile")
+if _user_profile:
+    post_save.connect(on_user_profile_updated, sender=_user_profile)  # pragma: no cover
+
+
 def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover
     sender, instance, **kwargs
 ):
@@ -71,6 +76,13 @@ def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover
         sink_name=sink.__class__.__name__,
         object_id=str(instance.id),
     )
+
+
+# Connect the ExternalId.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_external_id = get_model("external_id")
+if _external_id:
+    post_save.connect(on_externalid_saved, sender=_external_id)  # pragma: no cover
 
 
 @receiver(USER_RETIRE_LMS_MISC)

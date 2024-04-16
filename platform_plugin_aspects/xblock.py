@@ -2,17 +2,21 @@
 
 from __future__ import annotations
 
+import json
 import logging
 
 import pkg_resources
+from django.core.exceptions import ImproperlyConfigured
 from django.utils import translation
 from web_fragments.fragment import Fragment
+from webob import Response
 from xblock.core import XBlock
+from xblock.exceptions import JsonHandlerError
 from xblock.fields import List, Scope, String
 from xblock.utils.resources import ResourceLoader
 from xblock.utils.studio_editable import StudioEditableXBlockMixin
 
-from .utils import _, generate_superset_context
+from .utils import _, generate_guest_token, generate_superset_context
 
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
@@ -97,7 +101,7 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         context = context or {}
         context.update(
             {
-                "course": self.runtime.course_id,
+                "course_id": self.runtime.course_id,
                 "display_name": self.display_name,
             }
         )
@@ -112,11 +116,13 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
 
         context = generate_superset_context(
             context=context,
-            user=user,
             dashboards=self.dashboards(),
-            filters=self.filters,
         )
         context["xblock_id"] = str(self.scope_ids.usage_id.block_id)
+
+        # Remove this URL from the context to avoid confusion.
+        # Our XBlock handler URL will be used instead, provided in superset.js
+        del context["superset_guest_token_url"]
 
         frag = Fragment()
         frag.add_content(self.render_template("static/html/superset.html", context))
@@ -180,3 +186,27 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
             ):
                 return text_js.format(locale_code=code)
         return None
+
+    @XBlock.json_handler
+    def get_superset_guest_token(
+        self, request_body, suffix=""
+    ):  # pylint: disable=unused-argument
+        """Return a guest token for Superset."""
+        user_service = self.runtime.service(self, "user")
+        user = user_service.get_current_user()
+
+        try:
+            guest_token = generate_guest_token(
+                user=user,
+                course=self.runtime.course_id,
+                dashboards=self.dashboards(),
+                filters=self.filters,
+            )
+        except ImproperlyConfigured as exc:
+            raise JsonHandlerError(500, str(exc)) from exc
+
+        return Response(
+            json.dumps({"guestToken": guest_token}),
+            content_type="application/json",
+            charset="UTF-8",
+        )

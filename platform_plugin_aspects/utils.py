@@ -8,8 +8,12 @@ import logging
 import os
 import uuid
 from importlib import import_module
+from urllib.parse import urljoin
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+from django.urls import reverse
+from requests.exceptions import HTTPError
 from supersetapiclient.client import SupersetClient
 from xblock.reference.user_service import XBlockUser
 
@@ -26,89 +30,77 @@ def _(text):
     return text
 
 
-def generate_superset_context(  # pylint: disable=dangerous-default-value
+def generate_superset_context(
     context,
-    user,
     dashboards,
-    filters=[],
     language=None,
-):
+) -> dict:
     """
     Update context with superset token and dashboard id.
 
     Args:
-        context (dict): the context for the instructor dashboard. It must include a course object
+        context (dict): the context for the instructor dashboard. It must include a course_id.
         user (XBlockUser or User): the current user.
         superset_config (dict): superset config.
         dashboards (list): list of superset dashboard uuid.
         filters (list): list of filters to apply to the dashboard.
         language (str): the language code of the end user.
     """
-    course = context["course"]
+    course_id = context["course_id"]
     superset_config = settings.SUPERSET_CONFIG
 
     if language:
         for dashboard in dashboards:
-            if not dashboard["allow_translations"]:
+            if not dashboard.get("allow_translations"):
                 continue
             dashboard["slug"] = f"{dashboard['slug']}-{language}"
             dashboard["uuid"] = str(get_uuid5(dashboard["uuid"], language))
 
-    superset_token, dashboards = _generate_guest_token(
-        user=user,
-        course=course,
-        superset_config=superset_config,
-        dashboards=dashboards,
-        filters=filters,
+    superset_url = _fix_service_url(superset_config.get("service_url"))
+
+    # Use an absolute LMS URL here, just in case we're being rendered in an MFE.
+    guest_token_url = urljoin(
+        settings.LMS_ROOT_URL,
+        reverse(
+            "platform_plugin_aspects:superset_guest_token",
+            kwargs={"course_id": course_id},
+        ),
     )
 
-    if superset_token:
-        superset_url = _fix_service_url(superset_config.get("service_url"))
-        context.update(
-            {
-                "superset_token": superset_token,
-                "superset_dashboards": dashboards,
-                "superset_url": superset_url,
-            }
-        )
-    else:
-        context.update(
-            {
-                "exception": str(dashboards),
-            }
-        )
+    context.update(
+        {
+            "superset_dashboards": dashboards,
+            "superset_url": superset_url,
+            "superset_guest_token_url": guest_token_url,
+        }
+    )
 
     return context
 
 
-def _generate_guest_token(user, course, superset_config, dashboards, filters):
+def generate_guest_token(user, course, dashboards, filters) -> str:
     """
-    Generate a Superset guest token for the user.
+    Generate and return a Superset guest token for the user.
+
+    Raise ImproperlyConfigured if the Superset API client request fails for any reason.
 
     Args:
         user: User object.
-        course: Course object.
+        course: Course object, used to populate `filters` template strings.
+        dashboards: list of dashboard UUIDs to grant access to.
+        filters: list of string filters to apply.
 
     Returns:
         tuple: Superset guest token and dashboard id.
         or None, exception if Superset is missconfigured or cannot generate guest token.
     """
+    superset_config = settings.SUPERSET_CONFIG
     superset_internal_host = _fix_service_url(
         superset_config.get("internal_service_url")
         or superset_config.get("service_url")
     )
     superset_username = superset_config.get("username")
     superset_password = superset_config.get("password")
-
-    try:
-        client = SupersetClient(
-            host=superset_internal_host,
-            username=superset_username,
-            password=superset_password,
-        )
-    except Exception as exc:  # pylint: disable=broad-except
-        logger.error(exc)
-        return None, exc
 
     formatted_filters = [filter.format(course=course, user=user) for filter in filters]
 
@@ -121,19 +113,40 @@ def _generate_guest_token(user, course, superset_config, dashboards, filters):
     }
 
     try:
-        logger.info(f"Requesting guest token from Superset, {data}")
+        client = SupersetClient(
+            host=superset_internal_host,
+            username=superset_username,
+            password=superset_password,
+        )
         response = client.session.post(
             url=f"{superset_internal_host}api/v1/security/guest_token/",
             json=data,
             headers={"Content-Type": "application/json"},
         )
         response.raise_for_status()
-        token = response.json()["token"]
+        token = response.json().get("token")
+        return token
 
-        return token, dashboards
-    except Exception as exc:  # pylint: disable=broad-except
+    except HTTPError as err:
+        # Superset server errors sometimes come with messages, so log the response.
+        logger.error(
+            f"{err.response.status_code} {err.response.json()} for url: {err.response.url}, data: {data}"
+        )
+        raise ImproperlyConfigured(
+            _(
+                "Unable to fetch Superset guest token, "
+                "Superset server error {server_response}"
+            ).format(server_response=err.response.json())
+        ) from err
+
+    except Exception as exc:
         logger.error(exc)
-        return None, exc
+        raise ImproperlyConfigured(
+            _(
+                "Unable to fetch Superset guest token, "
+                "mostly likely due to invalid settings.SUPERSET_CONFIG"
+            )
+        ) from exc
 
 
 def _fix_service_url(url: str) -> str:

@@ -1,11 +1,46 @@
-function embedDashboard(dashboard_uuid, superset_url, superset_token, xblock_id) {
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+async function fetchGuestToken() {
+  const response = await fetch(superset_guest_token_url, {
+    method: 'GET',
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+    }
+  });
+
+  if (!response.ok) {
+    console.error(await response.json());
+    // TODO: Handle error
+    return null;
+  }
+
+  const data = await response.json();
+  return data.guestToken;
+}
+
+function embedDashboard(dashboard_uuid, superset_url, xblock_id) {
   xblock_id = xblock_id || "";
+
   window.supersetEmbeddedSdk
     .embedDashboard({
       id: dashboard_uuid, // given by the Superset embedding UI
       supersetDomain: superset_url, // your Superset instance
       mountPoint: document.getElementById(`superset-embedded-container-${xblock_id}`), // any html element that can contain an iframe
-      fetchGuestToken: () => superset_token, // function that returns a Promise with the guest token
+      fetchGuestToken: fetchGuestToken,
       dashboardUiConfig: {
         // dashboard UI config: hideTitle, hideTab, hideChartControls, filters.visible, filters.expanded (optional)
         hideTitle: true,
@@ -28,6 +63,6 @@ function embedDashboard(dashboard_uuid, superset_url, superset_token, xblock_id)
 
 if (window.superset_dashboards !== undefined) {
   window.superset_dashboards.forEach(function(dashboard) {
-    embedDashboard(dashboard.uuid, window.superset_url, window.superset_token, dashboard.uuid);
+    embedDashboard(dashboard.uuid, window.superset_url, dashboard.uuid);
   });
 }

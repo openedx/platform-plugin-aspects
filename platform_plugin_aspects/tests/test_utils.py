@@ -2,19 +2,21 @@
 Test utils.
 """
 
-from collections import namedtuple
 from unittest.mock import Mock, patch
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
+from requests.exceptions import HTTPError
 
 from platform_plugin_aspects.utils import (
+    generate_guest_token,
     generate_superset_context,
     get_ccx_courses,
     get_model,
 )
 
-User = namedtuple("User", ["username"])
+COURSE_ID = "course-v1:org+course+run"
 
 
 class TestUtils(TestCase):
@@ -94,25 +96,11 @@ class TestUtils(TestCase):
 
         self.assertEqual(list(courses), [])
 
-    @patch.object(
-        settings,
-        "SUPERSET_CONFIG",
-        {
-            "internal_service_url": "http://superset:8088",
-            "service_url": "http://superset-dummy-url/",
-            "username": "superset",
-            "password": "superset",
-        },
-    )
-    @patch("platform_plugin_aspects.utils._generate_guest_token")
-    def test_generate_superset_context(self, mock_generate_guest_token):
+    def test_generate_superset_context(self):
         """
         Test generate_superset_context
         """
-        course_mock = Mock()
-        filter_mock = Mock()
-        user_mock = Mock()
-        context = {"course": course_mock}
+        context = {"course_id": COURSE_ID}
         dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS
 
         dashboards.append(
@@ -123,97 +111,87 @@ class TestUtils(TestCase):
             }
         )
 
-        mock_generate_guest_token.return_value = ("test-token", dashboards)
-
         context = generate_superset_context(
             context,
-            user_mock,
             dashboards=dashboards,
-            filters=[filter_mock],
             language="en_US",
         )
 
-        self.assertEqual(context["superset_token"], "test-token")
+        self.assertEqual(
+            context["superset_guest_token_url"],
+            f"https://lms.url/superset_guest_token/{COURSE_ID}",
+        )
         self.assertEqual(context["superset_dashboards"], dashboards)
         self.assertEqual(context["superset_url"], "http://superset-dummy-url/")
+        self.assertNotIn("superset_token", context)
         self.assertNotIn("exception", context)
 
     @patch("platform_plugin_aspects.utils.SupersetClient")
-    def test_generate_superset_context_with_superset_client_exception(
+    def test_generate_guest_token_with_superset_client_http_error(
         self, mock_superset_client
     ):
         """
-        Test generate_superset_context
+        Test generate_guest_token when Superset throws an HTTP error.
         """
-        course_mock = Mock()
         filter_mock = Mock()
         user_mock = Mock()
-        context = {"course": course_mock}
-        mock_superset_client.side_effect = Exception("test-exception")
-
-        context = generate_superset_context(
-            context,
-            user_mock,
-            dashboards=[{"name": "test", "uuid": "test-dashboard-uuid"}],
-            filters=[filter_mock],
+        response_mock = Mock()
+        mock_superset_client.side_effect = HTTPError(
+            "server error", response=response_mock
         )
 
-        self.assertIn("exception", context)
+        with self.assertRaises(ImproperlyConfigured):
+            generate_guest_token(
+                user=user_mock,
+                course=COURSE_ID,
+                dashboards=[{"name": "test", "uuid": "test-dashboard-uuid"}],
+                filters=[filter_mock],
+            )
 
-    @patch.object(
-        settings,
-        "SUPERSET_CONFIG",
-        {
-            "internal_service_url": "http://superset:8088",
-            "service_url": "http://dummy-superset-url",
-            "username": "superset",
-            "password": "superset",
-        },
-    )
+        mock_superset_client.assert_called_once()
+
     @patch("platform_plugin_aspects.utils.SupersetClient")
-    def test_generate_superset_context_succesful(self, mock_superset_client):
+    def test_generate_guest_token_with_superset_client_exception(
+        self, mock_superset_client
+    ):
         """
-        Test generate_superset_context
+        Test generate_guest_token when there's a general Exception.
         """
-        course_mock = Mock()
         filter_mock = Mock()
         user_mock = Mock()
-        user_mock.username = "test-user"
-        context = {"course": course_mock}
+        mock_superset_client.side_effect = Exception("test-exception")
+
+        with self.assertRaises(ImproperlyConfigured):
+            generate_guest_token(
+                user=user_mock,
+                course=COURSE_ID,
+                dashboards=[{"name": "test", "uuid": "test-dashboard-uuid"}],
+                filters=[filter_mock],
+            )
+
+        mock_superset_client.assert_called_once()
+
+    @patch("platform_plugin_aspects.utils.SupersetClient")
+    def test_generate_guest_token_succesful(self, mock_superset_client):
+        """
+        Test generate_guest_token works.
+        """
         response_mock = Mock(status_code=200)
         mock_superset_client.return_value.session.post.return_value = response_mock
         response_mock.json.return_value = {
             "token": "test-token",
         }
 
+        filter_mock = Mock()
+        user_mock = Mock()
         dashboards = [{"name": "test", "uuid": "test-dashboard-uuid"}]
 
-        context = generate_superset_context(
-            context,
-            user_mock,
+        token = generate_guest_token(
+            user=user_mock,
+            course=COURSE_ID,
             dashboards=dashboards,
             filters=[filter_mock],
         )
 
-        self.assertEqual(context["superset_token"], "test-token")
-        self.assertEqual(context["superset_dashboards"], dashboards)
-        self.assertEqual(context["superset_url"], "http://dummy-superset-url/")
-
-    def test_generate_superset_context_with_exception(self):
-        """
-        Test generate_superset_context
-        """
-        course_mock = Mock()
-        filter_mock = Mock()
-        user_mock = Mock()
-        user_mock.username = "test-user"
-        context = {"course": course_mock}
-
-        context = generate_superset_context(
-            context,
-            user_mock,
-            dashboards=[{"name": "test", "uuid": "test-dashboard-uuid"}],
-            filters=[filter_mock],
-        )
-
-        self.assertIn("exception", context)
+        mock_superset_client.assert_called_once()
+        self.assertEqual(token, "test-token")

@@ -2,11 +2,11 @@
 function SupersetXBlock(runtime, element, context) {
   const dashboard_uuid = context.dashboard_uuid;
   const superset_url = context.superset_url;
-  const superset_token = context.superset_token;
+  const superset_guest_token_url = runtime.handlerUrl(element, 'get_superset_guest_token');
   const xblock_id = context.xblock_id
 
   function initSuperset(supersetEmbeddedSdk) {
-    embedDashboard(dashboard_uuid, superset_url, superset_token, xblock_id);
+    embedDashboard(dashboard_uuid, superset_url, superset_guest_token_url, xblock_id);
   }
 
   if (typeof require === "function") {
