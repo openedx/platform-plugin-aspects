@@ -37,18 +37,18 @@ class ViewsTestCase(TestCase):
         self.user.save()
 
     def test_guest_token_requires_authorization(self):
-        response = self.client.post(self.superset_guest_token_url)
+        response = self.client.get(self.superset_guest_token_url)
         self.assertEqual(response.status_code, 403)
 
     def test_guest_token_requires_course_access(self):
         self.client.login(username="user", password="password")
-        response = self.client.post(self.superset_guest_token_url)
+        response = self.client.get(self.superset_guest_token_url)
         self.assertEqual(response.status_code, 403)
 
     def test_guest_token_invalid_course_id(self):
         superset_guest_token_url = "/superset_guest_token/block-v1:org+course+run"
         self.client.login(username="user", password="password")
-        response = self.client.post(superset_guest_token_url)
+        response = self.client.get(superset_guest_token_url)
         self.assertEqual(response.status_code, 404)
 
     @patch("platform_plugin_aspects.views.get_model")
@@ -60,7 +60,7 @@ class ViewsTestCase(TestCase):
         )
 
         self.client.login(username="user", password="password")
-        response = self.client.post(self.superset_guest_token_url)
+        response = self.client.get(self.superset_guest_token_url)
         self.assertEqual(response.status_code, 404)
         mock_model_get.assert_called_once()
 
@@ -71,7 +71,7 @@ class ViewsTestCase(TestCase):
         mock_generate_guest_token.return_value = "test-token"
 
         self.client.login(username="user", password="password")
-        response = self.client.post(self.superset_guest_token_url)
+        response = self.client.get(self.superset_guest_token_url)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json().get("guestToken"), "test-token")
@@ -87,7 +87,7 @@ class ViewsTestCase(TestCase):
         mock_generate_guest_token.side_effect = ImproperlyConfigured
 
         self.client.login(username="user", password="password")
-        response = self.client.post(self.superset_guest_token_url)
+        response = self.client.get(self.superset_guest_token_url)
 
         self.assertEqual(response.status_code, 500)
         mock_has_object_permission.assert_called_once()
@@ -108,7 +108,7 @@ class ViewsTestCase(TestCase):
         )
 
         self.client.login(username="user", password="password")
-        response = self.client.post(self.superset_guest_token_url)
+        response = self.client.get(self.superset_guest_token_url)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json().get("guestToken"), "test-token")

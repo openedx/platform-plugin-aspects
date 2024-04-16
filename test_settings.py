@@ -31,6 +31,13 @@ INSTALLED_APPS = (
     "platform_plugin_aspects",
 )
 
+# Disable caching in tests.
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 ROOT_URLCONF = "platform_plugin_aspects.urls"
 
 SECRET_KEY = "very-insecure-key"

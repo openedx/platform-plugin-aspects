@@ -73,13 +73,6 @@ class SupersetView(GenericAPIView):
 
     lookup_field = "course_id"
 
-    @property
-    def allowed_methods(self):
-        """
-        Only POST is allowed for this view.
-        """
-        return ["get", "options", "head"]
-
     def get_object(self):
         """
         Return a Course-like object for the requested course_id.
