@@ -16,6 +16,15 @@ Unreleased
 
 *
 
+0.7.1 - 2024-04-17
+******************
+
+Fixed
+=====
+
+* Fixed issue with embedded dashboards throwing javascript errors
+* Fixed issues with translated embedded dashboards erroring in Superset
+
 0.7.0 - 2024-04-12
 ******************
 

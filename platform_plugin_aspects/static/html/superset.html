@@ -28,8 +28,10 @@
     </div>
     {% endif %}
 
+    {{superset_dashboards|json_script:"superset_dashboards"}}
+
     <script type="text/javascript">
-        window.superset_dashboards = {{superset_dashboards | safe }};
+        window.superset_dashboards = JSON.parse(document.getElementById('superset_dashboards').textContent);
         window.superset_url = "{{superset_url}}";
         window.superset_guest_token_url = "{{superset_guest_token_url}}";
     </script>

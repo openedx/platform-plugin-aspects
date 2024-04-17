@@ -4,6 +4,7 @@ Utilities for the Aspects app.
 
 from __future__ import annotations
 
+import copy
 import logging
 import os
 import uuid
@@ -49,12 +50,15 @@ def generate_superset_context(
     course_id = context["course_id"]
     superset_config = settings.SUPERSET_CONFIG
 
+    # We're modifying this, keep a local copy
+    rtn_dashboards = copy.deepcopy(dashboards)
+
     if language:
-        for dashboard in dashboards:
+        for dashboard in rtn_dashboards:
             if not dashboard.get("allow_translations"):
                 continue
             dashboard["slug"] = f"{dashboard['slug']}-{language}"
-            dashboard["uuid"] = str(get_uuid5(dashboard["uuid"], language))
+            dashboard["uuid"] = get_localized_uuid(dashboard["uuid"], language)
 
     superset_url = _fix_service_url(superset_config.get("service_url"))
 
@@ -69,7 +73,7 @@ def generate_superset_context(
 
     context.update(
         {
-            "superset_dashboards": dashboards,
+            "superset_dashboards": rtn_dashboards,
             "superset_url": superset_url,
             "superset_guest_token_url": guest_token_url,
         }
@@ -104,11 +108,24 @@ def generate_guest_token(user, course, dashboards, filters) -> str:
 
     formatted_filters = [filter.format(course=course, user=user) for filter in filters]
 
+    resources = []
+
+    # Get permissions for all localized versions of the dashboards
+    for dashboard in dashboards:
+        resources.append({"type": "dashboard", "id": dashboard["uuid"]})
+
+        if dashboard.get("allow_translations"):
+            for locale in settings.SUPERSET_DASHBOARD_LOCALES:
+                resources.append(
+                    {
+                        "type": "dashboard",
+                        "id": get_localized_uuid(dashboard["uuid"], locale),
+                    }
+                )
+
     data = {
         "user": _superset_user_data(user),
-        "resources": [
-            {"type": "dashboard", "id": dashboard["uuid"]} for dashboard in dashboards
-        ],
+        "resources": resources,
         "rls": [{"clause": filter} for filter in formatted_filters],
     }
 
@@ -245,10 +262,10 @@ def get_ccx_courses(course_id):
     return []
 
 
-def get_uuid5(base_uuid, language):
+def get_localized_uuid(base_uuid, language):
     """
     Generate an idempotent uuid.
     """
     base_uuid = uuid.UUID(base_uuid)
     base_namespace = uuid.uuid5(base_uuid, "superset")
-    return uuid.uuid5(base_namespace, language)
+    return str(uuid.uuid5(base_namespace, language))
