@@ -23,11 +23,11 @@
 | platform\_plugin\_aspects/sinks/user\_retire\_sink.py                          |       22 |        0 |        4 |        0 |    100% |           |
 | platform\_plugin\_aspects/tasks.py                                             |       19 |        0 |       14 |        6 |     82% |19->21, 20->19, 21->20, 43->45, 44->43, 45->44 |
 | platform\_plugin\_aspects/urls.py                                              |        5 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/utils.py                                             |       86 |        0 |       20 |        0 |    100% |           |
+| platform\_plugin\_aspects/utils.py                                             |       94 |        0 |       26 |        0 |    100% |           |
 | platform\_plugin\_aspects/views.py                                             |       55 |        0 |        4 |        1 |     98% |  108->107 |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/xblock.py                                            |       75 |        0 |       21 |        4 |     96% |25->27, 26->25, 172->171, 191->190 |
-|                                                                      **TOTAL** |  **952** |   **17** |  **159** |   **16** | **97%** |           |
+|                                                                      **TOTAL** |  **960** |   **17** |  **165** |   **16** | **97%** |           |
 
 
 ## Setup coverage badge
