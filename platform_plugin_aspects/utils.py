@@ -5,7 +5,6 @@ Utilities for the Aspects app.
 from __future__ import annotations
 
 import copy
-import json
 import logging
 import os
 import uuid
@@ -75,7 +74,6 @@ def generate_superset_context(
     context.update(
         {
             "superset_dashboards": rtn_dashboards,
-            "superset_dashboards_json": json.dumps(rtn_dashboards),
             "superset_url": superset_url,
             "superset_guest_token_url": guest_token_url,
         }
