@@ -20,6 +20,11 @@ class PlatformPluginAspectsConfig(AppConfig):
                 PluginURLs.REGEX: r"^aspects/",
                 PluginURLs.RELATIVE_PATH: "urls",
             },
+            "cms.djangoapp": {
+                PluginURLs.NAMESPACE: "",
+                PluginURLs.REGEX: r"^aspects/",
+                PluginURLs.RELATIVE_PATH: "urls",
+            },
         },
         PluginSettings.CONFIG: {
             "lms.djangoapp": {
