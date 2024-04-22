@@ -37,7 +37,7 @@ billiard==4.2.0
     #   celery
 black==24.4.0
     # via -r requirements/quality.in
-celery==5.3.6
+celery==5.4.0
     # via -r requirements/test.txt
 certifi==2024.2.2
     # via
@@ -128,7 +128,7 @@ edx-opaque-keys==2.5.1
     # via -r requirements/test.txt
 edx-toggles==5.2.0
     # via -r requirements/test.txt
-exceptiongroup==1.2.0
+exceptiongroup==1.2.1
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -172,13 +172,13 @@ markupsafe==2.1.5
     #   xblock
 mccabe==0.7.0
     # via pylint
-model-bakery==1.17.0
+model-bakery==1.18.0
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==9.8.0
+newrelic==9.9.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -205,7 +205,7 @@ platformdirs==4.2.0
     # via
     #   black
     #   pylint
-pluggy==1.4.0
+pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -364,7 +364,7 @@ webob==1.8.7
     # via
     #   -r requirements/test.txt
     #   xblock
-xblock==3.1.0
+xblock==4.0.0
     # via -r requirements/test.txt
 
 # The following packages are considered to be unsafe in a requirements file:

@@ -20,7 +20,7 @@ backports-zoneinfo[tzdata]==0.2.1
     #   kombu
 billiard==4.2.0
     # via celery
-celery==5.3.6
+celery==5.4.0
     # via -r requirements/base.in
 certifi==2024.2.2
     # via requests
@@ -90,7 +90,7 @@ markupsafe==2.1.5
     #   jinja2
     #   mako
     #   xblock
-newrelic==9.8.0
+newrelic==9.9.0
     # via edx-django-utils
 oauthlib==3.2.2
     # via requests-oauthlib
@@ -173,7 +173,7 @@ web-fragments==2.2.0
     #   xblock
 webob==1.8.7
     # via xblock
-xblock==3.1.0
+xblock==4.0.0
     # via -r requirements/base.in
 
 # The following packages are considered to be unsafe in a requirements file:
