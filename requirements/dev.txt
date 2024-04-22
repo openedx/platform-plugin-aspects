@@ -25,8 +25,9 @@ async-timeout==4.0.3
     # via
     #   -r requirements/quality.txt
     #   redis
-backports-zoneinfo[tzdata]==0.2.1
+backports-zoneinfo[tzdata]==0.2.1 ; python_version < "3.9"
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   celery
     #   django
