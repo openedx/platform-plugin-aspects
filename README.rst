@@ -181,9 +181,6 @@ For more information about these options, see the `Getting Help <https://openedx
 License
 *******
 
-The code in this repository is licensed under the AGPL 3.0 unless
-otherwise noted.
-
 Please see `LICENSE.txt <LICENSE.txt>`_ for details.
 
 Contributing
