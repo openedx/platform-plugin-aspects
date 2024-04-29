@@ -37,7 +37,7 @@ billiard==4.2.0
     # via
     #   -r requirements/quality.txt
     #   celery
-black==24.4.0
+black==24.4.2
     # via
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
@@ -107,7 +107,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.4.4
+coverage[toml]==7.5.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -152,15 +152,19 @@ djangorestframework==3.15.1
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
+dnspython==2.6.1
+    # via
+    #   -r requirements/quality.txt
+    #   pymongo
 edx-django-utils==5.12.0
     # via
     #   -r requirements/quality.txt
     #   edx-toggles
-edx-i18n-tools==1.5.0
+edx-i18n-tools==1.6.0
     # via -r requirements/dev.in
 edx-lint==5.3.6
     # via -r requirements/quality.txt
-edx-opaque-keys==2.5.1
+edx-opaque-keys==2.9.0
     # via -r requirements/quality.txt
 edx-toggles==5.2.0
     # via -r requirements/quality.txt
@@ -203,11 +207,14 @@ kombu==5.3.7
     # via
     #   -r requirements/quality.txt
     #   celery
-lxml==5.2.1
+lxml[html-clean]==5.2.1
     # via
     #   -r requirements/quality.txt
     #   edx-i18n-tools
+    #   lxml-html-clean
     #   xblock
+lxml-html-clean==0.1.1
+    # via lxml
 mako==1.3.3
     # via
     #   -r requirements/quality.txt
@@ -264,7 +271,7 @@ pbr==6.0.0
     #   stevedore
 pip-tools==7.4.1
     # via -r requirements/pip-tools.txt
-platformdirs==4.2.0
+platformdirs==4.2.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -319,7 +326,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==3.13.0
+pymongo==4.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -336,7 +343,7 @@ pyproject-hooks==1.0.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.1.1
+pytest==8.2.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -366,7 +373,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.3
+redis==5.0.4
     # via -r requirements/quality.txt
 requests==2.31.0
     # via
@@ -428,7 +435,7 @@ tomlkit==0.12.4
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.14.2
+tox==4.15.0
     # via -r requirements/ci.txt
 typing-extensions==4.11.0
     # via
@@ -455,7 +462,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==20.25.3
+virtualenv==20.26.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -475,7 +482,7 @@ wheel==0.43.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock==4.0.0
+xblock==4.0.1
     # via -r requirements/quality.txt
 zipp==3.18.1
     # via

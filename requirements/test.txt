@@ -72,7 +72,7 @@ code-annotations==1.8.0
     #   -r requirements/base.txt
     #   -r requirements/test.in
     #   edx-toggles
-coverage[toml]==7.4.4
+coverage[toml]==7.5.0
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -103,11 +103,15 @@ djangorestframework==3.15.1
     # via
     #   -r requirements/base.txt
     #   django-mock-queries
+dnspython==2.6.1
+    # via
+    #   -r requirements/base.txt
+    #   pymongo
 edx-django-utils==5.12.0
     # via
     #   -r requirements/base.txt
     #   edx-toggles
-edx-opaque-keys==2.5.1
+edx-opaque-keys==2.9.0
     # via -r requirements/base.txt
 edx-toggles==5.2.0
     # via -r requirements/base.txt
@@ -179,7 +183,7 @@ pycparser==2.22
     # via
     #   -r requirements/base.txt
     #   cffi
-pymongo==3.13.0
+pymongo==4.4.0
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -187,7 +191,7 @@ pynacl==1.5.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-pytest==8.1.1
+pytest==8.2.0
     # via
     #   pytest-cov
     #   pytest-django
@@ -215,7 +219,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.3
+redis==5.0.4
     # via -r requirements/base.txt
 requests==2.31.0
     # via
@@ -292,7 +296,7 @@ webob==1.8.7
     # via
     #   -r requirements/base.txt
     #   xblock
-xblock==4.0.0
+xblock==4.0.1
     # via -r requirements/base.txt
 
 # The following packages are considered to be unsafe in a requirements file:
