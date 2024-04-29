@@ -36,7 +36,7 @@ billiard==4.2.0
     # via
     #   -r requirements/test.txt
     #   celery
-black==24.4.0
+black==24.4.2
     # via -r requirements/quality.in
 celery==5.4.0
     # via -r requirements/test.txt
@@ -83,7 +83,7 @@ code-annotations==1.8.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.4.4
+coverage[toml]==7.5.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -119,13 +119,17 @@ djangorestframework==3.15.1
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
+dnspython==2.6.1
+    # via
+    #   -r requirements/test.txt
+    #   pymongo
 edx-django-utils==5.12.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
 edx-lint==5.3.6
     # via -r requirements/quality.in
-edx-opaque-keys==2.5.1
+edx-opaque-keys==2.9.0
     # via -r requirements/test.txt
 edx-toggles==5.2.0
     # via -r requirements/test.txt
@@ -202,7 +206,7 @@ pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==4.2.0
+platformdirs==4.2.1
     # via
     #   black
     #   pylint
@@ -240,7 +244,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==3.13.0
+pymongo==4.4.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -248,7 +252,7 @@ pynacl==1.5.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-pytest==8.1.1
+pytest==8.2.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -277,7 +281,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.3
+redis==5.0.4
     # via -r requirements/test.txt
 requests==2.31.0
     # via
@@ -365,7 +369,7 @@ webob==1.8.7
     # via
     #   -r requirements/test.txt
     #   xblock
-xblock==4.0.0
+xblock==4.0.1
     # via -r requirements/test.txt
 
 # The following packages are considered to be unsafe in a requirements file:

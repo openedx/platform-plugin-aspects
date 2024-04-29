@@ -66,11 +66,13 @@ django-waffle==4.1.0
     #   edx-toggles
 djangorestframework==3.15.1
     # via -r requirements/base.in
+dnspython==2.6.1
+    # via pymongo
 edx-django-utils==5.12.0
     # via
     #   -r requirements/base.in
     #   edx-toggles
-edx-opaque-keys==2.5.1
+edx-opaque-keys==2.9.0
     # via -r requirements/base.in
 edx-toggles==5.2.0
     # via -r requirements/base.in
@@ -107,7 +109,7 @@ psutil==5.9.8
     # via edx-django-utils
 pycparser==2.22
     # via cffi
-pymongo==3.13.0
+pymongo==4.4.0
     # via edx-opaque-keys
 pynacl==1.5.0
     # via edx-django-utils
@@ -124,7 +126,7 @@ pyyaml==6.0.1
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==5.0.3
+redis==5.0.4
     # via -r requirements/base.in
 requests==2.31.0
     # via
@@ -174,7 +176,7 @@ web-fragments==2.2.0
     #   xblock
 webob==1.8.7
     # via xblock
-xblock==4.0.0
+xblock==4.0.1
     # via -r requirements/base.in
 
 # The following packages are considered to be unsafe in a requirements file:
