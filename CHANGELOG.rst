@@ -16,6 +16,15 @@ Unreleased
 
 *
 
+0.7.3 - 2024-04-30
+******************
+
+Fixed
+=====
+
+* Fixed UUID generation for localized Superset assets, which caused embedded
+  dashboards to fail to load when localized.
+
 0.7.2 - 2024-04-19
 ******************
 
