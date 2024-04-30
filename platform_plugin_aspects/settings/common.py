@@ -29,7 +29,7 @@ def plugin_settings(settings):
         },
     ]
     settings.SUPERSET_EXTRA_FILTERS_FORMAT = []
-    settings.SUPERSET_DASHBOARD_LOCALES = ["en_US"]
+    settings.SUPERSET_DASHBOARD_LOCALES = ["en"]
     settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = {
         # URL to a running ClickHouse server's HTTP interface. ex: https://foo.openedx.org:8443/ or
         # http://foo.openedx.org:8123/ . Note that we only support the ClickHouse HTTP interface
