@@ -269,4 +269,4 @@ def get_localized_uuid(base_uuid, language):
     base_uuid = uuid.UUID(base_uuid)
     base_namespace = uuid.uuid5(base_uuid, "superset")
     normalized_language = language.lower().replace("-", "_")
-    return  str(uuid.uuid5(base_namespace, normalized_language))
+    return str(uuid.uuid5(base_namespace, normalized_language))
