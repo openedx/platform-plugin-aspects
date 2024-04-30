@@ -142,7 +142,6 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
             json_args={
                 "dashboard_uuid": self.dashboard_uuid,
                 "superset_url": context.get("superset_url"),
-                "superset_token": context.get("superset_token"),
                 "xblock_id": context.get("xblock_id"),
             },
         )
