@@ -34,11 +34,11 @@ class AddSupersetTab(PipelineStep):
         user = get_current_user()
 
         user_language = (
-            get_model("user_preference").get_value(user, "pref-lang") or "en_US"
+            get_model("user_preference").get_value(user, "pref-lang") or "en"
         )
         formatted_language = user_language.replace("-", "_")
-        if formatted_language not in settings.SUPERSET_DASHBOARD_LOCALES:
-            formatted_language = "en_US"
+        if formatted_language not in [loc.lower().replace("-", "_") for loc in settings.SUPERSET_DASHBOARD_LOCALES]:
+            formatted_language = "en"
 
         context["course_id"] = course.id
         context = generate_superset_context(
