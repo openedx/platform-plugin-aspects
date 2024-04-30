@@ -16,6 +16,13 @@ Unreleased
 
 *
 
+0.7.4 - 2024-04-30
+******************
+
+Fixed
+=====
+* Fixed Superset XBlock and default filters.
+
 0.7.3 - 2024-04-30
 ******************
 
