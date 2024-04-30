@@ -31,6 +31,12 @@ def _(text):
     return text
 
 
+DEFAULT_FILTERS_FORMAT = [
+    "org = '{course_id.org}'",
+    "course_key = '{course_id}'",
+]
+
+
 def generate_superset_context(
     context,
     dashboards,
@@ -106,7 +112,7 @@ def generate_guest_token(user, course, dashboards, filters) -> str:
     superset_username = superset_config.get("username")
     superset_password = superset_config.get("password")
 
-    formatted_filters = [filter.format(course=course, user=user) for filter in filters]
+    formatted_filters = [filter.format(course_id=course, user=user) for filter in filters]
 
     resources = []
 

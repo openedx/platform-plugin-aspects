@@ -16,7 +16,12 @@ from xblock.fields import List, Scope, String
 from xblock.utils.resources import ResourceLoader
 from xblock.utils.studio_editable import StudioEditableXBlockMixin
 
-from .utils import _, generate_guest_token, generate_superset_context
+from .utils import (
+    DEFAULT_FILTERS_FORMAT,
+    _,
+    generate_guest_token,
+    generate_superset_context,
+)
 
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
@@ -197,9 +202,9 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         try:
             guest_token = generate_guest_token(
                 user=user,
-                course=self.runtime.course_id,
+                course=self.scope_ids.usage_id.context_key,
                 dashboards=self.dashboards(),
-                filters=self.filters,
+                filters=DEFAULT_FILTERS_FORMAT + self.filters,
             )
         except ImproperlyConfigured as exc:
             raise JsonHandlerError(500, str(exc)) from exc

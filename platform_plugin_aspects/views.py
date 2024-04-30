@@ -16,7 +16,7 @@ from rest_framework.exceptions import APIException, NotFound
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from .utils import _, generate_guest_token, get_model
+from .utils import DEFAULT_FILTERS_FORMAT, _, generate_guest_token, get_model
 
 try:
     from openedx.core.lib.api.permissions import (
@@ -102,7 +102,7 @@ class SupersetView(GenericAPIView):
         # May raise a permission denied
         self.check_object_permissions(self.request, course)
 
-        return course
+        return course_key
 
     @method_decorator(cache_page(60 * 5))
     def get(self, request, *args, **kwargs):
@@ -111,11 +111,6 @@ class SupersetView(GenericAPIView):
         """
         course = self.get_object()
 
-        built_in_filters = [
-            f"org = '{course.course_id.org}'",
-            f"course_name = '{course.display_name}'",
-            f"course_run = '{course.course_id.run}'",
-        ]
         dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS
         extra_filters_format = settings.SUPERSET_EXTRA_FILTERS_FORMAT
 
@@ -124,7 +119,7 @@ class SupersetView(GenericAPIView):
                 user=request.user,
                 course=course,
                 dashboards=dashboards,
-                filters=built_in_filters + extra_filters_format,
+                filters=DEFAULT_FILTERS_FORMAT + extra_filters_format,
             )
         except ImproperlyConfigured as exc:
             raise APIException() from exc
