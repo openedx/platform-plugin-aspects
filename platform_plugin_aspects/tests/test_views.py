@@ -11,7 +11,7 @@ from django.test import TestCase
 from opaque_keys.edx.keys import CourseKey
 from rest_framework.test import APIClient
 
-from ..views import Course, IsCourseStaffInstructor
+from ..views import DEFAULT_FILTERS_FORMAT, IsCourseStaffInstructor
 
 COURSE_ID = "course-v1:org+course+run"
 User = get_user_model()
@@ -116,13 +116,7 @@ class ViewsTestCase(TestCase):
         mock_model_get.assert_called_once()
         mock_generate_guest_token.assert_called_once_with(
             user=self.user,
-            course=Course(
-                course_id=CourseKey.from_string(COURSE_ID), display_name="Course Title"
-            ),
+            course=CourseKey.from_string(COURSE_ID),
             dashboards=settings.ASPECTS_INSTRUCTOR_DASHBOARDS,
-            filters=[
-                "org = 'org'",
-                "course_name = 'Course Title'",
-                "course_run = 'run'",
-            ],
+            filters=DEFAULT_FILTERS_FORMAT,
         )
