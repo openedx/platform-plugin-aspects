@@ -23,10 +23,10 @@
 | platform\_plugin\_aspects/sinks/user\_retire\_sink.py                          |       22 |        0 |        4 |        0 |    100% |           |
 | platform\_plugin\_aspects/tasks.py                                             |       19 |        0 |       14 |        6 |     82% |19->21, 20->19, 21->20, 43->45, 44->43, 45->44 |
 | platform\_plugin\_aspects/urls.py                                              |        5 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/utils.py                                             |       95 |        0 |       26 |        0 |    100% |           |
-| platform\_plugin\_aspects/views.py                                             |       55 |        0 |        4 |        1 |     98% |  108->107 |
+| platform\_plugin\_aspects/utils.py                                             |       96 |        0 |       26 |        0 |    100% |           |
+| platform\_plugin\_aspects/views.py                                             |       54 |        0 |        4 |        1 |     98% |  108->107 |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/xblock.py                                            |       75 |        0 |       21 |        4 |     96% |25->27, 26->25, 172->171, 191->190 |
+| platform\_plugin\_aspects/xblock.py                                            |       75 |        0 |       21 |        4 |     96% |30->32, 31->30, 176->175, 195->194 |
 |                                                                      **TOTAL** |  **961** |   **17** |  **165** |   **17** | **97%** |           |
 
 
