@@ -6,7 +6,7 @@ import uuid
 from django.utils import timezone
 from rest_framework import serializers
 
-from platform_plugin_aspects.utils import get_model
+from platform_plugin_aspects.utils import get_model, get_tags_for_course
 
 
 class BaseSinkSerializer(serializers.Serializer):  # pylint: disable=abstract-method
@@ -146,6 +146,7 @@ class CourseOverviewSerializer(BaseSinkSerializer, serializers.ModelSerializer):
             "entrance_exam_enabled": getattr(overview, "entrance_exam_enabled", ""),
             "external_id": getattr(overview, "external_id", ""),
             "language": getattr(overview, "language", ""),
+            "tags": get_tags_for_course(overview.id).get(str(overview.id)),
         }
         return json.dumps(json_fields)
 

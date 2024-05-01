@@ -278,3 +278,42 @@ def get_localized_uuid(base_uuid, language):
     base_namespace = uuid.uuid5(base_uuid, "superset")
     normalized_language = language.lower().replace("-", "_")
     return str(uuid.uuid5(base_namespace, normalized_language))
+
+
+def _get_all_object_tags(course_key):  # pragma: no cover
+    """
+    Wrap the Open edX content_tagging API method get_all_object_tags.
+    """
+    # pylint: disable=import-outside-toplevel,import-error
+    from openedx.core.djangoapps.content_tagging.api import get_all_object_tags
+
+    return get_all_object_tags(course_key)
+
+
+def get_tags_for_course(course_key) -> dict:
+    """
+    Return all the tags applied to the given course and its blocks.
+
+    Returned dict is a mapping between the usage key string and a list of string tags, of the form:
+
+        "taxonomy_name=tag_value"
+
+    """
+    tags_by_object_id, taxonomies = _get_all_object_tags(course_key)
+
+    tags_and_taxonomy_by_object_id = {}
+    for object_id, tags in tags_by_object_id.items():
+        for taxonomy_id, tag_values in tags.items():
+            taxonomy = taxonomies.get(taxonomy_id)
+            if not taxonomy:
+                continue
+
+            if object_id not in tags_and_taxonomy_by_object_id:
+                tags_and_taxonomy_by_object_id[object_id] = []
+
+            for tag in tag_values:
+                tags_and_taxonomy_by_object_id[object_id].append(
+                    f"{taxonomy.name}={tag}"
+                )
+
+    return tags_and_taxonomy_by_object_id
