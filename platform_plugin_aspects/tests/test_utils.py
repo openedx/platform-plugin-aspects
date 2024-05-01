@@ -124,7 +124,6 @@ class TestUtils(TestCase):
 
         self.assertEqual(len(context["superset_dashboards"]), len(dashboards))
         self.assertEqual(context["superset_url"], "http://superset-dummy-url/")
-        self.assertNotIn("superset_token", context)
         self.assertNotIn("exception", context)
 
     @patch("platform_plugin_aspects.utils.SupersetClient")

@@ -15,11 +15,22 @@ function getCookie(name) {
 }
 
 async function fetchGuestToken() {
-  const response = await fetch(superset_guest_token_url, {
-    method: 'GET',
+  let response;
+  if (window.from_xblock){
+    // XBlock handler requires a POST request and a JSON body
+    body = JSON.stringify({});
+    method = 'POST';
+  }else {
+    body = null;
+    method = 'GET';
+  }
+
+  response = await fetch(window.superset_guest_token_url, {
+    method: method,
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),
-    }
+    },
+    body: body,
   });
 
   if (!response.ok) {
