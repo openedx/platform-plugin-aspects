@@ -184,13 +184,6 @@ def mock_detached_xblock_types():
     return {"static_tab", "about", "course_info"}
 
 
-def mock_get_tags_for_course(blocks_list, expected_tags):
-    """
-    Mock the return results of utils.get_tags_for_course for all blocks in the given list.
-    """
-    return {str(block.location): expected_tags for block in blocks_list}
-
-
 def get_clickhouse_http_params():
     """
     Get the params used in ClickHouse queries.

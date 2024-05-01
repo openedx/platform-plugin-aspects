@@ -280,40 +280,35 @@ def get_localized_uuid(base_uuid, language):
     return str(uuid.uuid5(base_namespace, normalized_language))
 
 
-def _get_all_object_tags(course_key):  # pragma: no cover
+def _get_object_tags(usage_key):  # pragma: no cover
     """
-    Wrap the Open edX content_tagging API method get_all_object_tags.
+    Wrap the Open edX tagging API method get_object_tags.
     """
     # pylint: disable=import-outside-toplevel,import-error
-    from openedx.core.djangoapps.content_tagging.api import get_all_object_tags
+    from openedx.core.djangoapps.content_tagging.api import get_object_tags
 
-    return get_all_object_tags(course_key)
+    return get_object_tags(object_id=str(usage_key))
 
 
-def get_tags_for_course(course_key) -> dict:
+def get_tags_for_block(usage_key) -> dict:
     """
-    Return all the tags applied to the given course and its blocks.
+    Return all the tags (and their parent tags) applied to the given block.
 
-    Returned dict is a mapping between the usage key string and a list of string tags, of the form:
+    Returns a list of string tags, of the form:
 
         "taxonomy_name=tag_value"
 
     """
-    tags_by_object_id, taxonomies = _get_all_object_tags(course_key)
+    tags = _get_object_tags(usage_key)
+    serialized_tags = []
 
-    tags_and_taxonomy_by_object_id = {}
-    for object_id, tags in tags_by_object_id.items():
-        for taxonomy_id, tag_values in tags.items():
-            taxonomy = taxonomies.get(taxonomy_id)
-            if not taxonomy:
-                continue
+    for explicit_tag in tags:
+        serialized_tags.append(f"{explicit_tag.taxonomy.name}={explicit_tag.value}")
+        logging.critical(serialized_tags)
 
-            if object_id not in tags_and_taxonomy_by_object_id:
-                tags_and_taxonomy_by_object_id[object_id] = []
+        implicit_tag = explicit_tag.parent
+        while implicit_tag:
+            serialized_tags.append(f"{implicit_tag.taxonomy.name}={implicit_tag.value}")
+            implicit_tag = implicit_tag.parent
 
-            for tag in tag_values:
-                tags_and_taxonomy_by_object_id[object_id].append(
-                    f"{taxonomy.name}={tag}"
-                )
-
-    return tags_and_taxonomy_by_object_id
+    return serialized_tags

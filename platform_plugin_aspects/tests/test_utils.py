@@ -14,7 +14,7 @@ from platform_plugin_aspects.utils import (
     generate_superset_context,
     get_ccx_courses,
     get_model,
-    get_tags_for_course,
+    get_tags_for_block,
 )
 from test_utils.helpers import course_factory
 
@@ -233,38 +233,44 @@ class TestUtils(TestCase):
         calls = mock_superset_client.return_value.session.post.call_args
         self.assertEqual(len(calls[1]["json"]["resources"]), 3)
 
-    @patch("platform_plugin_aspects.utils._get_all_object_tags")
-    def test_get_tags_for_course(self, mock_get_all_object_tags):
+    @patch("platform_plugin_aspects.utils._get_object_tags")
+    def test_get_tags_for_block(self, mock_get_object_tags):
         """
-        Tests that get_tags_for_course works when mocking the openedx dependency.
+        Tests that get_tags_for_block works when mocking the openedx dependency.
         """
         course = course_factory()
         mock_taxonomy1 = Mock()
         mock_taxonomy1.name = "Taxonomy One"
         mock_taxonomy2 = Mock()
         mock_taxonomy2.name = "Taxonomy Two"
-        mock_taxonomies = {1: mock_taxonomy1, 2: mock_taxonomy2}
-        mock_get_all_object_tags.return_value = (
-            {
-                str(block.location): {
-                    1: ["tag1.1", "tag1.2", "tag1.3"],
-                    2: ["tag2.1", "tag2.2"],
-                    3: ["tag3.1"],
-                }
-                for block in course
-            },
-            mock_taxonomies,
-        )
+        mock_tag11 = Mock()
+        mock_tag11.taxonomy = mock_taxonomy1
+        mock_tag11.value = "tag1.1"
+        mock_tag11.parent = None
+        mock_tag12 = Mock()
+        mock_tag12.taxonomy = mock_taxonomy1
+        mock_tag12.value = "tag1.2"
+        mock_tag12.parent = mock_tag11
+        mock_tag13 = Mock()
+        mock_tag13.taxonomy = mock_taxonomy1
+        mock_tag13.value = "tag1.3"
+        mock_tag13.parent = mock_tag12
+        mock_tag21 = Mock()
+        mock_tag21.taxonomy = mock_taxonomy2
+        mock_tag21.value = "tag2.1"
+        mock_tag21.parent = None
+        mock_tag22 = Mock()
+        mock_tag22.taxonomy = mock_taxonomy2
+        mock_tag22.value = "tag2.2"
+        mock_tag22.parent = None
+        mock_get_object_tags.return_value = [mock_tag13, mock_tag21, mock_tag22]
 
-        course_tags = get_tags_for_course(course[0].location)
-        assert course_tags == {
-            str(block.location): [
-                "Taxonomy One=tag1.1",
-                "Taxonomy One=tag1.2",
-                "Taxonomy One=tag1.3",
-                "Taxonomy Two=tag2.1",
-                "Taxonomy Two=tag2.2",
-            ]
-            for block in course
-        }
-        mock_get_all_object_tags.assert_called_once_with(course[0].location)
+        course_tags = get_tags_for_block(course[0].location)
+        assert course_tags == [
+            "Taxonomy One=tag1.3",
+            "Taxonomy One=tag1.2",
+            "Taxonomy One=tag1.1",
+            "Taxonomy Two=tag2.1",
+            "Taxonomy Two=tag2.2",
+        ]
+        mock_get_object_tags.assert_called_once_with(course[0].location)

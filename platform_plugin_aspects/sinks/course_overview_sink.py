@@ -20,7 +20,7 @@ from platform_plugin_aspects.sinks.serializers import CourseOverviewSerializer
 from platform_plugin_aspects.utils import (
     get_detached_xblock_types,
     get_modulestore,
-    get_tags_for_course,
+    get_tags_for_block,
 )
 
 # Defaults we want to ensure we fail early on bulk inserts
@@ -60,8 +60,6 @@ class XBlockSink(ModelBaseSink):
         location_to_node = {}
         items = modulestore.get_items(course_key)
 
-        tags_by_object_id = get_tags_for_course(course_key)
-
         # Serialize the XBlocks to dicts and map them with their location as keys the
         # whole map needs to be completed before we can define relationships
         index = 0
@@ -92,7 +90,7 @@ class XBlockSink(ModelBaseSink):
             fields["xblock_data_json"]["section"] = section_idx
             fields["xblock_data_json"]["subsection"] = subsection_idx
             fields["xblock_data_json"]["unit"] = unit_idx
-            fields["xblock_data_json"]["tags"] = tags_by_object_id.get(
+            fields["xblock_data_json"]["tags"] = get_tags_for_block(
                 fields["location"],
             )
 

@@ -7,7 +7,7 @@ from platform_plugin_aspects.sinks.serializers import (
     BaseSinkSerializer,
     CourseOverviewSerializer,
 )
-from test_utils.helpers import course_key_factory, mock_get_tags_for_course
+from test_utils.helpers import course_key_factory
 
 
 class TestBaseSinkSerializer(TestCase):
@@ -36,7 +36,7 @@ class TestCourseOverviewSerializer(TestCase):
     def setUp(self):
         self.serializer = CourseOverviewSerializer()
 
-    @patch("platform_plugin_aspects.sinks.serializers.get_tags_for_course")
+    @patch("platform_plugin_aspects.sinks.serializers.get_tags_for_block")
     def test_get_course_data_json(self, mock_get_tags):
         """
         Test to_representation
@@ -77,9 +77,7 @@ class TestCourseOverviewSerializer(TestCase):
 
         # Fake the "get_tags_for_course" api since we can't import it here
         mock_course_block = Mock(location=mock_overview.id)
-        mock_get_tags.return_value = mock_get_tags_for_course(
-            [mock_course_block], expected_tags
-        )
+        mock_get_tags.return_value = expected_tags
 
         self.assertEqual(
             self.serializer.get_course_data_json(mock_overview), json.dumps(json_fields)
