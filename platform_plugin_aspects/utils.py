@@ -304,9 +304,7 @@ def get_tags_for_block(usage_key) -> dict:
 
     for explicit_tag in tags:
         serialized_tags.append(f"{explicit_tag.taxonomy.name}={explicit_tag.value}")
-        logging.critical(serialized_tags)
-
-        implicit_tag = explicit_tag.parent
+        implicit_tag = explicit_tag.tag.parent
         while implicit_tag:
             serialized_tags.append(f"{implicit_tag.taxonomy.name}={implicit_tag.value}")
             implicit_tag = implicit_tag.parent

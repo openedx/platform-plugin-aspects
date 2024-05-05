@@ -243,26 +243,23 @@ class TestUtils(TestCase):
         mock_taxonomy1.name = "Taxonomy One"
         mock_taxonomy2 = Mock()
         mock_taxonomy2.name = "Taxonomy Two"
-        mock_tag11 = Mock()
-        mock_tag11.taxonomy = mock_taxonomy1
-        mock_tag11.value = "tag1.1"
-        mock_tag11.parent = None
-        mock_tag12 = Mock()
-        mock_tag12.taxonomy = mock_taxonomy1
-        mock_tag12.value = "tag1.2"
-        mock_tag12.parent = mock_tag11
-        mock_tag13 = Mock()
-        mock_tag13.taxonomy = mock_taxonomy1
-        mock_tag13.value = "tag1.3"
-        mock_tag13.parent = mock_tag12
-        mock_tag21 = Mock()
-        mock_tag21.taxonomy = mock_taxonomy2
-        mock_tag21.value = "tag2.1"
-        mock_tag21.parent = None
-        mock_tag22 = Mock()
-        mock_tag22.taxonomy = mock_taxonomy2
-        mock_tag22.value = "tag2.2"
-        mock_tag22.parent = None
+
+        def mock_tag(taxonomy, value, parent=None):
+            """
+            Returns a mock ObjectTag.
+            """
+            mock_tag = Mock()
+            mock_tag.taxonomy = taxonomy
+            mock_tag.value = value
+            mock_tag.tag = mock_tag
+            mock_tag.tag.parent = parent
+            return mock_tag
+
+        mock_tag11 = mock_tag(mock_taxonomy1, "tag1.1")
+        mock_tag12 = mock_tag(mock_taxonomy1, "tag1.2", mock_tag11.tag)
+        mock_tag13 = mock_tag(mock_taxonomy1, "tag1.3", mock_tag12.tag)
+        mock_tag21 = mock_tag(mock_taxonomy2, "tag2.1")
+        mock_tag22 = mock_tag(mock_taxonomy2, "tag2.2")
         mock_get_object_tags.return_value = [mock_tag13, mock_tag21, mock_tag22]
 
         course_tags = get_tags_for_block(course[0].location)
