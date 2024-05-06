@@ -8,6 +8,10 @@ https://docs.djangoproject.com/en/2.22/ref/settings/
 
 from platform_plugin_aspects import ROOT_DIRECTORY
 
+# Make '_' a no-op so we can scrape strings for translation. Using lambda instead of
+# `django.utils.translation.ugettext_noop` because Django cannot be imported in this file
+_ = lambda text: text
+
 
 def plugin_settings(settings):
     """
@@ -22,9 +26,21 @@ def plugin_settings(settings):
     }
     settings.ASPECTS_INSTRUCTOR_DASHBOARDS = [
         {
-            "name": "Instructor Dashboard",
-            "slug": "instructor-dashboard",
-            "uuid": "1d6bf904-f53f-47fd-b1c9-6cd7e284d286",
+            "name": _("Course Dashboard"),
+            "slug": "course-dashboard-v1",
+            "uuid": "c0e64194-33d1-4d5a-8c10-4f51530c5ee9",
+            "allow_translations": True,
+        },
+        {
+            "name": _("Individual Learner Dashboard"),
+            "slug": "individual-learner",
+            "uuid": "abae8a25-1ba4-4653-81bd-d3937a162a11",
+            "allow_translations": True,
+        },
+        {
+            "name": _("At-Risk Learners Dashboard"),
+            "slug": "learner-groups",
+            "uuid": "8661d20c-cee6-4245-9fcc-610daea5fd24",
             "allow_translations": True,
         },
     ]
