@@ -32,6 +32,7 @@ from test_utils.helpers import (
     registry=OrderedRegistry
 )
 @override_settings(EVENT_SINK_CLICKHOUSE_COURSE_OVERVIEW_ENABLED=True)
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_tags_for_block")
 @patch("platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item")
 @patch("platform_plugin_aspects.sinks.CourseOverviewSink.get_model")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
@@ -43,6 +44,7 @@ def test_course_publish_success(
     mock_detached,
     mock_overview,
     mock_serialize_item,
+    mock_get_tags,
 ):
     """
     Test of a successful end-to-end run.
@@ -61,6 +63,9 @@ def test_course_publish_success(
 
     mock_overview.return_value.get_from_id.return_value = course_overview
     mock_get_ccx_courses.return_value = []
+
+    # Fake the "get_tags_for_block" api since we can't import it here
+    mock_get_tags.return_value = {}
 
     # Use the responses library to catch the POSTs to ClickHouse
     # and match them against the expected values, including CSV
@@ -89,6 +94,7 @@ def test_course_publish_success(
     assert mock_modulestore.call_count == 1
     assert mock_detached.call_count == 1
     mock_get_ccx_courses.assert_called_once_with(course_overview.id)
+    mock_get_tags.call_count == len(course)
 
 
 @responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
@@ -271,10 +277,11 @@ def test_get_last_dump_time():
     assert dt
 
 
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_tags_for_block")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 # pytest:disable=unused-argument
-def test_xblock_tree_structure(mock_modulestore, mock_detached):
+def test_xblock_tree_structure(mock_modulestore, mock_detached, mock_get_tags):
     """
     Test that our calculations of section/subsection/unit are correct.
     """
@@ -289,6 +296,10 @@ def test_xblock_tree_structure(mock_modulestore, mock_detached):
     fake_serialized_course_overview = fake_serialize_fake_course_overview(
         course_overview
     )
+
+    # Fake the "get_tags_for_course" api since we can't import it here
+    mock_get_tags.return_value = {}
+
     sink = XBlockSink(connection_overrides={}, log=MagicMock())
 
     initial_data = {"dump_id": "xyz", "time_last_dumped": "2023-09-05"}
@@ -331,9 +342,10 @@ def test_xblock_tree_structure(mock_modulestore, mock_detached):
     _check_tree_location(results[27], 3, 3, 3)
 
 
+@patch("platform_plugin_aspects.sinks.course_overview_sink.get_tags_for_block")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
-def test_xblock_graded_completable_mode(mock_modulestore, mock_detached):
+def test_xblock_graded_completable_mode(mock_modulestore, mock_detached, mock_get_tags):
     """
     Test that our grading and completion fields serialize.
     """
@@ -345,6 +357,9 @@ def test_xblock_graded_completable_mode(mock_modulestore, mock_detached):
     # Fake the "detached types" list since we can't import it here
     mock_detached.return_value = mock_detached_xblock_types()
 
+    expected_tags = ["TAX1=tag1", "TAX1=tag2", "TAX1=tag3"]
+    mock_get_tags.return_value = expected_tags
+
     fake_serialized_course_overview = fake_serialize_fake_course_overview(
         course_overview
     )
@@ -354,7 +369,9 @@ def test_xblock_graded_completable_mode(mock_modulestore, mock_detached):
     results = sink.serialize_item(fake_serialized_course_overview, initial=initial_data)
 
     def _check_item_serialized_location(
-        block, expected_graded=0, expected_completion_mode="unknown"
+        block,
+        expected_graded=0,
+        expected_completion_mode="unknown",
     ):
         """
         Assert the expected values in certain returned blocks or print useful debug information.
@@ -363,6 +380,7 @@ def test_xblock_graded_completable_mode(mock_modulestore, mock_detached):
             j = json.loads(block["xblock_data_json"])
             assert j["graded"] == expected_graded
             assert j["completion_mode"] == expected_completion_mode
+            assert j["tags"] == expected_tags
         except AssertionError as e:
             print(e)
             print(block)

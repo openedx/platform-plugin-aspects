@@ -14,7 +14,9 @@ from platform_plugin_aspects.utils import (
     generate_superset_context,
     get_ccx_courses,
     get_model,
+    get_tags_for_block,
 )
+from test_utils.helpers import course_factory
 
 COURSE_ID = "course-v1:org+course+run"
 
@@ -230,3 +232,39 @@ class TestUtils(TestCase):
         # We should have one resource for en_US, one for es_419, and one untranslated
         calls = mock_superset_client.return_value.session.post.call_args
         self.assertEqual(len(calls[1]["json"]["resources"]), 3)
+
+    @patch("platform_plugin_aspects.utils._get_object_tags")
+    def test_get_tags_for_block(self, mock_get_object_tags):
+        """
+        Tests that get_tags_for_block works when mocking the openedx dependency.
+        """
+        course = course_factory()
+        mock_taxonomy1 = Mock()
+        mock_taxonomy1.name = "Taxonomy One"
+        mock_taxonomy2 = Mock()
+        mock_taxonomy2.name = "Taxonomy Two"
+
+        def mock_tag(taxonomy, value, parent=None):
+            """
+            Returns a mock ObjectTag.
+            """
+            mock_tag = Mock()
+            mock_tag.taxonomy = taxonomy
+            mock_tag.value = value
+            mock_tag.tag = mock_tag
+            mock_tag.tag.parent = parent
+            return mock_tag
+
+        mock_tag11 = mock_tag(mock_taxonomy1, "tag1.1")
+        mock_tag12 = mock_tag(mock_taxonomy1, "tag1.2", mock_tag11.tag)
+        mock_tag13 = mock_tag(mock_taxonomy1, "tag1.3", mock_tag12.tag)
+        mock_tag21 = mock_tag(mock_taxonomy2, "tag2.1")
+        mock_tag22 = mock_tag(mock_taxonomy2, "tag2.2")
+        mock_get_object_tags.return_value = [mock_tag13, mock_tag21, mock_tag22]
+
+        course_tags = get_tags_for_block(course[0].location)
+        assert course_tags == {
+            "Taxonomy One": ["tag1.3", "tag1.2", "tag1.1"],
+            "Taxonomy Two": ["tag2.1", "tag2.2"],
+        }
+        mock_get_object_tags.assert_called_once_with(course[0].location)

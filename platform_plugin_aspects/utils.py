@@ -278,3 +278,47 @@ def get_localized_uuid(base_uuid, language):
     base_namespace = uuid.uuid5(base_uuid, "superset")
     normalized_language = language.lower().replace("-", "_")
     return str(uuid.uuid5(base_namespace, normalized_language))
+
+
+def _get_object_tags(usage_key):  # pragma: no cover
+    """
+    Wrap the Open edX tagging API method get_object_tags.
+    """
+    try:
+        # pylint: disable=import-outside-toplevel
+        from openedx.core.djangoapps.content_tagging.api import get_object_tags
+
+        return get_object_tags(object_id=str(usage_key))
+    # Pre-Redwood versions of Open edX don't have this API
+    except ImportError:
+        return {}
+
+
+def get_tags_for_block(usage_key) -> dict:
+    """
+    Return all the tags (and their parent tags) applied to the given block.
+
+    Returns a dict of [taxonomy]: [tag, tag, tag]
+    """
+    tags = _get_object_tags(usage_key)
+    serialized_tags = {}
+
+    for explicit_tag in tags:
+        _add_tag(explicit_tag, serialized_tags)
+        implicit_tag = explicit_tag.tag.parent
+
+        while implicit_tag:
+            _add_tag(implicit_tag, serialized_tags)
+            implicit_tag = implicit_tag.parent
+
+    return serialized_tags
+
+
+def _add_tag(tag, serialized_tags):
+    """
+    Add a tag to our serialized list of tags.
+    """
+    if tag.taxonomy.name not in serialized_tags:
+        serialized_tags[tag.taxonomy.name] = [tag.value]
+    else:
+        serialized_tags[tag.taxonomy.name].append(tag.value)
