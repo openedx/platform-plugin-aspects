@@ -14,7 +14,14 @@ Change Log
 Unreleased
 **********
 
-*
+0.8.0 - 2024-05-06
+******************
+
+Added
+=====
+
+* Added tags to xblocks in course dump
+
 
 0.7.4 - 2024-04-30
 ******************
