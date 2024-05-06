@@ -1,5 +1,5 @@
 import json
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from django.test import TestCase
 
@@ -7,6 +7,7 @@ from platform_plugin_aspects.sinks.serializers import (
     BaseSinkSerializer,
     CourseOverviewSerializer,
 )
+from test_utils.helpers import course_key_factory
 
 
 class TestBaseSinkSerializer(TestCase):
@@ -35,7 +36,8 @@ class TestCourseOverviewSerializer(TestCase):
     def setUp(self):
         self.serializer = CourseOverviewSerializer()
 
-    def test_get_course_data_json(self):
+    @patch("platform_plugin_aspects.sinks.serializers.get_tags_for_block")
+    def test_get_course_data_json(self, mock_get_tags):
         """
         Test to_representation
 
@@ -56,6 +58,7 @@ class TestCourseOverviewSerializer(TestCase):
             "language": getattr(overview, "language", ""),
         }
         """
+        expected_tags = ["TAX1=tag1", "TAX2=tag2"]
         json_fields = {
             "advertised_start": "2018-01-01T00:00:00Z",
             "announcement": "announcement",
@@ -67,11 +70,19 @@ class TestCourseOverviewSerializer(TestCase):
             "entrance_exam_enabled": "entrance_exam_enabled",
             "external_id": "external_id",
             "language": "language",
+            "tags": expected_tags,
         }
         mock_overview = Mock(**json_fields)
+        mock_overview.id = course_key_factory()
+
+        # Fake the "get_tags_for_course" api since we can't import it here
+        mock_course_block = Mock(location=mock_overview.id)
+        mock_get_tags.return_value = expected_tags
+
         self.assertEqual(
             self.serializer.get_course_data_json(mock_overview), json.dumps(json_fields)
         )
+        mock_get_tags.assert_called_once_with(mock_overview.id)
 
     def test_get_course_key(self):
         """

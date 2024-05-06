@@ -17,7 +17,11 @@ from opaque_keys.edx.keys import CourseKey
 
 from platform_plugin_aspects.sinks.base_sink import ModelBaseSink
 from platform_plugin_aspects.sinks.serializers import CourseOverviewSerializer
-from platform_plugin_aspects.utils import get_detached_xblock_types, get_modulestore
+from platform_plugin_aspects.utils import (
+    get_detached_xblock_types,
+    get_modulestore,
+    get_tags_for_block,
+)
 
 # Defaults we want to ensure we fail early on bulk inserts
 CLICKHOUSE_BULK_INSERT_PARAMS = {
@@ -86,6 +90,9 @@ class XBlockSink(ModelBaseSink):
             fields["xblock_data_json"]["section"] = section_idx
             fields["xblock_data_json"]["subsection"] = subsection_idx
             fields["xblock_data_json"]["unit"] = unit_idx
+            fields["xblock_data_json"]["tags"] = get_tags_for_block(
+                fields["location"],
+            )
 
             fields["xblock_data_json"] = json.dumps(fields["xblock_data_json"])
             location_to_node[XBlockSink.strip_branch_and_version(block.location)] = (
