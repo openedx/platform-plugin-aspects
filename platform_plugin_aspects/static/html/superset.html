@@ -21,7 +21,7 @@
             {% else %}
             <input type="radio" id="tab-{{forloop.counter}}" name="tab-group-1" />
             {% endif %}
-            <label for="tab-{{forloop.counter}}">{{dashboard.name}}</label>
+            <label for="tab-{{forloop.counter}}">{% trans dashboard.name %}</label>
             <div class="aspects-content superset-embedded-container" id="superset-embedded-container-{{dashboard.uuid}}"></div>
         </div>
         {% endfor %}

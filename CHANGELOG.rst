@@ -14,6 +14,14 @@ Change Log
 Unreleased
 **********
 
+0.9.0 - 2024-05-06
+******************
+
+Added
+=====
+
+* Allow embedded dashboard tab names to be localized
+
 0.8.0 - 2024-05-06
 ******************
 
