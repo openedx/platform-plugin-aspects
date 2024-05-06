@@ -285,7 +285,7 @@ def _get_object_tags(usage_key):  # pragma: no cover
     Wrap the Open edX tagging API method get_object_tags.
     """
     try:
-        # pylint: disable=import-outside-toplevel,import-error
+        # pylint: disable=import-outside-toplevel
         from openedx.core.djangoapps.content_tagging.api import get_object_tags
 
         return get_object_tags(object_id=str(usage_key))
@@ -316,7 +316,7 @@ def get_tags_for_block(usage_key) -> dict:
 
 def _add_tag(tag, serialized_tags):
     """
-    Adds a tag to our serialized list of tags.
+    Add a tag to our serialized list of tags.
     """
     if tag.taxonomy.name not in serialized_tags:
         serialized_tags[tag.taxonomy.name] = [tag.value]
