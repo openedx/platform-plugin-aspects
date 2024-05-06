@@ -16,18 +16,18 @@
 | platform\_plugin\_aspects/signals.py                                           |       13 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        5 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/base\_sink.py                                  |      151 |        9 |       38 |        2 |     94% |84, 90, 96, 102, 107, 113, 119, 125, 130, 341->340, 364->363 |
-| platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       80 |        0 |       18 |        1 |     99% |  131->130 |
+| platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       81 |        0 |       18 |        1 |     99% |  138->137 |
 | platform\_plugin\_aspects/sinks/external\_id\_sink.py                          |       11 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/serializers.py                                 |       43 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/user\_profile\_sink.py                         |       11 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/user\_retire\_sink.py                          |       22 |        0 |        4 |        0 |    100% |           |
 | platform\_plugin\_aspects/tasks.py                                             |       19 |        0 |       14 |        6 |     82% |19->21, 20->19, 21->20, 43->45, 44->43, 45->44 |
 | platform\_plugin\_aspects/urls.py                                              |        5 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/utils.py                                             |       96 |        0 |       26 |        0 |    100% |           |
+| platform\_plugin\_aspects/utils.py                                             |      110 |        0 |       32 |        0 |    100% |           |
 | platform\_plugin\_aspects/views.py                                             |       54 |        0 |        4 |        1 |     98% |  108->107 |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/xblock.py                                            |       75 |        0 |       21 |        4 |     96% |30->32, 31->30, 176->175, 195->194 |
-|                                                                      **TOTAL** |  **961** |   **17** |  **165** |   **17** | **97%** |           |
+|                                                                      **TOTAL** |  **976** |   **17** |  **171** |   **17** | **97%** |           |
 
 
 ## Setup coverage badge

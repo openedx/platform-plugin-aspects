@@ -3,9 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Coverage for platform_plugin_aspects/management/commands/monitor_load_test_tracking.py: 94%</title>
-    <link rel="icon" sizes="32x32" href="favicon_32.png">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <script src="coverage_html.js" defer></script>
+    <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
+    <link rel="stylesheet" href="style_cb_8e611ae1.css" type="text/css">
+    <script src="coverage_html_cb_da166b87.js" defer></script>
 </head>
 <body class="pyfile">
 <header>
@@ -17,7 +17,7 @@
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
             <label for="help_panel_state">
-                <img id="keyboard_icon" src="keybd_closed.png" alt="Show/hide keyboard shortcuts">
+                <img id="keyboard_icon" src="keybd_closed_cb_ce680311.png" alt="Show/hide keyboard shortcuts">
             </label>
             <div id="help_panel">
                 <p class="legend">Shortcuts on this page</p>
@@ -66,8 +66,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="z_d6baef3a3e9983d0_signals_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.0">coverage.py v7.5.0</a>,
-            created at 2024-05-04 10:34 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.1">coverage.py v7.5.1</a>,
+            created at 2024-05-06 17:14 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -237,7 +237,7 @@
     <p class="run"><span class="n"><a id="t153" href="#t153">153</a></span><span class="t">            <span class="key">elif</span> <span class="nam">collect_kafka_bus</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t154" href="#t154">154</a></span><span class="t">                <span class="nam">current_stats</span><span class="op">[</span><span class="str">"kafka_bus"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">get_kafka_bus_stats</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t155" href="#t155">155</a></span><span class="t">                <span class="nam">lag</span> <span class="op">=</span> <span class="nam">current_stats</span><span class="op">[</span><span class="str">"kafka_bus"</span><span class="op">]</span><span class="op">[</span><span class="str">"lag"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p class="par run show_par"><span class="n"><a id="t156" href="#t156">156</a></span><span class="t">            <span class="key">elif</span> <span class="nam">collect_vector</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">156&#x202F;&#x219B;&#x202F;160</span><span class="annotate long">line 156 didn't jump to line 160, because the condition on line 156 was never false</span></span></p>
+    <p class="par run show_par"><span class="n"><a id="t156" href="#t156">156</a></span><span class="t">            <span class="key">elif</span> <span class="nam">collect_vector</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">156&#x202F;&#x219B;&#x202F;160</span><span class="annotate long">line 156 didn't jump to line 160, because the condition on line 156 was always true</span></span></p>
     <p class="run"><span class="n"><a id="t157" href="#t157">157</a></span><span class="t">                <span class="nam">current_stats</span><span class="op">[</span><span class="str">"vector"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">get_vector_stats</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t158" href="#t158">158</a></span><span class="t">                <span class="nam">lag</span> <span class="op">=</span> <span class="nam">current_stats</span><span class="op">[</span><span class="str">"vector"</span><span class="op">]</span><span class="op">[</span><span class="str">"lag"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t159" href="#t159">159</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -249,7 +249,7 @@
     <p class="pln"><span class="n"><a id="t165" href="#t165">165</a></span><span class="t">                    <span class="str">"----- Test has ended, waiting for events to drain off or force end with CTRL-C"</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t166" href="#t166">166</a></span><span class="t">                <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t167" href="#t167">167</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="par run show_par"><span class="n"><a id="t168" href="#t168">168</a></span><span class="t">            <span class="key">if</span> <span class="nam">shutting_down</span> <span class="key">and</span> <span class="key">not</span> <span class="nam">lag</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">168&#x202F;&#x219B;&#x202F;174</span><span class="annotate long">line 168 didn't jump to line 174, because the condition on line 168 was never false</span></span></p>
+    <p class="par run show_par"><span class="n"><a id="t168" href="#t168">168</a></span><span class="t">            <span class="key">if</span> <span class="nam">shutting_down</span> <span class="key">and</span> <span class="key">not</span> <span class="nam">lag</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">168&#x202F;&#x219B;&#x202F;174</span><span class="annotate long">line 168 didn't jump to line 174, because the condition on line 168 was always true</span></span></p>
     <p class="run"><span class="n"><a id="t169" href="#t169">169</a></span><span class="t">                <span class="nam">log</span><span class="op">.</span><span class="nam">info</span><span class="op">(</span><span class="str">"----- Test has ended, events are drained. Ending monitor!"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t170" href="#t170">170</a></span><span class="t">                <span class="key">break</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t171" href="#t171">171</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -528,8 +528,8 @@
             <a class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a class="nav" href="z_d6baef3a3e9983d0_signals_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.0">coverage.py v7.5.0</a>,
-            created at 2024-05-04 10:34 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.1">coverage.py v7.5.1</a>,
+            created at 2024-05-06 17:14 +0000
         </p>
     </div>
 </footer>
