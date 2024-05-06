@@ -8,9 +8,11 @@ https://docs.djangoproject.com/en/2.22/ref/settings/
 
 from platform_plugin_aspects import ROOT_DIRECTORY
 
-# Make '_' a no-op so we can scrape strings for translation. Using lambda instead of
-# `django.utils.translation.ugettext_noop` because Django cannot be imported in this file
-_ = lambda text: text
+
+# Make '_' a no-op so we can scrape strings for translation, because
+# `django.utils.translation.ugettext_noop` cannot be imported in this file
+def _(text):
+    return text
 
 
 def plugin_settings(settings):
