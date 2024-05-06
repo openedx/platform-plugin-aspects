@@ -65,7 +65,7 @@ def test_course_publish_success(
     mock_get_ccx_courses.return_value = []
 
     # Fake the "get_tags_for_block" api since we can't import it here
-    mock_get_tags.return_value = []
+    mock_get_tags.return_value = {}
 
     # Use the responses library to catch the POSTs to ClickHouse
     # and match them against the expected values, including CSV
@@ -298,7 +298,7 @@ def test_xblock_tree_structure(mock_modulestore, mock_detached, mock_get_tags):
     )
 
     # Fake the "get_tags_for_course" api since we can't import it here
-    mock_get_tags.return_value = []
+    mock_get_tags.return_value = {}
 
     sink = XBlockSink(connection_overrides={}, log=MagicMock())
 

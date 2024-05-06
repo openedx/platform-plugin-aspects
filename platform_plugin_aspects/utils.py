@@ -284,29 +284,41 @@ def _get_object_tags(usage_key):  # pragma: no cover
     """
     Wrap the Open edX tagging API method get_object_tags.
     """
-    # pylint: disable=import-outside-toplevel,import-error
-    from openedx.core.djangoapps.content_tagging.api import get_object_tags
+    try:
+        # pylint: disable=import-outside-toplevel,import-error
+        from openedx.core.djangoapps.content_tagging.api import get_object_tags
 
-    return get_object_tags(object_id=str(usage_key))
+        return get_object_tags(object_id=str(usage_key))
+    # Pre-Redwood versions of Open edX don't have this API
+    except ImportError:
+        return {}
 
 
 def get_tags_for_block(usage_key) -> dict:
     """
     Return all the tags (and their parent tags) applied to the given block.
 
-    Returns a list of string tags, of the form:
-
-        "taxonomy_name=tag_value"
-
+    Returns a dict of [taxonomy]: [tag, tag, tag]
     """
     tags = _get_object_tags(usage_key)
-    serialized_tags = []
+    serialized_tags = {}
 
     for explicit_tag in tags:
-        serialized_tags.append(f"{explicit_tag.taxonomy.name}={explicit_tag.value}")
+        _add_tag(explicit_tag, serialized_tags)
         implicit_tag = explicit_tag.tag.parent
+
         while implicit_tag:
-            serialized_tags.append(f"{implicit_tag.taxonomy.name}={implicit_tag.value}")
+            _add_tag(implicit_tag, serialized_tags)
             implicit_tag = implicit_tag.parent
 
     return serialized_tags
+
+
+def _add_tag(tag, serialized_tags):
+    """
+    Adds a tag to our serialized list of tags.
+    """
+    if tag.taxonomy.name not in serialized_tags:
+        serialized_tags[tag.taxonomy.name] = [tag.value]
+    else:
+        serialized_tags[tag.taxonomy.name].append(tag.value)
