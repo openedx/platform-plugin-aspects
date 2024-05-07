@@ -29,7 +29,7 @@ def plugin_settings(settings):
     settings.ASPECTS_INSTRUCTOR_DASHBOARDS = [
         {
             "name": _("Course Dashboard"),
-            "slug": "course-dashboard-v1",
+            "slug": "course-dashboard",
             "uuid": "c0e64194-33d1-4d5a-8c10-4f51530c5ee9",
             "allow_translations": True,
         },
