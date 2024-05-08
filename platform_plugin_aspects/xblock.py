@@ -13,8 +13,15 @@ from webob import Response
 from xblock.core import XBlock
 from xblock.exceptions import JsonHandlerError
 from xblock.fields import List, Scope, String
-from xblock.utils.resources import ResourceLoader
-from xblock.utils.studio_editable import StudioEditableXBlockMixin
+
+# These moved from xblockutils to xblock in Quince, these can be removed
+# when we stop supporting earlier versions.
+try:
+    from xblock.utils.resources import ResourceLoader
+    from xblock.utils.studio_editable import StudioEditableXBlockMixin
+except ImportError:
+    from xblockutils.resources import ResourceLoader
+    from xblockutils.studio_editable import StudioEditableXBlockMixin
 
 from .utils import (
     DEFAULT_FILTERS_FORMAT,
