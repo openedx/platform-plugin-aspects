@@ -14,6 +14,15 @@ Change Log
 Unreleased
 **********
 
+0.9.1 - 2024-05-08
+******************
+
+Fixes
+=====
+
+* Fix an ImportError in the Aspects Xblock on pre-Quince releases
+
+
 0.9.0 - 2024-05-06
 ******************
 
