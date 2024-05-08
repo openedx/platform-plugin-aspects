@@ -16,7 +16,7 @@ from xblock.fields import List, Scope, String
 
 # These moved from xblockutils to xblock in Quince, these can be removed
 # when we stop supporting earlier versions.
-try:
+try:  # pragma: no-cover
     from xblock.utils.resources import ResourceLoader
     from xblock.utils.studio_editable import StudioEditableXBlockMixin
 except ImportError:
