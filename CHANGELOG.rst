@@ -14,6 +14,14 @@ Change Log
 Unreleased
 **********
 
+0.9.2 - 2024-05-08
+******************
+
+Fixes
+=====
+
+* Remove caching of Superset guest token to fix various display errors and token refresh edge cases.
+
 0.9.1 - 2024-05-08
 ******************
 
