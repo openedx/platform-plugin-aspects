@@ -24,10 +24,10 @@
 | platform\_plugin\_aspects/tasks.py                                             |       19 |        0 |       14 |        6 |     82% |19->21, 20->19, 21->20, 43->45, 44->43, 45->44 |
 | platform\_plugin\_aspects/urls.py                                              |        5 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/utils.py                                             |      110 |        0 |       32 |        0 |    100% |           |
-| platform\_plugin\_aspects/views.py                                             |       54 |        0 |        4 |        1 |     98% |  108->107 |
+| platform\_plugin\_aspects/views.py                                             |       51 |        0 |        2 |        0 |    100% |           |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/xblock.py                                            |       79 |        3 |       21 |        4 |     93% |22-24, 37->39, 38->37, 183->182, 202->201 |
-|                                                                      **TOTAL** |  **980** |   **20** |  **171** |   **17** | **97%** |           |
+|                                                                      **TOTAL** |  **977** |   **20** |  **169** |   **16** | **97%** |           |
 
 
 ## Setup coverage badge
