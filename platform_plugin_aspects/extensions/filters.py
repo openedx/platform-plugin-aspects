@@ -30,6 +30,7 @@ class AddSupersetTab(PipelineStep):
         """
         course = context["course"]
         dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS
+        show_dashboard_link = settings.SUPERSET_SHOW_INSTRUCTOR_DASHBOARD_LINK
 
         user = get_current_user()
 
@@ -62,6 +63,7 @@ class AddSupersetTab(PipelineStep):
             "superset_guest_token_url": str(context.get("superset_guest_token_url")),
             "superset_url": str(context.get("superset_url")),
             "template_path_prefix": TEMPLATE_ABSOLUTE_PATH,
+            "show_dashboard_link": show_dashboard_link,
         }
         context["sections"].append(section_data)
         return {

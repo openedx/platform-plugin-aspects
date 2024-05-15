@@ -14,6 +14,15 @@ Change Log
 Unreleased
 **********
 
+0.9.3 - 2024-05-15
+******************
+
+Fixes
+=====
+
+* Change wording of the "go to Superset" link, and make it optional.
+
+
 0.9.2 - 2024-05-08
 ******************
 
