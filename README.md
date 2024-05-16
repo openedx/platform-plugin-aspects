@@ -7,7 +7,7 @@
 | platform\_plugin\_aspects/\_\_init\_\_.py                                      |        4 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/apps.py                                              |        9 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/extensions/\_\_init\_\_.py                           |        0 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/extensions/filters.py                                |       31 |        0 |        2 |        1 |     97% |    40->45 |
+| platform\_plugin\_aspects/extensions/filters.py                                |       36 |        2 |        2 |        1 |     92% |42-43, 46->51 |
 | platform\_plugin\_aspects/management/\_\_init\_\_.py                           |        0 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/\_\_init\_\_.py                  |        0 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       64 |        0 |       16 |        0 |    100% |           |
@@ -27,7 +27,7 @@
 | platform\_plugin\_aspects/views.py                                             |       51 |        0 |        2 |        0 |    100% |           |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/xblock.py                                            |       79 |        3 |       21 |        4 |     93% |22-24, 37->39, 38->37, 183->182, 202->201 |
-|                                                                      **TOTAL** |  **977** |   **20** |  **169** |   **16** | **97%** |           |
+|                                                                      **TOTAL** |  **982** |   **22** |  **169** |   **16** | **97%** |           |
 
 
 ## Setup coverage badge
