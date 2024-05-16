@@ -14,6 +14,14 @@ Change Log
 Unreleased
 **********
 
+0.9.4 - 2024-05-16
+******************
+
+Fixes
+=====
+
+* Allow to serialize dates as strings in JSON.
+
 0.9.3 - 2024-05-15
 ******************
 
