@@ -34,9 +34,14 @@ class AddSupersetTab(PipelineStep):
 
         user = get_current_user()
 
-        user_language = (
-            get_model("user_preference").get_value(user, "pref-lang") or "en"
-        )
+        try:
+            user_language = (
+                get_model("user_preference").get_value(user, "pref-lang") or "en"
+            )
+        # If there is no user_preferences model defined this will get thrown
+        except AttributeError:
+            user_language = "en"
+
         formatted_language = user_language.lower().replace("-", "_")
         if formatted_language not in [
             loc.lower().replace("-", "_") for loc in settings.SUPERSET_DASHBOARD_LOCALES
@@ -65,6 +70,8 @@ class AddSupersetTab(PipelineStep):
             "template_path_prefix": TEMPLATE_ABSOLUTE_PATH,
             "show_dashboard_link": show_dashboard_link,
         }
+
+        print(section_data)
         context["sections"].append(section_data)
         return {
             "context": context,

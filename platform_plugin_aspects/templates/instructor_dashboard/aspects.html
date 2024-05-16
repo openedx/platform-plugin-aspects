@@ -9,11 +9,11 @@ from openedx.core.djangolib.markup import HTML
 <%include file="/courseware/xqa_interface.html/"/>
 <%
 superset_url = section_data.get("superset_url")
-show_superset_link = section_data.get("show_dashboard_link")
+show_superset_link = superset_url and section_data.get("show_dashboard_link")
 %>
 
 <section class="superset">
-    % if superset_url and show_dashboard_link:
+    % if show_superset_link:
     <div class="superset-link">
       <a href="${superset_url}login/openedxsso">${_("View dashboards in Superset")}</a>
     </div>
