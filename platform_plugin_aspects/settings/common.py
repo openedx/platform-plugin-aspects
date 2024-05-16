@@ -46,6 +46,7 @@ def plugin_settings(settings):
             "allow_translations": True,
         },
     ]
+    settings.SUPERSET_SHOW_INSTRUCTOR_DASHBOARD_LINK = True
     settings.SUPERSET_EXTRA_FILTERS_FORMAT = []
     settings.SUPERSET_DASHBOARD_LOCALES = ["en"]
     settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = {
