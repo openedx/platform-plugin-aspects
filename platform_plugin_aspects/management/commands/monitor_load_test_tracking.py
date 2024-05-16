@@ -145,6 +145,7 @@ class Monitor:
             lag = None
 
             current_stats = {"clickhouse": self.get_clickhouse_stats()}
+            lag = -1
             if collect_redis_bus:
                 current_stats["redis_bus"] = self.get_redis_bus_stats()
                 lag = current_stats["redis_bus"]["lag"]

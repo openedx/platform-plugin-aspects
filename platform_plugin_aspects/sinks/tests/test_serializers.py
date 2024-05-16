@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from unittest.mock import Mock, patch
 
 from django.test import TestCase
@@ -6,6 +7,7 @@ from django.test import TestCase
 from platform_plugin_aspects.sinks.serializers import (
     BaseSinkSerializer,
     CourseOverviewSerializer,
+    DateTimeJSONEncoder,
 )
 from test_utils.helpers import course_key_factory
 
@@ -60,7 +62,7 @@ class TestCourseOverviewSerializer(TestCase):
         """
         expected_tags = ["TAX1=tag1", "TAX2=tag2"]
         json_fields = {
-            "advertised_start": "2018-01-01T00:00:00Z",
+            "advertised_start": datetime.now(),
             "announcement": "announcement",
             "lowest_passing_grade": 0.0,
             "invitation_only": "invitation_only",
@@ -80,7 +82,8 @@ class TestCourseOverviewSerializer(TestCase):
         mock_get_tags.return_value = expected_tags
 
         self.assertEqual(
-            self.serializer.get_course_data_json(mock_overview), json.dumps(json_fields)
+            self.serializer.get_course_data_json(mock_overview),
+            json.dumps(json_fields, cls=DateTimeJSONEncoder),
         )
         mock_get_tags.assert_called_once_with(mock_overview.id)
 
