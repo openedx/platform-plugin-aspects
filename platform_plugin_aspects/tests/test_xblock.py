@@ -99,6 +99,7 @@ class TestRender(TestCase):
         mock_resource_exists.return_value = True
         xblock = make_an_xblock("instructor")
         student_view = xblock.student_view()
+        url_resource = None
         for resource in student_view.resources:
             if resource.kind == "url":
                 url_resource = resource

@@ -142,6 +142,7 @@ class Monitor:
         while True:
             start = datetime.datetime.now()
             log.info(f"----------- {start} --------")
+            lag = None
 
             current_stats = {"clickhouse": self.get_clickhouse_stats()}
             if collect_redis_bus:
