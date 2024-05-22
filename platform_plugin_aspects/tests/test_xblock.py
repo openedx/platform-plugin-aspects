@@ -103,8 +103,10 @@ class TestRender(TestCase):
         for resource in student_view.resources:
             if resource.kind == "url":
                 url_resource = resource
-        self.assertIsNotNone(url_resource, "No 'url' resource found in fragment")
-        self.assertIn("eo/text.js", url_resource.data)
+                self.assertIsNotNone(
+                    url_resource, "No 'url' resource found in fragment"
+                )
+                self.assertIn("eo/text.js", url_resource.data)
         mock_get_language.assert_called_once()
         mock_resource_exists.assert_called_once()
 

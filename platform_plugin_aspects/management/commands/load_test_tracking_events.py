@@ -158,7 +158,6 @@ class LoadTest:
         output = io.StringIO()
         writer = csv.writer(output)
         writer.writerow((self.run_id, event_type, json.dumps(extra)))
-        print(output.getvalue().encode("utf-8"))
 
         response = requests.post(
             url=self.ch_url,

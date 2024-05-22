@@ -71,7 +71,6 @@ class AddSupersetTab(PipelineStep):
             "show_dashboard_link": show_dashboard_link,
         }
 
-        print(section_data)
         context["sections"].append(section_data)
         return {
             "context": context,

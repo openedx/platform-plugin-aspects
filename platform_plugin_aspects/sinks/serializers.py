@@ -2,11 +2,37 @@
 
 import json
 import uuid
+from datetime import date, datetime
 
 from django.utils import timezone
+from pytz import UTC
 from rest_framework import serializers
 
 from platform_plugin_aspects.utils import get_model, get_tags_for_block
+
+
+class DateTimeJSONEncoder(json.JSONEncoder):
+    """JSON encoder aware of datetime.datetime and datetime.date objects"""
+
+    def default(self, obj):  # pylint: disable=arguments-renamed
+        """
+        Serialize datetime and date objects of iso format.
+
+        datetime objects are converted to UTC.
+        """
+
+        if isinstance(obj, datetime):
+            if obj.tzinfo is None:
+                # Localize to UTC naive datetime objects
+                obj = UTC.localize(obj)  # pylint: disable=no-value-for-parameter
+            else:
+                # Convert to UTC datetime objects from other timezones
+                obj = obj.astimezone(UTC)
+            return obj.isoformat()
+        elif isinstance(obj, date):
+            return obj.isoformat()
+
+        return super().default(obj)
 
 
 class BaseSinkSerializer(serializers.Serializer):  # pylint: disable=abstract-method
@@ -148,7 +174,7 @@ class CourseOverviewSerializer(BaseSinkSerializer, serializers.ModelSerializer):
             "language": getattr(overview, "language", ""),
             "tags": get_tags_for_block(overview.id),
         }
-        return json.dumps(json_fields)
+        return json.dumps(json_fields, cls=DateTimeJSONEncoder)
 
     def get_course_key(self, overview):
         """Return the course key as a string."""
