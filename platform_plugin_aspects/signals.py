@@ -2,6 +2,7 @@
 Signal handler functions, mapped to specific signals in apps.py.
 """
 
+from django.db import transaction
 from django.db.models.signals import post_save
 from django.dispatch import Signal, receiver
 
@@ -33,11 +34,9 @@ def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cov
     dump_course_to_clickhouse.delay(str(course_key))
 
 
-def on_user_profile_updated(  # pylint: disable=unused-argument  # pragma: no cover
-    sender, instance, **kwargs
-):
+def on_user_profile_updated(instance):
     """
-    Receives post save signal and queues the dump job.
+    Queues the UserProfile dump job when the parent transaction is committed.
     """
     # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
     from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
@@ -52,11 +51,26 @@ def on_user_profile_updated(  # pylint: disable=unused-argument  # pragma: no co
     )
 
 
+def on_user_profile_updated_txn(**kwargs):
+    """
+    Handle user_profile saves in the middle of a transaction.
+
+    If this gets fired before the transaction commits, the task may try to
+    query an id that doesn't exist yet and throw an error. This should postpone
+    queuing the Celery task until after the transaction is committed.
+    """
+    transaction.on_commit(
+        lambda: on_user_profile_updated(kwargs["instance"])
+    )  # pragma: no cover
+
+
 # Connect the UserProfile.post_save signal handler only if we have a model to attach to.
 # (prevents celery errors during tests)
 _user_profile = get_model("user_profile")
 if _user_profile:
-    post_save.connect(on_user_profile_updated, sender=_user_profile)  # pragma: no cover
+    post_save.connect(
+        on_user_profile_updated_txn, sender=_user_profile
+    )  # pragma: no cover
 
 
 def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover

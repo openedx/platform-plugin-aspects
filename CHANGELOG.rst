@@ -14,6 +14,15 @@ Change Log
 Unreleased
 **********
 
+0.9.5 - 2024-05-24
+******************
+
+Fixes
+=====
+
+* UserProfile sink now runs after the transaction is committed, preventing UserProfileNotFound errors and creation of rows in ClickHouse that don't exist in MySQL in the case of a rollback.
+
+
 0.9.4 - 2024-05-16
 ******************
 
