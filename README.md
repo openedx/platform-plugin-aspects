@@ -13,7 +13,7 @@
 | platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       64 |        0 |       16 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/load\_test\_tracking\_events.py  |      111 |        1 |        6 |        0 |     99% |       213 |
 | platform\_plugin\_aspects/management/commands/monitor\_load\_test\_tracking.py |      157 |        7 |       16 |        2 |     94% |93, 142, 158->162, 176-184 |
-| platform\_plugin\_aspects/signals.py                                           |       13 |        0 |        0 |        0 |    100% |           |
+| platform\_plugin\_aspects/signals.py                                           |       19 |        3 |        0 |        0 |     84% |     42-47 |
 | platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        5 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/base\_sink.py                                  |      151 |        9 |       38 |        2 |     94% |84, 90, 96, 102, 107, 113, 119, 125, 130, 341->340, 364->363 |
 | platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       81 |        0 |       18 |        1 |     99% |  138->137 |
@@ -26,7 +26,7 @@
 | platform\_plugin\_aspects/utils.py                                             |      110 |        0 |       32 |        0 |    100% |           |
 | platform\_plugin\_aspects/views.py                                             |       51 |        0 |        2 |        0 |    100% |           |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/xblock.py                                            |       79 |        3 |       21 |        4 |     93% |22-24, 37->39, 38->37, 183->182, 202->201 |
+| platform\_plugin\_aspects/xblock.py                                            |       73 |        0 |       21 |        4 |     96% |37->39, 38->37, 183->182, 202->201 |
 |                                                                      **TOTAL** |  **994** |   **26** |  **175** |   **18** | **96%** |           |
 
 
