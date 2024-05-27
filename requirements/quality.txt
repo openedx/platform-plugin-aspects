@@ -83,7 +83,7 @@ code-annotations==1.8.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.5.1
+coverage[toml]==7.5.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -123,7 +123,7 @@ dnspython==2.6.1
     # via
     #   -r requirements/test.txt
     #   pymongo
-edx-django-utils==5.13.0
+edx-django-utils==5.14.1
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -183,7 +183,7 @@ model-bakery==1.18.0
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==9.9.1
+newrelic==9.10.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -230,7 +230,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==3.2.1
+pylint==3.2.2
     # via
     #   edx-lint
     #   pylint-celery
@@ -283,7 +283,7 @@ pyyaml==6.0.1
     #   xblock
 redis==5.0.4
     # via -r requirements/test.txt
-requests==2.31.0
+requests==2.32.2
     # via
     #   -r requirements/test.txt
     #   requests-oauthlib
@@ -332,7 +332,7 @@ tomli==2.0.1
     #   pytest
 tomlkit==0.12.5
     # via pylint
-typing-extensions==4.11.0
+typing-extensions==4.12.0
     # via
     #   -r requirements/test.txt
     #   asgiref
