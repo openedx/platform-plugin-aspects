@@ -28,7 +28,7 @@ babel==2.15.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
-backports-tarfile==1.1.1
+backports-tarfile==1.2.0
     # via jaraco-context
 backports-zoneinfo[tzdata]==0.2.1 ; python_version < "3.9"
     # via
@@ -48,7 +48,7 @@ build==1.2.1
     # via -r requirements/doc.in
 celery==5.4.0
     # via -r requirements/test.txt
-certifi==2024.2.2
+certifi==2024.6.2
     # via
     #   -r requirements/test.txt
     #   requests
@@ -86,7 +86,7 @@ code-annotations==1.8.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-coverage[toml]==7.5.1
+coverage[toml]==7.5.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -135,7 +135,7 @@ docutils==0.19
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
-edx-django-utils==5.13.0
+edx-django-utils==5.14.2
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -217,7 +217,7 @@ more-itertools==10.2.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==9.9.1
+newrelic==9.10.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -242,13 +242,13 @@ pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.10.0
+pkginfo==1.11.0
     # via twine
 pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-prompt-toolkit==3.0.43
+prompt-toolkit==3.0.45
     # via
     #   -r requirements/test.txt
     #   click-repl
@@ -314,7 +314,7 @@ readme-renderer==43.0
     # via twine
 redis==5.0.4
     # via -r requirements/test.txt
-requests==2.31.0
+requests==2.32.3
     # via
     #   -r requirements/test.txt
     #   requests-oauthlib
@@ -397,7 +397,7 @@ tomli==2.0.1
     #   pytest
 twine==5.1.0
     # via -r requirements/doc.in
-typing-extensions==4.11.0
+typing-extensions==4.12.1
     # via
     #   -r requirements/test.txt
     #   asgiref
@@ -436,7 +436,7 @@ webob==1.8.7
     #   xblock
 xblock==4.0.1
     # via -r requirements/test.txt
-zipp==3.18.2
+zipp==3.19.1
     # via
     #   importlib-metadata
     #   importlib-resources
