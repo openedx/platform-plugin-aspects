@@ -49,6 +49,34 @@ class XBlockSink(ModelBaseSink):
             initial={"dump_id": dump_id, "time_last_dumped": time_last_dumped},
         )
 
+    def get_xblocks_recursive(self, parent_block):
+        """
+        Walk the course tree recursively and return a flattened list of XBlocks.
+
+        Note that this list will not include detached blocks, those are handled
+        in get_detached_xblocks. This method preserves the course ordering for
+        non-detached blocks.
+        """
+        items = [parent_block]
+
+        for child in parent_block.get_children():
+            items.extend(self.get_xblocks_recursive(child))
+
+        return items
+
+    def get_detached_xblocks(self, course_blocks, detached_types):
+        """
+        Spin through the flat list of all blocks in a course and return only
+        the detached blocks. Ordering of non-detached blocks is already
+        guaranteed in get_xblocks_recursive. Order of detached blocks
+        is not guaranteed.
+        """
+        return [
+            block
+            for block in course_blocks
+            if block.scope_ids.block_type in detached_types
+        ]
+
     def serialize_item(self, item, many=False, initial=None):
         """
         Serialize an XBlock into a dict
@@ -58,7 +86,22 @@ class XBlockSink(ModelBaseSink):
         detached_xblock_types = get_detached_xblock_types()
 
         location_to_node = {}
-        items = modulestore.get_items(course_key)
+
+        # This call gets the entire course tree in order, because the
+        # get_items call does not guarantee ordering. It does not return
+        # detached blocks, so we gather them separately below.
+        course_block = modulestore.get_course(
+            course_key, revision="rev-opt-published-only"
+        )
+        items = self.get_xblocks_recursive(course_block)
+
+        # Here we fetch the detached blocks and add them to the list.
+        detached = self.get_detached_xblocks(
+            modulestore.get_items(course_key, revision="rev-opt-published-only"),
+            detached_xblock_types,
+        )
+
+        items.extend(detached)
 
         # Serialize the XBlocks to dicts and map them with their location as keys the
         # whole map needs to be completed before we can define relationships
@@ -77,19 +120,26 @@ class XBlockSink(ModelBaseSink):
                 initial["time_last_dumped"],
             )
 
-            if fields["xblock_data_json"]["block_type"] == "chapter":
-                section_idx += 1
-                subsection_idx = 0
-                unit_idx = 0
-            elif fields["xblock_data_json"]["block_type"] == "sequential":
-                subsection_idx += 1
-                unit_idx = 0
-            elif fields["xblock_data_json"]["block_type"] == "vertical":
-                unit_idx += 1
+            # Ensure that detached types aren't part of the tree
+            if block.scope_ids.block_type in detached_xblock_types:
+                fields["xblock_data_json"]["section"] = 0
+                fields["xblock_data_json"]["subsection"] = 0
+                fields["xblock_data_json"]["unit"] = 0
+            else:
+                if fields["xblock_data_json"]["block_type"] == "chapter":
+                    section_idx += 1
+                    subsection_idx = 0
+                    unit_idx = 0
+                elif fields["xblock_data_json"]["block_type"] == "sequential":
+                    subsection_idx += 1
+                    unit_idx = 0
+                elif fields["xblock_data_json"]["block_type"] == "vertical":
+                    unit_idx += 1
 
-            fields["xblock_data_json"]["section"] = section_idx
-            fields["xblock_data_json"]["subsection"] = subsection_idx
-            fields["xblock_data_json"]["unit"] = unit_idx
+                fields["xblock_data_json"]["section"] = section_idx
+                fields["xblock_data_json"]["subsection"] = subsection_idx
+                fields["xblock_data_json"]["unit"] = unit_idx
+
             fields["xblock_data_json"]["tags"] = get_tags_for_block(
                 fields["location"],
             )

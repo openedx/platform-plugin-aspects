@@ -14,6 +14,15 @@ Change Log
 Unreleased
 **********
 
+0.9.6 - 2024-06-07
+******************
+
+Fixes
+=====
+
+* The CourseOutline sink was not always ordering blocks correctly, leading to issues with blocks appearing in the wrong sections/subsection.
+
+
 0.9.5 - 2024-05-24
 ******************
 

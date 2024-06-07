@@ -21,8 +21,10 @@ from test_utils.helpers import (
     check_overview_csv_matcher,
     course_factory,
     course_str_factory,
+    detached_xblock_factory,
     fake_course_overview_factory,
     fake_serialize_fake_course_overview,
+    get_all_course_blocks_list,
     get_clickhouse_http_params,
     mock_detached_xblock_types,
 )
@@ -51,8 +53,10 @@ def test_course_publish_success(
     """
     # Create a fake course structure with a few fake XBlocks
     course = course_factory()
+    detached_blocks = detached_xblock_factory()
     course_overview = fake_course_overview_factory(modified=datetime.now())
-    mock_modulestore.return_value.get_items.return_value = course
+    mock_modulestore.return_value.get_course.return_value = course
+    mock_modulestore.return_value.get_items.return_value = detached_blocks
 
     mock_serialize_item.return_value = fake_serialize_fake_course_overview(
         course_overview
@@ -83,18 +87,24 @@ def test_course_publish_success(
         "https://foo.bar/",
         match=[
             matchers.query_param_matcher(blocks_params),
-            check_block_csv_matcher(course),
+            check_block_csv_matcher(
+                get_all_course_blocks_list(course, detached_blocks)
+            ),
         ],
     )
 
-    course = course_str_factory()
-    dump_course_to_clickhouse(course)
+    course_key = course_str_factory()
+    dump_course_to_clickhouse(course_key)
 
     # Just to make sure we're not calling things more than we need to
     assert mock_modulestore.call_count == 1
+    assert mock_modulestore.return_value.get_course.call_count == 1
+    assert mock_modulestore.return_value.get_items.call_count == 1
     assert mock_detached.call_count == 1
     mock_get_ccx_courses.assert_called_once_with(course_overview.id)
-    mock_get_tags.call_count == len(course)
+    assert mock_get_tags.call_count == len(
+        get_all_course_blocks_list(course, detached_blocks)
+    )
 
 
 @responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
@@ -288,7 +298,7 @@ def test_xblock_tree_structure(mock_modulestore, mock_detached, mock_get_tags):
     # Create a fake course structure with a few fake XBlocks
     course = course_factory()
     course_overview = fake_course_overview_factory(modified=datetime.now())
-    mock_modulestore.return_value.get_items.return_value = course
+    mock_modulestore.return_value.get_course.return_value = course
 
     # Fake the "detached types" list since we can't import it here
     mock_detached.return_value = mock_detached_xblock_types()
@@ -352,7 +362,7 @@ def test_xblock_graded_completable_mode(mock_modulestore, mock_detached, mock_ge
     # Create a fake course structure with a few fake XBlocks
     course = course_factory()
     course_overview = fake_course_overview_factory(modified=datetime.now())
-    mock_modulestore.return_value.get_items.return_value = course
+    mock_modulestore.return_value.get_course.return_value = course
 
     # Fake the "detached types" list since we can't import it here
     mock_detached.return_value = mock_detached_xblock_types()
@@ -387,11 +397,11 @@ def test_xblock_graded_completable_mode(mock_modulestore, mock_detached, mock_ge
             raise
 
     # These tree indexes are the only ones which should have gradable set
-    _check_item_serialized_location(results[31], 1)
-    _check_item_serialized_location(results[32], 1)
-    _check_item_serialized_location(results[33], 1)
+    _check_item_serialized_location(results[28], 1)
+    _check_item_serialized_location(results[29], 1)
+    _check_item_serialized_location(results[30], 1)
 
     # These tree indexes are the only ones which should have non-"unknown" completion_modes.
-    _check_item_serialized_location(results[34], 0, "completable")
-    _check_item_serialized_location(results[35], 0, "aggregator")
-    _check_item_serialized_location(results[36], 0, "excluded")
+    _check_item_serialized_location(results[31], 0, "completable")
+    _check_item_serialized_location(results[32], 0, "aggregator")
+    _check_item_serialized_location(results[33], 0, "excluded")
