@@ -229,7 +229,7 @@ mccabe==0.7.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-model-bakery==1.18.0
+model-bakery==1.18.1
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
@@ -245,11 +245,11 @@ oauthlib==3.2.2
     # via
     #   -r requirements/quality.txt
     #   requests-oauthlib
-openedx-atlas==0.6.0
+openedx-atlas==0.6.1
     # via -r requirements/quality.txt
 openedx-filters==1.8.1
     # via -r requirements/quality.txt
-packaging==24.0
+packaging==24.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
@@ -288,7 +288,7 @@ pluggy==1.5.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
-prompt-toolkit==3.0.45
+prompt-toolkit==3.0.46
     # via
     #   -r requirements/quality.txt
     #   click-repl
@@ -306,7 +306,7 @@ pydocstyle==6.3.0
     # via -r requirements/quality.txt
 pygments==2.18.0
     # via diff-cover
-pylint==3.2.2
+pylint==3.2.3
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -343,7 +343,7 @@ pyproject-hooks==1.1.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.2.1
+pytest==8.2.2
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -373,7 +373,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.4
+redis==5.0.5
     # via -r requirements/quality.txt
 requests==2.32.3
     # via
@@ -385,7 +385,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/quality.txt
     #   superset-api-client
-responses==0.25.0
+responses==0.25.2
     # via -r requirements/quality.txt
 simplejson==3.19.2
     # via
@@ -434,9 +434,9 @@ tomlkit==0.12.5
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.15.0
+tox==4.15.1
     # via -r requirements/ci.txt
-typing-extensions==4.12.1
+typing-extensions==4.12.2
     # via
     #   -r requirements/quality.txt
     #   asgiref
@@ -483,7 +483,7 @@ wheel==0.43.0
     #   pip-tools
 xblock==4.0.1
     # via -r requirements/quality.txt
-zipp==3.19.1
+zipp==3.19.2
     # via
     #   -r requirements/pip-tools.txt
     #   importlib-metadata

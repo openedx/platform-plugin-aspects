@@ -149,7 +149,7 @@ markupsafe==2.1.5
     #   jinja2
     #   mako
     #   xblock
-model-bakery==1.18.0
+model-bakery==1.18.1
     # via django-mock-queries
 newrelic==9.10.0
     # via
@@ -159,11 +159,11 @@ oauthlib==3.2.2
     # via
     #   -r requirements/base.txt
     #   requests-oauthlib
-openedx-atlas==0.6.0
+openedx-atlas==0.6.1
     # via -r requirements/base.txt
 openedx-filters==1.8.1
     # via -r requirements/base.txt
-packaging==24.0
+packaging==24.1
     # via pytest
 pbr==6.0.0
     # via
@@ -171,7 +171,7 @@ pbr==6.0.0
     #   stevedore
 pluggy==1.5.0
     # via pytest
-prompt-toolkit==3.0.45
+prompt-toolkit==3.0.46
     # via
     #   -r requirements/base.txt
     #   click-repl
@@ -191,7 +191,7 @@ pynacl==1.5.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-pytest==8.2.1
+pytest==8.2.2
     # via
     #   pytest-cov
     #   pytest-django
@@ -219,7 +219,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.4
+redis==5.0.5
     # via -r requirements/base.txt
 requests==2.32.3
     # via
@@ -231,7 +231,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/base.txt
     #   superset-api-client
-responses==0.25.0
+responses==0.25.2
     # via -r requirements/test.in
 simplejson==3.19.2
     # via
@@ -262,7 +262,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-typing-extensions==4.12.1
+typing-extensions==4.12.2
     # via
     #   -r requirements/base.txt
     #   asgiref
