@@ -29,6 +29,8 @@ CLICKHOUSE_BULK_INSERT_PARAMS = {
     "input_format_allow_errors_ratio": 0.1,
 }
 
+MODULESTORE_PUBLISHED_ONLY_FLAG = "rev-opt-published-only"
+
 
 class XBlockSink(ModelBaseSink):
     """
@@ -49,22 +51,31 @@ class XBlockSink(ModelBaseSink):
             initial={"dump_id": dump_id, "time_last_dumped": time_last_dumped},
         )
 
-    def get_xblocks_recursive(self, parent_block):
+    def get_xblocks_recursive(self, parent_block, detached_xblock_types, initial):
         """
-        Walk the course tree recursively and return a flattened list of XBlocks.
+        Serialize the course tree recursively, return a flattened list of XBlocks.
 
         Note that this list will not include detached blocks, those are handled
         in get_detached_xblocks. This method preserves the course ordering for
         non-detached blocks.
         """
-        items = [parent_block]
+        items = [
+            self.serialize_xblock(
+                parent_block,
+                detached_xblock_types,
+                initial["dump_id"],
+                initial["time_last_dumped"],
+            )
+        ]
 
         for child in parent_block.get_children():
-            items.extend(self.get_xblocks_recursive(child))
+            items.extend(
+                self.get_xblocks_recursive(child, detached_xblock_types, initial)
+            )
 
         return items
 
-    def get_detached_xblocks(self, course_blocks, detached_types):
+    def get_detached_xblocks(self, course_blocks, detached_xblock_types, initial):
         """
         Spin through the flat list of all blocks in a course and return only
         the detached blocks. Ordering of non-detached blocks is already
@@ -72,9 +83,14 @@ class XBlockSink(ModelBaseSink):
         is not guaranteed.
         """
         return [
-            block
+            self.serialize_xblock(
+                block,
+                detached_xblock_types,
+                initial["dump_id"],
+                initial["time_last_dumped"],
+            )
             for block in course_blocks
-            if block.scope_ids.block_type in detached_types
+            if block.scope_ids.block_type in detached_xblock_types
         ]
 
     def serialize_item(self, item, many=False, initial=None):
@@ -91,20 +107,21 @@ class XBlockSink(ModelBaseSink):
         # get_items call does not guarantee ordering. It does not return
         # detached blocks, so we gather them separately below.
         course_block = modulestore.get_course(
-            course_key, revision="rev-opt-published-only"
+            course_key, revision=MODULESTORE_PUBLISHED_ONLY_FLAG
         )
-        items = self.get_xblocks_recursive(course_block)
+
+        items = self.get_xblocks_recursive(course_block, detached_xblock_types, initial)
 
         # Here we fetch the detached blocks and add them to the list.
         detached = self.get_detached_xblocks(
-            modulestore.get_items(course_key, revision="rev-opt-published-only"),
+            modulestore.get_items(course_key, revision=MODULESTORE_PUBLISHED_ONLY_FLAG),
             detached_xblock_types,
+            initial,
         )
 
         items.extend(detached)
 
-        # Serialize the XBlocks to dicts and map them with their location as keys the
-        # whole map needs to be completed before we can define relationships
+        # Add location and tag data to the dict mappings of the blocks
         index = 0
         section_idx = 0
         subsection_idx = 0
@@ -112,48 +129,39 @@ class XBlockSink(ModelBaseSink):
 
         for block in items:
             index += 1
-            fields = self.serialize_xblock(
-                block,
-                index,
-                detached_xblock_types,
-                initial["dump_id"],
-                initial["time_last_dumped"],
-            )
+
+            block["order"] = index
 
             # Ensure that detached types aren't part of the tree
-            if block.scope_ids.block_type in detached_xblock_types:
-                fields["xblock_data_json"]["section"] = 0
-                fields["xblock_data_json"]["subsection"] = 0
-                fields["xblock_data_json"]["unit"] = 0
+            if block["xblock_data_json"]["detached"]:
+                block["xblock_data_json"]["section"] = 0
+                block["xblock_data_json"]["subsection"] = 0
+                block["xblock_data_json"]["unit"] = 0
             else:
-                if fields["xblock_data_json"]["block_type"] == "chapter":
+                if block["xblock_data_json"]["block_type"] == "chapter":
                     section_idx += 1
                     subsection_idx = 0
                     unit_idx = 0
-                elif fields["xblock_data_json"]["block_type"] == "sequential":
+                elif block["xblock_data_json"]["block_type"] == "sequential":
                     subsection_idx += 1
                     unit_idx = 0
-                elif fields["xblock_data_json"]["block_type"] == "vertical":
+                elif block["xblock_data_json"]["block_type"] == "vertical":
                     unit_idx += 1
 
-                fields["xblock_data_json"]["section"] = section_idx
-                fields["xblock_data_json"]["subsection"] = subsection_idx
-                fields["xblock_data_json"]["unit"] = unit_idx
+                block["xblock_data_json"]["section"] = section_idx
+                block["xblock_data_json"]["subsection"] = subsection_idx
+                block["xblock_data_json"]["unit"] = unit_idx
 
-            fields["xblock_data_json"]["tags"] = get_tags_for_block(
-                fields["location"],
+            block["xblock_data_json"]["tags"] = get_tags_for_block(
+                block["location"],
             )
 
-            fields["xblock_data_json"] = json.dumps(fields["xblock_data_json"])
-            location_to_node[XBlockSink.strip_branch_and_version(block.location)] = (
-                fields
-            )
+            block["xblock_data_json"] = json.dumps(block["xblock_data_json"])
+            location_to_node[block["location"]] = block
 
         return list(location_to_node.values())
 
-    def serialize_xblock(
-        self, item, index, detached_xblock_types, dump_id, time_last_dumped
-    ):
+    def serialize_xblock(self, item, detached_xblock_types, dump_id, time_last_dumped):
         """Serialize an XBlock instance into a dict"""
         course_key = item.scope_ids.usage_id.course_key
         block_type = item.scope_ids.block_type
@@ -173,10 +181,9 @@ class XBlockSink(ModelBaseSink):
         serialized_block = {
             "org": course_key.org,
             "course_key": str(course_key),
-            "location": str(item.location),
+            "location": str(XBlockSink.strip_branch_and_version(item.location)),
             "display_name": item.display_name_with_default.replace("'", "'"),
             "xblock_data_json": json_data,
-            "order": index,
             "edited_on": str(getattr(item, "edited_on", "")),
             "dump_id": dump_id,
             "time_last_dumped": time_last_dumped,
