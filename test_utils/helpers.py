@@ -76,6 +76,9 @@ class FakeXBlock:
         """
         return self.children
 
+    def __repr__(self):
+        return f"FakeXBlock({self.location}): {self.display_name_with_default}"
+
 
 def course_str_factory(course_id=None):
     """
@@ -207,44 +210,65 @@ def course_factory():
     Return a fake course structure that exercises most of the serialization features.
     """
     # Create a base block
-    top_block = FakeXBlock("top", block_type="course")
-    course = [
-        top_block,
-    ]
+    course = FakeXBlock("top", block_type="course")
+
+    # This gets used below to add some blocks to a vertical
+    unit_block = None
 
     # Create a few sections
     for i in range(3):
-        block = FakeXBlock(f"Section {i}", block_type="chapter")
-        course.append(block)
-        top_block.children.append(block)
+        section_block = FakeXBlock(f"Section {i}", block_type="chapter")
+        course.children.append(section_block)
 
         # Create some subsections
         if i > 0:
             for ii in range(3):
-                sub_block = FakeXBlock(f"Subsection {ii}", block_type="sequential")
-                course.append(sub_block)
-                block.children.append(sub_block)
+                subsection_block = FakeXBlock(
+                    f"Subsection {ii}", block_type="sequential"
+                )
+                section_block.children.append(subsection_block)
 
                 for iii in range(3):
                     # Create some units
                     unit_block = FakeXBlock(f"Unit {iii}", block_type="vertical")
-                    course.append(unit_block)
-                    sub_block.children.append(unit_block)
+                    subsection_block.children.append(unit_block)
 
-    # Create some detached blocks at the top level
+    # Create some graded blocks
     for i in range(3):
-        course.append(FakeXBlock(f"Detached {i}", block_type="course_info"))
+        unit_block.children.append(FakeXBlock(f"Graded {i}", graded=True))
 
-    # Create some graded blocks at the top level
-    for i in range(3):
-        course.append(FakeXBlock(f"Graded {i}", graded=True))
-
-    # Create some completable blocks at the top level
-    course.append(FakeXBlock("Completable", completion_mode="completable"))
-    course.append(FakeXBlock("Aggregator", completion_mode="aggregator"))
-    course.append(FakeXBlock("Excluded", completion_mode="excluded"))
+    # Create some completable blocks
+    unit_block.children.append(FakeXBlock("Completable", completion_mode="completable"))
+    unit_block.children.append(FakeXBlock("Aggregator", completion_mode="aggregator"))
+    unit_block.children.append(FakeXBlock("Excluded", completion_mode="excluded"))
 
     return course
+
+
+def detached_xblock_factory():
+    """
+    Create some detached xblocks for a course
+    """
+    return [FakeXBlock(f"Detached {i}", block_type="course_info") for i in range(3)]
+
+
+def get_all_course_blocks_list(course_block, detached_blocks):
+    """
+    Return a flattened list of all blocks in the course.
+    """
+
+    def _get_blocks_recursive(parent_block):
+        blocks = [parent_block]
+
+        for child in parent_block.get_children():
+            blocks.extend(_get_blocks_recursive(child))
+
+        return blocks
+
+    course_blocks = _get_blocks_recursive(course_block)
+    course_blocks.extend(detached_blocks)
+
+    return course_blocks
 
 
 def check_overview_csv_matcher(course_overview):

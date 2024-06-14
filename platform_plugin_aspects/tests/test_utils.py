@@ -262,9 +262,9 @@ class TestUtils(TestCase):
         mock_tag22 = mock_tag(mock_taxonomy2, "tag2.2")
         mock_get_object_tags.return_value = [mock_tag13, mock_tag21, mock_tag22]
 
-        course_tags = get_tags_for_block(course[0].location)
+        course_tags = get_tags_for_block(course.location)
         assert course_tags == {
             "Taxonomy One": ["tag1.3", "tag1.2", "tag1.1"],
             "Taxonomy Two": ["tag2.1", "tag2.2"],
         }
-        mock_get_object_tags.assert_called_once_with(course[0].location)
+        mock_get_object_tags.assert_called_once_with(course.location)
