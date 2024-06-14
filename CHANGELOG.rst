@@ -14,6 +14,15 @@ Change Log
 Unreleased
 **********
 
+0.9.7 - 2024-06-14
+******************
+
+Fixes
+=====
+
+* 0.9.6 introduced a bug in the CourseOverview sink that caused block sink to fail to import to ClickHouse, this fixes it.
+
+
 0.9.6 - 2024-06-07
 ******************
 
