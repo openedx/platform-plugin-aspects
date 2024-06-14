@@ -16,7 +16,7 @@
 | platform\_plugin\_aspects/signals.py                                           |       18 |        3 |        0 |        0 |     83% |     42-47 |
 | platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        5 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/base\_sink.py                                  |      151 |        9 |       38 |        2 |     94% |84, 90, 96, 102, 107, 113, 119, 125, 130, 341->340, 364->363 |
-| platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       96 |        0 |       22 |        1 |     99% |  195->194 |
+| platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       96 |        0 |       22 |        1 |     99% |  198->197 |
 | platform\_plugin\_aspects/sinks/external\_id\_sink.py                          |       11 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/serializers.py                                 |       55 |        4 |        6 |        2 |     87% | 30, 32-35 |
 | platform\_plugin\_aspects/sinks/user\_profile\_sink.py                         |       11 |        0 |        0 |        0 |    100% |           |
