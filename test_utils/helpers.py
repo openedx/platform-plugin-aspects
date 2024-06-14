@@ -379,7 +379,10 @@ def check_block_csv_matcher(course):
                 assert block_json_data["course"] == csv_json["course"]
                 assert block_json_data["run"] == csv_json["run"]
                 assert block_json_data["block_type"] == csv_json["block_type"]
+
+                # The order sent here should match our block order, but starts at 1
                 i += 1
+                assert row[5] == str(i)
         except AssertionError as e:
             return False, f"Mismatch in row {i}: {e}"
         return True, ""

@@ -184,6 +184,9 @@ class XBlockSink(ModelBaseSink):
             "location": str(XBlockSink.strip_branch_and_version(item.location)),
             "display_name": item.display_name_with_default.replace("'", "'"),
             "xblock_data_json": json_data,
+            # We need to add this here so the key will be in the right place
+            # in the generated csv
+            "order": -1,
             "edited_on": str(getattr(item, "edited_on", "")),
             "dump_id": dump_id,
             "time_last_dumped": time_last_dumped,
