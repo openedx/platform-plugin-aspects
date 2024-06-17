@@ -14,6 +14,14 @@ Change Log
 Unreleased
 **********
 
+0.10.0 - 2024-06-17
+*******************
+
+Added
+=====
+
+* A sink for the course enrollment model.
+
 0.9.7 - 2024-06-14
 ******************
 
