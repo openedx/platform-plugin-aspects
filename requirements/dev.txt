@@ -164,7 +164,7 @@ edx-i18n-tools==1.6.0
     # via -r requirements/dev.in
 edx-lint==5.3.6
     # via -r requirements/quality.txt
-edx-opaque-keys==2.9.0
+edx-opaque-keys==2.10.0
     # via -r requirements/quality.txt
 edx-toggles==5.2.0
     # via -r requirements/quality.txt
@@ -172,7 +172,7 @@ exceptiongroup==1.2.1
     # via
     #   -r requirements/quality.txt
     #   pytest
-filelock==3.14.0
+filelock==3.15.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -237,7 +237,7 @@ mypy-extensions==1.0.0
     # via
     #   -r requirements/quality.txt
     #   black
-newrelic==9.10.0
+newrelic==9.11.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
@@ -247,7 +247,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.1
     # via -r requirements/quality.txt
-openedx-filters==1.8.1
+openedx-filters==1.9.0
     # via -r requirements/quality.txt
 packaging==24.1
     # via
@@ -288,7 +288,7 @@ pluggy==1.5.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
-prompt-toolkit==3.0.46
+prompt-toolkit==3.0.47
     # via
     #   -r requirements/quality.txt
     #   click-repl
@@ -296,7 +296,7 @@ psutil==5.9.8
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
-pycodestyle==2.11.1
+pycodestyle==2.12.0
     # via -r requirements/quality.txt
 pycparser==2.22
     # via
@@ -326,7 +326,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.4.0
+pymongo==4.7.3
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -373,7 +373,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.5
+redis==5.0.6
     # via -r requirements/quality.txt
 requests==2.32.3
     # via
@@ -385,7 +385,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/quality.txt
     #   superset-api-client
-responses==0.25.2
+responses==0.25.3
     # via -r requirements/quality.txt
 simplejson==3.19.2
     # via
