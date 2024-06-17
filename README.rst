@@ -23,6 +23,8 @@ Available Sinks
   model and stores the user profile data in ClickHouse.
 - `UserRetirementSink` - Listen for the `USER_RETIRE_LMS_MISC` Django signal and
   remove the user PII information from ClickHouse.
+- `CourseEnrollmentSink` - Listen for the `ENROLL_STATUS_CHANGE` event and stores
+  the course enrollment data.
 
 Commands
 ========

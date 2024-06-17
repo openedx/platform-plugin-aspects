@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import Signal, receiver
 
 from platform_plugin_aspects.sinks import (
+    CourseEnrollmentSink,
     ExternalIdSink,
     UserProfileSink,
     UserRetirementSink,
@@ -32,6 +33,31 @@ def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cov
     )
 
     dump_course_to_clickhouse.delay(str(course_key))
+
+
+def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pragma: no cover
+    sender, **kwargs
+):
+    """
+    Receives ENROLL_STATUS_CHANGE
+    """
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_data_to_clickhouse,
+    )
+
+    user = kwargs.get("user")
+    course_id = kwargs.get("course_id")
+
+    CourseEnrollment = get_model("course_enrollment")
+    instance = CourseEnrollment.objects.get(user=user, course_id=course_id)
+
+    sink = CourseEnrollmentSink(None, None)
+
+    dump_data_to_clickhouse.delay(
+        sink_module=sink.__module__,
+        sink_name=sink.__class__.__name__,
+        object_id=instance.id,
+    )
 
 
 def on_user_profile_updated(instance):
