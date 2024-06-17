@@ -139,7 +139,7 @@ edx-django-utils==5.14.2
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-edx-opaque-keys==2.9.0
+edx-opaque-keys==2.10.0
     # via -r requirements/test.txt
 edx-toggles==5.2.0
     # via -r requirements/test.txt
@@ -213,11 +213,11 @@ model-bakery==1.18.1
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
-more-itertools==10.2.0
+more-itertools==10.3.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==9.10.0
+newrelic==9.11.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -229,7 +229,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.1
     # via -r requirements/test.txt
-openedx-filters==1.8.1
+openedx-filters==1.9.0
     # via -r requirements/test.txt
 packaging==24.1
     # via
@@ -248,7 +248,7 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-prompt-toolkit==3.0.46
+prompt-toolkit==3.0.47
     # via
     #   -r requirements/test.txt
     #   click-repl
@@ -270,7 +270,7 @@ pygments==2.18.0
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.4.0
+pymongo==4.7.3
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -312,7 +312,7 @@ pyyaml==6.0.1
     #   xblock
 readme-renderer==43.0
     # via twine
-redis==5.0.5
+redis==5.0.6
     # via -r requirements/test.txt
 requests==2.32.3
     # via
@@ -329,7 +329,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 requests-toolbelt==1.0.0
     # via twine
-responses==0.25.2
+responses==0.25.3
     # via -r requirements/test.txt
 restructuredtext-lint==1.4.0
     # via doc8

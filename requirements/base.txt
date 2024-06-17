@@ -72,7 +72,7 @@ edx-django-utils==5.14.2
     # via
     #   -r requirements/base.in
     #   edx-toggles
-edx-opaque-keys==2.9.0
+edx-opaque-keys==2.10.0
     # via -r requirements/base.in
 edx-toggles==5.2.0
     # via -r requirements/base.in
@@ -93,23 +93,23 @@ markupsafe==2.1.5
     #   jinja2
     #   mako
     #   xblock
-newrelic==9.10.0
+newrelic==9.11.0
     # via edx-django-utils
 oauthlib==3.2.2
     # via requests-oauthlib
 openedx-atlas==0.6.1
     # via -r requirements/base.in
-openedx-filters==1.8.1
+openedx-filters==1.9.0
     # via -r requirements/base.in
 pbr==6.0.0
     # via stevedore
-prompt-toolkit==3.0.46
+prompt-toolkit==3.0.47
     # via click-repl
 psutil==5.9.8
     # via edx-django-utils
 pycparser==2.22
     # via cffi
-pymongo==4.4.0
+pymongo==4.7.3
     # via edx-opaque-keys
 pynacl==1.5.0
     # via edx-django-utils
@@ -126,7 +126,7 @@ pyyaml==6.0.1
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==5.0.5
+redis==5.0.6
     # via -r requirements/base.in
 requests==2.32.3
     # via

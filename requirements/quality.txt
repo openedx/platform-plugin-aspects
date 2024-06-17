@@ -129,7 +129,7 @@ edx-django-utils==5.14.2
     #   edx-toggles
 edx-lint==5.3.6
     # via -r requirements/quality.in
-edx-opaque-keys==2.9.0
+edx-opaque-keys==2.10.0
     # via -r requirements/test.txt
 edx-toggles==5.2.0
     # via -r requirements/test.txt
@@ -183,7 +183,7 @@ model-bakery==1.18.1
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==9.10.0
+newrelic==9.11.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -193,7 +193,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.1
     # via -r requirements/test.txt
-openedx-filters==1.8.1
+openedx-filters==1.9.0
     # via -r requirements/test.txt
 packaging==24.1
     # via
@@ -214,7 +214,7 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-prompt-toolkit==3.0.46
+prompt-toolkit==3.0.47
     # via
     #   -r requirements/test.txt
     #   click-repl
@@ -222,7 +222,7 @@ psutil==5.9.8
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-pycodestyle==2.11.1
+pycodestyle==2.12.0
     # via -r requirements/quality.in
 pycparser==2.22
     # via
@@ -244,7 +244,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.4.0
+pymongo==4.7.3
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -281,7 +281,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.5
+redis==5.0.6
     # via -r requirements/test.txt
 requests==2.32.3
     # via
@@ -293,7 +293,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/test.txt
     #   superset-api-client
-responses==0.25.2
+responses==0.25.3
     # via -r requirements/test.txt
 simplejson==3.19.2
     # via

@@ -111,7 +111,7 @@ edx-django-utils==5.14.2
     # via
     #   -r requirements/base.txt
     #   edx-toggles
-edx-opaque-keys==2.9.0
+edx-opaque-keys==2.10.0
     # via -r requirements/base.txt
 edx-toggles==5.2.0
     # via -r requirements/base.txt
@@ -151,7 +151,7 @@ markupsafe==2.1.5
     #   xblock
 model-bakery==1.18.1
     # via django-mock-queries
-newrelic==9.10.0
+newrelic==9.11.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -161,7 +161,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.1
     # via -r requirements/base.txt
-openedx-filters==1.8.1
+openedx-filters==1.9.0
     # via -r requirements/base.txt
 packaging==24.1
     # via pytest
@@ -171,7 +171,7 @@ pbr==6.0.0
     #   stevedore
 pluggy==1.5.0
     # via pytest
-prompt-toolkit==3.0.46
+prompt-toolkit==3.0.47
     # via
     #   -r requirements/base.txt
     #   click-repl
@@ -183,7 +183,7 @@ pycparser==2.22
     # via
     #   -r requirements/base.txt
     #   cffi
-pymongo==4.4.0
+pymongo==4.7.3
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -219,7 +219,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.5
+redis==5.0.6
     # via -r requirements/base.txt
 requests==2.32.3
     # via
@@ -231,7 +231,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/base.txt
     #   superset-api-client
-responses==0.25.2
+responses==0.25.3
     # via -r requirements/test.in
 simplejson==3.19.2
     # via
