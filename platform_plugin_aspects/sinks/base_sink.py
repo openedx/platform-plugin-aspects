@@ -271,7 +271,7 @@ class ModelBaseSink(BaseSink):
                 writer.writerow(node.values())
         else:
             writer.writerow(serialized_item.values())
-        print("ClickHouse CSV output", output.getvalue().encode("utf-8"))
+
         request = requests.Request(
             "POST",
             self.ch_url,

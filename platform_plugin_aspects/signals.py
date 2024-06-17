@@ -39,7 +39,7 @@ def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pra
     sender, **kwargs
 ):
     """
-    Receives ENROLL_STATUS_CHANGE
+    Receives ENROLL_STATUS_CHANGE signal and queues the dump job.
     """
     from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
         dump_data_to_clickhouse,
