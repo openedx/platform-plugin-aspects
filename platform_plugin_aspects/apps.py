@@ -49,7 +49,18 @@ class PlatformPluginAspectsConfig(AppConfig):
                         PluginSignals.SIGNAL_PATH: "xmodule.modulestore.django.COURSE_PUBLISHED",
                     }
                 ],
-            }
+            },
+            "lms.djangoapp": {
+                # List of all plugin Signal receivers for this app and project type.
+                PluginSignals.RECEIVERS: [
+                    {
+                        # The name of the app's signal receiver function.
+                        PluginSignals.RECEIVER_FUNC_NAME: "receive_course_enrollment_changed",
+                        # The full path to the module where the signal is defined.
+                        PluginSignals.SIGNAL_PATH: "common.djangoapps.student.signals.signals.ENROLL_STATUS_CHANGE",
+                    }
+                ],
+            },
         },
     }
 

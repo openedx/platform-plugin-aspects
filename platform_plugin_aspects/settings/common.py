@@ -82,6 +82,10 @@ def plugin_settings(settings):
             "module": "openedx.core.djangoapps.external_user_ids.models",
             "model": "ExternalId",
         },
+        "course_enrollment": {
+            "module": "common.djangoapps.student.models",
+            "model": "CourseEnrollment",
+        },
         "custom_course_edx": {
             "module": "lms.djangoapps.ccx.models",
             "model": "CustomCourseForEdX",

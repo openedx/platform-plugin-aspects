@@ -179,3 +179,30 @@ class CourseOverviewSerializer(BaseSinkSerializer, serializers.ModelSerializer):
     def get_course_key(self, overview):
         """Return the course key as a string."""
         return str(overview.id)
+
+
+class CourseEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerializer):
+    """Serializer for the Course Enrollment model."""
+
+    course_key = serializers.SerializerMethodField()
+    username = serializers.CharField(source="user.username")
+
+    class Meta:
+        """Meta class for the CourseEnrollmentSerializer"""
+
+        model = get_model("course_enrollment")
+        fields = [
+            "id",
+            "course_key",
+            "created",
+            "is_active",
+            "mode",
+            "username",
+            "user_id",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_course_key(self, obj):
+        """Return the course key as a string."""
+        return str(obj.course_id)
