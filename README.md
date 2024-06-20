@@ -13,12 +13,13 @@
 | platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       64 |        0 |       16 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/load\_test\_tracking\_events.py  |      111 |        1 |        6 |        0 |     99% |       213 |
 | platform\_plugin\_aspects/management/commands/monitor\_load\_test\_tracking.py |      157 |        7 |       16 |        2 |     94% |93, 142, 158->162, 176-184 |
-| platform\_plugin\_aspects/signals.py                                           |       18 |        3 |        0 |        0 |     83% |     42-47 |
-| platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        5 |        0 |        0 |        0 |    100% |           |
+| platform\_plugin\_aspects/signals.py                                           |       18 |        3 |        0 |        0 |     83% |     68-73 |
+| platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        6 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/base\_sink.py                                  |      151 |        9 |       38 |        2 |     94% |84, 90, 96, 102, 107, 113, 119, 125, 130, 341->340, 364->363 |
+| platform\_plugin\_aspects/sinks/course\_enrollment\_sink.py                    |       11 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       96 |        0 |       22 |        1 |     99% |  198->197 |
 | platform\_plugin\_aspects/sinks/external\_id\_sink.py                          |       11 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/serializers.py                                 |       55 |        4 |        6 |        2 |     87% | 30, 32-35 |
+| platform\_plugin\_aspects/sinks/serializers.py                                 |       63 |        5 |        6 |        2 |     87% |30, 32-35, 208 |
 | platform\_plugin\_aspects/sinks/user\_profile\_sink.py                         |       11 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/user\_retire\_sink.py                          |       22 |        0 |        4 |        0 |    100% |           |
 | platform\_plugin\_aspects/tasks.py                                             |       19 |        0 |       14 |        6 |     82% |19->21, 20->19, 21->20, 43->45, 44->43, 45->44 |
@@ -27,7 +28,7 @@
 | platform\_plugin\_aspects/views.py                                             |       51 |        0 |        2 |        0 |    100% |           |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/xblock.py                                            |       72 |        0 |       21 |        4 |     96% |37->39, 38->37, 183->182, 202->201 |
-|                                                                      **TOTAL** | **1007** |   **26** |  **179** |   **18** | **96%** |           |
+|                                                                      **TOTAL** | **1027** |   **27** |  **179** |   **18** | **96%** |           |
 
 
 ## Setup coverage badge
