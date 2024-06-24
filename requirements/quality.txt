@@ -83,7 +83,7 @@ code-annotations==1.8.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.5.3
+coverage[toml]==7.5.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -115,7 +115,7 @@ django-waffle==4.1.0
     #   -r requirements/test.txt
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.15.1
+djangorestframework==3.15.2
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -218,7 +218,7 @@ prompt-toolkit==3.0.47
     # via
     #   -r requirements/test.txt
     #   click-repl
-psutil==5.9.8
+psutil==6.0.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -346,7 +346,7 @@ tzdata==2024.1
     #   -r requirements/test.txt
     #   backports-zoneinfo
     #   celery
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   -r requirements/test.txt
     #   requests

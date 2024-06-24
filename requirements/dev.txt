@@ -107,7 +107,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.5.3
+coverage[toml]==7.5.4
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -148,7 +148,7 @@ django-waffle==4.1.0
     #   -r requirements/quality.txt
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.15.1
+djangorestframework==3.15.2
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
@@ -172,7 +172,7 @@ exceptiongroup==1.2.1
     # via
     #   -r requirements/quality.txt
     #   pytest
-filelock==3.15.1
+filelock==3.15.4
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -292,7 +292,7 @@ prompt-toolkit==3.0.47
     # via
     #   -r requirements/quality.txt
     #   click-repl
-psutil==5.9.8
+psutil==6.0.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
@@ -334,7 +334,7 @@ pynacl==1.5.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
-pyproject-api==1.6.1
+pyproject-api==1.7.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -450,7 +450,7 @@ tzdata==2024.1
     #   -r requirements/quality.txt
     #   backports-zoneinfo
     #   celery
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -461,7 +461,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==20.26.2
+virtualenv==20.26.3
     # via
     #   -r requirements/ci.txt
     #   tox
