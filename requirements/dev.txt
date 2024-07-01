@@ -113,7 +113,7 @@ coverage[toml]==7.5.4
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.0.0
+diff-cover==9.1.0
     # via -r requirements/dev.in
 dill==0.3.8
     # via
@@ -229,7 +229,7 @@ mccabe==0.7.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-model-bakery==1.18.1
+model-bakery==1.18.2
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
@@ -306,7 +306,7 @@ pydocstyle==6.3.0
     # via -r requirements/quality.txt
 pygments==2.18.0
     # via diff-cover
-pylint==3.2.3
+pylint==3.2.5
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -326,7 +326,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.7.3
+pymongo==4.8.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -373,7 +373,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.6
+redis==5.0.7
     # via -r requirements/quality.txt
 requests==2.32.3
     # via
