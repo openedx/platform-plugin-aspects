@@ -109,7 +109,7 @@ psutil==6.0.0
     # via edx-django-utils
 pycparser==2.22
     # via cffi
-pymongo==4.7.3
+pymongo==4.8.0
     # via edx-opaque-keys
 pynacl==1.5.0
     # via edx-django-utils
@@ -126,7 +126,7 @@ pyyaml==6.0.1
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==5.0.6
+redis==5.0.7
     # via -r requirements/base.in
 requests==2.32.3
     # via

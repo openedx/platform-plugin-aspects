@@ -209,7 +209,7 @@ markupsafe==2.1.5
     #   xblock
 mdurl==0.1.2
     # via markdown-it-py
-model-bakery==1.18.1
+model-bakery==1.18.2
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -242,7 +242,7 @@ pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.11.1
+pkginfo==1.10.0
     # via twine
 pluggy==1.5.0
     # via
@@ -270,7 +270,7 @@ pygments==2.18.0
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.7.3
+pymongo==4.8.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -312,7 +312,7 @@ pyyaml==6.0.1
     #   xblock
 readme-renderer==43.0
     # via twine
-redis==5.0.6
+redis==5.0.7
     # via -r requirements/test.txt
 requests==2.32.3
     # via
@@ -395,7 +395,7 @@ tomli==2.0.1
     #   coverage
     #   doc8
     #   pytest
-twine==5.1.0
+twine==5.1.1
     # via -r requirements/doc.in
 typing-extensions==4.12.2
     # via

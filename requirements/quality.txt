@@ -177,7 +177,7 @@ markupsafe==2.1.5
     #   xblock
 mccabe==0.7.0
     # via pylint
-model-bakery==1.18.1
+model-bakery==1.18.2
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -230,7 +230,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==3.2.3
+pylint==3.2.5
     # via
     #   edx-lint
     #   pylint-celery
@@ -244,7 +244,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.7.3
+pymongo==4.8.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -281,7 +281,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.6
+redis==5.0.7
     # via -r requirements/test.txt
 requests==2.32.3
     # via
