@@ -34,7 +34,7 @@ billiard==4.2.0
     #   celery
 celery==5.4.0
     # via -r requirements/base.txt
-certifi==2024.6.2
+certifi==2024.7.4
     # via
     #   -r requirements/base.txt
     #   requests

@@ -40,7 +40,7 @@ black==24.4.2
     # via -r requirements/quality.in
 celery==5.4.0
     # via -r requirements/test.txt
-certifi==2024.6.2
+certifi==2024.7.4
     # via
     #   -r requirements/test.txt
     #   requests
