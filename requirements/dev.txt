@@ -16,7 +16,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==3.2.2
+astroid==3.2.3
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -51,7 +51,7 @@ cachetools==5.3.3
     #   tox
 celery==5.4.0
     # via -r requirements/quality.txt
-certifi==2024.6.2
+certifi==2024.7.4
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -107,7 +107,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.5.4
+coverage[toml]==7.6.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -123,7 +123,7 @@ distlib==0.3.8
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.2.13
+django==4.2.14
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -168,7 +168,7 @@ edx-opaque-keys==2.10.0
     # via -r requirements/quality.txt
 edx-toggles==5.2.0
     # via -r requirements/quality.txt
-exceptiongroup==1.2.1
+exceptiongroup==1.2.2
     # via
     #   -r requirements/quality.txt
     #   pytest
@@ -237,7 +237,7 @@ mypy-extensions==1.0.0
     # via
     #   -r requirements/quality.txt
     #   black
-newrelic==9.11.0
+newrelic==9.12.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
@@ -430,11 +430,11 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tomlkit==0.12.5
+tomlkit==0.13.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.15.1
+tox==4.16.0
     # via -r requirements/ci.txt
 typing-extensions==4.12.2
     # via
