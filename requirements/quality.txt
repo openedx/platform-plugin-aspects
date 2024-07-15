@@ -16,7 +16,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
-astroid==3.2.2
+astroid==3.2.3
     # via
     #   pylint
     #   pylint-celery
@@ -40,7 +40,7 @@ black==24.4.2
     # via -r requirements/quality.in
 celery==5.4.0
     # via -r requirements/test.txt
-certifi==2024.6.2
+certifi==2024.7.4
     # via
     #   -r requirements/test.txt
     #   requests
@@ -83,7 +83,7 @@ code-annotations==1.8.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.5.4
+coverage[toml]==7.6.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -91,7 +91,7 @@ ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.3.8
     # via pylint
-django==4.2.13
+django==4.2.14
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -133,7 +133,7 @@ edx-opaque-keys==2.10.0
     # via -r requirements/test.txt
 edx-toggles==5.2.0
     # via -r requirements/test.txt
-exceptiongroup==1.2.1
+exceptiongroup==1.2.2
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -183,7 +183,7 @@ model-bakery==1.18.2
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==9.11.0
+newrelic==9.12.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -330,7 +330,7 @@ tomli==2.0.1
     #   coverage
     #   pylint
     #   pytest
-tomlkit==0.12.5
+tomlkit==0.13.0
     # via pylint
 typing-extensions==4.12.2
     # via
