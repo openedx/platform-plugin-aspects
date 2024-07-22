@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Coverage for platform_plugin_aspects/xblock.py: 96%</title>
+    <title>Coverage for platform_plugin_aspects/xblock.py: 100%</title>
     <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
     <link rel="stylesheet" href="style_cb_8e611ae1.css" type="text/css">
     <script src="coverage_html_cb_6fb7b396.js" defer></script>
@@ -12,7 +12,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>platform_plugin_aspects/xblock.py</b>:
-            <span class="pc_cov">96%</span>
+            <span class="pc_cov">100%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -59,7 +59,7 @@
             <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">72<span class="text"> run</span></button>
             <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">0<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">25<span class="text"> excluded</span></button>
-            <button type="button" class="par run show_par button_toggle_par" value="par" data-shortcut="p" title="Toggle lines partially run">4<span class="text"> partial</span></button>
+            <button type="button" class="par run show_par button_toggle_par" value="par" data-shortcut="p" title="Toggle lines partially run">0<span class="text"> partial</span></button>
         </h2>
         <p class="text">
             <a id="prevFileLink" class="nav" href="z_d6baef3a3e9983d0_waffle_py.html">&#xab; prev</a> &nbsp; &nbsp;
@@ -67,7 +67,7 @@
             <a id="nextFileLink" class="nav" href="index.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.0">coverage.py v7.6.0</a>,
-            created at 2024-07-22 14:08 +0000
+            created at 2024-07-22 16:32 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -118,8 +118,8 @@
     <p class="run"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t"><span class="nam">loader</span> <span class="op">=</span> <span class="nam">ResourceLoader</span><span class="op">(</span><span class="nam">__name__</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t35" href="#t35">35</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t36" href="#t36">36</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="par run show_par"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t"><span class="op">@</span><span class="nam">XBlock</span><span class="op">.</span><span class="nam">needs</span><span class="op">(</span><span class="str">"user"</span><span class="op">)</span>&nbsp;</span><span class="r"><span class="annotate short">37&#x202F;&#x219B;&#x202F;39</span><span class="annotate long">line 37 didn't jump to line 39</span></span></p>
-    <p class="par run show_par"><span class="n"><a id="t38" href="#t38">38</a></span><span class="t"><span class="op">@</span><span class="nam">XBlock</span><span class="op">.</span><span class="nam">needs</span><span class="op">(</span><span class="str">"i18n"</span><span class="op">)</span>&nbsp;</span><span class="r"><span class="annotate short">38&#x202F;&#x219B;&#x202F;37</span><span class="annotate long">line 38 didn't jump to line 37</span></span></p>
+    <p class="run"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t"><span class="op">@</span><span class="nam">XBlock</span><span class="op">.</span><span class="nam">needs</span><span class="op">(</span><span class="str">"user"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t38" href="#t38">38</a></span><span class="t"><span class="op">@</span><span class="nam">XBlock</span><span class="op">.</span><span class="nam">needs</span><span class="op">(</span><span class="str">"i18n"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t39" href="#t39">39</a></span><span class="t"><span class="key">class</span> <span class="nam">SupersetXBlock</span><span class="op">(</span><span class="nam">StudioEditableXBlockMixin</span><span class="op">,</span> <span class="nam">XBlock</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t">    <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t"><span class="str">    XBlock provides a way to embed dashboards from Superset in a course.</span>&nbsp;</span><span class="r"></span></p>
@@ -264,7 +264,7 @@
     <p class="exc show_exc"><span class="n"><a id="t180" href="#t180">180</a></span><span class="t">        <span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t181" href="#t181">181</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t182" href="#t182">182</a></span><span class="t">    <span class="op">@</span><span class="nam">staticmethod</span>&nbsp;</span><span class="r"></span></p>
-    <p class="par run show_par"><span class="n"><a id="t183" href="#t183">183</a></span><span class="t">    <span class="key">def</span> <span class="nam">_get_statici18n_js_url</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">183&#x202F;&#x219B;&#x202F;182</span><span class="annotate long">line 183 didn't jump to line 182</span></span></p>
+    <p class="run"><span class="n"><a id="t183" href="#t183">183</a></span><span class="t">    <span class="key">def</span> <span class="nam">_get_statici18n_js_url</span><span class="op">(</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t184" href="#t184">184</a></span><span class="t">        <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t185" href="#t185">185</a></span><span class="t"><span class="str">        Return the Javascript translation file for the currently selected language, if any.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t186" href="#t186">186</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -283,7 +283,7 @@
     <p class="run"><span class="n"><a id="t199" href="#t199">199</a></span><span class="t">        <span class="key">return</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t200" href="#t200">200</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t201" href="#t201">201</a></span><span class="t">    <span class="op">@</span><span class="nam">XBlock</span><span class="op">.</span><span class="nam">json_handler</span>&nbsp;</span><span class="r"></span></p>
-    <p class="par run show_par"><span class="n"><a id="t202" href="#t202">202</a></span><span class="t">    <span class="key">def</span> <span class="nam">get_superset_guest_token</span><span class="op">(</span>&nbsp;</span><span class="r"><span class="annotate short">202&#x202F;&#x219B;&#x202F;201</span><span class="annotate long">line 202 didn't jump to line 201</span></span></p>
+    <p class="run"><span class="n"><a id="t202" href="#t202">202</a></span><span class="t">    <span class="key">def</span> <span class="nam">get_superset_guest_token</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t203" href="#t203">203</a></span><span class="t">        <span class="nam">self</span><span class="op">,</span> <span class="nam">request_body</span><span class="op">,</span> <span class="nam">suffix</span><span class="op">=</span><span class="str">""</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t204" href="#t204">204</a></span><span class="t">    <span class="op">)</span><span class="op">:</span>  <span class="com"># pylint: disable=unused-argument</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t205" href="#t205">205</a></span><span class="t">        <span class="str">"""Return a guest token for Superset."""</span>&nbsp;</span><span class="r"></span></p>
@@ -314,7 +314,7 @@
             <a class="nav" href="index.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.0">coverage.py v7.6.0</a>,
-            created at 2024-07-22 14:08 +0000
+            created at 2024-07-22 16:32 +0000
         </p>
     </div>
 </footer>
