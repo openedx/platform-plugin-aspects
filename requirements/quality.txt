@@ -24,7 +24,7 @@ billiard==4.2.0
     # via
     #   -r requirements/test.txt
     #   celery
-black==24.4.2
+black==24.8.0
     # via -r requirements/quality.in
 celery==5.4.0
     # via -r requirements/test.txt
@@ -71,7 +71,7 @@ code-annotations==1.8.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.6.0
+coverage[toml]==7.6.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -111,7 +111,7 @@ dnspython==2.6.1
     # via
     #   -r requirements/test.txt
     #   pymongo
-edx-django-utils==5.14.2
+edx-django-utils==5.15.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -206,7 +206,7 @@ psutil==6.0.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-pycodestyle==2.12.0
+pycodestyle==2.12.1
     # via -r requirements/quality.in
 pycparser==2.22
     # via
@@ -265,7 +265,7 @@ pyyaml==6.0.1
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.7
+redis==5.0.8
     # via -r requirements/test.txt
 requests==2.32.3
     # via
