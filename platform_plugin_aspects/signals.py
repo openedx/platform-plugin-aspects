@@ -9,6 +9,9 @@ from django.dispatch import Signal, receiver
 from platform_plugin_aspects.sinks import (
     CourseEnrollmentSink,
     ExternalIdSink,
+    ObjectTagSink,
+    TagSink,
+    TaxonomySink,
     UserProfileSink,
     UserRetirementSink,
 )
@@ -143,3 +146,81 @@ def on_user_retirement(  # pylint: disable=unused-argument  # pragma: no cover
         sink_name=sink.__class__.__name__,
         object_id=str(user.id),
     )
+
+
+def on_tag_saved(  # pylint: disable=unused-argument  # pragma: no cover
+    sender, instance, **kwargs
+):
+    """
+    Receives post save signal and queues the dump job.
+    """
+    # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_data_to_clickhouse,
+    )
+
+    sink = TagSink(None, None)
+    dump_data_to_clickhouse.delay(
+        sink_module=sink.__module__,
+        sink_name=sink.__class__.__name__,
+        object_id=str(instance.id),
+    )
+
+
+# Connect the ExternalId.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_tag = get_model("tag")
+if _tag:
+    post_save.connect(on_tag_saved, sender=_tag)  # pragma: no cover
+
+
+def on_taxonomy_saved(  # pylint: disable=unused-argument  # pragma: no cover
+    sender, instance, **kwargs
+):
+    """
+    Receives post save signal and queues the dump job.
+    """
+    # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_data_to_clickhouse,
+    )
+
+    sink = TaxonomySink(None, None)
+    dump_data_to_clickhouse.delay(
+        sink_module=sink.__module__,
+        sink_name=sink.__class__.__name__,
+        object_id=str(instance.id),
+    )
+
+
+# Connect the ExternalId.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_taxonomy = get_model("taxonomy")
+if _taxonomy:
+    post_save.connect(on_taxonomy_saved, sender=_taxonomy)  # pragma: no cover
+
+
+def on_object_tag_saved(  # pylint: disable=unused-argument  # pragma: no cover
+    sender, instance, **kwargs
+):
+    """
+    Receives post save signal and queues the dump job.
+    """
+    # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_data_to_clickhouse,
+    )
+
+    sink = ObjectTagSink(None, None)
+    dump_data_to_clickhouse.delay(
+        sink_module=sink.__module__,
+        sink_name=sink.__class__.__name__,
+        object_id=str(instance.id),
+    )
+
+
+# Connect the ExternalId.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_object_tag = get_model("object_tag")
+if _object_tag:
+    post_save.connect(on_object_tag_saved, sender=_object_tag)  # pragma: no cover
