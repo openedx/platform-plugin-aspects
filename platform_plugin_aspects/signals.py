@@ -3,7 +3,7 @@ Signal handler functions, mapped to specific signals in apps.py.
 """
 
 from django.db import transaction
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import Signal, receiver
 
 from platform_plugin_aspects.sinks import (
@@ -209,6 +209,7 @@ def on_object_tag_saved(  # pylint: disable=unused-argument  # pragma: no cover
     # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
     from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
         dump_data_to_clickhouse,
+        dump_course_to_clickhouse
     )
 
     sink = ObjectTagSink(None, None)
@@ -218,9 +219,31 @@ def on_object_tag_saved(  # pylint: disable=unused-argument  # pragma: no cover
         object_id=str(instance.id),
     )
 
+    on_object_tag_deleted(sender, instance, **kwargs)
+
+
+def on_object_tag_deleted(  # pylint: disable=unused-argument  # pragma: no cover
+    sender, instance, **kwargs
+):
+    """
+    Receives post save signal and queues the dump job.
+    """
+    # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+        dump_course_to_clickhouse
+    )
+
+    CourseOverview = get_model("course_overviews")
+    if CourseOverview:
+        try:
+            CourseOverview.objects.get(id=instance.object_id)
+            dump_course_to_clickhouse.delay(instance.object_id)
+        except CourseOverview.DoesNotExist as exc:
+            pass
 
 # Connect the ExternalId.post_save signal handler only if we have a model to attach to.
 # (prevents celery errors during tests)
 _object_tag = get_model("object_tag")
 if _object_tag:
     post_save.connect(on_object_tag_saved, sender=_object_tag)  # pragma: no cover
+    post_delete.connect(on_object_tag_deleted, sender=_object_tag)
