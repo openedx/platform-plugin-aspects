@@ -36,7 +36,7 @@ build==1.2.1
     # via -r requirements/doc.in
 celery==5.4.0
     # via -r requirements/test.txt
-certifi==2024.7.4
+certifi==2024.8.30
     # via
     #   -r requirements/test.txt
     #   requests
@@ -135,13 +135,13 @@ fs==2.4.16
     # via
     #   -r requirements/test.txt
     #   xblock
-idna==3.7
+idna==3.8
     # via
     #   -r requirements/test.txt
     #   requests
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==8.2.0
+importlib-metadata==8.4.0
     # via
     #   keyring
     #   twine
@@ -151,7 +151,7 @@ iniconfig==2.0.0
     #   pytest
 jaraco-classes==3.4.0
     # via keyring
-jaraco-context==5.3.0
+jaraco-context==6.0.1
     # via keyring
 jaraco-functools==4.0.2
     # via keyring
@@ -188,7 +188,7 @@ markupsafe==2.1.5
     #   xblock
 mdurl==0.1.2
     # via markdown-it-py
-model-bakery==1.19.3
+model-bakery==1.19.5
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -206,7 +206,7 @@ oauthlib==3.2.2
     # via
     #   -r requirements/test.txt
     #   requests-oauthlib
-openedx-atlas==0.6.1
+openedx-atlas==0.6.2
     # via -r requirements/test.txt
 openedx-filters==1.9.0
     # via -r requirements/test.txt
@@ -217,7 +217,7 @@ packaging==24.1
     #   pydata-sphinx-theme
     #   pytest
     #   sphinx
-pbr==6.0.0
+pbr==6.1.0
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -313,7 +313,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.7.1
+rich==13.8.0
     # via twine
 secretstorage==3.3.3
     # via keyring
@@ -353,7 +353,7 @@ sqlparse==0.5.1
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.2.0
+stevedore==5.3.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -401,9 +401,9 @@ webob==1.8.8
     # via
     #   -r requirements/test.txt
     #   xblock
-xblock==5.0.0
+xblock==5.1.0
     # via -r requirements/test.txt
-zipp==3.20.0
+zipp==3.20.1
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
