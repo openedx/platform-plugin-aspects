@@ -22,7 +22,7 @@ billiard==4.2.0
     #   celery
 celery==5.4.0
     # via -r requirements/base.txt
-certifi==2024.7.4
+certifi==2024.8.30
     # via
     #   -r requirements/base.txt
     #   requests
@@ -107,7 +107,7 @@ fs==2.4.16
     # via
     #   -r requirements/base.txt
     #   xblock
-idna==3.7
+idna==3.8
     # via
     #   -r requirements/base.txt
     #   requests
@@ -135,7 +135,7 @@ markupsafe==2.1.5
     #   jinja2
     #   mako
     #   xblock
-model-bakery==1.19.3
+model-bakery==1.19.5
     # via django-mock-queries
 newrelic==9.13.0
     # via
@@ -145,13 +145,13 @@ oauthlib==3.2.2
     # via
     #   -r requirements/base.txt
     #   requests-oauthlib
-openedx-atlas==0.6.1
+openedx-atlas==0.6.2
     # via -r requirements/base.txt
 openedx-filters==1.9.0
     # via -r requirements/base.txt
 packaging==24.1
     # via pytest
-pbr==6.0.0
+pbr==6.1.0
     # via
     #   -r requirements/base.txt
     #   stevedore
@@ -232,7 +232,7 @@ sqlparse==0.5.1
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.2.0
+stevedore==5.3.0
     # via
     #   -r requirements/base.txt
     #   code-annotations
@@ -275,7 +275,7 @@ webob==1.8.8
     # via
     #   -r requirements/base.txt
     #   xblock
-xblock==5.0.0
+xblock==5.1.0
     # via -r requirements/base.txt
 
 # The following packages are considered to be unsafe in a requirements file:
