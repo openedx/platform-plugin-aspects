@@ -94,4 +94,13 @@ def plugin_settings(settings):
             "module": "openedx.core.djangoapps.user_api.models",
             "model": "UserPreference",
         },
+        "tag": {"module": "openedx_tagging.core.tagging.models", "model": "Tag"},
+        "taxonomy": {
+            "module": "openedx_tagging.core.tagging.models",
+            "model": "Taxonomy",
+        },
+        "object_tag": {
+            "module": "openedx_tagging.core.tagging.models",
+            "model": "ObjectTag",
+        },
     }

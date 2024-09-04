@@ -59,3 +59,6 @@ def dump_data_to_clickhouse(
     if Sink.is_enabled():
         sink = Sink(connection_overrides=connection_overrides, log=celery_log)
         sink.dump(object_id)
+        return "Dumped"
+
+    return "Disabled"

@@ -206,3 +206,67 @@ class CourseEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerializer
     def get_course_key(self, obj):
         """Return the course key as a string."""
         return str(obj.course_id)
+
+
+class TagSerializer(BaseSinkSerializer, serializers.ModelSerializer):
+    """Serializer for the Tag model."""
+
+    lineage = serializers.SerializerMethodField()
+
+    class Meta:
+        """Meta class for the TagSerializer."""
+
+        model = get_model("tag")
+        fields = [
+            "id",
+            "taxonomy",
+            "parent",
+            "value",
+            "external_id",
+            "lineage",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_lineage(self, instance):
+        return json.dumps(instance.get_lineage())
+
+
+class ObjectTagSerializer(BaseSinkSerializer, serializers.ModelSerializer):
+    """Serializer for the ObjectTag model."""
+
+    lineage = serializers.SerializerMethodField()
+
+    class Meta:
+        """Meta class for the ObjectTagSerializer"""
+
+        model = get_model("object_tag")
+        fields = [
+            "id",
+            "object_id",
+            "taxonomy",
+            "tag",
+            "_value",
+            "_export_id",
+            "lineage",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_lineage(self, instance):
+        return json.dumps(instance.get_lineage())
+
+
+class TaxonomySerializer(BaseSinkSerializer, serializers.ModelSerializer):
+    """Serializer for the Taxonomy model."""
+
+    class Meta:
+        """Meta class for the TaxonomySerializer."""
+
+        model = get_model("taxonomy")
+        fields = [
+            "id",
+            "name",
+            "dump_id",
+            "time_last_dumped",
+        ]

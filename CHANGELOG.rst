@@ -14,6 +14,14 @@ Change Log
 Unreleased
 **********
 
+0.11.0 - 2024-09-04
+*******************
+
+Added
+=====
+
+* A sink for the object tags, tags and taxonomy.
+
 0.10.0 - 2024-06-17
 *******************
 
