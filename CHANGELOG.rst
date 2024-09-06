@@ -14,6 +14,14 @@ Change Log
 Unreleased
 **********
 
+0.11.1 - 2024-09-06
+*******************
+
+Fixes
+=====
+
+* delay loading of unfocused dashboards in LMS.
+
 0.11.0 - 2024-09-04
 *******************
 
