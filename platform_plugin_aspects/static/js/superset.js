@@ -8,7 +8,7 @@ function SupersetXBlock(runtime, element, context) {
   window.from_xblock = true;
 
   function initSuperset(supersetEmbeddedSdk) {
-    embedDashboard(dashboard_uuid, superset_url, xblock_id);
+    _embedDashboard(dashboard_uuid, superset_url, xblock_id);
   }
 
   if (typeof require === "function") {

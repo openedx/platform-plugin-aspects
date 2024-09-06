@@ -43,9 +43,7 @@ async function fetchGuestToken() {
   return data.guestToken;
 }
 
-function embedDashboard(dashboard_uuid, superset_url, xblock_id) {
-  xblock_id = xblock_id || "";
-
+function _embedDashboard(dashboard_uuid, superset_url, xblock_id){
   window.supersetEmbeddedSdk
     .embedDashboard({
       id: dashboard_uuid, // given by the Superset embedding UI
@@ -70,10 +68,26 @@ function embedDashboard(dashboard_uuid, superset_url, xblock_id) {
       when the dashboard is loaded
       */
     });
+}
+
+function embedDashboard(dashboard, superset_url, xblock_id, index) {
+  xblock_id = xblock_id || "";
+  let radio = document.querySelector(`#tab-${index+1}`)
+  if (index == 0){
+    dashboard.loaded = true;
+    _embedDashboard(dashboard.uuid, superset_url, xblock_id)
+  }
+  radio.addEventListener("change", () => {
+    if (dashboard.loaded){
+      return
+    }
+    dashboard.loaded = true;
+    _embedDashboard(dashboard.uuid, superset_url, xblock_id)
+  });
 };
 
 if (window.superset_dashboards !== undefined) {
-  window.superset_dashboards.forEach(function(dashboard) {
-    embedDashboard(dashboard.uuid, window.superset_url, dashboard.uuid);
+  window.superset_dashboards.forEach(function(dashboard, i) {
+    embedDashboard(dashboard, window.superset_url, dashboard.uuid, i);
   });
 }
