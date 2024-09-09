@@ -26,7 +26,7 @@ certifi==2024.8.30
     # via
     #   -r requirements/base.txt
     #   requests
-cffi==1.17.0
+cffi==1.17.1
     # via
     #   -r requirements/base.txt
     #   pynacl
@@ -99,7 +99,7 @@ edx-django-utils==5.15.0
     # via
     #   -r requirements/base.txt
     #   edx-toggles
-edx-opaque-keys==2.10.0
+edx-opaque-keys==2.11.0
     # via -r requirements/base.txt
 edx-toggles==5.2.0
     # via -r requirements/base.txt
@@ -183,7 +183,7 @@ pytest==8.3.2
     #   pytest-django
 pytest-cov==5.0.0
     # via -r requirements/test.in
-pytest-django==4.8.0
+pytest-django==4.9.0
     # via -r requirements/test.in
 python-dateutil==2.9.0.post0
     # via
