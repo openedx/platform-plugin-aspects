@@ -75,3 +75,6 @@ class PlatformPluginAspectsConfig(AppConfig):
         from platform_plugin_aspects.extensions import (  # pylint: disable=unused-import, import-outside-toplevel
             filters,
         )
+        from platform_plugin_aspects.xblock_aside import ( # pylint: disable=unused-import, import-outside-toplevel
+            AspectsAside
+        )

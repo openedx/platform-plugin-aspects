@@ -17,6 +17,8 @@ from platform_plugin_aspects.sinks import (
 )
 from platform_plugin_aspects.utils import get_model
 
+from opaque_keys import InvalidKeyError
+
 try:
     from openedx.core.djangoapps.user_api.accounts.signals import USER_RETIRE_LMS_MISC
 except ImportError:
@@ -235,7 +237,7 @@ def on_object_tag_deleted(  # pylint: disable=unused-argument  # pragma: no cove
         try:
             CourseOverview.objects.get(id=instance.object_id)
             dump_course_to_clickhouse.delay(instance.object_id)
-        except CourseOverview.DoesNotExist:
+        except (CourseOverview.DoesNotExist, InvalidKeyError):
             pass
 
 

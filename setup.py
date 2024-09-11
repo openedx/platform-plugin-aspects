@@ -185,5 +185,8 @@ setup(
         "xblock.v1": [
             "superset = platform_plugin_aspects.xblock:SupersetXBlock",
         ],
+        "xblock_asides.v1": [
+            "aspects_aside = platform_plugin_aspects.xblock_aside:AspectsAside",
+        ],
     },
 )
