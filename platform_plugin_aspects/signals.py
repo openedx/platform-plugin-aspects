@@ -5,6 +5,7 @@ Signal handler functions, mapped to specific signals in apps.py.
 from django.db import transaction
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import Signal, receiver
+from opaque_keys import InvalidKeyError
 
 from platform_plugin_aspects.sinks import (
     CourseEnrollmentSink,
@@ -235,7 +236,7 @@ def on_object_tag_deleted(  # pylint: disable=unused-argument  # pragma: no cove
         try:
             CourseOverview.objects.get(id=instance.object_id)
             dump_course_to_clickhouse.delay(instance.object_id)
-        except CourseOverview.DoesNotExist:
+        except (CourseOverview.DoesNotExist, InvalidKeyError):
             pass
 
 
