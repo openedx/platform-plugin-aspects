@@ -81,17 +81,19 @@ def on_user_profile_updated(instance):
     )
 
 
-def on_user_profile_updated_txn(**kwargs):
+def on_txn_wrapper(func, *args, **kwargs):
     """
-    Handle user_profile saves in the middle of a transaction.
+    Handle saves in the middle of a transaction.
 
     If this gets fired before the transaction commits, the task may try to
     query an id that doesn't exist yet and throw an error. This should postpone
     queuing the Celery task until after the transaction is committed.
     """
-    transaction.on_commit(
-        lambda: on_user_profile_updated(kwargs["instance"])
-    )  # pragma: no cover
+
+    def on_txn(**kwargs):
+        transaction.on_commit(lambda: func(*args, **kwargs))
+
+    return on_txn
 
 
 # Connect the UserProfile.post_save signal handler only if we have a model to attach to.
@@ -99,7 +101,7 @@ def on_user_profile_updated_txn(**kwargs):
 _user_profile = get_model("user_profile")
 if _user_profile:
     post_save.connect(
-        on_user_profile_updated_txn, sender=_user_profile
+        on_txn_wrapper(on_user_profile_updated), sender=_user_profile
     )  # pragma: no cover
 
 
@@ -126,7 +128,9 @@ def on_externalid_saved(  # pylint: disable=unused-argument  # pragma: no cover
 # (prevents celery errors during tests)
 _external_id = get_model("external_id")
 if _external_id:
-    post_save.connect(on_externalid_saved, sender=_external_id)  # pragma: no cover
+    post_save.connect(
+        on_txn_wrapper(on_externalid_saved), sender=_external_id
+    )  # pragma: no cover
 
 
 @receiver(USER_RETIRE_LMS_MISC)
@@ -172,7 +176,7 @@ def on_tag_saved(  # pylint: disable=unused-argument  # pragma: no cover
 # (prevents celery errors during tests)
 _tag = get_model("tag")
 if _tag:
-    post_save.connect(on_tag_saved, sender=_tag)  # pragma: no cover
+    post_save.connect(on_txn_wrapper(on_tag_saved), sender=_tag)  # pragma: no cover
 
 
 def on_taxonomy_saved(  # pylint: disable=unused-argument  # pragma: no cover
@@ -198,7 +202,9 @@ def on_taxonomy_saved(  # pylint: disable=unused-argument  # pragma: no cover
 # (prevents celery errors during tests)
 _taxonomy = get_model("taxonomy")
 if _taxonomy:
-    post_save.connect(on_taxonomy_saved, sender=_taxonomy)  # pragma: no cover
+    post_save.connect(
+        on_txn_wrapper(on_taxonomy_saved), sender=_taxonomy
+    )  # pragma: no cover
 
 
 def on_object_tag_saved(sender, instance, **kwargs):  # pragma: no cover
@@ -244,5 +250,5 @@ def on_object_tag_deleted(  # pylint: disable=unused-argument  # pragma: no cove
 # (prevents celery errors during tests)
 _object_tag = get_model("object_tag")
 if _object_tag:  # pragma: no cover
-    post_save.connect(on_object_tag_saved, sender=_object_tag)
-    post_delete.connect(on_object_tag_deleted, sender=_object_tag)
+    post_save.connect(on_txn_wrapper(on_object_tag_saved), sender=_object_tag)
+    post_delete.connect(on_txn_wrapper(on_object_tag_deleted), sender=_object_tag)
