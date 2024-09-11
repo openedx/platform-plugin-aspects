@@ -5,6 +5,7 @@ Signal handler functions, mapped to specific signals in apps.py.
 from django.db import transaction
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import Signal, receiver
+from opaque_keys import InvalidKeyError
 
 from platform_plugin_aspects.sinks import (
     CourseEnrollmentSink,
@@ -16,8 +17,6 @@ from platform_plugin_aspects.sinks import (
     UserRetirementSink,
 )
 from platform_plugin_aspects.utils import get_model
-
-from opaque_keys import InvalidKeyError
 
 try:
     from openedx.core.djangoapps.user_api.accounts.signals import USER_RETIRE_LMS_MISC

@@ -5,10 +5,10 @@
 import logging
 
 import pkg_resources
+from common.djangoapps.edxmako.shortcuts import render_to_string
 from django.template import Context, Template
 from django.utils import translation
 from web_fragments.fragment import Fragment
-from common.djangoapps.edxmako.shortcuts import render_to_string
 from xblock.core import XBlock, XBlockAside
 from xblock.fields import Scope, String
 from xblock.utils.resources import ResourceLoader
@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
 
 from platform_plugin_aspects.xblock import ResourceLoader
+
 
 @XBlock.needs("user")
 @XBlock.needs("i18n")
@@ -29,7 +30,9 @@ class AspectsAside(XBlockAside):
         """
         Get the block wrapped by this aside.
         """
-        from xmodule.modulestore.django import modulestore  # pylint: disable=import-error, import-outside-toplevel
+        from xmodule.modulestore.django import (
+            modulestore,  # pylint: disable=import-error, import-outside-toplevel
+        )
 
         return modulestore().get_item(self.scope_ids.usage_id.usage_key)
 
@@ -42,11 +45,9 @@ class AspectsAside(XBlockAside):
         depending on the context.
         """
         logger.info(f"Class name {block.__class__.__name__}")
-        if block.__class__.__name__.replace("WithMixins", "") in ['ProblemBlock']:
+        if block.__class__.__name__.replace("WithMixins", "") in ["ProblemBlock"]:
             frag = Fragment()
-            context.update({
-                "xblock_id": self.scope_ids.usage_id.usage_key
-            })
+            context.update({"xblock_id": self.scope_ids.usage_id.usage_key})
             frag.add_content(self.render_template("static/html/example.html", context))
             # frag.add_javascript_url(self._get_studio_resource_url('/js/xblock_asides/structured_tags.js'))
             # frag.initialize_js('StructuredTagsInit')
@@ -62,7 +63,6 @@ class AspectsAside(XBlockAside):
         """
         # logger.info(block.__dict__)
         return True
-
 
     def render_template(self, template_path, context=None) -> str:
         """
