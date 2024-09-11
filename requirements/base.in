@@ -16,3 +16,4 @@ edx-opaque-keys    # Parsing library for course and usage keys
 djangorestframework     # REST API framework
 edx-toggles
 XBlock
+xblock-utils
