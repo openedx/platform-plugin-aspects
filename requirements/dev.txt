@@ -165,7 +165,7 @@ fs==2.4.16
     # via
     #   -r requirements/quality.txt
     #   xblock
-idna==3.8
+idna==3.10
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -182,7 +182,7 @@ jinja2==3.1.4
     #   -r requirements/quality.txt
     #   code-annotations
     #   diff-cover
-kombu==5.4.0
+kombu==5.4.1
     # via
     #   -r requirements/quality.txt
     #   celery
@@ -250,7 +250,7 @@ pbr==6.1.0
     #   stevedore
 pip-tools==7.4.1
     # via -r requirements/pip-tools.txt
-platformdirs==4.3.2
+platformdirs==4.3.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -322,7 +322,7 @@ pyproject-hooks==1.1.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.3.2
+pytest==8.3.3
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -340,7 +340,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/quality.txt
     #   code-annotations
-pytz==2024.1
+pytz==2024.2
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -410,7 +410,7 @@ tzdata==2024.1
     # via
     #   -r requirements/quality.txt
     #   celery
-urllib3==2.2.2
+urllib3==2.2.3
     # via
     #   -r requirements/quality.txt
     #   requests
