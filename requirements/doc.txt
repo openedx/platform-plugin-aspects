@@ -135,13 +135,13 @@ fs==2.4.16
     # via
     #   -r requirements/test.txt
     #   xblock
-idna==3.8
+idna==3.10
     # via
     #   -r requirements/test.txt
     #   requests
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==8.4.0
+importlib-metadata==8.5.0
     # via
     #   keyring
     #   twine
@@ -166,7 +166,7 @@ jinja2==3.1.4
     #   sphinx
 keyring==25.3.0
     # via twine
-kombu==5.4.0
+kombu==5.4.1
     # via
     #   -r requirements/test.txt
     #   celery
@@ -259,7 +259,7 @@ pynacl==1.5.0
     #   edx-django-utils
 pyproject-hooks==1.1.0
     # via build
-pytest==8.3.2
+pytest==8.3.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -277,7 +277,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/test.txt
     #   code-annotations
-pytz==2024.1
+pytz==2024.2
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -313,7 +313,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.8.0
+rich==13.8.1
     # via twine
 secretstorage==3.3.3
     # via keyring
@@ -377,7 +377,7 @@ tzdata==2024.1
     # via
     #   -r requirements/test.txt
     #   celery
-urllib3==2.2.2
+urllib3==2.2.3
     # via
     #   -r requirements/test.txt
     #   requests
@@ -403,7 +403,7 @@ webob==1.8.8
     #   xblock
 xblock==5.1.0
     # via -r requirements/test.txt
-zipp==3.20.1
+zipp==3.20.2
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:

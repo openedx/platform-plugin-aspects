@@ -69,11 +69,11 @@ edx-toggles==5.2.0
     # via -r requirements/base.in
 fs==2.4.16
     # via xblock
-idna==3.8
+idna==3.10
     # via requests
 jinja2==3.1.4
     # via code-annotations
-kombu==5.4.0
+kombu==5.4.1
     # via celery
 lxml==5.3.0
     # via xblock
@@ -110,7 +110,7 @@ python-dateutil==2.9.0.post0
     #   xblock
 python-slugify==8.0.4
     # via code-annotations
-pytz==2024.1
+pytz==2024.2
     # via xblock
 pyyaml==6.0.2
     # via
@@ -147,7 +147,7 @@ typing-extensions==4.12.2
     # via edx-opaque-keys
 tzdata==2024.1
     # via celery
-urllib3==2.2.2
+urllib3==2.2.3
     # via requests
 vine==5.1.0
     # via
