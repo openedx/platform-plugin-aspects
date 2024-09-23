@@ -64,7 +64,7 @@ def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pra
     )
 
 
-def on_user_profile_updated(instance):
+def on_user_profile_updated(instance, **kwargs):
     """
     Queues the UserProfile dump job when the parent transaction is committed.
     """
