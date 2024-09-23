@@ -9,3 +9,6 @@ disable+=
     django-not-configured,
     consider-using-with,
     bad-option-value,
+
+[DESIGN]
+max-positional-arguments = 10

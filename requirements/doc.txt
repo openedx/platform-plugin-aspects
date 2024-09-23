@@ -28,7 +28,7 @@ backports-tarfile==1.2.0
     # via jaraco-context
 beautifulsoup4==4.12.3
     # via pydata-sphinx-theme
-billiard==4.2.0
+billiard==4.2.1
     # via
     #   -r requirements/test.txt
     #   celery
@@ -164,9 +164,9 @@ jinja2==3.1.4
     #   -r requirements/test.txt
     #   code-annotations
     #   sphinx
-keyring==25.3.0
+keyring==25.4.1
     # via twine
-kombu==5.4.1
+kombu==5.4.2
     # via
     #   -r requirements/test.txt
     #   celery
@@ -249,7 +249,7 @@ pygments==2.18.0
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.8.0
+pymongo==4.9.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -377,6 +377,7 @@ tzdata==2024.1
     # via
     #   -r requirements/test.txt
     #   celery
+    #   kombu
 urllib3==2.2.3
     # via
     #   -r requirements/test.txt

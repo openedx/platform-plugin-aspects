@@ -16,11 +16,11 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
-astroid==3.2.4
+astroid==3.3.3
     # via
     #   pylint
     #   pylint-celery
-billiard==4.2.0
+billiard==4.2.1
     # via
     #   -r requirements/test.txt
     #   celery
@@ -141,7 +141,7 @@ jinja2==3.1.4
     # via
     #   -r requirements/test.txt
     #   code-annotations
-kombu==5.4.1
+kombu==5.4.2
     # via
     #   -r requirements/test.txt
     #   celery
@@ -190,7 +190,7 @@ pbr==6.1.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==4.3.3
+platformdirs==4.3.6
     # via
     #   black
     #   pylint
@@ -214,7 +214,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==3.2.7
+pylint==3.3.0
     # via
     #   edx-lint
     #   pylint-celery
@@ -228,7 +228,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.8.0
+pymongo==4.9.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -317,6 +317,7 @@ tzdata==2024.1
     # via
     #   -r requirements/test.txt
     #   celery
+    #   kombu
 urllib3==2.2.3
     # via
     #   -r requirements/test.txt
