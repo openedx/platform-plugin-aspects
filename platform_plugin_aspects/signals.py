@@ -67,6 +67,7 @@ def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pra
 def on_user_profile_updated_txn(**kwargs):
     """
     Handle user_profile saves in the middle of a transaction.
+
     Handle saves in the middle of a transaction.
     If this gets fired before the transaction commits, the task may try to
     query an id that doesn't exist yet and throw an error. This should postpone
@@ -104,6 +105,7 @@ if _user_profile:
 def on_externalid_saved_txn(*args, **kwargs):
     """
     Handle external_id saves in the middle of a transaction.
+
     Handle saves in the middle of a transaction.
     If this gets fired before the transaction commits, the task may try to
     query an id that doesn't exist yet and throw an error. This should postpone
@@ -161,6 +163,7 @@ def on_user_retirement(  # pylint: disable=unused-argument  # pragma: no cover
 def on_tag_saved_txn(*args, **kwargs):
     """
     Handle external_id saves in the middle of a transaction.
+
     Handle saves in the middle of a transaction.
     If this gets fired before the transaction commits, the task may try to
     query an id that doesn't exist yet and throw an error. This should postpone
@@ -198,6 +201,7 @@ if _tag:
 def on_taxonomy_saved_txn(*args, **kwargs):
     """
     Handle external_id saves in the middle of a transaction.
+
     Handle saves in the middle of a transaction.
     If this gets fired before the transaction commits, the task may try to
     query an id that doesn't exist yet and throw an error. This should postpone
@@ -235,6 +239,7 @@ if _taxonomy:
 def on_object_tag_saved_txn(*args, **kwargs):
     """
     Handle external_id saves in the middle of a transaction.
+
     Handle saves in the middle of a transaction.
     If this gets fired before the transaction commits, the task may try to
     query an id that doesn't exist yet and throw an error. This should postpone
