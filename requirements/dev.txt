@@ -16,7 +16,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==3.3.3
+astroid==3.3.4
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -103,7 +103,7 @@ ddt==1.7.2
     # via -r requirements/quality.txt
 diff-cover==9.2.0
     # via -r requirements/dev.in
-dill==0.3.8
+dill==0.3.9
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -129,7 +129,7 @@ django-crum==0.7.9
     #   -r requirements/quality.txt
     #   edx-django-utils
     #   edx-toggles
-django-mock-queries==2.2.0
+django-mock-queries==2.3.0
     # via -r requirements/quality.txt
 django-waffle==4.1.0
     # via
@@ -216,7 +216,7 @@ mypy-extensions==1.0.0
     # via
     #   -r requirements/quality.txt
     #   black
-newrelic==9.13.0
+newrelic==10.0.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
@@ -226,7 +226,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/quality.txt
-openedx-filters==1.9.0
+openedx-filters==1.10.0
     # via -r requirements/quality.txt
 packaging==24.1
     # via
@@ -267,7 +267,7 @@ pluggy==1.5.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
-prompt-toolkit==3.0.47
+prompt-toolkit==3.0.48
     # via
     #   -r requirements/quality.txt
     #   click-repl
@@ -285,7 +285,7 @@ pydocstyle==6.3.0
     # via -r requirements/quality.txt
 pygments==2.18.0
     # via diff-cover
-pylint==3.3.0
+pylint==3.3.1
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -317,7 +317,7 @@ pyproject-api==1.8.0
     # via
     #   -r requirements/ci.txt
     #   tox
-pyproject-hooks==1.1.0
+pyproject-hooks==1.2.0
     # via
     #   -r requirements/pip-tools.txt
     #   build
@@ -352,7 +352,7 @@ pyyaml==6.0.2
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.0.8
+redis==5.1.0
     # via -r requirements/quality.txt
 requests==2.32.3
     # via
@@ -406,7 +406,7 @@ typing-extensions==4.12.2
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
-tzdata==2024.1
+tzdata==2024.2
     # via
     #   -r requirements/quality.txt
     #   celery
@@ -422,7 +422,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==20.26.5
+virtualenv==20.26.6
     # via
     #   -r requirements/ci.txt
     #   tox

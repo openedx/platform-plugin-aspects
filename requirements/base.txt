@@ -84,17 +84,17 @@ markupsafe==2.1.5
     #   jinja2
     #   mako
     #   xblock
-newrelic==9.13.0
+newrelic==10.0.0
     # via edx-django-utils
 oauthlib==3.2.2
     # via requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/base.in
-openedx-filters==1.9.0
+openedx-filters==1.10.0
     # via -r requirements/base.in
 pbr==6.1.0
     # via stevedore
-prompt-toolkit==3.0.47
+prompt-toolkit==3.0.48
     # via click-repl
 psutil==6.0.0
     # via edx-django-utils
@@ -117,7 +117,7 @@ pyyaml==6.0.2
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==5.0.8
+redis==5.1.0
     # via -r requirements/base.in
 requests==2.32.3
     # via
@@ -145,7 +145,7 @@ text-unidecode==1.3
     # via python-slugify
 typing-extensions==4.12.2
     # via edx-opaque-keys
-tzdata==2024.1
+tzdata==2024.2
     # via
     #   celery
     #   kombu
