@@ -64,7 +64,7 @@ def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pra
     )
 
 
-def on_user_profile_updated_txn(**kwargs):
+def on_user_profile_updated_txn(*args, **kwargs):
     """
     Handle user_profile saves in the middle of a transaction.
 
@@ -74,7 +74,7 @@ def on_user_profile_updated_txn(**kwargs):
     queuing the Celery task until after the transaction is committed.
     """
 
-    def on_user_profile_updated(instance):
+    def on_user_profile_updated(sender, instance, **kwargs):
         """
         Queues the UserProfile dump job when the parent transaction is committed.
         """
@@ -90,7 +90,7 @@ def on_user_profile_updated_txn(**kwargs):
             object_id=str(instance.id),
         )
 
-    transaction.on_commit(lambda: on_user_profile_updated(**kwargs))
+    transaction.on_commit(lambda: on_user_profile_updated(*args, **kwargs))
 
 
 # Connect the UserProfile.post_save signal handler only if we have a model to attach to.
