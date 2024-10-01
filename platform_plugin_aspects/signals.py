@@ -74,7 +74,7 @@ def on_user_profile_updated_txn(*args, **kwargs):
     queuing the Celery task until after the transaction is committed.
     """
 
-    def on_user_profile_updated(sender, instance, **kwargs):
+    def on_user_profile_updated(instance, **kwargs):
         """
         Queues the UserProfile dump job when the parent transaction is committed.
         """
