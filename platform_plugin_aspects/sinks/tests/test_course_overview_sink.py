@@ -119,7 +119,12 @@ def test_course_publish_success(
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 # pytest:disable=unused-argument
 def test_course_publish_clickhouse_error(
-    mock_modulestore, mock_detached, mock_overview, mock_serialize_item, mock_get_model, caplog
+    mock_modulestore,
+    mock_detached,
+    mock_overview,
+    mock_serialize_item,
+    mock_get_model,
+    caplog,
 ):
     """
     Test the case where a ClickHouse POST fails.
