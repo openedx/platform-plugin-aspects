@@ -5,6 +5,7 @@ Base classes for event sinks
 import csv
 import datetime
 import io
+import logging
 from collections import namedtuple
 
 import requests
@@ -342,7 +343,7 @@ class ModelBaseSink(BaseSink):
         """
         Return True if the sink is enabled, False otherwise
         """
-        enabled = getattr(
+        enabled_settings = getattr(
             settings,
             f"{WAFFLE_FLAG_NAMESPACE.upper()}_{cls.model.upper()}_ENABLED",
             False,
@@ -358,7 +359,15 @@ class ModelBaseSink(BaseSink):
             __name__,
         )
 
-        return enabled or waffle_flag.is_enabled()
+        enabled = enabled_settings or waffle_flag.is_enabled()
+
+        if enabled and not get_model(cls.model):
+            logging.warning(
+                f"Event Sink Model {cls.model} is not installed, but is enabled in settings or waffle flag."
+            )
+            enabled = False
+
+        return enabled
 
     @classmethod
     def get_sink_by_model_name(cls, model):
