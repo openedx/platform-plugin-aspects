@@ -27,17 +27,14 @@ def dump_course_to_clickhouse(course_key_string, connection_overrides=None):
         connection_overrides (dict):  overrides to ClickHouse connection
             parameters specified in `settings.EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG`.
     """
-    if CourseOverviewSink.is_enabled():  # pragma: no cover
-        course_key = CourseKey.from_string(course_key_string)
-        sink = CourseOverviewSink(
-            connection_overrides=connection_overrides, log=celery_log
-        )
-        sink.dump(course_key)
+    course_key = CourseKey.from_string(course_key_string)
+    sink = CourseOverviewSink(connection_overrides=connection_overrides, log=celery_log)
+    sink.dump(course_key)
 
-        ccx_courses = get_ccx_courses(course_key)
-        for ccx_course in ccx_courses:
-            ccx_course_key = str(ccx_course.locator)
-            sink.dump(ccx_course_key)
+    ccx_courses = get_ccx_courses(course_key)
+    for ccx_course in ccx_courses:
+        ccx_course_key = str(ccx_course.locator)
+        sink.dump(ccx_course_key)
 
 
 @shared_task
@@ -56,9 +53,5 @@ def dump_data_to_clickhouse(
     """
     Sink = getattr(import_module(sink_module), sink_name)
 
-    if Sink.is_enabled():
-        sink = Sink(connection_overrides=connection_overrides, log=celery_log)
-        sink.dump(object_id)
-        return "Dumped"
-
-    return "Disabled"
+    sink = Sink(connection_overrides=connection_overrides, log=celery_log)
+    sink.dump(object_id)

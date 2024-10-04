@@ -9,6 +9,7 @@ from opaque_keys import InvalidKeyError
 
 from platform_plugin_aspects.sinks import (
     CourseEnrollmentSink,
+    CourseOverviewSink,
     ExternalIdSink,
     ObjectTagSink,
     TagSink,
@@ -36,6 +37,9 @@ def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cov
         dump_course_to_clickhouse,
     )
 
+    if not CourseOverviewSink.is_enabled():
+        return
+
     dump_course_to_clickhouse.delay(str(course_key))
 
 
@@ -51,11 +55,13 @@ def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pra
 
     user = kwargs.get("user")
     course_id = kwargs.get("course_id")
-
-    CourseEnrollment = get_model("course_enrollment")
-    instance = CourseEnrollment.objects.get(user=user, course_id=course_id)
-
     sink = CourseEnrollmentSink(None, None)
+
+    if not CourseEnrollmentSink.is_enabled():
+        return
+
+    CourseEnrollment = sink.get_model()
+    instance = CourseEnrollment.objects.get(user=user, course_id=course_id)
 
     dump_data_to_clickhouse.delay(
         sink_module=sink.__module__,
@@ -90,6 +96,8 @@ def on_user_profile_updated_txn(*args, **kwargs):
             object_id=str(instance.id),
         )
 
+    if not UserProfileSink.is_enabled():
+        return
     transaction.on_commit(lambda: on_user_profile_updated(*args, **kwargs))
 
 
@@ -130,6 +138,8 @@ def on_externalid_saved_txn(*args, **kwargs):
             object_id=str(instance.id),
         )
 
+    if not ExternalIdSink.is_enabled():
+        return
     transaction.on_commit(lambda: on_externalid_saved(*args, **kwargs))
 
 
@@ -188,6 +198,8 @@ def on_tag_saved_txn(*args, **kwargs):
             object_id=str(instance.id),
         )
 
+    if not TagSink.is_enabled():
+        return
     transaction.on_commit(lambda: on_tag_saved(*args, **kwargs))
 
 
@@ -226,6 +238,8 @@ def on_taxonomy_saved_txn(*args, **kwargs):
             object_id=str(instance.id),
         )
 
+    if not TaxonomySink.is_enabled():
+        return
     transaction.on_commit(lambda: on_taxonomy_saved(*args, **kwargs))
 
 
@@ -264,6 +278,8 @@ def on_object_tag_saved_txn(*args, **kwargs):
 
         on_object_tag_deleted(sender, instance, **kwargs)
 
+    if not ObjectTagSink.is_enabled():
+        return
     transaction.on_commit(lambda: on_object_tag_saved(*args, **kwargs))
 
 
