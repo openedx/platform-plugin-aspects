@@ -34,6 +34,7 @@ from test_utils.helpers import (
     registry=OrderedRegistry
 )
 @override_settings(EVENT_SINK_CLICKHOUSE_COURSE_OVERVIEW_ENABLED=True)
+@patch("platform_plugin_aspects.sinks.base_sink.get_model")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_tags_for_block")
 @patch("platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item")
 @patch("platform_plugin_aspects.sinks.CourseOverviewSink.get_model")
@@ -47,6 +48,7 @@ def test_course_publish_success(
     mock_overview,
     mock_serialize_item,
     mock_get_tags,
+    mock_get_model,
 ):
     """
     Test of a successful end-to-end run.
@@ -110,13 +112,14 @@ def test_course_publish_success(
 @responses.activate(  # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
     registry=OrderedRegistry
 )
+@patch("platform_plugin_aspects.sinks.base_sink.get_model")
 @patch("platform_plugin_aspects.sinks.CourseOverviewSink.serialize_item")
 @patch("platform_plugin_aspects.sinks.CourseOverviewSink.get_model")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_detached_xblock_types")
 @patch("platform_plugin_aspects.sinks.course_overview_sink.get_modulestore")
 # pytest:disable=unused-argument
 def test_course_publish_clickhouse_error(
-    mock_modulestore, mock_detached, mock_overview, mock_serialize_item, caplog
+    mock_modulestore, mock_detached, mock_overview, mock_serialize_item, mock_get_model, caplog
 ):
     """
     Test the case where a ClickHouse POST fails.
