@@ -13,7 +13,7 @@
 | platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       64 |        0 |       16 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/load\_test\_tracking\_events.py  |      111 |        0 |        6 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/monitor\_load\_test\_tracking.py |      157 |        5 |       16 |        2 |     95% |158->162, 176-184 |
-| platform\_plugin\_aspects/signals.py                                           |       23 |        3 |        0 |        0 |     87% |     71-76 |
+| platform\_plugin\_aspects/signals.py                                           |       33 |        8 |       10 |        1 |     60% |77-93, 133->exit, 191, 229, 267 |
 | platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        7 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/base\_sink.py                                  |      151 |        0 |       38 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/course\_enrollment\_sink.py                    |       11 |        0 |        0 |        0 |    100% |           |
@@ -29,7 +29,7 @@
 | platform\_plugin\_aspects/views.py                                             |       51 |        0 |        2 |        0 |    100% |           |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/xblock.py                                            |       72 |        0 |       21 |        0 |    100% |           |
-|                                                                      **TOTAL** | **1071** |   **17** |  **177** |    **5** | **98%** |           |
+|                                                                      **TOTAL** | **1081** |   **22** |  **187** |    **6** | **97%** |           |
 
 
 ## Setup coverage badge
