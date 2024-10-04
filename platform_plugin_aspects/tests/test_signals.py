@@ -7,11 +7,10 @@ from unittest.mock import Mock, patch
 from django.test import TestCase
 
 from platform_plugin_aspects.signals import (
-    on_externalid_saved,
+    on_externalid_saved_txn,
     on_user_retirement,
     receive_course_publish,
 )
-from platform_plugin_aspects.sinks.external_id_sink import ExternalIdSink
 from platform_plugin_aspects.sinks.user_retire_sink import UserRetirementSink
 
 
@@ -31,22 +30,16 @@ class SignalHandlersTestCase(TestCase):
 
         mock_dump_task.delay.assert_called_once_with(course_key)
 
-    @patch("platform_plugin_aspects.tasks.dump_data_to_clickhouse")
-    def test_on_externalid_saved(self, mock_dump_task):
+    @patch("platform_plugin_aspects.signals.transaction")
+    def test_on_externalid_saved(self, mock_transaction):
         """
         Test that on_externalid_saved calls dump_data_to_clickhouse.
         """
         instance = Mock()
         sender = Mock()
-        on_externalid_saved(sender, instance)
+        on_externalid_saved_txn(sender, instance)
 
-        sink = ExternalIdSink(None, None)
-
-        mock_dump_task.delay.assert_called_once_with(
-            sink_module=sink.__module__,
-            sink_name=sink.__class__.__name__,
-            object_id=str(instance.id),
-        )
+        mock_transaction.on_commit.assert_called_once()
 
     @patch("platform_plugin_aspects.tasks.dump_data_to_clickhouse")
     def test_on_user_retirement(self, mock_dump_task):

@@ -14,6 +14,14 @@ Change Log
 Unreleased
 **********
 
+0.11.2 - 2024-10-04
+*******************
+
+Fixes
+=====
+
+* wait for transaction commit before trying to sink models.
+
 0.11.1 - 2024-09-06
 *******************
 
