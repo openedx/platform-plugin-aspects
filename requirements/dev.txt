@@ -16,7 +16,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==3.3.4
+astroid==3.3.5
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -29,7 +29,7 @@ black==24.8.0
     # via
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
-build==1.2.2
+build==1.2.2.post1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -140,11 +140,11 @@ djangorestframework==3.15.2
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
-dnspython==2.6.1
+dnspython==2.7.0
     # via
     #   -r requirements/quality.txt
     #   pymongo
-edx-django-utils==5.15.0
+edx-django-utils==5.16.0
     # via
     #   -r requirements/quality.txt
     #   edx-toggles
@@ -226,7 +226,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/quality.txt
-openedx-filters==1.10.0
+openedx-filters==1.11.0
     # via -r requirements/quality.txt
 packaging==24.1
     # via
@@ -305,7 +305,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.9.1
+pymongo==4.10.1
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -352,7 +352,7 @@ pyyaml==6.0.2
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.1.0
+redis==5.1.1
     # via -r requirements/quality.txt
 requests==2.32.3
     # via
@@ -400,7 +400,7 @@ tomlkit==0.13.2
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.20.0
+tox==4.21.2
     # via -r requirements/ci.txt
 typing-extensions==4.12.2
     # via
