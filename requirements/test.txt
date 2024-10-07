@@ -91,11 +91,11 @@ djangorestframework==3.15.2
     # via
     #   -r requirements/base.txt
     #   django-mock-queries
-dnspython==2.6.1
+dnspython==2.7.0
     # via
     #   -r requirements/base.txt
     #   pymongo
-edx-django-utils==5.15.0
+edx-django-utils==5.16.0
     # via
     #   -r requirements/base.txt
     #   edx-toggles
@@ -147,7 +147,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/base.txt
-openedx-filters==1.10.0
+openedx-filters==1.11.0
     # via -r requirements/base.txt
 packaging==24.1
     # via pytest
@@ -169,7 +169,7 @@ pycparser==2.22
     # via
     #   -r requirements/base.txt
     #   cffi
-pymongo==4.9.1
+pymongo==4.10.1
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -205,7 +205,7 @@ pyyaml==6.0.2
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.1.0
+redis==5.1.1
     # via -r requirements/base.txt
 requests==2.32.3
     # via
