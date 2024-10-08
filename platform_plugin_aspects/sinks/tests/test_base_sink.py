@@ -270,8 +270,9 @@ class TestModelBaseSink(TestCase):
         mock_waffle_flag_is_enabled.return_value = False
         self.assertEqual(self.child_sink.__class__.is_enabled(), False)
 
+    @patch("platform_plugin_aspects.sinks.base_sink.get_model")
     @patch("platform_plugin_aspects.sinks.base_sink.WaffleFlag.is_enabled")
-    def test_is_enabled_waffle(self, mock_waffle_flag_is_enabled):
+    def test_is_enabled_waffle(self, mock_waffle_flag_is_enabled, mock_get_model):
         """
         Test that is_enable() returns the correct data.
         """
@@ -279,7 +280,8 @@ class TestModelBaseSink(TestCase):
         self.assertEqual(self.child_sink.__class__.is_enabled(), True)
 
     @override_settings(EVENT_SINK_CLICKHOUSE_CHILD_MODEL_ENABLED=True)
-    def test_is_enabled(self):
+    @patch("platform_plugin_aspects.sinks.base_sink.get_model")
+    def test_is_enabled(self, mock_get_model):
         """
         Test that is_enable() returns the correct data.
         """
