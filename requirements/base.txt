@@ -57,9 +57,9 @@ django-waffle==4.1.0
     #   edx-toggles
 djangorestframework==3.15.2
     # via -r requirements/base.in
-dnspython==2.6.1
+dnspython==2.7.0
     # via pymongo
-edx-django-utils==5.15.0
+edx-django-utils==5.16.0
     # via
     #   -r requirements/base.in
     #   edx-toggles
@@ -90,7 +90,7 @@ oauthlib==3.2.2
     # via requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/base.in
-openedx-filters==1.10.0
+openedx-filters==1.11.0
     # via -r requirements/base.in
 pbr==6.1.0
     # via stevedore
@@ -100,7 +100,7 @@ psutil==6.0.0
     # via edx-django-utils
 pycparser==2.22
     # via cffi
-pymongo==4.9.1
+pymongo==4.10.1
     # via edx-opaque-keys
 pynacl==1.5.0
     # via edx-django-utils
@@ -117,7 +117,7 @@ pyyaml==6.0.2
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==5.1.0
+redis==5.1.1
     # via -r requirements/base.in
 requests==2.32.3
     # via

@@ -32,7 +32,7 @@ billiard==4.2.1
     # via
     #   -r requirements/test.txt
     #   celery
-build==1.2.2
+build==1.2.2.post1
     # via -r requirements/doc.in
 celery==5.4.0
     # via -r requirements/test.txt
@@ -110,7 +110,7 @@ djangorestframework==3.15.2
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
-dnspython==2.6.1
+dnspython==2.7.0
     # via
     #   -r requirements/test.txt
     #   pymongo
@@ -123,7 +123,7 @@ docutils==0.21.2
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
-edx-django-utils==5.15.0
+edx-django-utils==5.16.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -208,7 +208,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/test.txt
-openedx-filters==1.10.0
+openedx-filters==1.11.0
     # via -r requirements/test.txt
 packaging==24.1
     # via
@@ -249,7 +249,7 @@ pygments==2.18.0
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.9.1
+pymongo==4.10.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -290,7 +290,7 @@ pyyaml==6.0.2
     #   xblock
 readme-renderer==44.0
     # via twine
-redis==5.1.0
+redis==5.1.1
     # via -r requirements/test.txt
 requests==2.32.3
     # via
@@ -313,7 +313,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.8.1
+rich==13.9.2
     # via twine
 secretstorage==3.3.3
     # via keyring
