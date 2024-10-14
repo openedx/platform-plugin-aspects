@@ -24,7 +24,7 @@ billiard==4.2.1
     # via
     #   -r requirements/test.txt
     #   celery
-black==24.8.0
+black==24.10.0
     # via -r requirements/quality.in
 celery==5.4.0
     # via -r requirements/test.txt
@@ -36,7 +36,7 @@ cffi==1.17.1
     # via
     #   -r requirements/test.txt
     #   pynacl
-charset-normalizer==3.3.2
+charset-normalizer==3.4.0
     # via
     #   -r requirements/test.txt
     #   requests
@@ -71,7 +71,7 @@ code-annotations==1.8.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.6.1
+coverage[toml]==7.6.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -111,7 +111,7 @@ dnspython==2.7.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-edx-django-utils==5.16.0
+edx-django-utils==6.0.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -153,7 +153,7 @@ mako==1.3.5
     # via
     #   -r requirements/test.txt
     #   xblock
-markupsafe==2.1.5
+markupsafe==3.0.1
     # via
     #   -r requirements/test.txt
     #   jinja2
@@ -161,13 +161,13 @@ markupsafe==2.1.5
     #   xblock
 mccabe==0.7.0
     # via pylint
-model-bakery==1.19.5
+model-bakery==1.20.0
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==10.0.0
+newrelic==10.1.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -222,7 +222,7 @@ pylint==3.3.1
     #   pylint-plugin-utils
 pylint-celery==0.3
     # via edx-lint
-pylint-django==2.5.5
+pylint-django==2.6.1
     # via edx-lint
 pylint-plugin-utils==0.8.2
     # via
