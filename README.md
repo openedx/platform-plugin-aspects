@@ -13,23 +13,23 @@
 | platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       64 |        0 |       16 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/load\_test\_tracking\_events.py  |      111 |        0 |        6 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/monitor\_load\_test\_tracking.py |      157 |        5 |       16 |        2 |     95% |158->162, 176-184 |
-| platform\_plugin\_aspects/signals.py                                           |       33 |        8 |       10 |        1 |     60% |77-93, 133->exit, 191, 229, 267 |
+| platform\_plugin\_aspects/signals.py                                           |       33 |        8 |        0 |        0 |     76% |77-93, 191, 229, 267 |
 | platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        7 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/base\_sink.py                                  |      156 |        2 |       40 |        1 |     98% |   365-368 |
+| platform\_plugin\_aspects/sinks/base\_sink.py                                  |      156 |        2 |       36 |        1 |     98% |   365-368 |
 | platform\_plugin\_aspects/sinks/course\_enrollment\_sink.py                    |       11 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       96 |        0 |       22 |        0 |    100% |           |
+| platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       96 |        0 |       20 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/external\_id\_sink.py                          |       11 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/serializers.py                                 |       81 |        7 |        6 |        2 |     87% |30, 32-35, 208, 232, 257 |
 | platform\_plugin\_aspects/sinks/tag\_sink.py                                   |       23 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/user\_profile\_sink.py                         |       11 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/user\_retire\_sink.py                          |       22 |        0 |        4 |        0 |    100% |           |
-| platform\_plugin\_aspects/tasks.py                                             |       21 |        0 |       14 |        0 |    100% |           |
+| platform\_plugin\_aspects/tasks.py                                             |       21 |        0 |        2 |        0 |    100% |           |
 | platform\_plugin\_aspects/urls.py                                              |        5 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/utils.py                                             |      105 |        0 |       30 |        0 |    100% |           |
+| platform\_plugin\_aspects/utils.py                                             |      105 |        0 |       28 |        0 |    100% |           |
 | platform\_plugin\_aspects/views.py                                             |       51 |        0 |        2 |        0 |    100% |           |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/xblock.py                                            |       72 |        0 |       21 |        0 |    100% |           |
-|                                                                      **TOTAL** | **1086** |   **24** |  **189** |    **7** | **97%** |           |
+| platform\_plugin\_aspects/xblock.py                                            |       72 |        0 |       12 |        0 |    100% |           |
+|                                                                      **TOTAL** | **1086** |   **24** |  **150** |    **6** | **97%** |           |
 
 
 ## Setup coverage badge
