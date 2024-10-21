@@ -71,7 +71,7 @@ code-annotations==1.8.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.6.3
+coverage[toml]==7.6.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -111,7 +111,7 @@ dnspython==2.7.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-edx-django-utils==6.0.0
+edx-django-utils==7.0.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -153,7 +153,7 @@ mako==1.3.5
     # via
     #   -r requirements/test.txt
     #   xblock
-markupsafe==3.0.1
+markupsafe==3.0.2
     # via
     #   -r requirements/test.txt
     #   jinja2
@@ -167,7 +167,7 @@ model-bakery==1.20.0
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==10.1.0
+newrelic==10.2.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -202,7 +202,7 @@ prompt-toolkit==3.0.48
     # via
     #   -r requirements/test.txt
     #   click-repl
-psutil==6.0.0
+psutil==6.1.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
