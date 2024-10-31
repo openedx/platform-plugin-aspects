@@ -62,6 +62,7 @@ class UserProfileSerializer(BaseSinkSerializer, serializers.ModelSerializer):
     """Serializer for user profile events."""
 
     email = serializers.CharField(source="user.email")
+    username = serializers.CharField(source="user.username")
 
     class Meta:
         """Meta class for user profile serializer."""
@@ -72,6 +73,7 @@ class UserProfileSerializer(BaseSinkSerializer, serializers.ModelSerializer):
             "id",
             "user_id",
             "name",
+            "username",
             "email",
             "meta",
             "courseware",
