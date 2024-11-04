@@ -6,15 +6,15 @@
 #
 amqp==5.2.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   kombu
 appdirs==1.4.4
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   fs
 asgiref==3.8.1
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   django
 astroid==3.3.5
     # via
@@ -22,27 +22,27 @@ astroid==3.3.5
     #   pylint-celery
 billiard==4.2.1
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   celery
 black==24.10.0
     # via -r requirements/quality.in
 celery==5.4.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 certifi==2024.8.30
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   requests
 cffi==1.17.1
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   pynacl
 charset-normalizer==3.4.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   requests
 click==8.1.7
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   black
     #   celery
     #   click-didyoumean
@@ -54,35 +54,35 @@ click==8.1.7
     #   edx-lint
 click-didyoumean==0.3.1
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   celery
 click-log==0.4.0
     # via edx-lint
 click-plugins==1.1.1
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   celery
 click-repl==0.3.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   celery
 code-annotations==1.8.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
 coverage[toml]==7.6.4
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   pytest-cov
 ddt==1.7.2
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 dill==0.3.9
     # via pylint
 django==4.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   django-crum
     #   django-mock-queries
     #   django-waffle
@@ -93,45 +93,45 @@ django==4.2.16
     #   openedx-filters
 django-crum==0.7.9
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-django-utils
     #   edx-toggles
 django-mock-queries==2.3.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 django-waffle==4.1.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-django-utils
     #   edx-toggles
 djangorestframework==3.15.2
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   django-mock-queries
 dnspython==2.7.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   pymongo
 edx-django-utils==7.0.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-toggles
-edx-lint==5.4.0
+edx-lint==5.4.1
     # via -r requirements/quality.in
 edx-opaque-keys==2.11.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 edx-toggles==5.2.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 fs==2.4.16
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   xblock
 idna==3.10
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   requests
 iniconfig==2.0.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   pytest
 isort==5.13.2
     # via
@@ -139,23 +139,23 @@ isort==5.13.2
     #   pylint
 jinja2==3.1.4
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   code-annotations
 kombu==5.4.2
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   celery
 lxml==5.3.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   xblock
 mako==1.3.6
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   xblock
 markupsafe==3.0.2
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   jinja2
     #   mako
     #   xblock
@@ -163,32 +163,32 @@ mccabe==0.7.0
     # via pylint
 model-bakery==1.20.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
 newrelic==10.2.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-django-utils
 oauthlib==3.2.2
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   requests-oauthlib
 openedx-atlas==0.6.2
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 openedx-filters==1.11.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 packaging==24.1
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   black
     #   pytest
 pathspec==0.12.1
     # via black
 pbr==6.1.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   stevedore
 platformdirs==4.3.6
     # via
@@ -196,21 +196,21 @@ platformdirs==4.3.6
     #   pylint
 pluggy==1.5.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   pytest
 prompt-toolkit==3.0.48
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   click-repl
 psutil==6.1.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-django-utils
 pycodestyle==2.12.1
     # via -r requirements/quality.in
 pycparser==2.22
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
@@ -230,62 +230,62 @@ pylint-plugin-utils==0.8.2
     #   pylint-django
 pymongo==4.10.1
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-opaque-keys
 pynacl==1.5.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-django-utils
 pytest==8.3.3
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==5.0.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+pytest-cov==6.0.0
+    # via -r requirements/test.txt
 pytest-django==4.9.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 python-dateutil==2.9.0.post0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   celery
     #   xblock
 python-slugify==8.0.4
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   code-annotations
 pytz==2024.2
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   xblock
 pyyaml==6.0.2
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   code-annotations
     #   responses
     #   superset-api-client
     #   xblock
 redis==5.2.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 requests==2.32.3
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   requests-oauthlib
     #   responses
     #   superset-api-client
 requests-oauthlib==2.0.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   superset-api-client
 responses==0.25.3
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 simplejson==3.19.3
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   xblock
 six==1.16.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-lint
     #   fs
     #   python-dateutil
@@ -293,56 +293,56 @@ snowballstemmer==2.2.0
     # via pydocstyle
 sqlparse==0.5.1
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   django
 stevedore==5.3.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   code-annotations
     #   edx-django-utils
     #   edx-opaque-keys
 superset-api-client==0.6.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 text-unidecode==1.3
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   python-slugify
 tomlkit==0.13.2
     # via pylint
 typing-extensions==4.12.2
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   edx-opaque-keys
 tzdata==2024.2
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   celery
     #   kombu
 urllib3==2.2.3
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   requests
     #   responses
 vine==5.1.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   amqp
     #   celery
     #   kombu
 wcwidth==0.2.13
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   prompt-toolkit
 web-fragments==2.2.0
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   xblock
 webob==1.8.9
     # via
-    #   -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    #   -r requirements/test.txt
     #   xblock
 xblock==5.1.0
-    # via -r /home/runner/work/platform-plugin-aspects/platform-plugin-aspects/requirements/test.txt
+    # via -r requirements/test.txt
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
