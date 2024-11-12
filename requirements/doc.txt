@@ -210,7 +210,7 @@ openedx-atlas==0.6.2
     # via -r requirements/test.txt
 openedx-filters==1.11.0
     # via -r requirements/test.txt
-packaging==24.1
+packaging==24.2
     # via
     #   -r requirements/test.txt
     #   build
@@ -403,7 +403,7 @@ webob==1.8.9
     #   xblock
 xblock==5.1.0
     # via -r requirements/test.txt
-zipp==3.20.2
+zipp==3.21.0
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
