@@ -70,11 +70,11 @@ click-repl==0.3.0
     # via
     #   -r requirements/test.txt
     #   celery
-code-annotations==1.8.1
+code-annotations==1.8.2
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-coverage[toml]==7.6.7
+coverage[toml]==7.6.8
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -123,7 +123,7 @@ docutils==0.21.2
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
-edx-django-utils==7.0.0
+edx-django-utils==7.0.1
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -196,7 +196,7 @@ more-itertools==10.5.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.2.0
+newrelic==10.3.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -352,7 +352,7 @@ sqlparse==0.5.2
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.3.0
+stevedore==5.4.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
