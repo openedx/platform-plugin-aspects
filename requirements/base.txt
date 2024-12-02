@@ -34,7 +34,7 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
-code-annotations==1.8.2
+code-annotations==2.0.0
     # via edx-toggles
 django==4.2.16
     # via
@@ -84,7 +84,7 @@ markupsafe==3.0.2
     #   jinja2
     #   mako
     #   xblock
-newrelic==10.3.0
+newrelic==10.3.1
     # via edx-django-utils
 oauthlib==3.2.2
     # via requests-oauthlib
