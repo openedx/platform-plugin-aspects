@@ -5,6 +5,6 @@ Aspects plugins for edx-platform.
 import os
 from pathlib import Path
 
-__version__ = "0.11.4"
+__version__ = "0.11.6"
 
 ROOT_DIRECTORY = Path(os.path.dirname(os.path.abspath(__file__)))
