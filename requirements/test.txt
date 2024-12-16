@@ -22,7 +22,7 @@ billiard==4.2.1
     #   celery
 celery==5.4.0
     # via -r requirements/base.txt
-certifi==2024.8.30
+certifi==2024.12.14
     # via
     #   -r requirements/base.txt
     #   requests
@@ -55,7 +55,7 @@ click-repl==0.3.0
     # via
     #   -r requirements/base.txt
     #   celery
-code-annotations==2.0.0
+code-annotations==2.1.0
     # via
     #   -r requirements/base.txt
     #   -r requirements/test.in
@@ -137,7 +137,7 @@ markupsafe==3.0.2
     #   xblock
 model-bakery==1.20.0
     # via django-mock-queries
-newrelic==10.3.1
+newrelic==10.4.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -147,7 +147,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/base.txt
-openedx-filters==1.11.0
+openedx-filters==1.12.0
     # via -r requirements/base.txt
 packaging==24.2
     # via pytest
@@ -228,7 +228,7 @@ six==1.17.0
     #   -r requirements/base.txt
     #   fs
     #   python-dateutil
-sqlparse==0.5.2
+sqlparse==0.5.3
     # via
     #   -r requirements/base.txt
     #   django
