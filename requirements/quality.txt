@@ -28,7 +28,7 @@ black==24.10.0
     # via -r requirements/quality.in
 celery==5.4.0
     # via -r requirements/test.txt
-certifi==2024.8.30
+certifi==2024.12.14
     # via
     #   -r requirements/test.txt
     #   requests
@@ -66,7 +66,7 @@ click-repl==0.3.0
     # via
     #   -r requirements/test.txt
     #   celery
-code-annotations==2.0.0
+code-annotations==2.1.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
@@ -167,7 +167,7 @@ model-bakery==1.20.0
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==10.3.1
+newrelic==10.4.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -177,7 +177,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/test.txt
-openedx-filters==1.11.0
+openedx-filters==1.12.0
     # via -r requirements/test.txt
 packaging==24.2
     # via
@@ -291,7 +291,7 @@ six==1.17.0
     #   python-dateutil
 snowballstemmer==2.2.0
     # via pydocstyle
-sqlparse==0.5.2
+sqlparse==0.5.3
     # via
     #   -r requirements/test.txt
     #   django
