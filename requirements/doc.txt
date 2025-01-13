@@ -186,7 +186,7 @@ markupsafe==3.0.2
     #   xblock
 mdurl==0.1.2
     # via markdown-it-py
-model-bakery==1.20.0
+model-bakery==1.20.1
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -239,7 +239,7 @@ pycparser==2.22
     #   cffi
 pydata-sphinx-theme==0.16.1
     # via sphinx-book-theme
-pygments==2.19.0
+pygments==2.19.1
     # via
     #   accessible-pygments
     #   doc8
@@ -305,7 +305,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 requests-toolbelt==1.0.0
     # via twine
-responses==0.25.3
+responses==0.25.5
     # via -r requirements/test.txt
 restructuredtext-lint==1.4.0
     # via doc8
@@ -376,8 +376,9 @@ tzdata==2024.2
     #   -r requirements/test.txt
     #   celery
     #   kombu
-urllib3==2.3.0
+urllib3==2.2.3
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   requests
     #   responses
