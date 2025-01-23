@@ -526,10 +526,10 @@ if os.environ.get("READTHEDOCS", "") == "True":
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3.8", None),
+    "python": ("https://docs.python.org/3.11", None),
     "django": (
-        "https://docs.djangoproject.com/en/3.2/",
-        "https://docs.djangoproject.com/en/3.2/_objects/",
+        "https://docs.djangoproject.com/en/4.2/",
+        "https://docs.djangoproject.com/en/4.2/_objects/",
     ),
     "model_utils": ("https://django-model-utils.readthedocs.io/en/latest/", None),
 }

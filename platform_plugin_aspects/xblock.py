@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import importlib.resources
 import json
 import logging
+import os
 
-import pkg_resources
 from django.core.exceptions import ImproperlyConfigured
 from django.utils import translation
 from web_fragments.fragment import Fragment
@@ -192,9 +193,8 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         text_js = "public/js/translations/{locale_code}/text.js"
         lang_code = locale_code.split("-")[0]
         for code in (locale_code, lang_code, "en"):
-            if pkg_resources.resource_exists(
-                loader.module_name, text_js.format(locale_code=code)
-            ):
+            path_names = os.path.split(text_js.format(locale_code=code))
+            if importlib.resources.files(__package__).joinpath(*path_names).is_file():
                 return text_js.format(locale_code=code)
         return None
 
