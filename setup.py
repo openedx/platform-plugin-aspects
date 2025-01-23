@@ -142,15 +142,12 @@ if sys.argv[-1] == "tag":
 README = open(
     os.path.join(os.path.dirname(__file__), "README.rst"), encoding="utf8"
 ).read()
-CHANGELOG = open(
-    os.path.join(os.path.dirname(__file__), "CHANGELOG.rst"), encoding="utf8"
-).read()
 
 setup(
     name="platform-plugin-aspects",
     version=VERSION,
     description="""Aspects plugins for edx-platform""",
-    long_description=README + "\n\n" + CHANGELOG,
+    long_description=README,
     author="Open edX Project",
     author_email="oscm@openedx.org",
     url="https://github.com/openedx/platform-plugin-aspects",
