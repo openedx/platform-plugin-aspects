@@ -157,7 +157,7 @@ pbr==6.1.0
     #   stevedore
 pluggy==1.5.0
     # via pytest
-prompt-toolkit==3.0.48
+prompt-toolkit==3.0.50
     # via
     #   -r requirements/base.txt
     #   click-repl
@@ -248,7 +248,7 @@ typing-extensions==4.12.2
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
-tzdata==2024.2
+tzdata==2025.1
     # via
     #   -r requirements/base.txt
     #   celery
@@ -277,7 +277,7 @@ webob==1.8.9
     # via
     #   -r requirements/base.txt
     #   xblock
-xblock==5.1.0
+xblock==5.1.1
     # via -r requirements/base.txt
 
 # The following packages are considered to be unsafe in a requirements file:
