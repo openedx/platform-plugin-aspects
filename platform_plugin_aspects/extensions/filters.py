@@ -2,7 +2,8 @@
 Open edX Filters needed for Aspects integration.
 """
 
-import pkg_resources
+import importlib.resources
+
 from crum import get_current_user
 from django.conf import settings
 from django.template import Context, Template
@@ -78,5 +79,10 @@ class AddSupersetTab(PipelineStep):
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string("platform_plugin_aspects", path)
-        return data.decode("utf8")
+        data = (
+            importlib.resources.files("platform_plugin_aspects")
+            .joinpath(path)
+            .read_text(encoding="utf-8")
+        )
+
+        return data

@@ -89,14 +89,12 @@ class TestRender(TestCase):
         self.assertNotIn("superset-embedded-container", html)
         self.assertIn("Superset is only visible to course staff and instructors", html)
 
-    @patch("platform_plugin_aspects.xblock.pkg_resources.resource_exists")
     @patch("platform_plugin_aspects.xblock.translation.get_language")
-    def test_render_translations(self, mock_get_language, mock_resource_exists):
+    def test_render_translations(self, mock_get_language):
         """
         Ensure translated javascript is served.
         """
         mock_get_language.return_value = "eo"
-        mock_resource_exists.return_value = True
         xblock = make_an_xblock("instructor")
         student_view = xblock.student_view()
         url_resource = None
@@ -108,7 +106,6 @@ class TestRender(TestCase):
                 )
                 self.assertIn("eo/text.js", url_resource.data)
         mock_get_language.assert_called_once()
-        mock_resource_exists.assert_called_once()
 
     @patch("platform_plugin_aspects.xblock.translation.get_language")
     def test_render_no_translations(

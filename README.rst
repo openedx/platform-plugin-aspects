@@ -4,7 +4,15 @@ Platform Plugin Aspects
 Purpose
 *******
 
-This repository holds various Aspects plugins for the Open edX platform.
+This repository holds various Aspects plugins for the Open edX platform including the
+event sinks that move data from the LMS to ClickHouse and the embbedding of Superset
+dashboards back into the platform.
+
+Version Compatibility
+*********************
+
+`platform-plugin-aspects` version 1.x: Nutmeg to Sumac
+`platform-plugin-aspects` version 2.x: Redwood and above
 
 Sinks
 *****
@@ -32,7 +40,7 @@ Commands
 In addition to being an event listener, this package provides the following commands:
 
 - `dump_data_to_clickhouse` - This command allows bulk export of the data from the Sinks.
-  Allows bootstrapping a new data platform or backfilling lost or missing data.
+  Allows bootstrapping a new data platform or backfilling lost or missing data. More information can be found in the `Aspects backfill documentation`_.
 
     ``python manage.py cms dump_data_to_clickhouse``
 
@@ -225,3 +233,4 @@ Please do not report security issues in public. Please email security@openedx.or
 .. _Aspects: https://docs.openedx.org/projects/openedx-aspects/en/latest/index.html
 .. _Superset Embedded SDK: https://www.npmjs.com/package/@superset-ui/embedded-sdk
 .. _Open edX Filters: https://docs.openedx.org/projects/openedx-filters/en/latest/
+.. _Aspects backfill documentation:  https://docs.openedx.org/projects/openedx-aspects/en/latest/technical_documentation/how-tos/backfill.html

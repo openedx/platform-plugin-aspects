@@ -142,15 +142,12 @@ if sys.argv[-1] == "tag":
 README = open(
     os.path.join(os.path.dirname(__file__), "README.rst"), encoding="utf8"
 ).read()
-CHANGELOG = open(
-    os.path.join(os.path.dirname(__file__), "CHANGELOG.rst"), encoding="utf8"
-).read()
 
 setup(
     name="platform-plugin-aspects",
     version=VERSION,
     description="""Aspects plugins for edx-platform""",
-    long_description=README + "\n\n" + CHANGELOG,
+    long_description=README,
     author="Open edX Project",
     author_email="oscm@openedx.org",
     url="https://github.com/openedx/platform-plugin-aspects",
@@ -160,7 +157,7 @@ setup(
     ),
     include_package_data=True,
     install_requires=load_requirements("requirements/base.in"),
-    python_requires=">=3.8",
+    python_requires=">=3.11",
     license="Apache 2.0",
     zip_safe=False,
     keywords="Python edx",
@@ -172,8 +169,8 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     entry_points={
         "lms.djangoapp": [
