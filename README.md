@@ -7,7 +7,7 @@
 | platform\_plugin\_aspects/\_\_init\_\_.py                                      |        4 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/apps.py                                              |        9 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/extensions/\_\_init\_\_.py                           |        0 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/extensions/filters.py                                |       35 |        2 |        2 |        1 |     92% |42-43, 46->51 |
+| platform\_plugin\_aspects/extensions/filters.py                                |       35 |        2 |        2 |        1 |     92% |43-44, 47->52 |
 | platform\_plugin\_aspects/management/\_\_init\_\_.py                           |        0 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/\_\_init\_\_.py                  |        0 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       64 |        0 |       16 |        0 |    100% |           |
@@ -28,8 +28,8 @@
 | platform\_plugin\_aspects/utils.py                                             |      105 |        0 |       28 |        0 |    100% |           |
 | platform\_plugin\_aspects/views.py                                             |       51 |        0 |        2 |        0 |    100% |           |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/xblock.py                                            |       72 |        0 |       12 |        0 |    100% |           |
-|                                                                      **TOTAL** | **1087** |   **24** |  **150** |    **6** | **97%** |           |
+| platform\_plugin\_aspects/xblock.py                                            |       74 |        2 |       12 |        2 |     95% |  148, 198 |
+|                                                                      **TOTAL** | **1089** |   **26** |  **150** |    **8** | **97%** |           |
 
 
 ## Setup coverage badge
