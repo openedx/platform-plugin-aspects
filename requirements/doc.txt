@@ -20,13 +20,13 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
-babel==2.16.0
+babel==2.17.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
 backports-tarfile==1.2.0
     # via jaraco-context
-beautifulsoup4==4.12.3
+beautifulsoup4==4.13.0
     # via pydata-sphinx-theme
 billiard==4.2.1
     # via
@@ -36,7 +36,7 @@ build==1.2.2.post1
     # via -r requirements/doc.in
 celery==5.4.0
     # via -r requirements/test.txt
-certifi==2024.12.14
+certifi==2025.1.31
     # via
     #   -r requirements/test.txt
     #   requests
@@ -127,8 +127,10 @@ edx-django-utils==7.1.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-edx-opaque-keys==2.11.0
-    # via -r requirements/test.txt
+edx-opaque-keys[django]==2.11.0
+    # via
+    #   -r requirements/test.txt
+    #   openedx-filters
 edx-toggles==5.2.0
     # via -r requirements/test.txt
 fs==2.4.16
@@ -196,7 +198,7 @@ more-itertools==10.6.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.4.0
+newrelic==10.5.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -208,7 +210,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/test.txt
-openedx-filters==1.12.0
+openedx-filters==1.13.0
     # via -r requirements/test.txt
 packaging==24.2
     # via
@@ -247,7 +249,7 @@ pygments==2.19.1
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.10.1
+pymongo==4.11
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -275,7 +277,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/test.txt
     #   code-annotations
-pytz==2024.2
+pytz==2025.1
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -370,6 +372,7 @@ twine==6.1.0
 typing-extensions==4.12.2
     # via
     #   -r requirements/test.txt
+    #   beautifulsoup4
     #   edx-opaque-keys
     #   pydata-sphinx-theme
 tzdata==2025.1
