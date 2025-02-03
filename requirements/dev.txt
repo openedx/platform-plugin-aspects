@@ -25,7 +25,7 @@ billiard==4.2.1
     # via
     #   -r requirements/quality.txt
     #   celery
-black==24.10.0
+black==25.1.0
     # via
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
@@ -39,7 +39,7 @@ cachetools==5.5.1
     #   tox
 celery==5.4.0
     # via -r requirements/quality.txt
-certifi==2024.12.14
+certifi==2025.1.31
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -101,7 +101,7 @@ coverage[toml]==7.6.10
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.2.1
+diff-cover==9.2.2
     # via -r requirements/dev.in
 dill==0.3.9
     # via
@@ -152,8 +152,10 @@ edx-i18n-tools==1.6.3
     # via -r requirements/dev.in
 edx-lint==5.6.0
     # via -r requirements/quality.txt
-edx-opaque-keys==2.11.0
-    # via -r requirements/quality.txt
+edx-opaque-keys[django]==2.11.0
+    # via
+    #   -r requirements/quality.txt
+    #   openedx-filters
 edx-toggles==5.2.0
     # via -r requirements/quality.txt
 filelock==3.17.0
@@ -173,7 +175,7 @@ iniconfig==2.0.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==5.13.2
+isort==6.0.0
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -216,7 +218,7 @@ mypy-extensions==1.0.0
     # via
     #   -r requirements/quality.txt
     #   black
-newrelic==10.4.0
+newrelic==10.5.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
@@ -226,7 +228,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/quality.txt
-openedx-filters==1.12.0
+openedx-filters==1.13.0
     # via -r requirements/quality.txt
 packaging==24.2
     # via
@@ -285,7 +287,7 @@ pydocstyle==6.3.0
     # via -r requirements/quality.txt
 pygments==2.19.1
     # via diff-cover
-pylint==3.3.3
+pylint==3.3.4
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -305,7 +307,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.10.1
+pymongo==4.11
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -340,7 +342,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/quality.txt
     #   code-annotations
-pytz==2024.2
+pytz==2025.1
     # via
     #   -r requirements/quality.txt
     #   xblock

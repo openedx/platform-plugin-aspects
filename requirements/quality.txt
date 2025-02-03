@@ -24,11 +24,11 @@ billiard==4.2.1
     # via
     #   -r requirements/test.txt
     #   celery
-black==24.10.0
+black==25.1.0
     # via -r requirements/quality.in
 celery==5.4.0
     # via -r requirements/test.txt
-certifi==2024.12.14
+certifi==2025.1.31
     # via
     #   -r requirements/test.txt
     #   requests
@@ -117,8 +117,10 @@ edx-django-utils==7.1.0
     #   edx-toggles
 edx-lint==5.6.0
     # via -r requirements/quality.in
-edx-opaque-keys==2.11.0
-    # via -r requirements/test.txt
+edx-opaque-keys[django]==2.11.0
+    # via
+    #   -r requirements/test.txt
+    #   openedx-filters
 edx-toggles==5.2.0
     # via -r requirements/test.txt
 fs==2.4.16
@@ -133,7 +135,7 @@ iniconfig==2.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==5.13.2
+isort==6.0.0
     # via
     #   -r requirements/quality.in
     #   pylint
@@ -167,7 +169,7 @@ model-bakery==1.20.1
     #   django-mock-queries
 mypy-extensions==1.0.0
     # via black
-newrelic==10.4.0
+newrelic==10.5.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -177,7 +179,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/test.txt
-openedx-filters==1.12.0
+openedx-filters==1.13.0
     # via -r requirements/test.txt
 packaging==24.2
     # via
@@ -214,7 +216,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==3.3.3
+pylint==3.3.4
     # via
     #   edx-lint
     #   pylint-celery
@@ -228,7 +230,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.10.1
+pymongo==4.11
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -254,7 +256,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/test.txt
     #   code-annotations
-pytz==2024.2
+pytz==2025.1
     # via
     #   -r requirements/test.txt
     #   xblock

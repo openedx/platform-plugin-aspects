@@ -22,7 +22,7 @@ billiard==4.2.1
     #   celery
 celery==5.4.0
     # via -r requirements/base.txt
-certifi==2024.12.14
+certifi==2025.1.31
     # via
     #   -r requirements/base.txt
     #   requests
@@ -99,8 +99,10 @@ edx-django-utils==7.1.0
     # via
     #   -r requirements/base.txt
     #   edx-toggles
-edx-opaque-keys==2.11.0
-    # via -r requirements/base.txt
+edx-opaque-keys[django]==2.11.0
+    # via
+    #   -r requirements/base.txt
+    #   openedx-filters
 edx-toggles==5.2.0
     # via -r requirements/base.txt
 fs==2.4.16
@@ -137,7 +139,7 @@ markupsafe==3.0.2
     #   xblock
 model-bakery==1.20.1
     # via django-mock-queries
-newrelic==10.4.0
+newrelic==10.5.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -147,7 +149,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/base.txt
-openedx-filters==1.12.0
+openedx-filters==1.13.0
     # via -r requirements/base.txt
 packaging==24.2
     # via pytest
@@ -169,7 +171,7 @@ pycparser==2.22
     # via
     #   -r requirements/base.txt
     #   cffi
-pymongo==4.10.1
+pymongo==4.11
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -194,7 +196,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/base.txt
     #   code-annotations
-pytz==2024.2
+pytz==2025.1
     # via
     #   -r requirements/base.txt
     #   xblock

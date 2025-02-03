@@ -14,7 +14,7 @@ billiard==4.2.1
     # via celery
 celery==5.4.0
     # via -r requirements/base.in
-certifi==2024.12.14
+certifi==2025.1.31
     # via requests
 cffi==1.17.1
     # via pynacl
@@ -63,8 +63,10 @@ edx-django-utils==7.1.0
     # via
     #   -r requirements/base.in
     #   edx-toggles
-edx-opaque-keys==2.11.0
-    # via -r requirements/base.in
+edx-opaque-keys[django]==2.11.0
+    # via
+    #   -r requirements/base.in
+    #   openedx-filters
 edx-toggles==5.2.0
     # via -r requirements/base.in
 fs==2.4.16
@@ -84,13 +86,13 @@ markupsafe==3.0.2
     #   jinja2
     #   mako
     #   xblock
-newrelic==10.4.0
+newrelic==10.5.0
     # via edx-django-utils
 oauthlib==3.2.2
     # via requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/base.in
-openedx-filters==1.12.0
+openedx-filters==1.13.0
     # via -r requirements/base.in
 pbr==6.1.0
     # via stevedore
@@ -100,7 +102,7 @@ psutil==6.1.1
     # via edx-django-utils
 pycparser==2.22
     # via cffi
-pymongo==4.10.1
+pymongo==4.11
     # via edx-opaque-keys
 pynacl==1.5.0
     # via edx-django-utils
@@ -110,7 +112,7 @@ python-dateutil==2.9.0.post0
     #   xblock
 python-slugify==8.0.4
     # via code-annotations
-pytz==2024.2
+pytz==2025.1
     # via xblock
 pyyaml==6.0.2
     # via
