@@ -44,24 +44,34 @@ def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pra
 ):
     """
     Receives ENROLL_STATUS_CHANGE signal and queues the dump job.
+
+    Handles the course enrollment dumping in the middle of a transaction.
+    If this gets fired before the transaction commits, the task may try to query
+    an id that doesn't exist yet and throw an error. This should postpone
+    queuing the Celery task until after the transaction is committed.
     """
-    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
-        dump_data_to_clickhouse,
-    )
 
-    user = kwargs.get("user")
-    course_id = kwargs.get("course_id")
+    def on_course_enrollment_changed(**kwargs):
+        """
+        Queues the CourseEnrollment dump job when the parent transaction is committed.
+        """
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
 
-    CourseEnrollment = get_model("course_enrollment")
-    instance = CourseEnrollment.objects.get(user=user, course_id=course_id)
+        user = kwargs.get("user")
+        course_id = kwargs.get("course_id")
+        CourseEnrollment = get_model("course_enrollment")
+        instance = CourseEnrollment.objects.get(user=user, course_id=course_id)
 
-    sink = CourseEnrollmentSink(None, None)
+        sink = CourseEnrollmentSink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=str(instance.id),
+        )
 
-    dump_data_to_clickhouse.delay(
-        sink_module=sink.__module__,
-        sink_name=sink.__class__.__name__,
-        object_id=instance.id,
-    )
+    transaction.on_commit(lambda: on_course_enrollment_changed(**kwargs))
 
 
 def on_user_profile_updated_txn(*args, **kwargs):
