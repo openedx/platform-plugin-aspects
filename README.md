@@ -13,7 +13,7 @@
 | platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       64 |        0 |       16 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/load\_test\_tracking\_events.py  |      111 |        0 |        6 |        0 |    100% |           |
 | platform\_plugin\_aspects/management/commands/monitor\_load\_test\_tracking.py |      157 |        5 |       16 |        2 |     95% |158->162, 176-184 |
-| platform\_plugin\_aspects/signals.py                                           |       33 |        8 |        0 |        0 |     76% |77-93, 191, 229, 267 |
+| platform\_plugin\_aspects/signals.py                                           |       33 |        8 |        0 |        0 |     76% |87-103, 201, 239, 277 |
 | platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        7 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/sinks/base\_sink.py                                  |      156 |        2 |       36 |        1 |     98% |   365-368 |
 | platform\_plugin\_aspects/sinks/course\_enrollment\_sink.py                    |       11 |        0 |        0 |        0 |    100% |           |
