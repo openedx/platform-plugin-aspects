@@ -74,11 +74,11 @@ code-annotations==2.2.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-coverage[toml]==7.6.11
+coverage[toml]==7.6.12
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==44.0.0
+cryptography==44.0.1
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
@@ -131,7 +131,7 @@ edx-opaque-keys[django]==2.11.0
     # via
     #   -r requirements/test.txt
     #   openedx-filters
-edx-toggles==5.2.0
+edx-toggles==5.3.0
     # via -r requirements/test.txt
 fs==2.4.16
     # via
@@ -172,7 +172,7 @@ kombu==5.4.2
     # via
     #   -r requirements/test.txt
     #   celery
-lxml==5.3.0
+lxml==5.3.1
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -190,7 +190,7 @@ markupsafe==3.0.2
     #   xblock
 mdurl==0.1.2
     # via markdown-it-py
-model-bakery==1.20.1
+model-bakery==1.20.3
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -231,7 +231,7 @@ prompt-toolkit==3.0.50
     # via
     #   -r requirements/test.txt
     #   click-repl
-psutil==6.1.1
+psutil==7.0.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -249,7 +249,7 @@ pygments==2.19.1
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.11
+pymongo==4.11.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -266,7 +266,7 @@ pytest==8.3.4
     #   pytest-django
 pytest-cov==6.0.0
     # via -r requirements/test.txt
-pytest-django==4.9.0
+pytest-django==4.10.0
     # via -r requirements/test.txt
 python-dateutil==2.9.0.post0
     # via
@@ -318,7 +318,7 @@ rich==13.9.4
     # via twine
 secretstorage==3.3.3
     # via keyring
-simplejson==3.19.3
+simplejson==3.20.1
     # via
     #   -r requirements/test.txt
     #   xblock
