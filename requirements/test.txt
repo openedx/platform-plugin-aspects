@@ -60,7 +60,7 @@ code-annotations==2.2.0
     #   -r requirements/base.txt
     #   -r requirements/test.in
     #   edx-toggles
-coverage[toml]==7.6.11
+coverage[toml]==7.6.12
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -103,7 +103,7 @@ edx-opaque-keys[django]==2.11.0
     # via
     #   -r requirements/base.txt
     #   openedx-filters
-edx-toggles==5.2.0
+edx-toggles==5.3.0
     # via -r requirements/base.txt
 fs==2.4.16
     # via
@@ -123,7 +123,7 @@ kombu==5.4.2
     # via
     #   -r requirements/base.txt
     #   celery
-lxml==5.3.0
+lxml==5.3.1
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -137,7 +137,7 @@ markupsafe==3.0.2
     #   jinja2
     #   mako
     #   xblock
-model-bakery==1.20.1
+model-bakery==1.20.3
     # via django-mock-queries
 newrelic==10.6.0
     # via
@@ -163,7 +163,7 @@ prompt-toolkit==3.0.50
     # via
     #   -r requirements/base.txt
     #   click-repl
-psutil==6.1.1
+psutil==7.0.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -171,7 +171,7 @@ pycparser==2.22
     # via
     #   -r requirements/base.txt
     #   cffi
-pymongo==4.11
+pymongo==4.11.1
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -185,7 +185,7 @@ pytest==8.3.4
     #   pytest-django
 pytest-cov==6.0.0
     # via -r requirements/test.in
-pytest-django==4.9.0
+pytest-django==4.10.0
     # via -r requirements/test.in
 python-dateutil==2.9.0.post0
     # via
@@ -221,7 +221,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 responses==0.25.6
     # via -r requirements/test.in
-simplejson==3.19.3
+simplejson==3.20.1
     # via
     #   -r requirements/base.txt
     #   xblock
