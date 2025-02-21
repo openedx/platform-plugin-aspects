@@ -30,6 +30,7 @@ async function fetchGuestToken() {
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),
     },
+    credentials: 'include',
     body: body,
   });
 
