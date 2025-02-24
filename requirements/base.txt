@@ -92,7 +92,7 @@ oauthlib==3.2.2
     # via requests-oauthlib
 openedx-atlas==0.6.2
     # via -r requirements/base.in
-openedx-filters==1.13.0
+openedx-filters==2.0.1
     # via -r requirements/base.in
 pbr==6.1.1
     # via stevedore
@@ -136,7 +136,7 @@ six==1.17.0
     #   python-dateutil
 sqlparse==0.5.3
     # via django
-stevedore==5.4.0
+stevedore==5.4.1
     # via
     #   code-annotations
     #   edx-django-utils
