@@ -111,7 +111,7 @@ dnspython==2.7.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-edx-django-utils==7.1.0
+edx-django-utils==7.2.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -135,7 +135,7 @@ iniconfig==2.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==6.0.0
+isort==6.0.1
     # via
     #   -r requirements/quality.in
     #   pylint
@@ -163,7 +163,7 @@ markupsafe==3.0.2
     #   xblock
 mccabe==0.7.0
     # via pylint
-model-bakery==1.20.3
+model-bakery==1.20.4
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -238,7 +238,7 @@ pynacl==1.5.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-pytest==8.3.4
+pytest==8.3.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
