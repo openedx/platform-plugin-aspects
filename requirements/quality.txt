@@ -79,7 +79,7 @@ ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
-django==4.2.21
+django==4.2.20
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
