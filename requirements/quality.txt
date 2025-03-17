@@ -71,7 +71,7 @@ code-annotations==2.2.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.6.12
+coverage[toml]==7.7.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -143,7 +143,7 @@ jinja2==3.1.6
     # via
     #   -r requirements/test.txt
     #   code-annotations
-kombu==5.4.2
+kombu==5.5.0
     # via
     #   -r requirements/test.txt
     #   celery
@@ -279,7 +279,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/test.txt
     #   superset-api-client
-responses==0.25.6
+responses==0.25.7
     # via -r requirements/test.txt
 simplejson==3.20.1
     # via
