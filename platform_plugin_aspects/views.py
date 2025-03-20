@@ -4,17 +4,25 @@ Endpoints for the Aspects platform plugin.
 
 from collections import namedtuple
 
+from crum import get_current_user
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from opaque_keys import InvalidKeyError
-from opaque_keys.edx.keys import CourseKey
+from opaque_keys.edx.keys import CourseKey, UsageKey
 from rest_framework import permissions
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.exceptions import APIException, NotFound
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from .utils import DEFAULT_FILTERS_FORMAT, _, generate_guest_token, get_model
+from .utils import (
+    DEFAULT_FILTERS_FORMAT,
+    _,
+    generate_guest_token,
+    get_localized_uuid,
+    get_model,
+    get_user_dashboard_locale,
+)
 
 try:
     from openedx.core.lib.api.permissions import (
@@ -58,9 +66,9 @@ except ImportError:
 Course = namedtuple("Course", ["course_id", "display_name"])
 
 
-class SupersetView(GenericAPIView):
+class SupersetTokenView(GenericAPIView):
     """
-    Superset-related endpoints provided by the aspects platform plugin.
+    Superset guest token endpoint.
     """
 
     authentication_classes = (SessionAuthentication,)
@@ -108,7 +116,8 @@ class SupersetView(GenericAPIView):
         """
         course = self.get_object()
 
-        dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS
+        dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS[:]
+        dashboards.extend(settings.ASPECTS_EMBEDDED_DASHBOARDS.values())
         extra_filters_format = settings.SUPERSET_EXTRA_FILTERS_FORMAT
 
         try:
@@ -122,3 +131,64 @@ class SupersetView(GenericAPIView):
             raise APIException() from exc
 
         return Response({"guestToken": guest_token})
+
+
+class SupersetEmbeddedDashboardView(GenericAPIView):
+    """
+    Superset endpoint for embedded dashboard (for in-context analytics) data.
+    """
+
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    lookup_field = "usage_key_string"
+
+    def get_object(self):
+        """
+        Return a usage key or course key for the requested usage_key.
+        """
+        key_string = self.kwargs.get(self.lookup_field, "")
+        try:
+            usage_key = UsageKey.from_string(key_string)
+        except InvalidKeyError as exc:
+            try:
+                usage_key = CourseKey.from_string(key_string)
+            except InvalidKeyError:
+                raise NotFound(
+                    _("Invalid usage key: '{key_string}'").format(key_string=key_string)
+                ) from exc
+        return usage_key
+
+    def get(self, request, *args, **kwargs):
+        """
+        Return Superset context for embedding the dashboard for the requested block.
+        """
+        usage_key = self.get_object()
+        if isinstance(usage_key, CourseKey):
+            block_type = "course"
+        else:
+            block_type = usage_key.block_type
+
+        dashboards = settings.ASPECTS_EMBEDDED_DASHBOARDS
+        dashboard = dashboards.get(block_type)
+        if dashboard is None:
+            raise NotFound(
+                _("No dashboard for block type: '{block_type}'").format(block_type=block_type)
+            )
+
+        if dashboard.get("allow_translations"):
+            user = get_current_user()
+            language = get_user_dashboard_locale(user)
+            if language:
+                dashboard = dashboard.copy()
+                dashboard["uuid"] = get_localized_uuid(dashboard["uuid"], language)
+
+        superset_config = settings.SUPERSET_CONFIG
+        superset_url = superset_config.get("service_url")
+
+        return Response({
+            "dashboardId": dashboard["uuid"],
+            "supersetUrl": superset_url,
+            # XXX: I'm anticipating this will be necessary to filter by specific block.
+            "dashboardUrlParams": {},
+        })

@@ -309,3 +309,27 @@ def get_tags_for_block(usage_key) -> set:
             tag = tag.parent
 
     return list(serialized_tags)
+
+
+def get_user_dashboard_locale(user):
+    """
+
+    Get Superset dashboard locale from a user's preferred language.
+
+    """
+
+    try:
+        user_language = (
+            get_model("user_preference").get_value(user, "pref-lang") or "en"
+        )
+    # If there is no user_preferences model defined this will get thrown
+    except AttributeError:
+        user_language = "en"
+
+    formatted_language = user_language.lower().replace("-", "_")
+    if formatted_language not in [
+        loc.lower().replace("-", "_") for loc in settings.SUPERSET_DASHBOARD_LOCALES
+    ]:
+        formatted_language = "en"
+
+    return formatted_language

@@ -28,3 +28,7 @@ def plugin_settings(settings):
         "EVENT_SINK_CLICKHOUSE_PII_MODELS",
         settings.EVENT_SINK_CLICKHOUSE_PII_MODELS,
     )
+    settings.ASPECTS_EMBEDDED_DASHBOARDS = settings.ENV_TOKENS.get(
+        "ASPECTS_EMBEDDED_DASHBOARDS",
+        settings.ASPECTS_EMBEDDED_DASHBOARDS,
+    )
