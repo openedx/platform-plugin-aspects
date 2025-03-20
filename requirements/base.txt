@@ -12,7 +12,7 @@ asgiref==3.8.1
     # via django
 billiard==4.2.1
     # via celery
-celery==5.4.0
+celery==5.5.0
     # via -r requirements/base.in
 certifi==2025.1.31
     # via requests
@@ -86,7 +86,7 @@ markupsafe==3.0.2
     #   jinja2
     #   mako
     #   xblock
-newrelic==10.8.0
+newrelic==10.8.1
     # via edx-django-utils
 oauthlib==3.2.2
     # via requests-oauthlib
@@ -96,6 +96,8 @@ openedx-filters==2.0.1
     # via -r requirements/base.in
 pbr==6.1.1
     # via stevedore
+prison==0.2.1
+    # via -r requirements/base.in
 prompt-toolkit==3.0.50
     # via click-repl
 psutil==7.0.0
@@ -133,6 +135,7 @@ simplejson==3.20.1
 six==1.17.0
     # via
     #   fs
+    #   prison
     #   python-dateutil
 sqlparse==0.5.3
     # via django
@@ -148,9 +151,7 @@ text-unidecode==1.3
 typing-extensions==4.13.0
     # via edx-opaque-keys
 tzdata==2025.2
-    # via
-    #   celery
-    #   kombu
+    # via kombu
 urllib3==2.2.3
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt

@@ -104,3 +104,40 @@ def plugin_settings(settings):
             "model": "ObjectTag",
         },
     }
+
+    settings.ASPECTS_IN_CONTEXT_DASHBOARDS = {
+        "course": {
+            "name": _("Course"),
+            "slug": "in-context-course",
+            "uuid": "f2880cc1-63e9-48d7-ac3c-d2ff6f6698e2",
+            "allow_translations": True,
+            "course_filter_ids": ["NATIVE_FILTER-QLQbulmHH"],
+            "block_filter_ids": [],
+        },
+        "sequential": {
+            "name": _("Graded Subsection"),
+            "slug": "in-context-graded-subsection",
+            "uuid": "f0321087-6428-4b97-b32e-2dae7d9cc447",
+            "allow_translations": True,
+            "course_filter_ids": ["NATIVE_FILTER-oPAuR7ahy"],
+            "block_filter_ids": ["NATIVE_FILTER-CBWbI7uLq"],
+        },
+        "problem": {
+            "name": _("Problem"),
+            "slug": "in-context-problem",
+            "uuid": "98ff33ff-18dd-48f9-8c58-629ae4f4194b",
+            "allow_translations": True,
+            "course_filter_ids": ["NATIVE_FILTER-29CPcbirK"],
+            "block_filter_ids": ["NATIVE_FILTER-TJwItQhUI"],
+        },
+        "video": {
+            "name": _("Video"),
+            "slug": "in-context-video",
+            "uuid": "bc6510fb-027f-4026-a333-d0c42d3cc35c",
+            "allow_translations": True,
+            "course_filter_ids": ["NATIVE_FILTER-uaxvZkSAg"],
+            "block_filter_ids": ["NATIVE_FILTER-Fse4rzDW0"],
+        },
+    }
+    settings.IN_CONTEXT_DASHBOARD_COURSE_KEY_COLUMN = "course_key"
+    settings.IN_CONTEXT_DASHBOARD_BLOCK_ID_COLUMN = "block_id"

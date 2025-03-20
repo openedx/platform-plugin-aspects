@@ -23,10 +23,10 @@ class TestFilters(TestCase):
         self.course_id = "course-v1:org+course+run"
         self.context = {"course": Mock(id=self.course_id), "sections": []}
 
-    @patch("platform_plugin_aspects.extensions.filters.get_model")
-    def test_run_filter_with_language(
+    @patch("platform_plugin_aspects.extensions.filters.get_user_dashboard_locale")
+    def test_run_filter(
         self,
-        mock_get_model,
+        mock_get_user_dashboard_locale,
     ):
         """
         Check the filter is not executed when there are no LimeSurvey blocks in the course.
@@ -34,7 +34,7 @@ class TestFilters(TestCase):
         Expected result:
             - The context is returned without modifications.
         """
-        mock_get_model.return_value.get_value.return_value = "not-a-language"
+        mock_get_user_dashboard_locale.return_value = "en"
 
         context = self.filter.run_filter(self.context, self.template_name)
 
@@ -47,30 +47,4 @@ class TestFilters(TestCase):
             "template_path_prefix": "/instructor_dashboard/",
         }.items() <= context["context"]["sections"][0].items()
 
-        mock_get_model.assert_called_once()
-
-    @patch("platform_plugin_aspects.extensions.filters.get_model")
-    def test_run_filter_without_language(
-        self,
-        mock_get_model,
-    ):
-        """
-        Check the filter is not executed when there are no LimeSurvey blocks in the course.
-
-        Expected result:
-            - The context is returned without modifications.
-        """
-        mock_get_model.return_value.get_value.return_value = None
-
-        context = self.filter.run_filter(self.context, self.template_name)
-
-        assert {
-            "course_id": self.course_id,
-            "section_key": BLOCK_CATEGORY,
-            "section_display_name": "Reports",
-            "superset_url": "http://superset-dummy-url/",
-            "superset_guest_token_url": f"https://lms.url/superset_guest_token/{self.course_id}",
-            "template_path_prefix": "/instructor_dashboard/",
-        }.items() <= context["context"]["sections"][0].items()
-
-        mock_get_model.assert_called_once()
+        mock_get_user_dashboard_locale.assert_called_once()

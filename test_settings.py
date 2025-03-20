@@ -99,6 +99,26 @@ ASPECTS_INSTRUCTOR_DASHBOARDS = [
     }
 ]
 
+ASPECTS_IN_CONTEXT_DASHBOARDS = {
+    "course": {
+        "slug": "in-context-course",
+        "uuid": "f2880cc1-63e9-48d7-ac3c-d2ff6f6698e2",
+        "allow_translations": True,
+        "course_filter_ids": ["NATIVE_FILTER-QLQbulmHH"],
+        "block_filter_ids": [],
+    },
+    "problem": {
+        "slug": "in-context-problem",
+        "uuid": "98ff33ff-18dd-48f9-8c58-629ae4f4194b",
+        "allow_translations": True,
+        "course_filter_ids": ["NATIVE_FILTER-29CPcbirK"],
+        "block_filter_ids": ["NATIVE_FILTER-TJwItQhUI"],
+    },
+}
+
+IN_CONTEXT_DASHBOARD_COURSE_KEY_COLUMN = "course_key"
+IN_CONTEXT_DASHBOARD_BLOCK_ID_COLUMN = "block_id"
+
 EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG = {
     "url": "https://foo.bar",
     "username": "bob",
