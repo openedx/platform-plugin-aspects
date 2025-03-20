@@ -96,6 +96,8 @@ openedx-filters==2.0.1
     # via -r requirements/base.in
 pbr==6.1.1
     # via stevedore
+prison==0.2.1
+    # via -r requirements/base.in
 prompt-toolkit==3.0.51
     # via click-repl
 psutil==7.0.0
@@ -133,6 +135,7 @@ simplejson==3.20.1
 six==1.17.0
     # via
     #   fs
+    #   prison
     #   python-dateutil
 sqlparse==0.5.3
     # via django

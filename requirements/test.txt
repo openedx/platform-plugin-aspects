@@ -159,6 +159,8 @@ pbr==6.1.1
     #   stevedore
 pluggy==1.5.0
     # via pytest
+prison==0.2.1
+    # via -r requirements/base.txt
 prompt-toolkit==3.0.51
     # via
     #   -r requirements/base.txt
@@ -229,6 +231,7 @@ six==1.17.0
     # via
     #   -r requirements/base.txt
     #   fs
+    #   prison
     #   python-dateutil
 sqlparse==0.5.3
     # via
