@@ -95,7 +95,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.7.0
+coverage[toml]==7.7.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -148,11 +148,11 @@ edx-django-utils==7.2.0
     # via
     #   -r requirements/quality.txt
     #   edx-toggles
-edx-i18n-tools==1.6.3
+edx-i18n-tools==1.7.0
     # via -r requirements/dev.in
 edx-lint==5.6.0
     # via -r requirements/quality.txt
-edx-opaque-keys[django]==2.11.0
+edx-opaque-keys[django]==2.12.0
     # via
     #   -r requirements/quality.txt
     #   openedx-filters
@@ -171,7 +171,7 @@ idna==3.10
     # via
     #   -r requirements/quality.txt
     #   requests
-iniconfig==2.0.0
+iniconfig==2.1.0
     # via
     #   -r requirements/quality.txt
     #   pytest
@@ -252,7 +252,7 @@ pbr==6.1.1
     #   stevedore
 pip-tools==7.4.1
     # via -r requirements/pip-tools.txt
-platformdirs==4.3.6
+platformdirs==4.3.7
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -287,7 +287,7 @@ pydocstyle==6.3.0
     # via -r requirements/quality.txt
 pygments==2.19.1
     # via diff-cover
-pylint==3.3.5
+pylint==3.3.6
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -307,7 +307,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.11.2
+pymongo==4.11.3
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys

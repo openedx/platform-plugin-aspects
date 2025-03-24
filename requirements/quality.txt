@@ -71,7 +71,7 @@ code-annotations==2.2.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.7.0
+coverage[toml]==7.7.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -117,7 +117,7 @@ edx-django-utils==7.2.0
     #   edx-toggles
 edx-lint==5.6.0
     # via -r requirements/quality.in
-edx-opaque-keys[django]==2.11.0
+edx-opaque-keys[django]==2.12.0
     # via
     #   -r requirements/test.txt
     #   openedx-filters
@@ -131,7 +131,7 @@ idna==3.10
     # via
     #   -r requirements/test.txt
     #   requests
-iniconfig==2.0.0
+iniconfig==2.1.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -192,7 +192,7 @@ pbr==6.1.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==4.3.6
+platformdirs==4.3.7
     # via
     #   black
     #   pylint
@@ -216,7 +216,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==3.3.5
+pylint==3.3.6
     # via
     #   edx-lint
     #   pylint-celery
@@ -230,7 +230,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.11.2
+pymongo==4.11.3
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
