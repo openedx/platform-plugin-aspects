@@ -104,3 +104,24 @@ def plugin_settings(settings):
             "model": "ObjectTag",
         },
     }
+
+    settings.ASPECTS_EMBEDDED_DASHBOARDS = {
+        "course": {
+            "name": _("Course Dashboard"),
+            "slug": "course-dashboard",
+            "uuid": "c0e64194-33d1-4d5a-8c10-4f51530c5ee9",
+            "allow_translations": True,
+        },
+        "sequential": {
+            "name": _("At-Risk Learners Dashboard"),
+            "slug": "learner-groups",
+            "uuid": "8661d20c-cee6-4245-9fcc-610daea5fd24",
+            "allow_translations": True,
+        },
+        "video": {
+            "name": _("Individual Learner Dashboard"),
+            "slug": "individual-learner",
+            "uuid": "abae8a25-1ba4-4653-81bd-d3937a162a11",
+            "allow_translations": True,
+        },
+    }
