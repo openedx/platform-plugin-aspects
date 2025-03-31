@@ -55,7 +55,7 @@ django-waffle==4.2.0
     # via
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.15.2
+djangorestframework==3.16.0
     # via -r requirements/base.in
 dnspython==2.7.0
     # via pymongo
@@ -75,7 +75,7 @@ idna==3.10
     # via requests
 jinja2==3.1.6
     # via code-annotations
-kombu==5.5.0
+kombu==5.5.2
     # via celery
 lxml==5.3.1
     # via xblock
@@ -86,7 +86,7 @@ markupsafe==3.0.2
     #   jinja2
     #   mako
     #   xblock
-newrelic==10.7.0
+newrelic==10.8.0
     # via edx-django-utils
 oauthlib==3.2.2
     # via requests-oauthlib
@@ -112,7 +112,7 @@ python-dateutil==2.9.0.post0
     #   xblock
 python-slugify==8.0.4
     # via code-annotations
-pytz==2025.1
+pytz==2025.2
     # via xblock
 pyyaml==6.0.2
     # via
@@ -145,9 +145,9 @@ superset-api-client==0.6.0
     # via -r requirements/base.in
 text-unidecode==1.3
     # via python-slugify
-typing-extensions==4.12.2
+typing-extensions==4.13.0
     # via edx-opaque-keys
-tzdata==2025.1
+tzdata==2025.2
     # via
     #   celery
     #   kombu

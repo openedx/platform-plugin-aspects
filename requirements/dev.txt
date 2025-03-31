@@ -95,7 +95,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.7.1
+coverage[toml]==7.8.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -136,7 +136,7 @@ django-waffle==4.2.0
     #   -r requirements/quality.txt
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.15.2
+djangorestframework==3.16.0
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
@@ -184,7 +184,7 @@ jinja2==3.1.6
     #   -r requirements/quality.txt
     #   code-annotations
     #   diff-cover
-kombu==5.5.0
+kombu==5.5.2
     # via
     #   -r requirements/quality.txt
     #   celery
@@ -218,7 +218,7 @@ mypy-extensions==1.0.0
     # via
     #   -r requirements/quality.txt
     #   black
-newrelic==10.7.0
+newrelic==10.8.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
@@ -277,7 +277,7 @@ psutil==7.0.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
-pycodestyle==2.12.1
+pycodestyle==2.13.0
     # via -r requirements/quality.txt
 pycparser==2.22
     # via
@@ -342,7 +342,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/quality.txt
     #   code-annotations
-pytz==2025.1
+pytz==2025.2
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -402,13 +402,13 @@ tomlkit==0.13.2
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.24.2
+tox==4.25.0
     # via -r requirements/ci.txt
-typing-extensions==4.12.2
+typing-extensions==4.13.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
-tzdata==2025.1
+tzdata==2025.2
     # via
     #   -r requirements/quality.txt
     #   celery
