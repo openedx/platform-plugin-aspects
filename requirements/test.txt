@@ -20,7 +20,7 @@ billiard==4.2.1
     # via
     #   -r requirements/base.txt
     #   celery
-celery==5.4.0
+celery==5.5.0
     # via -r requirements/base.txt
 certifi==2025.1.31
     # via
@@ -139,7 +139,7 @@ markupsafe==3.0.2
     #   xblock
 model-bakery==1.20.4
     # via django-mock-queries
-newrelic==10.8.0
+newrelic==10.8.1
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
@@ -159,6 +159,8 @@ pbr==6.1.1
     #   stevedore
 pluggy==1.5.0
     # via pytest
+prison==0.2.1
+    # via -r requirements/base.txt
 prompt-toolkit==3.0.50
     # via
     #   -r requirements/base.txt
@@ -183,9 +185,9 @@ pytest==8.3.5
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.0.0
+pytest-cov==6.1.0
     # via -r requirements/test.in
-pytest-django==4.10.0
+pytest-django==4.11.0
     # via -r requirements/test.in
 python-dateutil==2.9.0.post0
     # via
@@ -229,6 +231,7 @@ six==1.17.0
     # via
     #   -r requirements/base.txt
     #   fs
+    #   prison
     #   python-dateutil
 sqlparse==0.5.3
     # via
@@ -253,7 +256,6 @@ typing-extensions==4.13.0
 tzdata==2025.2
     # via
     #   -r requirements/base.txt
-    #   celery
     #   kombu
 urllib3==2.2.3
     # via

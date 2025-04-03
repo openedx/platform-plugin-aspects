@@ -10,7 +10,11 @@ from django.template import Context, Template
 from openedx_filters import PipelineStep
 from web_fragments.fragment import Fragment
 
-from platform_plugin_aspects.utils import _, generate_superset_context, get_model
+from platform_plugin_aspects.utils import (
+    _,
+    generate_superset_context,
+    get_user_dashboard_locale,
+)
 
 TEMPLATE_ABSOLUTE_PATH = "/instructor_dashboard/"
 BLOCK_CATEGORY = "aspects"
@@ -34,20 +38,7 @@ class AddSupersetTab(PipelineStep):
         show_dashboard_link = settings.SUPERSET_SHOW_INSTRUCTOR_DASHBOARD_LINK
 
         user = get_current_user()
-
-        try:
-            user_language = (
-                get_model("user_preference").get_value(user, "pref-lang") or "en"
-            )
-        # If there is no user_preferences model defined this will get thrown
-        except AttributeError:
-            user_language = "en"
-
-        formatted_language = user_language.lower().replace("-", "_")
-        if formatted_language not in [
-            loc.lower().replace("-", "_") for loc in settings.SUPERSET_DASHBOARD_LOCALES
-        ]:
-            formatted_language = "en"
+        formatted_language = get_user_dashboard_locale(user)
 
         context["course_id"] = course.id
         context = generate_superset_context(
