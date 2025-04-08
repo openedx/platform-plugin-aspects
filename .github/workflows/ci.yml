@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ubuntu-24.04]
         python-version: ['3.11','3.12']
-        toxenv: [quality, docs, pii_check, django42]
+        toxenv: [quality, docs, pii_check, django42, django52]
     permissions:
       # Gives the action the necessary permissions for publishing new
       # comments in pull requests.
