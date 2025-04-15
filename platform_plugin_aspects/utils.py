@@ -37,6 +37,9 @@ DEFAULT_FILTERS_FORMAT = [
 ]
 
 
+DEFAULT_USER_LANGUAGE = "en"
+
+
 def generate_superset_context(
     context,
     dashboards,
@@ -319,17 +322,18 @@ def get_user_dashboard_locale(user):
     """
     try:
         user_language = (
-            get_model("user_preference").get_value(user, "pref-lang") or "en"
+            get_model("user_preference").get_value(user, "pref-lang")
+            or DEFAULT_USER_LANGUAGE
         )
     # If there is no user_preferences model defined this will get thrown
     except AttributeError:
-        user_language = "en"
+        user_language = DEFAULT_USER_LANGUAGE
 
     formatted_language = user_language.lower().replace("-", "_")
     if formatted_language not in [
         loc.lower().replace("-", "_") for loc in settings.SUPERSET_DASHBOARD_LOCALES
     ]:
-        formatted_language = "en"
+        formatted_language = DEFAULT_USER_LANGUAGE
 
     return formatted_language
 
