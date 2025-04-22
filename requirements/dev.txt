@@ -269,6 +269,8 @@ pluggy==1.5.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
+prison==0.2.1
+    # via -r requirements/quality.txt
 prompt-toolkit==3.0.51
     # via
     #   -r requirements/quality.txt
@@ -377,6 +379,7 @@ six==1.17.0
     #   -r requirements/quality.txt
     #   edx-lint
     #   fs
+    #   prison
     #   python-dateutil
 snowballstemmer==2.2.0
     # via

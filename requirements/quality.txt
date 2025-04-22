@@ -200,6 +200,8 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
+prison==0.2.1
+    # via -r requirements/test.txt
 prompt-toolkit==3.0.51
     # via
     #   -r requirements/test.txt
@@ -290,6 +292,7 @@ six==1.17.0
     #   -r requirements/test.txt
     #   edx-lint
     #   fs
+    #   prison
     #   python-dateutil
 snowballstemmer==2.2.0
     # via pydocstyle

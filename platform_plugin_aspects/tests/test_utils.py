@@ -15,6 +15,7 @@ from platform_plugin_aspects.utils import (
     get_ccx_courses,
     get_model,
     get_tags_for_block,
+    get_user_dashboard_locale,
 )
 from test_utils.helpers import course_factory
 
@@ -271,3 +272,23 @@ class TestUtils(TestCase):
         course_tags = get_tags_for_block(course.location)
         assert course_tags == [1, 2, 3, 4, 5]
         mock_get_object_tags.assert_called_once_with(course.location)
+
+    @patch("platform_plugin_aspects.utils.get_model")
+    def test_get_user_dashboard_locale(self, mock_get_model):
+        """Test that get_user_dashboard_locale gets user language with fallback to 'en'."""
+        mock_get_model.return_value.get_value.return_value = "es-419"
+        user = Mock()
+        assert get_user_dashboard_locale(user) == "es_419"
+        mock_get_model.assert_called_once()
+        mock_get_model.reset_mock()
+
+        mock_get_model.return_value.get_value.return_value = None
+        user = Mock()
+        assert get_user_dashboard_locale(user) == "en"
+        mock_get_model.assert_called_once()
+        mock_get_model.reset_mock()
+
+        mock_get_model.return_value.get_value.return_value = "not-a-language"
+        user = Mock()
+        assert get_user_dashboard_locale(user) == "en"
+        mock_get_model.assert_called_once()
