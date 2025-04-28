@@ -26,9 +26,9 @@ billiard==4.2.1
     #   celery
 black==25.1.0
     # via -r requirements/quality.in
-celery==5.5.1
+celery==5.5.2
     # via -r requirements/test.txt
-certifi==2025.1.31
+certifi==2025.4.26
     # via
     #   -r requirements/test.txt
     #   requests
@@ -117,7 +117,7 @@ edx-django-utils==7.4.0
     #   edx-toggles
 edx-lint==5.6.0
     # via -r requirements/quality.in
-edx-opaque-keys[django]==2.12.0
+edx-opaque-keys[django]==3.0.0
     # via
     #   -r requirements/test.txt
     #   openedx-filters
@@ -147,7 +147,7 @@ kombu==5.5.3
     # via
     #   -r requirements/test.txt
     #   celery
-lxml==5.3.2
+lxml==5.4.0
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -167,9 +167,9 @@ model-bakery==1.20.4
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
-mypy-extensions==1.0.0
+mypy-extensions==1.1.0
     # via black
-newrelic==10.9.0
+newrelic==10.10.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils

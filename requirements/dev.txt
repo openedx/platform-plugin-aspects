@@ -37,9 +37,9 @@ cachetools==5.5.2
     # via
     #   -r requirements/ci.txt
     #   tox
-celery==5.5.1
+celery==5.5.2
     # via -r requirements/quality.txt
-certifi==2025.1.31
+certifi==2025.4.26
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -148,11 +148,11 @@ edx-django-utils==7.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-toggles
-edx-i18n-tools==1.7.0
+edx-i18n-tools==1.8.0
     # via -r requirements/dev.in
 edx-lint==5.6.0
     # via -r requirements/quality.txt
-edx-opaque-keys[django]==2.12.0
+edx-opaque-keys[django]==3.0.0
     # via
     #   -r requirements/quality.txt
     #   openedx-filters
@@ -188,7 +188,7 @@ kombu==5.5.3
     # via
     #   -r requirements/quality.txt
     #   celery
-lxml[html-clean]==5.3.2
+lxml[html-clean]==5.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-i18n-tools
@@ -214,11 +214,11 @@ model-bakery==1.20.4
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
-mypy-extensions==1.0.0
+mypy-extensions==1.1.0
     # via
     #   -r requirements/quality.txt
     #   black
-newrelic==10.9.0
+newrelic==10.10.0
     # via
     #   -r requirements/quality.txt
     #   edx-django-utils
