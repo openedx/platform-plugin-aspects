@@ -36,7 +36,7 @@ cffi==1.17.1
     # via
     #   -r requirements/test.txt
     #   pynacl
-charset-normalizer==3.4.1
+charset-normalizer==3.4.2
     # via
     #   -r requirements/test.txt
     #   requests
@@ -169,7 +169,7 @@ model-bakery==1.20.4
     #   django-mock-queries
 mypy-extensions==1.1.0
     # via black
-newrelic==10.10.0
+newrelic==10.11.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -179,7 +179,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/test.txt
-openedx-filters==2.0.1
+openedx-filters==2.1.0
     # via -r requirements/test.txt
 packaging==25.0
     # via
@@ -218,7 +218,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==3.3.6
+pylint==3.3.7
     # via
     #   edx-lint
     #   pylint-celery
@@ -232,7 +232,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.12.0
+pymongo==4.12.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -269,7 +269,7 @@ pyyaml==6.0.2
     #   responses
     #   superset-api-client
     #   xblock
-redis==5.2.1
+redis==6.0.0
     # via -r requirements/test.txt
 requests==2.32.3
     # via
