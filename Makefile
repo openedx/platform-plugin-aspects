@@ -67,12 +67,12 @@ requirements: clean_tox piptools ## install development environment requirements
 	pip-sync -q requirements/dev.txt requirements/private.*
 
 requirements-all: requirements ## install all requirements
-	# pip install -r requirements/base.txt
-	# pip install -r requirements/ci.txt
-	# pip install -r requirements/constraints.txt
+	pip install -r requirements/base.txt
+	pip install -r requirements/ci.txt
+	pip install -r requirements/constraints.txt
 	pip install -r requirements/doc.txt
-	# pip install -r requirements/quality.txt
-	# pip install -r requirements/test.txt
+	pip install -r requirements/quality.txt
+	pip install -r requirements/test.txt
 
 test: clean ## run tests in the current virtualenv
 	pytest
