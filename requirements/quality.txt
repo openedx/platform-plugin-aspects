@@ -16,7 +16,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
-astroid==3.3.9
+astroid==3.3.10
     # via
     #   pylint
     #   pylint-celery
@@ -40,7 +40,7 @@ charset-normalizer==3.4.2
     # via
     #   -r requirements/test.txt
     #   requests
-click==8.1.8
+click==8.2.0
     # via
     #   -r requirements/test.txt
     #   black
@@ -79,7 +79,7 @@ ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
-django==4.2.20
+django==4.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -192,7 +192,7 @@ pbr==6.1.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==4.3.7
+platformdirs==4.3.8
     # via
     #   black
     #   pylint
@@ -294,7 +294,7 @@ six==1.17.0
     #   fs
     #   prison
     #   python-dateutil
-snowballstemmer==2.2.0
+snowballstemmer==3.0.1
     # via pydocstyle
 sqlparse==0.5.3
     # via
@@ -338,7 +338,7 @@ wcwidth==0.2.13
     # via
     #   -r requirements/test.txt
     #   prompt-toolkit
-web-fragments==3.0.0
+web-fragments==3.1.0
     # via
     #   -r requirements/test.txt
     #   xblock
