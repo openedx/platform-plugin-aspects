@@ -169,7 +169,7 @@ model-bakery==1.20.4
     #   django-mock-queries
 mypy-extensions==1.1.0
     # via black
-newrelic==10.11.0
+newrelic==10.12.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -196,7 +196,7 @@ platformdirs==4.3.8
     # via
     #   black
     #   pylint
-pluggy==1.5.0
+pluggy==1.6.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -232,7 +232,7 @@ pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.12.1
+pymongo==4.13.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -269,7 +269,7 @@ pyyaml==6.0.2
     #   responses
     #   superset-api-client
     #   xblock
-redis==6.0.0
+redis==6.1.0
     # via -r requirements/test.txt
 requests==2.32.3
     # via
