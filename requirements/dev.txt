@@ -33,7 +33,7 @@ build==1.2.2.post1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cachetools==5.5.2
+cachetools==6.0.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -56,7 +56,7 @@ charset-normalizer==3.4.2
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.2.0
+click==8.2.1
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -95,13 +95,13 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.8.0
+coverage[toml]==7.8.2
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.2.4
+diff-cover==9.3.1
     # via -r requirements/dev.in
 dill==0.4.0
     # via
@@ -144,7 +144,7 @@ dnspython==2.7.0
     # via
     #   -r requirements/quality.txt
     #   pymongo
-edx-django-utils==7.4.0
+edx-django-utils==8.0.0
     # via
     #   -r requirements/quality.txt
     #   edx-toggles
@@ -218,10 +218,6 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/quality.txt
     #   black
-newrelic==10.12.0
-    # via
-    #   -r requirements/quality.txt
-    #   edx-django-utils
 oauthlib==3.2.2
     # via
     #   -r requirements/quality.txt
