@@ -34,7 +34,7 @@ billiard==4.2.1
     #   celery
 build==1.2.2.post1
     # via -r requirements/doc.in
-celery==5.5.2
+celery==5.5.3
     # via -r requirements/test.txt
 certifi==2025.4.26
     # via
@@ -168,7 +168,7 @@ jinja2==3.1.6
     #   sphinx
 keyring==25.6.0
     # via twine
-kombu==5.5.3
+kombu==5.5.4
     # via
     #   -r requirements/test.txt
     #   celery
@@ -212,6 +212,7 @@ packaging==25.0
     # via
     #   -r requirements/test.txt
     #   build
+    #   kombu
     #   pydata-sphinx-theme
     #   pytest
     #   sphinx
@@ -289,7 +290,7 @@ pyyaml==6.0.2
     #   xblock
 readme-renderer==44.0
     # via twine
-redis==6.1.0
+redis==6.2.0
     # via -r requirements/test.txt
 requests==2.32.3
     # via
@@ -408,7 +409,7 @@ webob==1.8.9
     #   xblock
 xblock==5.2.0
     # via -r requirements/test.txt
-zipp==3.21.0
+zipp==3.22.0
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:

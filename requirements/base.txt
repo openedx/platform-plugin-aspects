@@ -12,7 +12,7 @@ asgiref==3.8.1
     # via django
 billiard==4.2.1
     # via celery
-celery==5.5.2
+celery==5.5.3
     # via -r requirements/base.in
 certifi==2025.4.26
     # via requests
@@ -75,7 +75,7 @@ idna==3.10
     # via requests
 jinja2==3.1.6
     # via code-annotations
-kombu==5.5.3
+kombu==5.5.4
     # via celery
 lxml==5.4.0
     # via xblock
@@ -92,6 +92,8 @@ openedx-atlas==0.7.0
     # via -r requirements/base.in
 openedx-filters==2.1.0
     # via -r requirements/base.in
+packaging==25.0
+    # via kombu
 pbr==6.1.1
     # via stevedore
 prison==0.2.1
@@ -119,7 +121,7 @@ pyyaml==6.0.2
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==6.1.0
+redis==6.2.0
     # via -r requirements/base.in
 requests==2.32.3
     # via
