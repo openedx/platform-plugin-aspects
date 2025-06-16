@@ -36,7 +36,7 @@ build==1.2.2.post1
     # via -r requirements/doc.in
 celery==5.5.3
     # via -r requirements/test.txt
-certifi==2025.4.26
+certifi==2025.6.15
     # via
     #   -r requirements/test.txt
     #   requests
@@ -74,15 +74,15 @@ code-annotations==2.3.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-coverage[toml]==7.8.2
+coverage[toml]==7.9.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==45.0.3
+cryptography==45.0.4
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-django==4.2.21
+django==4.2.23
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -101,7 +101,7 @@ django-crum==0.7.9
     #   edx-toggles
 django-mock-queries==2.3.0
     # via -r requirements/test.txt
-django-waffle==4.2.0
+django-waffle==5.0.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
@@ -114,7 +114,7 @@ dnspython==2.7.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-doc8==1.1.2
+doc8==2.0.0
     # via -r requirements/doc.in
 docutils==0.21.2
     # via
@@ -190,7 +190,7 @@ markupsafe==3.0.2
     #   xblock
 mdurl==0.1.2
     # via markdown-it-py
-model-bakery==1.20.4
+model-bakery==1.20.5
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -225,6 +225,7 @@ pluggy==1.6.0
     # via
     #   -r requirements/test.txt
     #   pytest
+    #   pytest-cov
 prison==0.2.1
     # via -r requirements/test.txt
 prompt-toolkit==3.0.51
@@ -243,13 +244,15 @@ pydata-sphinx-theme==0.15.4
     # via sphinx-book-theme
 pygments==2.19.1
     # via
+    #   -r requirements/test.txt
     #   accessible-pygments
     #   doc8
     #   pydata-sphinx-theme
+    #   pytest
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.13.0
+pymongo==4.13.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -259,12 +262,12 @@ pynacl==1.5.0
     #   edx-django-utils
 pyproject-hooks==1.2.0
     # via build
-pytest==8.3.5
+pytest==8.4.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.1.1
+pytest-cov==6.2.1
     # via -r requirements/test.txt
 pytest-django==4.11.1
     # via -r requirements/test.txt
@@ -292,7 +295,7 @@ readme-renderer==44.0
     # via twine
 redis==6.2.0
     # via -r requirements/test.txt
-requests==2.32.3
+requests==2.32.4
     # via
     #   -r requirements/test.txt
     #   id
@@ -372,7 +375,7 @@ text-unidecode==1.3
     #   python-slugify
 twine==6.1.0
     # via -r requirements/doc.in
-typing-extensions==4.13.2
+typing-extensions==4.14.0
     # via
     #   -r requirements/test.txt
     #   beautifulsoup4
@@ -409,7 +412,7 @@ webob==1.8.9
     #   xblock
 xblock==5.2.0
     # via -r requirements/test.txt
-zipp==3.22.0
+zipp==3.23.0
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
