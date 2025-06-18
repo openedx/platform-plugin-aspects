@@ -11,8 +11,8 @@ dashboards back into the platform.
 Version Compatibility
 *********************
 
-`platform-plugin-aspects` version 1.x: Nutmeg to Sumac
-`platform-plugin-aspects` version 2.x: Redwood and above
+- ``platform-plugin-aspects`` version 1.x: Nutmeg to Sumac
+- ``platform-plugin-aspects`` version 2.x: Redwood and above
 
 Sinks
 *****
@@ -23,16 +23,21 @@ events are emitted by the Open edX platform via `Open edX events`_ or Django sig
 Available Sinks
 ===============
 
-- `CourseOverviewSink` - Listens for the `COURSE_PUBLISHED` event and stores the
-  course structure data through `XBlockSink` in ClickHouse.
-- `ExternalIdSink` - Listens for the `post_save` Django signal on the `ExternalId`
-  model and stores the external id data in ClickHouse.
-- `UserProfile` - Listens for the `post_save` Django signal on the `UserProfile`
-  model and stores the user profile data in ClickHouse.
-- `UserRetirementSink` - Listen for the `USER_RETIRE_LMS_MISC` Django signal and
-  remove the user PII information from ClickHouse.
-- `CourseEnrollmentSink` - Listen for the `ENROLL_STATUS_CHANGE` event and stores
-  the course enrollment data.
+Below are the existing sink names, and their corresponding object names (as needed for the
+``dump_data_to_clickhouse`` command below.
+
+- ``CourseOverviewSink`` - Listens for the `COURSE_PUBLISHED` event and stores the
+  course structure including ordering data through `XBlockSink` in ClickHouse. Object name:
+  ``course_overviews``
+- ``ExternalIdSink`` - Listens for the `post_save` Django signal on the `ExternalId`
+  model and stores the external id data in ClickHouse. This model stores the relationships
+  between users and their xAPI unique identifiers. Object name: ``external_id``
+- ``UserProfile`` - Listens for the `post_save` Django signal on the ``UserProfile``
+  model and stores the user profile data in ClickHouse. Object name: ``user_profile``
+- ``CourseEnrollmentSink`` - Listen for the `ENROLL_STATUS_CHANGE` event and stores
+  the course enrollment data. Object name: ``course_enrollment``
+- ``UserRetirementSink`` - Listen for the `USER_RETIRE_LMS_MISC` Django signal and
+  remove the user PII information from ClickHouse. This is a special sink and has no object name.
 
 Commands
 ========
@@ -40,9 +45,34 @@ Commands
 In addition to being an event listener, this package provides the following commands:
 
 - `dump_data_to_clickhouse` - This command allows bulk export of the data from the Sinks.
-  Allows bootstrapping a new data platform or backfilling lost or missing data. More information can be found in the `Aspects backfill documentation`_.
+  Allows bootstrapping a new data platform or backfilling lost or missing data. Each sink object
+  is dumped individually. For large dumps you can use the --batch_size and --sleep_time to control
+  how much load is placed on your LMS / Studio servers. Examples:
 
-    ``python manage.py cms dump_data_to_clickhouse``
+    Dump any courses that the systems thinks are out of date (last publish time is newer than the
+    last dump time in ClickHouse):
+
+    ``python manage.py cms dump_data_to_clickhouse --object course_overviews``
+
+    The ``force`` option willl dump all objects, regardless of the data ClickHouse currently has
+    so this command will push all course data for all courses:
+
+    ``python manage.py cms dump_data_to_clickhouse --object course_overviews --force``
+
+    These commands will dump the user data Aspects uses when PII is turned on:
+
+    ``python manage.py cms dump_data_to_clickhouse --object external_id``
+    ``python manage.py cms dump_data_to_clickhouse --object user_profile``
+
+    To reduce server load, this command will dump 1000 user profiles at a time, with a 5 second
+    sleep in between:
+
+    ``python manage.py cms dump_data_to_clickhouse --object user_profile --batch_size 1000 --sleep_time 5``
+
+    There are many more options that can be used for different circumstances. Please refer to
+    the commands help for more information. There is also a Tutor command that wraps this, so
+    that you don't need to get shell on a container to execute this command. More information on
+    that can be found in the `Aspects backfill documentation`_.
 
 - `load_test_tracking_events` - This command allows loading test tracking events into
   ClickHouse. This is useful for testing the ClickHouse connection to measure the performance of the
@@ -161,11 +191,9 @@ Getting Help
 Documentation
 =============
 
-PLACEHOLDER: Start by going through `the documentation`_.  If you need more help see below.
+Start by going through `the documentation`_.  If you need more help see below.
 
 .. _the documentation: https://docs.openedx.org/projects/platform-plugin-aspects
-
-(TODO: `Set up documentation <https://openedx.atlassian.net/wiki/spaces/DOC/pages/21627535/Publish+Documentation+on+Read+the+Docs>`_)
 
 More Help
 =========
