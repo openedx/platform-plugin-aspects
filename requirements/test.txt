@@ -47,7 +47,7 @@ click-didyoumean==0.3.1
     # via
     #   -r requirements/base.txt
     #   celery
-click-plugins==1.1.1
+click-plugins==1.1.1.2
     # via
     #   -r requirements/base.txt
     #   celery
@@ -123,7 +123,7 @@ kombu==5.5.4
     # via
     #   -r requirements/base.txt
     #   celery
-lxml==5.4.0
+lxml==6.0.0
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -139,7 +139,7 @@ markupsafe==3.0.2
     #   xblock
 model-bakery==1.20.5
     # via django-mock-queries
-oauthlib==3.2.2
+oauthlib==3.3.1
     # via
     #   -r requirements/base.txt
     #   requests-oauthlib
@@ -174,9 +174,9 @@ pycparser==2.22
     # via
     #   -r requirements/base.txt
     #   cffi
-pygments==2.19.1
+pygments==2.19.2
     # via pytest
-pymongo==4.13.1
+pymongo==4.13.2
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -184,7 +184,7 @@ pynacl==1.5.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-pytest==8.4.0
+pytest==8.4.1
     # via
     #   pytest-cov
     #   pytest-django
