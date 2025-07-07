@@ -8,7 +8,7 @@ amqp==5.3.1
     # via kombu
 appdirs==1.4.4
     # via fs
-asgiref==3.8.1
+asgiref==3.9.0
     # via django
 billiard==4.2.1
     # via celery
@@ -148,7 +148,7 @@ superset-api-client==0.6.0
     # via -r requirements/base.in
 text-unidecode==1.3
     # via python-slugify
-typing-extensions==4.14.0
+typing-extensions==4.14.1
     # via edx-opaque-keys
 tzdata==2025.2
     # via kombu
