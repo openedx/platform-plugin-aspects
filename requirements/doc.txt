@@ -36,7 +36,7 @@ build==1.2.2.post1
     # via -r requirements/doc.in
 celery==5.5.3
     # via -r requirements/test.txt
-certifi==2025.7.9
+certifi==2025.7.14
     # via
     #   -r requirements/test.txt
     #   requests
@@ -198,7 +198,7 @@ more-itertools==10.7.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-nh3==0.2.21
+nh3==0.3.0
     # via readme-renderer
 oauthlib==3.3.1
     # via
