@@ -39,7 +39,7 @@ cachetools==6.1.0
     #   tox
 celery==5.5.3
     # via -r requirements/quality.txt
-certifi==2025.7.9
+certifi==2025.7.14
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -101,13 +101,13 @@ coverage[toml]==7.9.2
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.5.0
+diff-cover==9.6.0
     # via -r requirements/dev.in
 dill==0.4.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-distlib==0.3.9
+distlib==0.4.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
@@ -406,7 +406,7 @@ tomlkit==0.13.3
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.27.0
+tox==4.28.0
     # via -r requirements/ci.txt
 typing-extensions==4.14.1
     # via

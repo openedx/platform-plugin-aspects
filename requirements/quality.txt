@@ -28,7 +28,7 @@ black==25.1.0
     # via -r requirements/quality.in
 celery==5.5.3
     # via -r requirements/test.txt
-certifi==2025.7.9
+certifi==2025.7.14
     # via
     #   -r requirements/test.txt
     #   requests
