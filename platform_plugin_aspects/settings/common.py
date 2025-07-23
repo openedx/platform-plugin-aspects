@@ -105,6 +105,10 @@ def plugin_settings(settings):
         },
     }
 
+    # This is on by default here, off by default in tutor-contrib-aspects until we only
+    # support versions Sumac and beyond
+    settings.ASPECTS_ENABLE_STUDIO_IN_CONTEXT_METRICS = True
+
     settings.ASPECTS_IN_CONTEXT_DASHBOARDS = {
         "course": {
             "name": _("Course"),

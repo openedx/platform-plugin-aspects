@@ -99,6 +99,7 @@ ASPECTS_INSTRUCTOR_DASHBOARDS = [
     }
 ]
 
+ASPECTS_ENABLE_STUDIO_IN_CONTEXT_METRICS = True
 ASPECTS_IN_CONTEXT_DASHBOARDS = {
     "course": {
         "slug": "in-context-course",

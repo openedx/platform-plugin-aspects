@@ -2,6 +2,7 @@
 """
 Test basic SupersetXBlock display function
 """
+
 import json
 from unittest import TestCase
 from unittest.mock import Mock, patch
@@ -154,6 +155,8 @@ class TestRender(TestCase):
 
         assert response.status_code == 500
         data = json.loads(response.body.decode("utf-8"))
-        assert data.get("error") == (
-            "Unable to fetch Superset guest token, mostly likely due to invalid settings.SUPERSET_CONFIG"
+        assert (
+            "Unable to fetch Superset guest token, mostly likely due to invalid "
+            "settings.SUPERSET_CONFIG or because one of the dashboard UUIDs requested"
+            in data.get("error")
         )
