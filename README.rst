@@ -12,7 +12,7 @@ Version Compatibility
 *********************
 
 - ``platform-plugin-aspects`` version 1.x: Nutmeg to Sumac
-- ``platform-plugin-aspects`` version 2.x: Redwood and above
+- ``platform-plugin-aspects`` version 2.x: Redwood and above (with in-context metrics turned off)
 
 Sinks
 *****
@@ -155,6 +155,14 @@ superset pipeline into the filter as follows:
 
 - `SUPERSET_DASHBOARD_LOCALES` - This setting is used to configure the available locales
   for the dashboards. The configuration is a list of supported locales by `Aspects`_.
+
+- `ASPECTS_ENABLE_STUDIO_IN_CONTEXT_METRICS` - This setting turns on and off the in-context
+  metrics feature. It must be turned off in Open edX releases before Sumac and when using
+  tutor-contrib-aspects before v2.2.0 as those dashboards will not exist, causing errors in
+  the embedded Instructor Dashboards.
+
+- `ASPECTS_IN_CONTEXT_DASHBOARDS` - This setting mirrors the `ASPECTS_INSTRUCTOR_DASHBOARDS` but
+  with additional keys used for filtering the boards to specific courses and blocks.
 
 Event Sink Configuration
 ========================

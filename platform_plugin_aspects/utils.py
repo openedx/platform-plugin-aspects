@@ -158,22 +158,19 @@ def generate_guest_token(user, course, dashboards, filters) -> str:
     except HTTPError as err:
         # Superset server errors sometimes come with messages, so log the response.
         logger.error(
-            f"{err.response.status_code} {err.response.json()} for url: {err.response.url}, data: {data}"
+            f"{err.response.status_code} {err.response.json()} for url: "
+            f"{err.response.url}, data: {data}"
         )
         raise ImproperlyConfigured(
-            _(
-                "Unable to fetch Superset guest token, "
-                "Superset server error {server_response}"
-            ).format(server_response=err.response.json())
+            f"Unable to fetch Superset guest token, Superset server error: {err.response.json()}",
         ) from err
 
     except Exception as exc:
         logger.error(exc)
         raise ImproperlyConfigured(
-            _(
-                "Unable to fetch Superset guest token, "
-                "mostly likely due to invalid settings.SUPERSET_CONFIG"
-            )
+            "Unable to fetch Superset guest token, mostly likely due to invalid "
+            "settings.SUPERSET_CONFIG or because one of the dashboard UUIDs requested does not "
+            f"exist in Superset. Requested UUIDs: {resources}"
         ) from exc
 
 

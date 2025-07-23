@@ -128,7 +128,14 @@ class SupersetTokenView(GenericAPIView):
         course = self.get_object()
 
         dashboards = settings.ASPECTS_INSTRUCTOR_DASHBOARDS.copy()
-        dashboards.extend(settings.ASPECTS_IN_CONTEXT_DASHBOARDS.values())
+
+        # Only include these dashboards if in-context metrics are on,
+        # otherwise this call will always fail in older releases without
+        # admin intervention. This can be removed when we stop supporting
+        # < Sumac.
+        if settings.ASPECTS_ENABLE_STUDIO_IN_CONTEXT_METRICS:
+            dashboards.extend(settings.ASPECTS_IN_CONTEXT_DASHBOARDS.values())
+
         extra_filters_format = settings.SUPERSET_EXTRA_FILTERS_FORMAT
 
         try:
