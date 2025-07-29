@@ -156,7 +156,6 @@ class TestRender(TestCase):
         assert response.status_code == 500
         data = json.loads(response.body.decode("utf-8"))
         assert (
-            "Unable to fetch Superset guest token, mostly likely due to invalid "
-            "settings.SUPERSET_CONFIG or because one of the dashboard UUIDs requested"
+            "Error trying to fetch Superset guest token, mostly likely due to invalid"
             in data.get("error")
         )
