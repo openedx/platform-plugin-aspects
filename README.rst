@@ -12,7 +12,7 @@ Version Compatibility
 *********************
 
 - ``platform-plugin-aspects`` version 1.x: Nutmeg to Sumac
-- ``platform-plugin-aspects`` version 2.x: Redwood and above (with in-context metrics turned off)
+- ``platform-plugin-aspects`` version 2.x: Redwood (with in-context metrics turned off), or Sumac and above
 
 Sinks
 *****
