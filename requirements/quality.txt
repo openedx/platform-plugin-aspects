@@ -36,7 +36,7 @@ cffi==1.17.1
     # via
     #   -r requirements/test.txt
     #   pynacl
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
     # via
     #   -r requirements/test.txt
     #   requests
@@ -71,7 +71,7 @@ code-annotations==2.3.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.10.1
+coverage[toml]==7.10.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -103,7 +103,7 @@ django-waffle==5.0.0
     #   -r requirements/test.txt
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.16.0
+djangorestframework==3.16.1
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -220,7 +220,7 @@ pygments==2.19.2
     # via
     #   -r requirements/test.txt
     #   pytest
-pylint==3.3.7
+pylint==3.3.8
     # via
     #   edx-lint
     #   pylint-celery
@@ -234,7 +234,7 @@ pylint-plugin-utils==0.9.0
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.13.2
+pymongo==4.14.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -271,7 +271,7 @@ pyyaml==6.0.2
     #   responses
     #   superset-api-client
     #   xblock
-redis==6.2.0
+redis==6.4.0
     # via -r requirements/test.txt
 requests==2.32.4
     # via
@@ -283,7 +283,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/test.txt
     #   superset-api-client
-responses==0.25.7
+responses==0.25.8
     # via -r requirements/test.txt
 simplejson==3.20.1
     # via

@@ -45,7 +45,7 @@ cffi==1.17.1
     #   -r requirements/test.txt
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
     # via
     #   -r requirements/test.txt
     #   requests
@@ -74,11 +74,11 @@ code-annotations==2.3.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-coverage[toml]==7.10.1
+coverage[toml]==7.10.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==45.0.5
+cryptography==45.0.6
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
@@ -106,7 +106,7 @@ django-waffle==5.0.0
     #   -r requirements/test.txt
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.16.0
+djangorestframework==3.16.1
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -252,7 +252,7 @@ pygments==2.19.2
     #   readme-renderer
     #   rich
     #   sphinx
-pymongo==4.13.2
+pymongo==4.14.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -293,7 +293,7 @@ pyyaml==6.0.2
     #   xblock
 readme-renderer==44.0
     # via twine
-redis==6.2.0
+redis==6.4.0
     # via -r requirements/test.txt
 requests==2.32.4
     # via
@@ -311,7 +311,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 requests-toolbelt==1.0.0
     # via twine
-responses==0.25.7
+responses==0.25.8
     # via -r requirements/test.txt
 restructuredtext-lint==1.4.0
     # via doc8
