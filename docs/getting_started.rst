@@ -13,6 +13,6 @@ Dependencies can be installed via the command below.
 
 .. code-block:: bash
 
-    $ make requirements
+    make requirements
 
 
