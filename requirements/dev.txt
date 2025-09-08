@@ -111,7 +111,7 @@ distlib==0.4.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.2.23
+django==4.2.24
     # via
     #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -140,7 +140,7 @@ djangorestframework==3.16.1
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
-dnspython==2.7.0
+dnspython==2.8.0
     # via
     #   -r requirements/quality.txt
     #   pymongo
@@ -323,12 +323,12 @@ pyproject-hooks==1.2.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.2.1
+pytest-cov==6.3.0
     # via -r requirements/quality.txt
 pytest-django==4.11.1
     # via -r requirements/quality.txt
@@ -402,7 +402,7 @@ tomlkit==0.13.3
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.29.0
+tox==4.30.2
     # via -r requirements/ci.txt
 typing-extensions==4.15.0
     # via

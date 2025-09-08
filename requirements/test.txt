@@ -91,7 +91,7 @@ djangorestframework==3.16.1
     # via
     #   -r requirements/base.txt
     #   django-mock-queries
-dnspython==2.7.0
+dnspython==2.8.0
     # via
     #   -r requirements/base.txt
     #   pymongo
@@ -180,11 +180,11 @@ pynacl==1.5.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.2.1
+pytest-cov==6.3.0
     # via -r requirements/test.in
 pytest-django==4.11.1
     # via -r requirements/test.in
