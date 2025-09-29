@@ -8,7 +8,7 @@ amqp==5.3.1
     # via kombu
 appdirs==1.4.4
     # via fs
-asgiref==3.9.1
+asgiref==3.9.2
     # via django
 billiard==4.2.2
     # via celery
@@ -77,11 +77,11 @@ jinja2==3.1.6
     # via code-annotations
 kombu==5.5.4
     # via celery
-lxml==6.0.1
+lxml==6.0.2
     # via xblock
 mako==1.3.10
     # via xblock
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via
     #   jinja2
     #   mako
@@ -114,7 +114,7 @@ python-slugify==8.0.4
     # via code-annotations
 pytz==2025.2
     # via xblock
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   code-annotations
     #   superset-api-client
@@ -128,7 +128,7 @@ requests==2.32.5
     #   superset-api-client
 requests-oauthlib==2.0.0
     # via superset-api-client
-simplejson==3.20.1
+simplejson==3.20.2
     # via xblock
 six==1.17.0
     # via
@@ -157,7 +157,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-wcwidth==0.2.13
+wcwidth==0.2.14
     # via prompt-toolkit
 web-fragments==3.1.0
     # via

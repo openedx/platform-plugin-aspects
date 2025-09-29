@@ -12,7 +12,7 @@ appdirs==1.4.4
     # via
     #   -r requirements/quality.txt
     #   fs
-asgiref==3.9.1
+asgiref==3.9.2
     # via
     #   -r requirements/quality.txt
     #   django
@@ -101,7 +101,7 @@ coverage[toml]==7.10.7
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-diff-cover==9.6.0
+diff-cover==9.7.1
     # via -r requirements/dev.in
 dill==0.4.0
     # via
@@ -188,7 +188,7 @@ kombu==5.5.4
     # via
     #   -r requirements/quality.txt
     #   celery
-lxml[html-clean]==6.0.1
+lxml[html-clean]==6.0.2
     # via
     #   -r requirements/quality.txt
     #   edx-i18n-tools
@@ -200,7 +200,7 @@ mako==1.3.10
     # via
     #   -r requirements/quality.txt
     #   xblock
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via
     #   -r requirements/quality.txt
     #   jinja2
@@ -349,7 +349,7 @@ pytz==2025.2
     # via
     #   -r requirements/quality.txt
     #   xblock
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -371,7 +371,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 responses==0.25.8
     # via -r requirements/quality.txt
-simplejson==3.20.1
+simplejson==3.20.2
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -431,7 +431,7 @@ virtualenv==20.34.0
     # via
     #   -r requirements/ci.txt
     #   tox
-wcwidth==0.2.13
+wcwidth==0.2.14
     # via
     #   -r requirements/quality.txt
     #   prompt-toolkit
