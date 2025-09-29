@@ -12,7 +12,7 @@ appdirs==1.4.4
     # via
     #   -r requirements/test.txt
     #   fs
-asgiref==3.9.1
+asgiref==3.9.2
     # via
     #   -r requirements/test.txt
     #   django
@@ -147,7 +147,7 @@ kombu==5.5.4
     # via
     #   -r requirements/test.txt
     #   celery
-lxml==6.0.1
+lxml==6.0.2
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -155,7 +155,7 @@ mako==1.3.10
     # via
     #   -r requirements/test.txt
     #   xblock
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via
     #   -r requirements/test.txt
     #   jinja2
@@ -262,7 +262,7 @@ pytz==2025.2
     # via
     #   -r requirements/test.txt
     #   xblock
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -283,7 +283,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 responses==0.25.8
     # via -r requirements/test.txt
-simplejson==3.20.1
+simplejson==3.20.2
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -333,7 +333,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-wcwidth==0.2.13
+wcwidth==0.2.14
     # via
     #   -r requirements/test.txt
     #   prompt-toolkit
