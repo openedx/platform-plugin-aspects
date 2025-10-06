@@ -12,7 +12,7 @@ appdirs==1.4.4
     # via
     #   -r requirements/quality.txt
     #   fs
-asgiref==3.9.2
+asgiref==3.10.0
     # via
     #   -r requirements/quality.txt
     #   django
@@ -39,7 +39,7 @@ cachetools==6.2.0
     #   tox
 celery==5.5.3
     # via -r requirements/quality.txt
-certifi==2025.8.3
+certifi==2025.10.5
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -111,9 +111,9 @@ distlib==0.4.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.2.24
+django==4.2.25
     # via
-    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
     #   django-crum
     #   django-mock-queries
@@ -144,7 +144,7 @@ dnspython==2.8.0
     # via
     #   -r requirements/quality.txt
     #   pymongo
-edx-django-utils==8.0.0
+edx-django-utils==8.0.1
     # via
     #   -r requirements/quality.txt
     #   edx-toggles
@@ -175,7 +175,7 @@ iniconfig==2.1.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==6.0.1
+isort==6.1.0
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -194,7 +194,7 @@ lxml[html-clean]==6.0.2
     #   edx-i18n-tools
     #   lxml-html-clean
     #   xblock
-lxml-html-clean==0.4.2
+lxml-html-clean==0.4.3
     # via lxml
 mako==1.3.10
     # via
@@ -243,7 +243,7 @@ pathspec==0.12.1
     # via
     #   -r requirements/quality.txt
     #   black
-pip-tools==7.5.0
+pip-tools==7.5.1
     # via -r requirements/pip-tools.txt
 platformdirs==4.4.0
     # via
@@ -286,7 +286,7 @@ pygments==2.19.2
     #   -r requirements/quality.txt
     #   diff-cover
     #   pytest
-pylint==3.3.8
+pylint==3.3.9
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -306,7 +306,7 @@ pylint-plugin-utils==0.9.0
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.15.1
+pymongo==4.15.2
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -406,7 +406,7 @@ tomlkit==0.13.3
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.30.2
+tox==4.30.3
     # via -r requirements/ci.txt
 typing-extensions==4.15.0
     # via

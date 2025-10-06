@@ -8,13 +8,13 @@ amqp==5.3.1
     # via kombu
 appdirs==1.4.4
     # via fs
-asgiref==3.9.2
+asgiref==3.10.0
     # via django
 billiard==4.2.2
     # via celery
 celery==5.5.3
     # via -r requirements/base.in
-certifi==2025.8.3
+certifi==2025.10.5
     # via requests
 cffi==2.0.0
     # via pynacl
@@ -36,9 +36,9 @@ click-repl==0.3.0
     # via celery
 code-annotations==2.3.0
     # via edx-toggles
-django==4.2.24
+django==4.2.25
     # via
-    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
     #   django-crum
     #   django-waffle
@@ -59,7 +59,7 @@ djangorestframework==3.16.1
     # via -r requirements/base.in
 dnspython==2.8.0
     # via pymongo
-edx-django-utils==8.0.0
+edx-django-utils==8.0.1
     # via
     #   -r requirements/base.in
     #   edx-toggles
@@ -102,7 +102,7 @@ psutil==7.1.0
     # via edx-django-utils
 pycparser==2.23
     # via cffi
-pymongo==4.15.1
+pymongo==4.15.2
     # via edx-opaque-keys
 pynacl==1.6.0
     # via edx-django-utils
