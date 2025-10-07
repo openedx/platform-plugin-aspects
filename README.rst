@@ -4,8 +4,8 @@ Platform Plugin Aspects
 Purpose
 *******
 
-This repository holds various Aspects plugins for the Open edX platform including the
-event sinks that move data from the LMS to ClickHouse and the embbedding of Superset
+This repository holds various Aspects plugins for the Open edX platform, including the
+event sinks that move data from the LMS to ClickHouse and the embedding of Superset
 dashboards back into the platform.
 
 Version Compatibility
@@ -23,70 +23,82 @@ events are emitted by the Open edX platform via `Open edX events`_ or Django sig
 Available Sinks
 ===============
 
-Below are the existing sink names, and their corresponding object names (as needed for the
+Below are the existing sink names and their corresponding object names (as needed for the
 ``dump_data_to_clickhouse`` command below.
 
-- ``CourseOverviewSink`` - Listens for the `COURSE_PUBLISHED` event and stores the
-  course structure including ordering data through `XBlockSink` in ClickHouse. Object name:
+- ``CourseOverviewSink`` - Listens for the ``COURSE_PUBLISHED`` event and stores the
+  course structure, including ordering data through ``XBlockSink`` in ClickHouse. Object name:
   ``course_overviews``
-- ``ExternalIdSink`` - Listens for the `post_save` Django signal on the `ExternalId`
+- ``ExternalIdSink`` - Listens for the ``post_save`` Django signal on the ``ExternalId``
   model and stores the external id data in ClickHouse. This model stores the relationships
   between users and their xAPI unique identifiers. Object name: ``external_id``
-- ``UserProfile`` - Listens for the `post_save` Django signal on the ``UserProfile``
+- ``UserProfile`` - Listens for the ``post_save`` Django signal on the ``UserProfile``
   model and stores the user profile data in ClickHouse. Object name: ``user_profile``
-- ``CourseEnrollmentSink`` - Listen for the `ENROLL_STATUS_CHANGE` event and stores
+- ``CourseEnrollmentSink`` - Listen for the ``ENROLL_STATUS_CHANGE`` event and stores
   the course enrollment data. Object name: ``course_enrollment``
-- ``UserRetirementSink`` - Listen for the `USER_RETIRE_LMS_MISC` Django signal and
-  remove the user PII information from ClickHouse. This is a special sink and has no object name.
+- ``UserRetirementSink`` - Listen for the ``USER_RETIRE_LMS_MISC`` Django signal and
+  remove the user PII information from ClickHouse. This is a special sink with no assigned object name.
 
 Commands
 ========
 
 In addition to being an event listener, this package provides the following commands:
 
-- `dump_data_to_clickhouse` - This command allows bulk export of the data from the Sinks.
+- ``dump_data_to_clickhouse`` - This command allows bulk export of the data from the Sinks.
   Allows bootstrapping a new data platform or backfilling lost or missing data. Each sink object
-  is dumped individually. For large dumps you can use the --batch_size and --sleep_time to control
+  is dumped individually. For large dumps, you can use the ``--batch_size`` and ``--sleep_time`` to control
   how much load is placed on your LMS / Studio servers. Examples:
 
-    Dump any courses that the systems thinks are out of date (last publish time is newer than the
-    last dump time in ClickHouse):
+  Dump any courses that the system thinks are out of date (last publish time is newer than the
+  last dump time in ClickHouse):
 
-    ``python manage.py cms dump_data_to_clickhouse --object course_overviews``
+  .. code-block:: bash
 
-    The ``force`` option willl dump all objects, regardless of the data ClickHouse currently has
-    so this command will push all course data for all courses:
+    python manage.py cms dump_data_to_clickhouse --object course_overviews
 
-    ``python manage.py cms dump_data_to_clickhouse --object course_overviews --force``
+  The ``force`` option will dump all objects, regardless of the data ClickHouse currently has
+  so this command will push all course data for all courses:
 
-    These commands will dump the user data Aspects uses when PII is turned on:
+  .. code-block:: bash
 
-    ``python manage.py cms dump_data_to_clickhouse --object external_id``
-    ``python manage.py cms dump_data_to_clickhouse --object user_profile``
+    python manage.py cms dump_data_to_clickhouse --object course_overviews --force
 
-    To reduce server load, this command will dump 1000 user profiles at a time, with a 5 second
-    sleep in between:
+  These commands will dump the user data Aspects uses when PII is turned on:
 
-    ``python manage.py cms dump_data_to_clickhouse --object user_profile --batch_size 1000 --sleep_time 5``
+  .. code-block:: bash
 
-    There are many more options that can be used for different circumstances. Please refer to
-    the commands help for more information. There is also a Tutor command that wraps this, so
-    that you don't need to get shell on a container to execute this command. More information on
-    that can be found in the `Aspects backfill documentation`_.
+    python manage.py cms dump_data_to_clickhouse --object external_id
+    python manage.py cms dump_data_to_clickhouse --object user_profile
 
-- `load_test_tracking_events` - This command allows loading test tracking events into
+  To reduce server load, this command will dump 1000 user profiles at a time, with a 5-second
+  sleep in between:
+
+  .. code-block:: bash
+
+    python manage.py cms dump_data_to_clickhouse --object user_profile --batch_size 1000 --sleep_time 5
+
+  There are many more options that can be used for different circumstances. Please refer to
+  the commands help for more information. There is also a Tutor command that wraps this, so
+  that you don't need to get shell on a container to execute this command. More information on
+  that can be found in the `Aspects backfill documentation`_.
+
+- ``load_test_tracking_events`` - This command allows loading test tracking events into
   ClickHouse. This is useful for testing the ClickHouse connection to measure the performance of the
-  different data pipelines such as Vector, Event Bus (Redis and Kafka), and Celery.
+  different data pipelines, such as Vector, Event Bus (Redis and Kafka), and Celery.
 
-  Do not use this command in production as it will generate a large amount of data
+  **Do not use this command in production**, as it will generate a large amount of data
   and will slow down the system.
 
-    ``python manage.py cms load_test_tracking_events``
+  .. code-block:: bash
 
-- `monitor_load_test_tracking` - Monitors the load test tracking script and saves
+    python manage.py cms load_test_tracking_events
+
+- ``monitor_load_test_tracking`` - Monitors the load test tracking script and saves
   output for later analysis.
 
-    ``python manage.py cms monitor_load_test_tracking``
+  .. code-block:: bash
+
+    python manage.py cms monitor_load_test_tracking
 
 Instructor Dashboard Integration
 ================================
@@ -102,10 +114,10 @@ Please see the Open edX documentation for `guidance on Python development <https
 Deploying
 *********
 
-The `Platform Plugin Aspects` component is a django plugin which doesn't
+The ``Platform Plugin Aspects`` component is a django plugin that doesn't
 need independent deployment. Therefore, its setup is reasonably straightforward.
 First, it needs to be added to your service requirements, and then it will be
-installed alongside requirements of the service.
+installed alongside the requirements of the service.
 
 Configuration
 *************
@@ -117,80 +129,79 @@ The Instructor Dashboard integration uses the `Open edX Filters`_. To learn more
 the filters, see the `Open edX Filters`_ documentation. Make sure to configure the
 superset pipeline into the filter as follows:
 
-    .. code-block:: python
+.. code-block:: python
 
-      OPEN_EDX_FILTERS_CONFIG = {
-        "org.openedx.learning.instructor.dashboard.render.started.v1": {
-          "fail_silently": False,
-          "pipeline": [
-            "platform_plugin_superset.extensions.filters.AddSupersetTab",
-          ]
-        },
-      }
+  OPEN_EDX_FILTERS_CONFIG = {
+    "org.openedx.learning.instructor.dashboard.render.started.v1": {
+      "fail_silently": False,
+      "pipeline": [
+        "platform_plugin_superset.extensions.filters.AddSupersetTab",
+      ]
+    },
+  }
 
-- `SUPERSET_CONFIG` - This setting is used to configure the Superset Embedded SDK.
+- ``SUPERSET_CONFIG`` - This setting is used to configure the Superset Embedded SDK.
   The configuration is a dictionary that contains the following keys:
 
-    - `internal_service_url` - The URL of the Superset instance (useful in development, omit in production).
-    - `service_url` - The URL of the Superset instance.
-    - `username` - The username of the Superset user.
-    - `password` - The password of the Superset user.
+  - ``internal_service_url`` - The URL of the Superset instance (useful in development, omit in production).
+  - ``service_url`` - The URL of the Superset instance.
+  - ``username`` - The username of the Superset user.
+  - ``password`` - The password of the Superset user.
 
-- `ASPECTS_INSTRUCTOR_DASHBOARDS` - This setting is used to configure the dashboards
+- ``ASPECTS_INSTRUCTOR_DASHBOARDS`` - This setting is used to configure the dashboards
   that will be displayed in the Instructor Dashboard. The configuration is a list of
   dictionaries that contains the following keys:
 
-    - `name` - The name of the dashboard.
-    - `slug` - The slug of the dashboard.
-    - `uuid` - The UUID of the dashboard.
-    - `allow_translations` - A boolean value that determines if the dashboard
-      is translated in `Aspects`_.
+  - ``name`` - The name of the dashboard.
+  - ``slug`` - The slug of the dashboard.
+  - ``uuid`` - The UUID of the dashboard.
+  - ``allow_translations`` - A boolean value that determines if the dashboard is translated in `Aspects`_.
 
-- `SUPERSET_EXTRA_FILTERS_FORMAT` - This setting is used to configure the extra filters
+- ``SUPERSET_EXTRA_FILTERS_FORMAT`` - This setting is used to configure the extra filters
   that will be applied to the dashboards. The configuration is a list of strings that
   can be formatted with the following variables:
 
-    - `user` - The user object.
-    - `course` - The course object.
+  - ``user`` - The user object.
+  - ``course`` - The course object.
 
-- `SUPERSET_DASHBOARD_LOCALES` - This setting is used to configure the available locales
+- ``SUPERSET_DASHBOARD_LOCALES`` - This setting is used to configure the available locales
   for the dashboards. The configuration is a list of supported locales by `Aspects`_.
 
-- `ASPECTS_ENABLE_STUDIO_IN_CONTEXT_METRICS` - This setting turns on and off the in-context
-  metrics feature. It must be turned off in Open edX releases before Sumac and when using
-  tutor-contrib-aspects before v2.2.0 as those dashboards will not exist, causing errors in
+- ``ASPECTS_ENABLE_STUDIO_IN_CONTEXT_METRICS`` - This setting turns on and off the in-context
+  metrics feature. It must be turned off in Open edX releases before Sumac, and when using
+  ``tutor-contrib-aspects`` before v2.2.0, as those dashboards will not exist, causing errors in
   the embedded Instructor Dashboards.
 
-- `ASPECTS_IN_CONTEXT_DASHBOARDS` - This setting mirrors the `ASPECTS_INSTRUCTOR_DASHBOARDS` but
+- ``ASPECTS_IN_CONTEXT_DASHBOARDS`` - This setting mirrors the ``ASPECTS_INSTRUCTOR_DASHBOARDS``, but
   with additional keys used for filtering the boards to specific courses and blocks.
 
 Event Sink Configuration
 ========================
 
-- `EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG` - This setting is used to configure the ClickHouse
+- ``EVENT_SINK_CLICKHOUSE_BACKEND_CONFIG`` - This setting is used to configure the ClickHouse
   connection. The configuration is a dictionary that contains the following keys:
 
-    - `url` - The host of the ClickHouse instance.
-    - `database` - The database name.
-    - `username` - The username of the ClickHouse user.
-    - `password` - The password of the ClickHouse user.
-    - `timeout_secs` - The timeout in seconds for the ClickHouse connection.
+  - ``url`` - The host of the ClickHouse instance.
+  - ``database`` - The database name.
+  - ``username`` - The username of the ClickHouse user.
+  - ``password`` - The password of the ClickHouse user.
+  - ``timeout_secs`` - The timeout in seconds for the ClickHouse connection.
 
-- `EVENT_SINK_CLICKHOUSE_PII_MODELS` - This setting is used to configure the models that
+- ``EVENT_SINK_CLICKHOUSE_PII_MODELS`` - This setting is used to configure the models that
   contain PII information. The configuration is a list of strings that contain the
   table names where the PII information is stored.
 
-- `EVENT_SINK_CLICKHOUSE_MODEL_CONFIG` - This setting is used to provide compatibility
+- ``EVENT_SINK_CLICKHOUSE_MODEL_CONFIG`` - This setting is used to provide compatibility
   with multiple Open edX models. The configuration is a dictionary that contains the
-  following a key per model that contains a dictionary with the following keys:
+  following: a key per model that contains a dictionary with the following keys:
 
-    - `module` - The module path of the model.
-    - `model` - The model class name.
+  - ``module`` - The module path of the model.
+  - ``model`` - The model class name.
 
 Event Sinks are disabled by default. To enable them, you need to enable the following
-waffle flag: `event_sink_clickhouse.{{model_name}}.enabled` where model name is the name
+waffle flag: ``event_sink_clickhouse.{{model_name}}.enabled``, where model_name is the name
 of the model that you want to enable. Or, you can enable them via settings by setting
-`EVENT_SINK_CLICKHOUSE_{{model_name}}_ENABLED` to `True`.
+``EVENT_SINK_CLICKHOUSE_{{model_name}}_ENABLED`` to ``True``.
 
 
 Getting Help
@@ -207,7 +218,7 @@ More Help
 =========
 
 If you're having trouble, we have discussion forums at
-https://discuss.openedx.org where you can connect with others in the
+https://discuss.openedx.org, where you can connect with others in the
 community.
 
 Our real-time conversations are on Slack. You can request a `Slack
