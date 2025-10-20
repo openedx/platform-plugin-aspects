@@ -18,7 +18,7 @@ certifi==2025.10.5
     # via requests
 cffi==2.0.0
     # via pynacl
-charset-normalizer==3.4.3
+charset-normalizer==3.4.4
     # via requests
 click==8.3.0
     # via
@@ -98,7 +98,7 @@ prison==0.2.1
     # via -r requirements/base.in
 prompt-toolkit==3.0.52
     # via click-repl
-psutil==7.1.0
+psutil==7.1.1
     # via edx-django-utils
 pycparser==2.23
     # via cffi
