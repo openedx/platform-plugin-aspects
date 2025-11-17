@@ -20,7 +20,7 @@ astroid==3.3.11
     # via
     #   pylint
     #   pylint-celery
-billiard==4.2.2
+billiard==4.2.3
     # via
     #   -r requirements/test.txt
     #   celery
@@ -28,7 +28,7 @@ black==25.11.0
     # via -r requirements/quality.in
 celery==5.5.3
     # via -r requirements/test.txt
-certifi==2025.10.5
+certifi==2025.11.12
     # via
     #   -r requirements/test.txt
     #   requests
@@ -40,7 +40,7 @@ charset-normalizer==3.4.4
     # via
     #   -r requirements/test.txt
     #   requests
-click==8.3.0
+click==8.3.1
     # via
     #   -r requirements/test.txt
     #   black
@@ -230,7 +230,7 @@ pylint-plugin-utils==0.9.0
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==4.15.3
+pymongo==4.15.4
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -238,7 +238,7 @@ pynacl==1.6.1
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-pytest==9.0.0
+pytest==9.0.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
