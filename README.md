@@ -29,7 +29,7 @@
 | platform\_plugin\_aspects/views.py                                             |      103 |        0 |       18 |        2 |     98% |136->139, 235->240 |
 | platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
 | platform\_plugin\_aspects/xblock.py                                            |       74 |        2 |       12 |        2 |     95% |  148, 198 |
-|                                                                      **TOTAL** | **1150** |   **24** |  **166** |    **9** | **97%** |           |
+| **TOTAL**                                                                      | **1150** |   **24** |  **166** |    **9** | **97%** |           |
 
 
 ## Setup coverage badge
