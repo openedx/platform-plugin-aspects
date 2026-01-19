@@ -137,7 +137,7 @@ markupsafe==3.0.3
     #   jinja2
     #   mako
     #   xblock
-model-bakery==1.21.0
+model-bakery==1.22.1
     # via django-mock-queries
 oauthlib==3.3.1
     # via
