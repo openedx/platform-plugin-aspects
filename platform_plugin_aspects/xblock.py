@@ -62,12 +62,10 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
 
     filters = List(
         display_name=_("Filters"),
-        help=_(
-            """List of SQL filters to apply to the
+        help=_("""List of SQL filters to apply to the
                dashboard. E.g: ["org='edX'", "country in ('us', 'co')"]
                The fields used here must be available on every dataset used by the dashboard.
-               """
-        ),
+               """),
         default=[],
         scope=Scope.settings,
     )

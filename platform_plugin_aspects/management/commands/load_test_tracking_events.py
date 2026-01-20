@@ -99,15 +99,13 @@ class LoadTest:
             "display_name": f"Course {self.course_shortname}",
         }
 
-        log.info(
-            f"""Creating course:
+        log.info(f"""Creating course:
                 Instructor: {self.instructor.id}
                 Org: "OEX"
                 Number: "{self.course_shortname}"
                 Run: "2024-1"
                 Fields: {fields}
-                """
-        )
+                """)
 
         self.course = create_new_course_in_store(
             ModuleStoreEnum.Type.split,
