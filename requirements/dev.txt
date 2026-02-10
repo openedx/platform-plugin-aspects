@@ -16,7 +16,7 @@ asgiref==3.11.1
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==4.0.3
+astroid==4.0.4
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -436,7 +436,7 @@ virtualenv==20.36.1
     # via
     #   -r requirements/ci.txt
     #   tox
-wcwidth==0.5.3
+wcwidth==0.6.0
     # via
     #   -r requirements/quality.txt
     #   prompt-toolkit

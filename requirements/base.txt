@@ -159,7 +159,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-wcwidth==0.5.3
+wcwidth==0.6.0
     # via prompt-toolkit
 web-fragments==3.1.0
     # via
