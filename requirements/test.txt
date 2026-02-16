@@ -60,7 +60,7 @@ code-annotations==2.3.0
     #   -r requirements/base.txt
     #   -r requirements/test.in
     #   edx-toggles
-coverage[toml]==7.13.3
+coverage[toml]==7.13.4
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -137,7 +137,7 @@ markupsafe==3.0.3
     #   jinja2
     #   mako
     #   xblock
-model-bakery==1.23.2
+model-bakery==1.23.3
     # via django-mock-queries
 oauthlib==3.3.1
     # via
@@ -186,7 +186,7 @@ pytest==9.0.2
     #   pytest-django
 pytest-cov==7.0.0
     # via -r requirements/test.in
-pytest-django==4.11.1
+pytest-django==4.12.0
     # via -r requirements/test.in
 python-dateutil==2.9.0.post0
     # via
@@ -208,7 +208,7 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==7.1.0
+redis==7.1.1
     # via -r requirements/base.txt
 requests==2.32.5
     # via
