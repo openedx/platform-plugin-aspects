@@ -208,7 +208,7 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==7.1.1
+redis==7.2.0
     # via -r requirements/base.txt
 requests==2.32.5
     # via
@@ -220,7 +220,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/base.txt
     #   superset-api-client
-responses==0.25.8
+responses==0.26.0
     # via -r requirements/test.in
 simplejson==3.20.2
     # via
@@ -236,7 +236,7 @@ sqlparse==0.5.5
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.6.0
+stevedore==5.7.0
     # via
     #   -r requirements/base.txt
     #   code-annotations

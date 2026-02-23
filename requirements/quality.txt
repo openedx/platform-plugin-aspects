@@ -135,7 +135,7 @@ iniconfig==2.3.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==7.0.0
+isort==8.0.0
     # via
     #   -r requirements/quality.in
     #   pylint
@@ -185,7 +185,7 @@ packaging==26.0
     #   pytest
 pathspec==1.0.4
     # via black
-platformdirs==4.9.1
+platformdirs==4.9.2
     # via
     #   black
     #   pylint
@@ -216,7 +216,7 @@ pygments==2.19.2
     # via
     #   -r requirements/test.txt
     #   pytest
-pylint==4.0.4
+pylint==4.0.5
     # via
     #   edx-lint
     #   pylint-celery
@@ -269,7 +269,7 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==7.1.1
+redis==7.2.0
     # via -r requirements/test.txt
 requests==2.32.5
     # via
@@ -281,7 +281,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/test.txt
     #   superset-api-client
-responses==0.25.8
+responses==0.26.0
     # via -r requirements/test.txt
 simplejson==3.20.2
     # via
@@ -300,7 +300,7 @@ sqlparse==0.5.5
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.6.0
+stevedore==5.7.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
