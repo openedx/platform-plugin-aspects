@@ -14,7 +14,7 @@ billiard==4.2.4
     # via celery
 celery==5.6.2
     # via -r requirements/base.in
-certifi==2026.1.4
+certifi==2026.2.25
     # via requests
 cffi==2.0.0
     # via pynacl
@@ -63,7 +63,7 @@ edx-django-utils==8.0.1
     # via
     #   -r requirements/base.in
     #   edx-toggles
-edx-opaque-keys[django]==3.0.0
+edx-opaque-keys[django]==3.1.0
     # via
     #   -r requirements/base.in
     #   openedx-filters
@@ -119,7 +119,7 @@ pyyaml==6.0.3
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==7.2.0
+redis==7.2.1
     # via -r requirements/base.in
 requests==2.32.5
     # via
