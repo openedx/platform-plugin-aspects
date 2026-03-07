@@ -158,7 +158,7 @@ setup(
     ),
     include_package_data=True,
     install_requires=load_requirements("requirements/base.in"),
-    python_requires=">=3.11",
+    python_requires=">=3.12",
     license="Apache 2.0",
     zip_safe=False,
     keywords="Python edx",
@@ -171,7 +171,6 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
     ],
     entry_points={
