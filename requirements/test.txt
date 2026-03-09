@@ -30,7 +30,7 @@ cffi==2.0.0
     # via
     #   -r requirements/base.txt
     #   pynacl
-charset-normalizer==3.4.4
+charset-normalizer==3.4.5
     # via
     #   -r requirements/base.txt
     #   requests
@@ -55,7 +55,7 @@ click-repl==0.3.0
     # via
     #   -r requirements/base.txt
     #   celery
-code-annotations==2.3.0
+code-annotations==2.3.2
     # via
     #   -r requirements/base.txt
     #   -r requirements/test.in
@@ -197,7 +197,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/base.txt
     #   code-annotations
-pytz==2025.2
+pytz==2026.1.post1
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -208,7 +208,7 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==7.2.1
+redis==7.3.0
     # via -r requirements/base.txt
 requests==2.32.5
     # via
