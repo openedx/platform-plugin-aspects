@@ -33,7 +33,7 @@ build==1.4.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cachetools==7.0.3
+cachetools==7.0.4
     # via
     #   -r requirements/ci.txt
     #   tox
