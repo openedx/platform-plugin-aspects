@@ -26,7 +26,7 @@ billiard==4.2.4
     #   celery
 black==26.3.1
     # via -r requirements/quality.in
-celery==5.6.2
+celery==5.6.3
     # via -r requirements/test.txt
 certifi==2026.2.25
     # via
@@ -103,7 +103,7 @@ django-waffle==5.0.0
     #   -r requirements/test.txt
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.17.0
+djangorestframework==3.17.1
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -163,7 +163,7 @@ markupsafe==3.0.3
     #   xblock
 mccabe==0.7.0
     # via pylint
-model-bakery==1.23.3
+model-bakery==1.23.4
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -175,7 +175,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/test.txt
-openedx-filters==2.1.0
+openedx-filters==3.0.0
     # via -r requirements/test.txt
 packaging==26.0
     # via
@@ -212,7 +212,7 @@ pycparser==3.0
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pygments==2.19.2
+pygments==2.20.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -269,9 +269,9 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==7.3.0
+redis==7.4.0
     # via -r requirements/test.txt
-requests==2.32.5
+requests==2.33.0
     # via
     #   -r requirements/test.txt
     #   requests-oauthlib
@@ -349,7 +349,7 @@ webob==1.8.9
     # via
     #   -r requirements/test.txt
     #   xblock
-xblock==5.3.0
+xblock==6.0.0
     # via -r requirements/test.txt
 
 # The following packages are considered to be unsafe in a requirements file:
