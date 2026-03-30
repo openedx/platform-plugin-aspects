@@ -29,7 +29,7 @@ black==26.3.1
     # via
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
-build==1.4.0
+build==1.4.2
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -37,7 +37,7 @@ cachetools==7.0.5
     # via
     #   -r requirements/ci.txt
     #   tox
-celery==5.6.2
+celery==5.6.3
     # via -r requirements/quality.txt
 certifi==2026.2.25
     # via
@@ -47,7 +47,7 @@ cffi==2.0.0
     # via
     #   -r requirements/quality.txt
     #   pynacl
-chardet==7.2.0
+chardet==7.4.0.post2
     # via diff-cover
 charset-normalizer==3.4.6
     # via
@@ -133,7 +133,7 @@ django-waffle==5.0.0
     #   -r requirements/quality.txt
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.17.0
+djangorestframework==3.17.1
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
@@ -208,7 +208,7 @@ mccabe==0.7.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-model-bakery==1.23.3
+model-bakery==1.23.4
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
@@ -222,7 +222,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/quality.txt
-openedx-filters==2.1.0
+openedx-filters==3.0.0
     # via -r requirements/quality.txt
 packaging==26.0
     # via
@@ -281,7 +281,7 @@ pycparser==3.0
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
-pygments==2.19.2
+pygments==2.20.0
     # via
     #   -r requirements/quality.txt
     #   diff-cover
@@ -337,9 +337,10 @@ python-dateutil==2.9.0.post0
     #   -r requirements/quality.txt
     #   celery
     #   xblock
-python-discovery==1.2.0
+python-discovery==1.2.1
     # via
     #   -r requirements/ci.txt
+    #   tox
     #   virtualenv
 python-slugify==8.0.4
     # via
@@ -361,9 +362,9 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==7.3.0
+redis==7.4.0
     # via -r requirements/quality.txt
-requests==2.32.5
+requests==2.33.0
     # via
     #   -r requirements/quality.txt
     #   requests-oauthlib
@@ -414,7 +415,7 @@ tomlkit==0.14.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.50.3
+tox==4.51.0
     # via -r requirements/ci.txt
 typing-extensions==4.15.0
     # via
@@ -459,7 +460,7 @@ wheel==0.46.3
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock==5.3.0
+xblock==6.0.0
     # via -r requirements/quality.txt
 
 # The following packages are considered to be unsafe in a requirements file:
