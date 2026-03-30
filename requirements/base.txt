@@ -12,7 +12,7 @@ asgiref==3.11.1
     # via django
 billiard==4.2.4
     # via celery
-celery==5.6.2
+celery==5.6.3
     # via -r requirements/base.in
 certifi==2026.2.25
     # via requests
@@ -55,7 +55,7 @@ django-waffle==5.0.0
     # via
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.17.0
+djangorestframework==3.17.1
     # via -r requirements/base.in
 dnspython==2.8.0
     # via pymongo
@@ -90,7 +90,7 @@ oauthlib==3.3.1
     # via requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/base.in
-openedx-filters==2.1.0
+openedx-filters==3.0.0
     # via -r requirements/base.in
 packaging==26.0
     # via kombu
@@ -119,9 +119,9 @@ pyyaml==6.0.3
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==7.3.0
+redis==7.4.0
     # via -r requirements/base.in
-requests==2.32.5
+requests==2.33.0
     # via
     #   -r requirements/base.in
     #   requests-oauthlib
@@ -167,7 +167,7 @@ web-fragments==4.0.0
     #   xblock
 webob==1.8.9
     # via xblock
-xblock==5.3.0
+xblock==6.0.0
     # via -r requirements/base.in
 
 # The following packages are considered to be unsafe in a requirements file:
