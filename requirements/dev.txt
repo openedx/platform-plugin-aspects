@@ -49,11 +49,11 @@ cffi==2.0.0
     #   pynacl
 chardet==7.4.0.post2
     # via diff-cover
-charset-normalizer==3.4.6
+charset-normalizer==3.4.7
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.3.1
+click==8.3.2
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -149,7 +149,7 @@ edx-i18n-tools==2.0.0
     # via -r requirements/dev.in
 edx-lint==6.0.0
     # via -r requirements/quality.txt
-edx-opaque-keys[django]==3.1.0
+edx-opaque-keys[django]==4.0.0
     # via
     #   -r requirements/quality.txt
     #   openedx-filters
@@ -364,7 +364,7 @@ pyyaml==6.0.3
     #   xblock
 redis==7.4.0
     # via -r requirements/quality.txt
-requests==2.33.0
+requests==2.33.1
     # via
     #   -r requirements/quality.txt
     #   requests-oauthlib
@@ -415,13 +415,13 @@ tomlkit==0.14.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.51.0
+tox==4.52.0
     # via -r requirements/ci.txt
 typing-extensions==4.15.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
-tzdata==2025.3
+tzdata==2026.1
     # via
     #   -r requirements/quality.txt
     #   kombu
