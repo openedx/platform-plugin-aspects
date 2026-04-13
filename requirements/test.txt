@@ -103,7 +103,7 @@ edx-opaque-keys[django]==4.0.0
     # via
     #   -r requirements/base.txt
     #   openedx-filters
-edx-toggles==5.4.1
+edx-toggles==6.0.0
     # via -r requirements/base.txt
 fs==2.4.16
     # via
@@ -123,7 +123,7 @@ kombu==5.6.2
     # via
     #   -r requirements/base.txt
     #   celery
-lxml==6.0.2
+lxml==6.0.4
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -145,7 +145,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/base.txt
-openedx-filters==3.0.0
+openedx-filters==3.1.0
     # via -r requirements/base.txt
 packaging==26.0
     # via
@@ -180,7 +180,7 @@ pynacl==1.6.2
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-pytest==9.0.2
+pytest==9.0.3
     # via
     #   pytest-cov
     #   pytest-django
