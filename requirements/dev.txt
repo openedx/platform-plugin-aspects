@@ -47,7 +47,7 @@ cffi==2.0.0
     # via
     #   -r requirements/quality.txt
     #   pynacl
-chardet==7.4.1
+chardet==7.4.3
     # via diff-cover
 charset-normalizer==3.4.7
     # via
@@ -155,7 +155,7 @@ edx-opaque-keys[django]==4.0.0
     #   openedx-filters
 edx-toggles==6.0.0
     # via -r requirements/quality.txt
-filelock==3.25.2
+filelock==3.29.0
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -186,7 +186,7 @@ kombu==5.6.2
     # via
     #   -r requirements/quality.txt
     #   celery
-lxml[html-clean]==6.0.4
+lxml[html-clean]==6.1.0
     # via
     #   -r requirements/quality.txt
     #   edx-i18n-tools
@@ -194,7 +194,7 @@ lxml[html-clean]==6.0.4
     #   xblock
 lxml-html-clean==0.4.4
     # via lxml
-mako==1.3.10
+mako==1.3.11
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -224,7 +224,7 @@ openedx-atlas==0.7.0
     # via -r requirements/quality.txt
 openedx-filters==3.1.0
     # via -r requirements/quality.txt
-packaging==26.0
+packaging==26.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
@@ -376,7 +376,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 responses==0.26.0
     # via -r requirements/quality.txt
-simplejson==3.20.2
+simplejson==4.0.1
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -415,7 +415,7 @@ tomlkit==0.14.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.52.1
+tox==4.53.0
     # via -r requirements/ci.txt
 typing-extensions==4.15.0
     # via
@@ -440,7 +440,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==21.2.1
+virtualenv==21.2.4
     # via
     #   -r requirements/ci.txt
     #   tox
