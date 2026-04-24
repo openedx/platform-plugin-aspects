@@ -67,7 +67,21 @@ function _embedDashboard(dashboard_uuid, superset_url, xblock_id){
       /*
       Perform extra operations on the dashboard object or the container
       when the dashboard is loaded
-      */
+      */  
+     dashboard.setThemeConfig({
+        theme_default: {
+          token: {
+            colorPrimary: "#2893B3",
+            fontFamily: "Inter, sans-serif"
+          }
+        },
+        theme_dark: {
+          algorithm: "dark",
+          token: {
+            colorPrimary: "#2893B3"
+          }
+        }
+      });
     });
 }
 
