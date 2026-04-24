@@ -68,6 +68,7 @@ function _embedDashboard(dashboard_uuid, superset_url, xblock_id){
       Perform extra operations on the dashboard object or the container
       when the dashboard is loaded
       */  
+     console.log('---------testtesttest--------');
      dashboard.setThemeConfig({
         theme_default: {
           token: {
