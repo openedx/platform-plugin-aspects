@@ -29,17 +29,17 @@ black==26.3.1
     # via
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
-build==1.4.3
+build==1.4.4
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cachetools==7.0.5
+cachetools==7.0.6
     # via
     #   -r requirements/ci.txt
     #   tox
 celery==5.6.3
     # via -r requirements/quality.txt
-certifi==2026.2.25
+certifi==2026.4.22
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -53,7 +53,7 @@ charset-normalizer==3.4.7
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.3.2
+click==8.3.3
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -165,7 +165,7 @@ fs==2.4.16
     # via
     #   -r requirements/quality.txt
     #   xblock
-idna==3.11
+idna==3.13
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -224,7 +224,7 @@ openedx-atlas==0.7.0
     # via -r requirements/quality.txt
 openedx-filters==3.1.0
     # via -r requirements/quality.txt
-packaging==26.1
+packaging==26.2
     # via
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
@@ -238,7 +238,7 @@ packaging==26.1
     #   wheel
 path==16.16.0
     # via edx-i18n-tools
-pathspec==1.0.4
+pathspec==1.1.0
     # via
     #   -r requirements/quality.txt
     #   black
@@ -306,7 +306,7 @@ pylint-plugin-utils==0.9.0
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.16.0
+pymongo==4.17.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
@@ -376,7 +376,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 responses==0.26.0
     # via -r requirements/quality.txt
-simplejson==4.0.1
+simplejson==4.1.1
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -421,7 +421,7 @@ typing-extensions==4.15.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
-tzdata==2026.1
+tzdata==2026.2
     # via
     #   -r requirements/quality.txt
     #   kombu
@@ -456,11 +456,11 @@ webob==1.8.9
     # via
     #   -r requirements/quality.txt
     #   xblock
-wheel==0.46.3
+wheel==0.47.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock==6.0.0
+xblock==6.1.0
     # via -r requirements/quality.txt
 
 # The following packages are considered to be unsafe in a requirements file:
