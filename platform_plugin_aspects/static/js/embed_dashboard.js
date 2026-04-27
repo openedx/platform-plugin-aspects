@@ -45,6 +45,7 @@ async function fetchGuestToken() {
 }
 
 function _embedDashboard(dashboard_uuid, superset_url, xblock_id){
+  console.log('---------testtesttest--------');
   window.supersetEmbeddedSdk
     .embedDashboard({
       id: dashboard_uuid, // given by the Superset embedding UI
