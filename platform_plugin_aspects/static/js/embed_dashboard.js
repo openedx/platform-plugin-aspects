@@ -45,6 +45,7 @@ async function fetchGuestToken() {
 }
 
 function _embedDashboard(dashboard_uuid, superset_url, xblock_id){
+  console.log('---------testtesttest--------');
   window.supersetEmbeddedSdk
     .embedDashboard({
       id: dashboard_uuid, // given by the Superset embedding UI
@@ -67,7 +68,22 @@ function _embedDashboard(dashboard_uuid, superset_url, xblock_id){
       /*
       Perform extra operations on the dashboard object or the container
       when the dashboard is loaded
-      */
+      */  
+     console.log('---------testtesttest--------');
+     dashboard.setThemeConfig({
+        theme_default: {
+          token: {
+            colorPrimary: "#2893B3",
+            fontFamily: "Inter, sans-serif"
+          }
+        },
+        theme_dark: {
+          algorithm: "dark",
+          token: {
+            colorPrimary: "#2893B3"
+          }
+        }
+      });
     });
 }
 
