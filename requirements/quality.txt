@@ -115,7 +115,7 @@ edx-django-utils==8.0.1
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-edx-lint==6.0.0
+edx-lint==6.1.0
     # via -r requirements/quality.in
 edx-opaque-keys[django]==4.0.0
     # via
@@ -151,7 +151,7 @@ lxml==6.1.0
     # via
     #   -r requirements/test.txt
     #   xblock
-mako==1.3.11
+mako==1.3.12
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -175,7 +175,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/test.txt
-openedx-filters==3.1.0
+openedx-filters==3.3.0
     # via -r requirements/test.txt
 packaging==26.2
     # via
@@ -183,7 +183,7 @@ packaging==26.2
     #   black
     #   kombu
     #   pytest
-pathspec==1.1.0
+pathspec==1.1.1
     # via black
 platformdirs==4.9.6
     # via
@@ -313,7 +313,9 @@ text-unidecode==1.3
     #   -r requirements/test.txt
     #   python-slugify
 tomlkit==0.14.0
-    # via pylint
+    # via
+    #   edx-lint
+    #   pylint
 typing-extensions==4.15.0
     # via
     #   -r requirements/test.txt
@@ -337,7 +339,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-wcwidth==0.6.0
+wcwidth==0.7.0
     # via
     #   -r requirements/test.txt
     #   prompt-toolkit
