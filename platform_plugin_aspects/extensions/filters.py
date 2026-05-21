@@ -84,6 +84,7 @@ class AddSupersetTabToInstructorDashboard(PipelineStep):
     Add superset tab to instructor dashboard app.
     """
 
+    # pylint: disable=arguments-differ, unused-argument
     def run_filter(self, tabs, user, course_key):
         """Execute filter that modifies the instructor dashboard context.
         Args:
