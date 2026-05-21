@@ -232,3 +232,98 @@ class ViewsTestCase(TestCase):
         data = response.json()
         self.assertEqual(data["dashboardId"], "00000000-0000-0000-0000-000000000000")
         self.assertEqual(data["defaultCourseRun"], "run")
+
+
+class SupersetInstructorDashboardViewTestCase(TestCase):
+    """
+    Test cases for SupersetInstructorDashboardView.
+    """
+
+    def setUp(self):
+        """
+        Set up data used by multiple tests.
+        """
+        super().setUp()
+        self.client = APIClient()
+        self.url = f"/superset_instructor_dashboard/{COURSE_ID}"
+        self.user = User.objects.create(
+            username="instructor",
+            email="instructor@example.com",
+        )
+        self.user.set_password("password")
+        self.user.save()
+
+    def test_requires_authorization(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_requires_course_access(self):
+        self.client.login(username="instructor", password="password")
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_invalid_course_id(self):
+        self.client.login(username="instructor", password="password")
+        response = self.client.get("/superset_instructor_dashboard/block-v1:org+course+run")
+        self.assertEqual(response.status_code, 404)
+
+    @patch("platform_plugin_aspects.views.get_model")
+    def test_course_not_found(self, mock_get_model):
+        mock_model_get = Mock(side_effect=ObjectDoesNotExist)
+        mock_model_only = Mock(return_value=Mock(get=mock_model_get))
+        mock_get_model.return_value = Mock(
+            objects=Mock(only=mock_model_only),
+            DoesNotExist=ObjectDoesNotExist,
+        )
+
+        self.client.login(username="instructor", password="password")
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 404)
+        mock_model_get.assert_called_once()
+
+    @patch.object(IsCourseStaffInstructor, "has_object_permission")
+    @patch("platform_plugin_aspects.views.generate_superset_context")
+    def test_success(self, mock_generate_superset_context, mock_has_object_permission):
+        mock_has_object_permission.return_value = True
+        mock_generate_superset_context.return_value = {
+            "course_id": COURSE_ID,
+            "superset_dashboards": [{"name": "Course Dashboard", "uuid": "test-uuid", "slug": "course-dashboard"}],
+            "superset_url": "https://superset.example.com",
+            "superset_guest_token_url": f"https://lms.example.com/aspects/superset_guest_token/{COURSE_ID}",
+        }
+
+        self.client.login(username="instructor", password="password")
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("superset_dashboards", data)
+        self.assertIn("superset_url", data)
+        self.assertIn("superset_guest_token_url", data)
+        self.assertIn("show_dashboard_link", data)
+        self.assertEqual(data["superset_url"], "https://superset.example.com")
+        mock_has_object_permission.assert_called_once()
+        mock_generate_superset_context.assert_called_once()
+
+    @patch.object(IsCourseStaffInstructor, "has_object_permission")
+    @patch("platform_plugin_aspects.views.generate_superset_context")
+    def test_show_dashboard_link_from_settings(
+        self, mock_generate_superset_context, mock_has_object_permission
+    ):
+        mock_has_object_permission.return_value = True
+        mock_generate_superset_context.return_value = {
+            "course_id": COURSE_ID,
+            "superset_dashboards": [],
+            "superset_url": "https://superset.example.com",
+            "superset_guest_token_url": f"https://lms.example.com/aspects/superset_guest_token/{COURSE_ID}",
+        }
+
+        self.client.login(username="instructor", password="password")
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(
+            data["show_dashboard_link"],
+            settings.SUPERSET_SHOW_INSTRUCTOR_DASHBOARD_LINK,
+        )
