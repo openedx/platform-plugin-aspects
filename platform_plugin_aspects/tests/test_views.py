@@ -264,7 +264,9 @@ class SupersetInstructorDashboardViewTestCase(TestCase):
 
     def test_invalid_course_id(self):
         self.client.login(username="instructor", password="password")
-        response = self.client.get("/superset_instructor_dashboard/block-v1:org+course+run")
+        response = self.client.get(
+            "/superset_instructor_dashboard/block-v1:org+course+run"
+        )
         self.assertEqual(response.status_code, 404)
 
     @patch("platform_plugin_aspects.views.get_model")
@@ -287,7 +289,13 @@ class SupersetInstructorDashboardViewTestCase(TestCase):
         mock_has_object_permission.return_value = True
         mock_generate_superset_context.return_value = {
             "course_id": COURSE_ID,
-            "superset_dashboards": [{"name": "Course Dashboard", "uuid": "test-uuid", "slug": "course-dashboard"}],
+            "superset_dashboards": [
+                {
+                    "name": "Course Dashboard",
+                    "uuid": "test-uuid",
+                    "slug": "course-dashboard",
+                }
+            ],
             "superset_url": "https://superset.example.com",
             "superset_guest_token_url": f"https://lms.example.com/aspects/superset_guest_token/{COURSE_ID}",
         }
