@@ -22,7 +22,7 @@ billiard==4.2.4
     #   celery
 celery==5.6.3
     # via -r requirements/base.txt
-certifi==2026.4.22
+certifi==2026.5.20
     # via
     #   -r requirements/base.txt
     #   requests
@@ -34,7 +34,7 @@ charset-normalizer==3.4.7
     # via
     #   -r requirements/base.txt
     #   requests
-click==8.4.0
+click==8.4.1
     # via
     #   -r requirements/base.txt
     #   celery
@@ -109,7 +109,7 @@ fs==2.4.16
     # via
     #   -r requirements/base.txt
     #   xblock
-idna==3.15
+idna==3.16
     # via
     #   -r requirements/base.txt
     #   requests
@@ -123,7 +123,7 @@ kombu==5.6.2
     # via
     #   -r requirements/base.txt
     #   celery
-lxml==6.1.0
+lxml==6.1.1
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -220,7 +220,7 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/base.txt
     #   superset-api-client
-responses==0.26.0
+responses==0.26.1
     # via -r requirements/test.in
 simplejson==4.1.1
     # via
@@ -236,7 +236,7 @@ sqlparse==0.5.5
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.7.0
+stevedore==5.8.0
     # via
     #   -r requirements/base.txt
     #   code-annotations

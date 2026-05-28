@@ -34,7 +34,7 @@ build==1.5.0
     # via -r requirements/doc.in
 celery==5.6.3
     # via -r requirements/test.txt
-certifi==2026.4.22
+certifi==2026.5.20
     # via
     #   -r requirements/test.txt
     #   requests
@@ -47,7 +47,7 @@ charset-normalizer==3.4.7
     # via
     #   -r requirements/test.txt
     #   requests
-click==8.4.0
+click==8.4.1
     # via
     #   -r requirements/test.txt
     #   celery
@@ -137,7 +137,7 @@ fs==2.4.16
     #   xblock
 id==1.6.1
     # via twine
-idna==3.15
+idna==3.16
     # via
     #   -r requirements/test.txt
     #   requests
@@ -168,7 +168,7 @@ kombu==5.6.2
     # via
     #   -r requirements/test.txt
     #   celery
-lxml==6.1.0
+lxml==6.1.1
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -190,7 +190,7 @@ model-bakery==1.23.4
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
-more-itertools==11.0.2
+more-itertools==11.1.0
     # via
     #   jaraco-classes
     #   jaraco-functools
@@ -301,7 +301,7 @@ requests-oauthlib==2.0.0
     #   superset-api-client
 requests-toolbelt==1.0.0
     # via twine
-responses==0.26.0
+responses==0.26.1
     # via -r requirements/test.txt
 restructuredtext-lint==2.0.2
     # via doc8
@@ -323,9 +323,9 @@ six==1.17.0
     #   fs
     #   prison
     #   python-dateutil
-snowballstemmer==3.0.1
+snowballstemmer==3.1.0
     # via sphinx
-soupsieve==2.8.3
+soupsieve==2.8.4
     # via beautifulsoup4
 sphinx==9.1.0
     # via
@@ -350,7 +350,7 @@ sqlparse==0.5.5
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.7.0
+stevedore==5.8.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
