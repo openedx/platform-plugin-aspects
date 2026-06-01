@@ -71,7 +71,7 @@ edx-toggles==6.0.0
     # via -r requirements/base.in
 fs==2.4.16
     # via xblock
-idna==3.16
+idna==3.17
     # via requests
 jinja2==3.1.6
     # via code-annotations
@@ -90,7 +90,7 @@ oauthlib==3.3.1
     # via requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/base.in
-openedx-filters==3.4.0
+openedx-filters==3.4.1
     # via -r requirements/base.in
 packaging==26.2
     # via kombu
@@ -119,7 +119,7 @@ pyyaml==6.0.3
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==7.4.0
+redis==8.0.0
     # via -r requirements/base.in
 requests==2.34.2
     # via
