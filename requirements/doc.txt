@@ -72,7 +72,7 @@ code-annotations==3.0.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-coverage[toml]==7.14.0
+coverage[toml]==7.14.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -137,7 +137,7 @@ fs==2.4.16
     #   xblock
 id==1.6.1
     # via twine
-idna==3.16
+idna==3.17
     # via
     #   -r requirements/test.txt
     #   requests
@@ -202,7 +202,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/test.txt
-openedx-filters==3.4.0
+openedx-filters==3.4.1
     # via -r requirements/test.txt
 packaging==26.2
     # via
@@ -284,7 +284,7 @@ pyyaml==6.0.3
     #   xblock
 readme-renderer==44.0
     # via twine
-redis==7.4.0
+redis==8.0.0
     # via -r requirements/test.txt
 requests==2.34.2
     # via

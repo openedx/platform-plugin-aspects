@@ -71,7 +71,7 @@ code-annotations==3.0.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.14.0
+coverage[toml]==7.14.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -127,7 +127,7 @@ fs==2.4.16
     # via
     #   -r requirements/test.txt
     #   xblock
-idna==3.16
+idna==3.17
     # via
     #   -r requirements/test.txt
     #   requests
@@ -175,7 +175,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/test.txt
-openedx-filters==3.4.0
+openedx-filters==3.4.1
     # via -r requirements/test.txt
 packaging==26.2
     # via
@@ -185,7 +185,7 @@ packaging==26.2
     #   pytest
 pathspec==1.1.1
     # via black
-platformdirs==4.9.6
+platformdirs==4.10.0
     # via
     #   black
     #   pylint
@@ -269,7 +269,7 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==7.4.0
+redis==8.0.0
     # via -r requirements/test.txt
 requests==2.34.2
     # via
