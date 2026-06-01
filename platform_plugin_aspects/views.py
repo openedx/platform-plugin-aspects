@@ -20,6 +20,7 @@ from .utils import (
     _,
     build_filter,
     generate_guest_token,
+    generate_superset_context,
     get_localized_uuid,
     get_model,
     get_user_dashboard_locale,
@@ -246,5 +247,65 @@ class SupersetInContextDashboardView(GenericAPIView):
                 "supersetUrl": superset_url,
                 "courseRuns": course_runs,
                 "defaultCourseRun": course_key.run,
+            }
+        )
+
+
+class SupersetInstructorDashboardView(GenericAPIView):
+    """
+    Endpoint for instructor dashboard Superset configuration.
+
+    Returns the Superset context needed by the frontend app to embed
+    the instructor dashboards, including dashboard list, URLs, and
+    display settings.
+    """
+
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (
+        permissions.IsAuthenticated,
+        IsStaffOrReadOnly | IsCourseStaffInstructor,
+    )
+
+    lookup_field = "course_id"
+
+    def get_object(self):
+        """
+        Return a CourseKey for the requested course_id.
+        """
+        course_id = self.kwargs.get(self.lookup_field, "")
+        try:
+            course_key = CourseKey.from_string(course_id)
+        except InvalidKeyError as exc:
+            raise NotFound(
+                _("Invalid course id: '{course_id}'").format(course_id=course_id)
+            ) from exc
+
+        course = _get_course(course_key)
+
+        # May raise a permission denied
+        self.check_object_permissions(self.request, course)
+
+        return course_key
+
+    def get(self, request, *args, **kwargs):
+        """
+        Return Superset context for embedding the instructor dashboards.
+        """
+        course_key = self.get_object()
+
+        language = get_user_dashboard_locale(request.user)
+        context = {"course_id": str(course_key)}
+        context = generate_superset_context(
+            context,
+            dashboards=settings.ASPECTS_INSTRUCTOR_DASHBOARDS,
+            language=language,
+        )
+
+        return Response(
+            {
+                "superset_dashboards": context["superset_dashboards"],
+                "superset_url": context["superset_url"],
+                "superset_guest_token_url": context["superset_guest_token_url"],
+                "show_dashboard_link": settings.SUPERSET_SHOW_INSTRUCTOR_DASHBOARD_LINK,
             }
         )

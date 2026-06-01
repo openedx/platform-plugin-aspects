@@ -129,6 +129,8 @@ The Instructor Dashboard integration uses the `Open edX Filters`_. To learn more
 the filters, see the `Open edX Filters`_ documentation. Make sure to configure the
 superset pipeline into the filter as follows:
 
+for legacy instructor dashboard:
+
 .. code-block:: python
 
   OPEN_EDX_FILTERS_CONFIG = {
@@ -136,6 +138,19 @@ superset pipeline into the filter as follows:
       "fail_silently": False,
       "pipeline": [
         "platform_plugin_superset.extensions.filters.AddSupersetTab",
+      ]
+    },
+  }
+
+for new instructor dashboard:
+
+.. code-block:: python
+
+  OPEN_EDX_FILTERS_CONFIG = {
+    "org.openedx.learning.instructor.dashboard.tabs.requested.v1": {
+      "fail_silently": False,
+      "pipeline": [
+        "platform_plugin_superset.extensions.filters.AddSupersetTabToInstructorDashboard",
       ]
     },
   }

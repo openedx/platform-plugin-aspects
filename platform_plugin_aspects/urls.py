@@ -25,6 +25,11 @@ app_url_patterns = (
             views.SupersetInContextDashboardView.as_view(),
             name="superset_in_context_dashboard",
         ),
+        re_path(
+            rf"superset_instructor_dashboard/{COURSE_ID_PATTERN}/?$",
+            views.SupersetInstructorDashboardView.as_view(),
+            name="superset_instructor_dashboard",
+        ),
     ],
     "platform_plugin_aspects",
 )

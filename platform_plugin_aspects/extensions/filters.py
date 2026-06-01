@@ -77,3 +77,32 @@ class AddSupersetTab(PipelineStep):
         )
 
         return data
+
+
+class AddSupersetTabToInstructorDashboard(PipelineStep):
+    """
+    Add superset tab to instructor dashboard app.
+    """
+
+    def run_filter(
+        self, tabs, user, course_key
+    ):  # pylint: disable=arguments-differ, unused-argument
+        """Execute filter that modifies the instructor dashboard context.
+        Args:
+            tabs (list): the list of tabs for the instructor dashboard.
+            user (User): the current user.
+            course_key (str): the course key.
+        """
+        modified_tabs = tabs.copy()
+        tab_id = "aspects"
+        course_id = str(course_key)
+
+        custom_tab = {
+            "tab_id": tab_id,
+            "title": _("Reports"),
+            "url": f"/instructor-dashboard/{course_id}/{tab_id}/",
+            "sort_order": 120,
+        }
+
+        modified_tabs.append(custom_tab)
+        return {"tabs": modified_tabs}
