@@ -104,11 +104,11 @@ dill==0.4.1
     # via
     #   -r requirements/quality.txt
     #   pylint
-distlib==0.4.0
+distlib==0.4.1
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==5.2.14
+django==5.2.15
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -155,7 +155,7 @@ edx-opaque-keys[django]==4.0.0
     #   openedx-filters
 edx-toggles==6.0.0
     # via -r requirements/quality.txt
-filelock==3.29.0
+filelock==3.29.1
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -165,7 +165,7 @@ fs==2.4.16
     # via
     #   -r requirements/quality.txt
     #   xblock
-idna==3.17
+idna==3.18
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -387,7 +387,7 @@ six==1.17.0
     #   fs
     #   prison
     #   python-dateutil
-snowballstemmer==3.1.0
+snowballstemmer==3.1.1
     # via
     #   -r requirements/quality.txt
     #   pydocstyle
@@ -416,7 +416,7 @@ tomlkit==0.15.0
     #   -r requirements/quality.txt
     #   edx-lint
     #   pylint
-tox==4.55.0
+tox==4.55.1
     # via -r requirements/ci.txt
 typing-extensions==4.15.0
     # via
@@ -445,7 +445,7 @@ virtualenv==21.4.2
     # via
     #   -r requirements/ci.txt
     #   tox
-wcwidth==0.7.0
+wcwidth==0.8.0
     # via
     #   -r requirements/quality.txt
     #   prompt-toolkit
@@ -453,7 +453,7 @@ web-fragments==4.0.0
     # via
     #   -r requirements/quality.txt
     #   xblock
-webob==1.8.9
+webob==1.8.10
     # via
     #   -r requirements/quality.txt
     #   xblock
