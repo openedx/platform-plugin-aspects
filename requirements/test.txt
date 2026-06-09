@@ -109,7 +109,7 @@ fs==2.4.16
     # via
     #   -r requirements/base.txt
     #   xblock
-idna==3.17
+idna==3.18
     # via
     #   -r requirements/base.txt
     #   requests
@@ -271,7 +271,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-wcwidth==0.7.0
+wcwidth==0.8.0
     # via
     #   -r requirements/base.txt
     #   prompt-toolkit
@@ -279,7 +279,7 @@ web-fragments==4.0.0
     # via
     #   -r requirements/base.txt
     #   xblock
-webob==1.8.9
+webob==1.8.10
     # via
     #   -r requirements/base.txt
     #   xblock
