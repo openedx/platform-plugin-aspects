@@ -67,6 +67,7 @@ edx-opaque-keys[django]==4.0.0
     # via
     #   -r requirements/base.in
     #   openedx-filters
+    #   xblock
 edx-toggles==6.0.0
     # via -r requirements/base.in
 fs==2.4.16
@@ -159,15 +160,13 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-wcwidth==0.8.0
+wcwidth==0.8.1
     # via prompt-toolkit
 web-fragments==4.0.0
-    # via
-    #   -r requirements/base.in
-    #   xblock
+    # via -r requirements/base.in
 webob==1.8.10
     # via xblock
-xblock==6.1.0
+xblock==6.3.0
     # via -r requirements/base.in
 
 # The following packages are considered to be unsafe in a requirements file:

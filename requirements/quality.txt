@@ -121,6 +121,7 @@ edx-opaque-keys[django]==4.0.0
     # via
     #   -r requirements/test.txt
     #   openedx-filters
+    #   xblock
 edx-toggles==6.0.0
     # via -r requirements/test.txt
 fs==2.4.16
@@ -163,7 +164,7 @@ markupsafe==3.0.3
     #   xblock
 mccabe==0.7.0
     # via pylint
-model-bakery==1.23.4
+model-bakery==1.23.5
     # via
     #   -r requirements/test.txt
     #   django-mock-queries
@@ -216,7 +217,7 @@ pygments==2.20.0
     # via
     #   -r requirements/test.txt
     #   pytest
-pylint==4.0.5
+pylint==4.0.6
     # via
     #   edx-lint
     #   pylint-celery
@@ -238,7 +239,7 @@ pynacl==1.6.2
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-pytest==9.0.3
+pytest==9.1.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -339,19 +340,17 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-wcwidth==0.8.0
+wcwidth==0.8.1
     # via
     #   -r requirements/test.txt
     #   prompt-toolkit
 web-fragments==4.0.0
-    # via
-    #   -r requirements/test.txt
-    #   xblock
+    # via -r requirements/test.txt
 webob==1.8.10
     # via
     #   -r requirements/test.txt
     #   xblock
-xblock==6.1.0
+xblock==6.3.0
     # via -r requirements/test.txt
 
 # The following packages are considered to be unsafe in a requirements file:
