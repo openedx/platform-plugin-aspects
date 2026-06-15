@@ -104,7 +104,7 @@ dill==0.4.1
     # via
     #   -r requirements/quality.txt
     #   pylint
-distlib==0.4.1
+distlib==0.4.3
     # via
     #   -r requirements/ci.txt
     #   virtualenv
@@ -153,9 +153,10 @@ edx-opaque-keys[django]==4.0.0
     # via
     #   -r requirements/quality.txt
     #   openedx-filters
+    #   xblock
 edx-toggles==6.0.0
     # via -r requirements/quality.txt
-filelock==3.29.1
+filelock==3.29.4
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -208,7 +209,7 @@ mccabe==0.7.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-model-bakery==1.23.4
+model-bakery==1.23.5
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
@@ -286,7 +287,7 @@ pygments==2.20.0
     #   -r requirements/quality.txt
     #   diff-cover
     #   pytest
-pylint==4.0.5
+pylint==4.0.6
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -323,7 +324,7 @@ pyproject-hooks==1.2.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==9.0.3
+pytest==9.1.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -337,7 +338,7 @@ python-dateutil==2.9.0.post0
     #   -r requirements/quality.txt
     #   celery
     #   xblock
-python-discovery==1.4.0
+python-discovery==1.4.2
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -441,18 +442,16 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==21.4.2
+virtualenv==21.5.0
     # via
     #   -r requirements/ci.txt
     #   tox
-wcwidth==0.8.0
+wcwidth==0.8.1
     # via
     #   -r requirements/quality.txt
     #   prompt-toolkit
 web-fragments==4.0.0
-    # via
-    #   -r requirements/quality.txt
-    #   xblock
+    # via -r requirements/quality.txt
 webob==1.8.10
     # via
     #   -r requirements/quality.txt
@@ -461,7 +460,7 @@ wheel==0.47.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock==6.1.0
+xblock==6.3.0
     # via -r requirements/quality.txt
 
 # The following packages are considered to be unsafe in a requirements file:
