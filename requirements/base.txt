@@ -14,7 +14,7 @@ billiard==4.2.4
     # via celery
 celery==5.6.3
     # via -r requirements/base.in
-certifi==2026.5.20
+certifi==2026.6.17
     # via requests
 cffi==2.0.0
     # via pynacl
@@ -91,7 +91,7 @@ oauthlib==3.3.1
     # via requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/base.in
-openedx-filters==3.4.1
+openedx-filters==3.5.0
     # via -r requirements/base.in
 packaging==26.2
     # via kombu
@@ -151,7 +151,7 @@ typing-extensions==4.15.0
     # via edx-opaque-keys
 tzdata==2026.2
     # via kombu
-tzlocal==5.3.1
+tzlocal==5.4.3
     # via celery
 urllib3==2.7.0
     # via requests
