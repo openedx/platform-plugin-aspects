@@ -46,7 +46,7 @@ jobs:
 
     - name: Run coverage
       if: matrix.python-version == '3.12' && matrix.toxenv == 'django42'
-      uses: py-cov-action/python-coverage-comment-action@cc6cde2639ed103404ce0da9e75114ae9561e691 # v3
+      uses: py-cov-action/python-coverage-comment-action@5d8df5979747514c914e1c5a12335a7cf9a2745f # v3
       with:
         GITHUB_TOKEN: ${{ github.token }}
         MINIMUM_GREEN: 90
