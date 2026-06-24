@@ -5,8 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches:
-    - '**'
-
+      - "**"
 
 jobs:
   run_tests:
@@ -15,8 +14,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-24.04]
-        python-version: ['3.12']
-        toxenv: [quality, docs, pii_check, django42, django52]
+        python-version: ["3.12"]
+        toxenv: [quality, docs, pii_check, django52]
     permissions:
       # Gives the action the necessary permissions for publishing new
       # comments in pull requests.
@@ -27,38 +26,38 @@ jobs:
       contents: write
 
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-    - name: setup python
-      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
-      with:
-        python-version: ${{ matrix.python-version }}
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: setup python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install pip
-      run: pip install -r requirements/pip.txt
+      - name: Install pip
+        run: pip install -r requirements/pip.txt
 
-    - name: Install Dependencies
-      run: pip install -r requirements/ci.txt
+      - name: Install Dependencies
+        run: pip install -r requirements/ci.txt
 
-    - name: Run Tests
-      env:
-        TOXENV: ${{ matrix.toxenv }}
-      run: tox
+      - name: Run Tests
+        env:
+          TOXENV: ${{ matrix.toxenv }}
+        run: tox
 
-    - name: Run coverage
-      if: matrix.python-version == '3.12' && matrix.toxenv == 'django42'
-      uses: py-cov-action/python-coverage-comment-action@5d8df5979747514c914e1c5a12335a7cf9a2745f # v3
-      with:
-        GITHUB_TOKEN: ${{ github.token }}
-        MINIMUM_GREEN: 90
-        MINIMUM_ORANGE: 85
-        ANNOTATE_MISSING_LINES: true
-        ANNOTATION_TYPE: error
+      - name: Run coverage
+        if: matrix.python-version == '3.12' && matrix.toxenv == 'django42'
+        uses: py-cov-action/python-coverage-comment-action@5d8df5979747514c914e1c5a12335a7cf9a2745f # v3
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          MINIMUM_GREEN: 90
+          MINIMUM_ORANGE: 85
+          ANNOTATE_MISSING_LINES: true
+          ANNOTATION_TYPE: error
 
-    - name: Store Pull Request comment to be posted
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-      if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
-      with:
-        # If you use a different name, update COMMENT_ARTIFACT_NAME accordingly
-        name: python-coverage-comment-action
-        # If you use a different name, update COMMENT_FILENAME accordingly
-        path: python-coverage-comment-action.txt
+      - name: Store Pull Request comment to be posted
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
+        with:
+          # If you use a different name, update COMMENT_ARTIFACT_NAME accordingly
+          name: python-coverage-comment-action
+          # If you use a different name, update COMMENT_FILENAME accordingly
+          path: python-coverage-comment-action.txt

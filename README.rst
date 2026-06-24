@@ -213,10 +213,11 @@ Event Sink Configuration
   - ``module`` - The module path of the model.
   - ``model`` - The model class name.
 
-Event Sinks are disabled by default. To enable them, you need to enable the following
-waffle flag: ``event_sink_clickhouse.{{model_name}}.enabled``, where model_name is the name
-of the model that you want to enable. Or, you can enable them via settings by setting
-``EVENT_SINK_CLICKHOUSE_{{model_name}}_ENABLED`` to ``True``.
+Event Sinks are disabled by default from this repository, but enabled in the Aspects Tutor
+plugin (tutor-contrib-aspects). If not using the Tutor plugin you will need to enable the
+following waffle flags: ``event_sink_clickhouse.{{model_name}}.enabled``, where model_name
+is the name of the model that you want to enable. Or, you can enable them via settings by
+setting ``EVENT_SINK_CLICKHOUSE_{{model_name}}_ENABLED`` to ``True``.
 
 
 Getting Help
