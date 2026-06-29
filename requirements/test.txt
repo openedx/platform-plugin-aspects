@@ -34,7 +34,7 @@ charset-normalizer==3.4.7
     # via
     #   -r requirements/base.txt
     #   requests
-click==8.4.1
+click==8.4.2
     # via
     #   -r requirements/base.txt
     #   celery
@@ -60,7 +60,7 @@ code-annotations==3.0.0
     #   -r requirements/base.txt
     #   -r requirements/test.in
     #   edx-toggles
-coverage[toml]==7.14.2
+coverage[toml]==7.14.3
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -138,7 +138,7 @@ markupsafe==3.0.3
     #   jinja2
     #   mako
     #   xblock
-model-bakery==1.23.5
+model-bakery==1.24.0
     # via django-mock-queries
 oauthlib==3.3.1
     # via
@@ -146,7 +146,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/base.txt
-openedx-filters==3.5.0
+openedx-filters==3.7.0
     # via -r requirements/base.txt
 packaging==26.2
     # via
@@ -209,7 +209,7 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==8.0.0
+redis==8.0.1
     # via -r requirements/base.txt
 requests==2.34.2
     # via

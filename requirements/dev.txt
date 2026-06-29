@@ -53,7 +53,7 @@ charset-normalizer==3.4.7
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.4.1
+click==8.4.2
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -92,7 +92,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.14.2
+coverage[toml]==7.14.3
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -209,7 +209,7 @@ mccabe==0.7.0
     # via
     #   -r requirements/quality.txt
     #   pylint
-model-bakery==1.23.5
+model-bakery==1.24.0
     # via
     #   -r requirements/quality.txt
     #   django-mock-queries
@@ -223,7 +223,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/quality.txt
-openedx-filters==3.5.0
+openedx-filters==3.7.0
     # via -r requirements/quality.txt
 packaging==26.2
     # via
@@ -363,7 +363,7 @@ pyyaml==6.0.3
     #   responses
     #   superset-api-client
     #   xblock
-redis==8.0.0
+redis==8.0.1
     # via -r requirements/quality.txt
 requests==2.34.2
     # via
@@ -417,7 +417,7 @@ tomlkit==0.15.0
     #   -r requirements/quality.txt
     #   edx-lint
     #   pylint
-tox==4.55.1
+tox==4.56.1
     # via -r requirements/ci.txt
 typing-extensions==4.15.0
     # via
