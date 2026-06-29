@@ -20,7 +20,7 @@ cffi==2.0.0
     # via pynacl
 charset-normalizer==3.4.7
     # via requests
-click==8.4.1
+click==8.4.2
     # via
     #   celery
     #   click-didyoumean
@@ -91,7 +91,7 @@ oauthlib==3.3.1
     # via requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/base.in
-openedx-filters==3.5.0
+openedx-filters==3.7.0
     # via -r requirements/base.in
 packaging==26.2
     # via kombu
@@ -120,7 +120,7 @@ pyyaml==6.0.3
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==8.0.0
+redis==8.0.1
     # via -r requirements/base.in
 requests==2.34.2
     # via
