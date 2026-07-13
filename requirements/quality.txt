@@ -32,11 +32,11 @@ certifi==2026.6.17
     # via
     #   -r requirements/test.txt
     #   requests
-cffi==2.0.0
+cffi==2.1.0
     # via
     #   -r requirements/test.txt
     #   pynacl
-charset-normalizer==3.4.7
+charset-normalizer==3.4.9
     # via
     #   -r requirements/test.txt
     #   requests
@@ -71,7 +71,7 @@ code-annotations==3.0.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.15.0
+coverage[toml]==7.15.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -79,7 +79,7 @@ ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.4.1
     # via pylint
-django==5.2.15
+django==5.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -225,7 +225,7 @@ pylint==4.0.6
     #   pylint-plugin-utils
 pylint-celery==0.3
     # via edx-lint
-pylint-django==2.7.0
+pylint-django==2.8.0
     # via edx-lint
 pylint-plugin-utils==0.9.0
     # via
@@ -321,7 +321,7 @@ typing-extensions==4.16.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
-tzdata==2026.2
+tzdata==2026.3
     # via
     #   -r requirements/test.txt
     #   kombu
@@ -350,7 +350,7 @@ webob==1.8.10
     # via
     #   -r requirements/test.txt
     #   xblock
-xblock==6.3.0
+xblock==6.3.1
     # via -r requirements/test.txt
 
 # The following packages are considered to be unsafe in a requirements file:

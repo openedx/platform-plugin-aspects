@@ -29,7 +29,7 @@ black==26.5.1
     # via
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
-build==1.5.0
+build==1.5.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -43,13 +43,13 @@ certifi==2026.6.17
     # via
     #   -r requirements/quality.txt
     #   requests
-cffi==2.0.0
+cffi==2.1.0
     # via
     #   -r requirements/quality.txt
     #   pynacl
 chardet==7.4.3
     # via diff-cover
-charset-normalizer==3.4.7
+charset-normalizer==3.4.9
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -92,7 +92,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.15.0
+coverage[toml]==7.15.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -108,7 +108,7 @@ distlib==0.4.3
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==5.2.15
+django==5.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -156,7 +156,7 @@ edx-opaque-keys[django]==4.0.0
     #   xblock
 edx-toggles==6.0.0
     # via -r requirements/quality.txt
-filelock==3.29.5
+filelock==3.29.7
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -298,7 +298,7 @@ pylint-celery==0.3
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-pylint-django==2.7.0
+pylint-django==2.8.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -338,7 +338,7 @@ python-dateutil==2.9.0.post0
     #   -r requirements/quality.txt
     #   celery
     #   xblock
-python-discovery==1.4.3
+python-discovery==1.4.4
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -417,13 +417,13 @@ tomlkit==0.15.0
     #   -r requirements/quality.txt
     #   edx-lint
     #   pylint
-tox==4.56.1
+tox==4.56.4
     # via -r requirements/ci.txt
 typing-extensions==4.16.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
-tzdata==2026.2
+tzdata==2026.3
     # via
     #   -r requirements/quality.txt
     #   kombu
@@ -442,7 +442,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==21.5.1
+virtualenv==21.6.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -460,7 +460,7 @@ wheel==0.47.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock==6.3.0
+xblock==6.3.1
     # via -r requirements/quality.txt
 
 # The following packages are considered to be unsafe in a requirements file:
