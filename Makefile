@@ -29,57 +29,36 @@ coverage: clean ## generate and view HTML coverage report
 	$(BROWSER)htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	tox -e docs
+	uv run tox -e docs
 	$(BROWSER)docs/_build/html/index.html
 
-# Define PIP_COMPILE_OPTS=-v to get more information during make upgrade.
-PIP_COMPILE = pip-compile --upgrade $(PIP_COMPILE_OPTS)
-
-upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
-upgrade: ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
-	pip install -qr requirements/pip-tools.txt
-	pip install -qr requirements/pip.txt
-	# Make sure to compile files after any other files they include!
-	$(PIP_COMPILE) --allow-unsafe -o requirements/pip.txt requirements/pip.in
-	$(PIP_COMPILE) -o requirements/pip-tools.txt requirements/pip-tools.in
-	pip install -qr requirements/pip.txt
-	pip install -qr requirements/pip-tools.txt
-	$(PIP_COMPILE) -o requirements/base.txt requirements/base.in
-	$(PIP_COMPILE) -o requirements/test.txt requirements/test.in
-	$(PIP_COMPILE) -o requirements/doc.txt requirements/doc.in
-	$(PIP_COMPILE) -o requirements/quality.txt requirements/quality.in
-	$(PIP_COMPILE) -o requirements/ci.txt requirements/ci.in
-	$(PIP_COMPILE) -o requirements/dev.txt requirements/dev.in
-	# Let tox control the Django version for tests
-	sed '/^[dD]jango==/d' requirements/test.txt > requirements/test.tmp
-	mv requirements/test.tmp requirements/test.txt
+upgrade: ## update the uv.lock with the latest packages satisfying pyproject.toml constraints
+	uv run --with edx-lint edx_lint write_uv_constraints pyproject.toml
+	uv lock --upgrade
 
 quality: ## check coding style with pycodestyle and pylint
-	tox -e quality
+	uv run tox -e quality
 
 pii_check: ## check for PII annotations on all Django models
-	tox -e pii_check
+	uv run tox -e pii_check
 
-piptools: ## install pinned version of pip-compile and pip-sync
-	pip install -r requirements/pip.txt
-	pip install -r requirements/pip-tools.txt
-
-requirements: clean_tox piptools ## install development environment requirements
-	pip-sync -q requirements/dev.txt requirements/private.*
+requirements: clean_tox ## install development environment requirements
+	uv sync --group dev
+	uv tool install tox --with tox-uv
 
 test: clean ## run tests in the current virtualenv
-	pytest
+	uv run tox -e py312-django52
 
 diff_cover: test ## find diff lines that need test coverage
 	diff-cover coverage.xml
 
 format:
-	isort platform_plugin_aspects
+	isort src/platform_plugin_aspects
 	black .
 
 test-all: quality pii_check ## run tests on every supported Python/Django combination
-	tox
-	tox -e docs
+	uv run tox
+	uv run tox -e docs
 
 validate: quality pii_check test ## run tests and quality checks
 
@@ -90,14 +69,14 @@ selfcheck: ## check that the Makefile is well-formed
 
 extract_translations: ## extract strings to be translated, outputting .mo files
 	rm -rf docs/_build
-	cd platform_plugin_aspects && django-admin makemessages -l en -v1 -d django
-	cd platform_plugin_aspects && django-admin makemessages -l en -v1 -d djangojs
+	cd src/platform_plugin_aspects && django-admin makemessages -l en -v1 -d django
+	cd src/platform_plugin_aspects && django-admin makemessages -l en -v1 -d djangojs
 
 compile_translations: ## compile translation files, outputting .po files for each supported language
-	cd platform_plugin_aspects && i18n_tool generate
+	cd src/platform_plugin_aspects && i18n_tool generate
 
 detect_changed_source_translations:
-	cd platform_plugin_aspects && i18n_tool changed
+	cd src/platform_plugin_aspects && i18n_tool changed
 
 ifeq ($(OPENEDX_ATLAS_PULL),)
 pull_translations: ## Pull translations from Transifex
@@ -105,8 +84,8 @@ pull_translations: ## Pull translations from Transifex
 else
 # Experimental: OEP-58 Pulls translations using atlas
 pull_translations:
-	find platform_plugin_aspects/conf/locale -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
-	atlas pull $(OPENEDX_ATLAS_ARGS) translations/platform-plugin-aspects/platform_plugin_aspects/conf/locale:platform_plugin_aspects/conf/locale
+	find src/platform_plugin_aspects/conf/locale -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+	atlas pull $(OPENEDX_ATLAS_ARGS) translations/platform-plugin-aspects/platform_plugin_aspects/conf/locale:src/platform_plugin_aspects/conf/locale
 	python manage.py compilemessages
 
 	@echo "Translations have been pulled via Atlas and compiled."
@@ -116,7 +95,7 @@ push_translations: ## push source translation files (.po) from Transifex
 	tx push -s
 
 dummy_translations: ## generate dummy translation (.po) files
-	cd platform_plugin_aspects && i18n_tool dummy
+	cd src/platform_plugin_aspects && i18n_tool dummy
 
 build_dummy_translations: extract_translations dummy_translations compile_translations ## generate and compile dummy translation files
 
