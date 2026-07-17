@@ -1,0 +1,6 @@
+# Requirements for building documentation on Read the Docs.
+# These are the doc dependency group from pyproject.toml,
+# kept here for RTD compatibility (RTD does not support PEP 735 dependency-groups).
+Sphinx
+sphinx-book-theme
+doc8

@@ -183,6 +183,7 @@ norecursedirs = [".* docs requirements site-packages"]
 # https://coverage.readthedocs.io/en/latest/config.html
 [tool.coverage.run]
 branch = true
+relative_files = true
 source_pkgs = ["platform_plugin_aspects"]
 omit = [
     "test_settings.py",
