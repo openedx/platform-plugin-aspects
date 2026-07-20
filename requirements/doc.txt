@@ -16,7 +16,7 @@ appdirs==1.4.4
     # via
     #   -r requirements/test.txt
     #   fs
-asgiref==3.11.1
+asgiref==3.12.1
     # via
     #   -r requirements/test.txt
     #   django
@@ -30,7 +30,7 @@ billiard==4.2.4
     # via
     #   -r requirements/test.txt
     #   celery
-build==1.5.1
+build==1.5.0
     # via -r requirements/doc.in
 celery==5.6.3
     # via -r requirements/test.txt
@@ -72,7 +72,7 @@ code-annotations==3.0.0
     # via
     #   -r requirements/test.txt
     #   edx-toggles
-coverage[toml]==7.15.1
+coverage[toml]==7.15.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -152,7 +152,7 @@ jaraco-classes==3.4.0
     # via keyring
 jaraco-context==6.1.2
     # via keyring
-jaraco-functools==4.5.0
+jaraco-functools==4.6.0
     # via keyring
 jeepney==0.9.0
     # via
@@ -162,6 +162,7 @@ jinja2==3.1.6
     # via
     #   -r requirements/test.txt
     #   code-annotations
+    #   pydata-sphinx-theme
     #   sphinx
 keyring==25.7.0
     # via twine
@@ -203,7 +204,7 @@ oauthlib==3.3.1
     #   requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/test.txt
-openedx-filters==3.7.0
+openedx-filters==3.8.0
     # via -r requirements/test.txt
 packaging==26.2
     # via
@@ -232,7 +233,7 @@ pycparser==3.0
     # via
     #   -r requirements/test.txt
     #   cffi
-pydata-sphinx-theme==0.16.1
+pydata-sphinx-theme==0.20.0
     # via sphinx-book-theme
 pygments==2.20.0
     # via
@@ -290,6 +291,7 @@ redis==8.0.1
 requests==2.34.2
     # via
     #   -r requirements/test.txt
+    #   pydata-sphinx-theme
     #   requests-oauthlib
     #   requests-toolbelt
     #   responses
@@ -326,14 +328,14 @@ six==1.17.0
     #   python-dateutil
 snowballstemmer==3.1.1
     # via sphinx
-soupsieve==2.8.4
+soupsieve==2.9
     # via beautifulsoup4
 sphinx==9.1.0
     # via
     #   -r requirements/doc.in
     #   pydata-sphinx-theme
     #   sphinx-book-theme
-sphinx-book-theme==1.2.0
+sphinx-book-theme==1.4.0
     # via -r requirements/doc.in
 sphinxcontrib-applehelp==2.0.0
     # via sphinx
@@ -371,7 +373,6 @@ typing-extensions==4.16.0
     #   -r requirements/test.txt
     #   beautifulsoup4
     #   edx-opaque-keys
-    #   pydata-sphinx-theme
 tzdata==2026.3
     # via
     #   -r requirements/test.txt
