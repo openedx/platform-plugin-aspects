@@ -1360,6 +1360,13 @@ dependencies = [
     { name = "xblock" },
 ]
 
+[package.optional-dependencies]
+docs = [
+    { name = "doc8" },
+    { name = "sphinx" },
+    { name = "sphinx-book-theme" },
+]
+
 [package.dev-dependencies]
 ci = [
     { name = "tox" },
@@ -1455,6 +1462,7 @@ requires-dist = [
     { name = "django" },
     { name = "django-crum" },
     { name = "djangorestframework" },
+    { name = "doc8", marker = "extra == 'docs'" },
     { name = "edx-django-utils" },
     { name = "edx-opaque-keys" },
     { name = "edx-toggles" },
@@ -1463,10 +1471,13 @@ requires-dist = [
     { name = "prison" },
     { name = "redis" },
     { name = "requests" },
+    { name = "sphinx", marker = "extra == 'docs'" },
+    { name = "sphinx-book-theme", marker = "extra == 'docs'" },
     { name = "superset-api-client" },
     { name = "web-fragments" },
     { name = "xblock" },
 ]
+provides-extras = ["docs"]
 
 [package.metadata.requires-dev]
 ci = [
