@@ -1,0 +1,217 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "platform-plugin-aspects"
+dynamic = ["version"]
+description = "Aspects plugins for edx-platform"
+readme = "README.rst"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [
+    {name = "Open edX Project", email = "oscm@openedx.org"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.2",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = [
+    "Python",
+    "edx",
+]
+dependencies = [
+    "Django",
+    "XBlock",
+    "celery",
+    "django-crum",
+    "djangorestframework",
+    "edx-django-utils",
+    "edx-opaque-keys",
+    "edx-toggles",
+    "openedx-atlas",
+    "openedx-filters",
+    "prison",
+    "redis",
+    "requests",
+    "superset-api-client",
+    "web-fragments",
+]
+
+[project.optional-dependencies]
+docs = [
+    "Sphinx",
+    "sphinx-book-theme",
+    "doc8",
+]
+
+[project.urls]
+Repository = "https://github.com/openedx/platform-plugin-aspects"
+
+[project.entry-points."lms.djangoapp"]
+platform_plugin_aspects = "platform_plugin_aspects.apps:PlatformPluginAspectsConfig"
+
+[project.entry-points."cms.djangoapp"]
+platform_plugin_aspects = "platform_plugin_aspects.apps:PlatformPluginAspectsConfig"
+
+[project.entry-points."xblock.v1"]
+superset = "platform_plugin_aspects.xblock:SupersetXBlock"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests*", "*.tests", "*.tests.*", "docs*"]
+
+[tool.setuptools.package-data]
+"*" = [
+    "conf/**/*",
+    "static/**/*",
+    "templates/**/*",
+    "translations/**/*",
+]
+
+[dependency-groups]
+# Base test packages, no Django version pinned
+test-base = [
+    "code-annotations",
+    "ddt",
+    "django-mock-queries",
+    "pytest-cov",
+    "pytest-django",
+    "responses",
+]
+# Default test group: current supported Django version
+test = [
+    {include-group = "test-base"},
+    "Django>=5.2,<5.3",
+]
+# Django 4.2 support
+django42 = [
+    {include-group = "test-base"},
+    "Django>=4.2,<5.0",
+]
+# Django 5.2 support
+django52 = [
+    {include-group = "test-base"},
+    "Django>=5.2,<5.3",
+]
+quality = [
+    {include-group = "test-base"},
+    "black",
+    "edx-lint",
+    "isort",
+    "pycodestyle",
+    "pydocstyle",
+]
+doc = [
+    {include-group = "test-base"},
+    "Sphinx",
+    "build",
+    "doc8",
+    "sphinx-book-theme",
+    "twine",
+]
+ci = [
+    "tox",
+    "tox-uv",
+]
+dev = [
+    {include-group = "test-base"},
+    {include-group = "quality"},
+    {include-group = "doc"},
+    {include-group = "ci"},
+    "diff-cover",
+    "edx-i18n-tools",
+]
+
+# edx-lint uv constraints configuration
+# Add any repo-specific version overrides here; run `edx_lint write_uv_constraints` to apply.
+[tool.edx_lint]
+uv_constraints = []
+
+# uv configuration
+# https://docs.astral.sh/uv/reference/settings/
+#  DO NOT EDIT constraint-dependencies DIRECTLY.
+#  This list is managed by `edx_lint write_uv_constraints`
+#  and will be overwritten the next time `make upgrade` is run.
+#  - GLOBAL constraints: edit edx_lint/files/common_constraints.txt
+#  - REPO-SPECIFIC constraints: edit [tool.edx_lint].uv_constraints in this file
+[tool.uv]
+package = true
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+]
+conflicts = [
+    [
+        {group = "test"},
+        {group = "django42"},
+        {group = "django52"},
+    ],
+]
+
+# isort configuration
+[tool.isort]
+indent = "    "
+skip = ["migrations"]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+line_length = 88
+
+# Setuptools SCM configuration
+# https://setuptools-scm.readthedocs.io/
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+
+# Semantic Release configuration
+# https://python-semantic-release.readthedocs.io/
+[tool.semantic_release]
+build_command = "pip install build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build"
+
+# Pytest configuration
+# https://docs.pytest.org/en/stable/reference/customize.html
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "test_settings"
+addopts = "--cov platform_plugin_aspects --cov-report term-missing --cov-report xml --log-level=INFO"
+norecursedirs = [".* docs site-packages"]
+
+# Coverage configuration
+# https://coverage.readthedocs.io/en/latest/config.html
+[tool.coverage.run]
+branch = true
+relative_files = true
+source_pkgs = ["platform_plugin_aspects"]
+omit = [
+    "test_settings.py",
+    "*/migrations/*",
+    "*admin.py",
+    "*/static/*",
+    "*/templates/*",
+    "**/tests/*",
+    "*/settings/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"

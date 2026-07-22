@@ -13,34 +13,17 @@ serve to show the default.
 """
 
 import os
-import re
 import sys
 from datetime import datetime
+from importlib.metadata import version as get_version
 from subprocess import check_call
 
 from django import setup as django_setup
 
-
-def get_version(*file_paths):
-    """
-    Extract the version string from the file.
-
-    Input:
-     - file_paths: relative path fragments to file with
-                   version string
-    """
-    filename = os.path.join(os.path.dirname(__file__), *file_paths)
-    version_file = open(filename, encoding="utf8").read()
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
-    if version_match:
-        return version_match.group(1)
-    raise RuntimeError("Unable to find version string.")
-
-
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(REPO_ROOT)
 
-VERSION = get_version("../platform_plugin_aspects", "__init__.py")
+VERSION = get_version("platform-plugin-aspects")
 # Configure Django for autodoc usage
 os.environ["DJANGO_SETTINGS_MODULE"] = "test_settings"
 django_setup()
@@ -555,8 +538,8 @@ def on_init(app):  # pylint: disable=unused-argument
             apidoc_path,
             "-o",
             docs_path,
-            os.path.join(root_path, "platform_plugin_aspects"),
-            os.path.join(root_path, "platform_plugin_aspects/migrations"),
+            os.path.join(root_path, "src", "platform_plugin_aspects"),
+            os.path.join(root_path, "src", "platform_plugin_aspects", "migrations"),
         ]
     )
 

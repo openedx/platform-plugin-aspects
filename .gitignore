@@ -63,3 +63,5 @@ docs/platform_plugin_aspects.*.rst
 # Private requirements
 requirements/private.in
 requirements/private.txt
+
+pii_report/

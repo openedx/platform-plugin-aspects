@@ -1,5 +1,1 @@
-include LICENSE.txt
-include README.rst
-include requirements/base.in
-include requirements/constraints.txt
-recursive-include platform_plugin_aspects *.html *.png *.gif *.js *.css *.jpg *.jpeg *.svg
+recursive-include src/platform_plugin_aspects *.html *.png *.gif *.js *.css *.jpg *.jpeg *.svg

@@ -6,10 +6,12 @@ on:
   pull_request:
     branches:
       - "**"
+  # So the release workflow can run CI before cutting a release.
+  workflow_call:
 
 jobs:
   run_tests:
-    name: tests
+    name: ${{ matrix.toxenv }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -27,24 +29,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: setup python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ matrix.python-version }}
+          # setuptools-scm needs real tag history to compute a version; a default
+          # shallow/single-commit checkout can't see any tags.
+          fetch-depth: 0
 
-      - name: Install pip
-        run: pip install -r requirements/pip.txt
+      - name: Setup uv
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
+        with:
+          enable-cache: true
+          python-version: "${{ matrix.python-version }}"
 
       - name: Install Dependencies
-        run: pip install -r requirements/ci.txt
+        run: uv sync --group ci
 
       - name: Run Tests
-        env:
-          TOXENV: ${{ matrix.toxenv }}
-        run: tox
+        run: uv run tox -e ${{ matrix.toxenv }}
 
       - name: Run coverage
-        if: matrix.python-version == '3.12' && matrix.toxenv == 'django42'
+        id: coverage_comment
+        if: matrix.python-version == '3.12' && matrix.toxenv == 'django52'
         uses: py-cov-action/python-coverage-comment-action@5d8df5979747514c914e1c5a12335a7cf9a2745f # v3
         with:
           GITHUB_TOKEN: ${{ github.token }}
