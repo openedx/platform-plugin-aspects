@@ -1,0 +1,70 @@
+.annotation_safe_list.yml:
+- annotation_data: This model has no PII
+  annotation_token: '.. no_pii:'
+  extra:
+    full_comment: '{''.. no_pii:'': ''This model has no PII''}'
+    object_id: auth.Permission
+  filename: .annotation_safe_list.yml
+  found_by: safelist
+  line_number: 0
+  report_group_id: 1
+- annotation_data: This model has no PII
+  annotation_token: '.. no_pii:'
+  extra:
+    full_comment: '{''.. no_pii:'': ''This model has no PII''}'
+    object_id: auth.Group
+  filename: .annotation_safe_list.yml
+  found_by: safelist
+  line_number: 0
+  report_group_id: 2
+- annotation_data: This model has no PII
+  annotation_token: '.. no_pii:'
+  extra:
+    full_comment: '{''.. no_pii:'': ''This model has no PII''}'
+    object_id: contenttypes.ContentType
+  filename: .annotation_safe_list.yml
+  found_by: safelist
+  line_number: 0
+  report_group_id: 3
+- annotation_data: This model minimally contains a username, password, and email
+  annotation_token: .. pii
+  extra:
+    full_comment: '{''.. pii'': ''This model minimally contains a username, password,
+      and email'', ''.. pii_types'': ''username, email_address, password'', ''.. pii_retirement'':
+      ''consumer_api''}'
+    object_id: auth.User
+  filename: .annotation_safe_list.yml
+  found_by: safelist
+  line_number: 0
+  report_group_id: 4
+- annotation_data: username, email_address, password
+  annotation_token: .. pii_types
+  extra:
+    full_comment: '{''.. pii'': ''This model minimally contains a username, password,
+      and email'', ''.. pii_types'': ''username, email_address, password'', ''.. pii_retirement'':
+      ''consumer_api''}'
+    object_id: auth.User
+  filename: .annotation_safe_list.yml
+  found_by: safelist
+  line_number: 0
+  report_group_id: 4
+- annotation_data: consumer_api
+  annotation_token: .. pii_retirement
+  extra:
+    full_comment: '{''.. pii'': ''This model minimally contains a username, password,
+      and email'', ''.. pii_types'': ''username, email_address, password'', ''.. pii_retirement'':
+      ''consumer_api''}'
+    object_id: auth.User
+  filename: .annotation_safe_list.yml
+  found_by: safelist
+  line_number: 0
+  report_group_id: 4
+- annotation_data: This model has no PII
+  annotation_token: '.. no_pii:'
+  extra:
+    full_comment: '{''.. no_pii:'': ''This model has no PII''}'
+    object_id: sessions.Session
+  filename: .annotation_safe_list.yml
+  found_by: safelist
+  line_number: 0
+  report_group_id: 5

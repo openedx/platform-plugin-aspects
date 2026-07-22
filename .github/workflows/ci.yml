@@ -14,7 +14,6 @@ jobs:
     name: ${{ matrix.toxenv }}
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
       matrix:
         os: [ubuntu-24.04]
         python-version: ["3.12"]

@@ -184,7 +184,7 @@ build_command = "pip install build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSIO
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "test_settings"
 addopts = "--cov platform_plugin_aspects --cov-report term-missing --cov-report xml --log-level=INFO"
-norecursedirs = [".* docs requirements site-packages"]
+norecursedirs = [".* docs site-packages"]
 
 # Coverage configuration
 # https://coverage.readthedocs.io/en/latest/config.html
