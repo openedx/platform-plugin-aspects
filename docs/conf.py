@@ -21,7 +21,6 @@ from subprocess import check_call
 from django import setup as django_setup
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(REPO_ROOT, "src"))
 sys.path.append(REPO_ROOT)
 
 VERSION = get_version("platform-plugin-aspects")

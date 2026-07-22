@@ -45,6 +45,13 @@ dependencies = [
     "web-fragments",
 ]
 
+[project.optional-dependencies]
+docs = [
+    "Sphinx",
+    "sphinx-book-theme",
+    "doc8",
+]
+
 [project.urls]
 Repository = "https://github.com/openedx/platform-plugin-aspects"
 
