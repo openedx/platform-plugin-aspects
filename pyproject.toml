@@ -1,0 +1,166 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "platform-plugin-aspects"
+dynamic = ["version"]
+description = "Aspects plugins for edx-platform"
+readme = "README.rst"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE.txt"]
+authors = [
+    {name = "Open edX Project", email = "oscm@openedx.org"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Django",
+    "Framework :: Django :: 5.2",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["Python", "edx"]
+dependencies = [
+    "openedx-atlas",
+    "openedx-filters",
+    "web_fragments",
+    "superset-api-client",
+    "django_crum",
+    "celery",
+    "Django",
+    "redis",
+    "requests",
+    "edx-django-utils",
+    "edx-opaque-keys",
+    "djangorestframework",
+    "edx-toggles",
+    "XBlock",
+    "prison",
+]
+
+[project.urls]
+Repository = "https://github.com/openedx/platform-plugin-aspects"
+
+[project.entry-points."lms.djangoapp"]
+platform_plugin_aspects = "platform_plugin_aspects.apps:PlatformPluginAspectsConfig"
+
+[project.entry-points."cms.djangoapp"]
+platform_plugin_aspects = "platform_plugin_aspects.apps:PlatformPluginAspectsConfig"
+
+[project.entry-points."xblock.v1"]
+superset = "platform_plugin_aspects.xblock:SupersetXBlock"
+
+[tool.setuptools]
+include-package-data = true
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests*", "*.tests", "*.tests.*"]
+
+[tool.setuptools.package-data]
+"*" = [
+    "conf/**/*",
+    "static/**/*",
+    "templates/**/*",
+    "translations/**/*",
+]
+
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+
+[dependency-groups]
+test = [
+    "pytest-cov",
+    "pytest-django",
+    "code-annotations",
+    "responses",
+    "ddt",
+    "django-mock-queries",
+    "Django>=5.2,<6.0",
+]
+
+quality = [
+    {include-group = "test"},
+    "edx-lint",
+    "isort",
+    "pycodestyle",
+    "pydocstyle",
+    "black",
+]
+
+doc = [
+    {include-group = "test"},
+    "doc8",
+    "sphinx-book-theme",
+    "twine",
+    "build",
+    "Sphinx",
+]
+
+ci = [
+    "tox",
+    "tox-uv",
+]
+
+dev = [
+    {include-group = "quality"},
+    {include-group = "ci"},
+    {include-group = "doc"},
+    "diff-cover",
+    "edx-i18n-tools",
+    "black",
+]
+
+[tool.uv]
+package = true
+
+#  DO NOT EDIT constraint-dependencies DIRECTLY.
+#  This list is managed by `edx_lint write_uv_constraints`
+#  and will be overwritten the next time `make upgrade` is run.
+#  - GLOBAL constraints: edit edx_lint/files/common_constraints.txt
+#  - REPO-SPECIFIC constraints: edit [tool.edx_lint].uv_constraints in this file
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+]
+[tool.edx_lint]
+uv_constraints = []
+
+[tool.coverage.run]
+branch = true
+relative_files = true
+data_file = ".coverage"
+source = ["platform_plugin_aspects"]
+omit = [
+    "test_settings.py",
+    "*/migrations/*",
+    "*admin.py",
+    "*/static/*",
+    "*/templates/*",
+    "**/tests/*",
+    "*/settings/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "test_settings"
+addopts = "--cov platform_plugin_aspects --cov-report term-missing --cov-report xml --log-level=INFO"
+norecursedirs = [".tox", "docs", "requirements", "site-packages"]
+
+[tool.isort]
+indent = "    "
+skip = ["migrations"]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+line_length = 88
+
+[tool.semantic_release]
+build_command = "pip install build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build"

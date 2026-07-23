@@ -1,63 +1,33 @@
-name: Python CI
+name: CI
 
 on:
   push:
     branches: [main]
   pull_request:
-    branches:
-      - "**"
+  workflow_call: # allows release.yml to call this as a reusable workflow
 
 jobs:
   run_tests:
-    name: tests
-    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.toxenv }}
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-24.04]
         python-version: ["3.12"]
         toxenv: [quality, docs, pii_check, django52]
-    permissions:
-      # Gives the action the necessary permissions for publishing new
-      # comments in pull requests.
-      pull-requests: write
-      # Gives the action the necessary permissions for pushing data to the
-      # python-coverage-comment-action branch, and for editing existing
-      # comments (to avoid publishing multiple comments in the same PR)
-      contents: write
 
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: setup python
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
         with:
-          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+          python-version: "${{ matrix.python-version }}"
 
-      - name: Install pip
-        run: pip install -r requirements/pip.txt
+      - name: Install CI dependencies
+        run: uv sync --group ci
 
-      - name: Install Dependencies
-        run: pip install -r requirements/ci.txt
-
-      - name: Run Tests
-        env:
-          TOXENV: ${{ matrix.toxenv }}
-        run: tox
-
-      - name: Run coverage
-        if: matrix.python-version == '3.12' && matrix.toxenv == 'django42'
-        uses: py-cov-action/python-coverage-comment-action@5d8df5979747514c914e1c5a12335a7cf9a2745f # v3
-        with:
-          GITHUB_TOKEN: ${{ github.token }}
-          MINIMUM_GREEN: 90
-          MINIMUM_ORANGE: 85
-          ANNOTATE_MISSING_LINES: true
-          ANNOTATION_TYPE: error
-
-      - name: Store Pull Request comment to be posted
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
-        with:
-          # If you use a different name, update COMMENT_ARTIFACT_NAME accordingly
-          name: python-coverage-comment-action
-          # If you use a different name, update COMMENT_FILENAME accordingly
-          path: python-coverage-comment-action.txt
+      - name: Run tox
+        run: uv run tox -e ${{ matrix.toxenv }}

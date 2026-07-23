@@ -13,34 +13,21 @@ serve to show the default.
 """
 
 import os
-import re
 import sys
 from datetime import datetime
+from importlib.metadata import PackageNotFoundError, version
 from subprocess import check_call
 
 from django import setup as django_setup
 
-
-def get_version(*file_paths):
-    """
-    Extract the version string from the file.
-
-    Input:
-     - file_paths: relative path fragments to file with
-                   version string
-    """
-    filename = os.path.join(os.path.dirname(__file__), *file_paths)
-    version_file = open(filename, encoding="utf8").read()
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
-    if version_match:
-        return version_match.group(1)
-    raise RuntimeError("Unable to find version string.")
-
-
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(REPO_ROOT, "src"))
 sys.path.append(REPO_ROOT)
 
-VERSION = get_version("../platform_plugin_aspects", "__init__.py")
+try:
+    VERSION = version("platform-plugin-aspects")
+except PackageNotFoundError:
+    VERSION = "unknown"
 # Configure Django for autodoc usage
 os.environ["DJANGO_SETTINGS_MODULE"] = "test_settings"
 django_setup()
