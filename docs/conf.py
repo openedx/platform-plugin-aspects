@@ -542,8 +542,8 @@ def on_init(app):  # pylint: disable=unused-argument
             apidoc_path,
             "-o",
             docs_path,
-            os.path.join(root_path, "platform_plugin_aspects"),
-            os.path.join(root_path, "platform_plugin_aspects/migrations"),
+            os.path.join(root_path, "src", "platform_plugin_aspects"),
+            os.path.join(root_path, "src", "platform_plugin_aspects", "migrations"),
         ]
     )
 
