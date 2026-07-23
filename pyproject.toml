@@ -41,6 +41,15 @@ dependencies = [
     "prison",
 ]
 
+[project.optional-dependencies]
+doc = [
+    "doc8",
+    "sphinx-book-theme",
+    "twine",
+    "build",
+    "Sphinx",
+]
+
 [project.urls]
 Repository = "https://github.com/openedx/platform-plugin-aspects"
 
