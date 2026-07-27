@@ -22,7 +22,7 @@ billiard==4.2.4
     #   celery
 celery==5.6.3
     # via -r requirements/base.txt
-certifi==2026.6.17
+certifi==2026.7.22
     # via
     #   -r requirements/base.txt
     #   requests
@@ -159,7 +159,7 @@ pluggy==1.6.0
     #   pytest-cov
 prison==0.2.1
     # via -r requirements/base.txt
-prompt-toolkit==3.0.52
+prompt-toolkit==3.0.53
     # via
     #   -r requirements/base.txt
     #   click-repl
@@ -198,7 +198,7 @@ python-slugify==8.0.4
     # via
     #   -r requirements/base.txt
     #   code-annotations
-pytz==2026.2
+pytz==2026.3.post1
     # via
     #   -r requirements/base.txt
     #   xblock

@@ -14,7 +14,7 @@ billiard==4.2.4
     # via celery
 celery==5.6.3
     # via -r requirements/base.in
-certifi==2026.6.17
+certifi==2026.7.22
     # via requests
 cffi==2.1.0
     # via pynacl
@@ -97,7 +97,7 @@ packaging==26.2
     # via kombu
 prison==0.2.1
     # via -r requirements/base.in
-prompt-toolkit==3.0.52
+prompt-toolkit==3.0.53
     # via click-repl
 psutil==7.2.2
     # via edx-django-utils
@@ -113,7 +113,7 @@ python-dateutil==2.9.0.post0
     #   xblock
 python-slugify==8.0.4
     # via code-annotations
-pytz==2026.2
+pytz==2026.3.post1
     # via xblock
 pyyaml==6.0.3
     # via
