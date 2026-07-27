@@ -28,7 +28,7 @@ black==26.5.1
     # via -r requirements/quality.in
 celery==5.6.3
     # via -r requirements/test.txt
-certifi==2026.6.17
+certifi==2026.7.22
     # via
     #   -r requirements/test.txt
     #   requests
@@ -186,7 +186,7 @@ packaging==26.2
     #   pytest
 pathspec==1.1.1
     # via black
-platformdirs==4.10.1
+platformdirs==4.11.0
     # via
     #   black
     #   pylint
@@ -197,7 +197,7 @@ pluggy==1.6.0
     #   pytest-cov
 prison==0.2.1
     # via -r requirements/test.txt
-prompt-toolkit==3.0.52
+prompt-toolkit==3.0.53
     # via
     #   -r requirements/test.txt
     #   click-repl
@@ -259,7 +259,7 @@ python-slugify==8.0.4
     #   code-annotations
 pytokens==0.4.1
     # via black
-pytz==2026.2
+pytz==2026.3.post1
     # via
     #   -r requirements/test.txt
     #   xblock
