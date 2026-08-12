@@ -16,7 +16,7 @@ celery==5.6.3
     # via -r requirements/base.in
 certifi==2026.7.22
     # via requests
-cffi==2.1.0
+cffi==2.1.1
     # via pynacl
 charset-normalizer==3.4.9
     # via requests
@@ -36,7 +36,7 @@ click-repl==0.3.0
     # via celery
 code-annotations==3.0.0
     # via edx-toggles
-django==5.2.16
+django==5.2.17
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
@@ -55,7 +55,7 @@ django-waffle==5.0.0
     # via
     #   edx-django-utils
     #   edx-toggles
-djangorestframework==3.17.1
+djangorestframework==3.18.0
     # via -r requirements/base.in
 dnspython==2.8.0
     # via pymongo
@@ -80,7 +80,7 @@ kombu==5.6.2
     # via celery
 lxml==6.1.1
     # via xblock
-mako==1.3.12
+mako==1.4.1
     # via xblock
 markupsafe==3.0.3
     # via
@@ -91,9 +91,9 @@ oauthlib==3.3.1
     # via requests-oauthlib
 openedx-atlas==0.7.0
     # via -r requirements/base.in
-openedx-filters==3.8.0
+openedx-filters==3.9.0
     # via -r requirements/base.in
-packaging==26.2
+packaging==26.3
     # via kombu
 prison==0.2.1
     # via -r requirements/base.in
@@ -120,7 +120,7 @@ pyyaml==6.0.3
     #   code-annotations
     #   superset-api-client
     #   xblock
-redis==8.0.1
+redis==8.1.0
     # via -r requirements/base.in
 requests==2.34.2
     # via
@@ -164,7 +164,7 @@ wcwidth==0.8.2
     # via prompt-toolkit
 web-fragments==4.0.0
     # via -r requirements/base.in
-webob==1.8.10
+webob==1.8.11
     # via xblock
 xblock==6.3.1
     # via -r requirements/base.in
