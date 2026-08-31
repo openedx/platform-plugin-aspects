@@ -40,7 +40,7 @@ charset-normalizer==3.5.1
     # via
     #   -r requirements/test.txt
     #   requests
-click==8.4.2
+click==8.5.0
     # via
     #   -r requirements/test.txt
     #   black
@@ -71,7 +71,7 @@ code-annotations==3.0.0
     #   -r requirements/test.txt
     #   edx-lint
     #   edx-toggles
-coverage[toml]==7.15.4
+coverage[toml]==7.16.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -111,7 +111,7 @@ dnspython==2.8.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-edx-django-utils==8.0.1
+edx-django-utils==8.0.2
     # via
     #   -r requirements/test.txt
     #   edx-toggles
@@ -136,7 +136,7 @@ iniconfig==2.3.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==8.0.1
+isort==9.0.1
     # via
     #   -r requirements/quality.in
     #   pylint
@@ -169,7 +169,9 @@ model-bakery==1.24.0
     #   -r requirements/test.txt
     #   django-mock-queries
 mypy-extensions==1.1.0
-    # via black
+    # via
+    #   black
+    #   isort
 oauthlib==3.3.1
     # via
     #   -r requirements/test.txt
@@ -186,7 +188,7 @@ packaging==26.3
     #   pytest
 pathspec==1.1.1
     # via black
-platformdirs==4.11.3
+platformdirs==4.11.5
     # via
     #   black
     #   pylint
@@ -217,7 +219,7 @@ pygments==2.21.0
     # via
     #   -r requirements/test.txt
     #   pytest
-pylint==4.0.7
+pylint==4.0.8
     # via
     #   edx-lint
     #   pylint-celery
@@ -282,9 +284,9 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/test.txt
     #   superset-api-client
-responses==0.26.2
+responses==0.26.3
     # via -r requirements/test.txt
-simplejson==4.1.1
+simplejson==4.1.2
     # via
     #   -r requirements/test.txt
     #   xblock
@@ -340,7 +342,7 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-wcwidth==0.8.2
+wcwidth==0.8.3
     # via
     #   -r requirements/test.txt
     #   prompt-toolkit

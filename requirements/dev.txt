@@ -29,7 +29,7 @@ black==26.5.1
     # via
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
-build==1.5.0
+build==1.6.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -53,7 +53,7 @@ charset-normalizer==3.5.1
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.4.2
+click==8.5.0
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -92,7 +92,7 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.15.4
+coverage[toml]==7.16.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -141,7 +141,7 @@ dnspython==2.8.0
     # via
     #   -r requirements/quality.txt
     #   pymongo
-edx-django-utils==8.0.1
+edx-django-utils==8.0.2
     # via
     #   -r requirements/quality.txt
     #   edx-toggles
@@ -174,7 +174,7 @@ iniconfig==2.3.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==8.0.1
+isort==9.0.1
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -217,6 +217,7 @@ mypy-extensions==1.1.0
     # via
     #   -r requirements/quality.txt
     #   black
+    #   isort
 oauthlib==3.3.1
     # via
     #   -r requirements/quality.txt
@@ -245,7 +246,7 @@ pathspec==1.1.1
     #   black
 pip-tools==7.6.1
     # via -r requirements/pip-tools.txt
-platformdirs==4.11.3
+platformdirs==4.11.5
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -286,7 +287,7 @@ pygments==2.21.0
     #   -r requirements/quality.txt
     #   diff-cover
     #   pytest
-pylint==4.0.7
+pylint==4.0.8
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -337,7 +338,7 @@ python-dateutil==2.9.0.post0
     #   -r requirements/quality.txt
     #   celery
     #   xblock
-python-discovery==1.5.2
+python-discovery==1.6.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -374,9 +375,9 @@ requests-oauthlib==2.0.0
     # via
     #   -r requirements/quality.txt
     #   superset-api-client
-responses==0.26.2
+responses==0.26.3
     # via -r requirements/quality.txt
-simplejson==4.1.1
+simplejson==4.1.2
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -416,7 +417,7 @@ tomlkit==0.15.1
     #   -r requirements/quality.txt
     #   edx-lint
     #   pylint
-tox==4.60.0
+tox==4.61.1
     # via -r requirements/ci.txt
 typing-extensions==4.16.0
     # via
@@ -443,11 +444,11 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-virtualenv==21.7.4
+virtualenv==21.7.7
     # via
     #   -r requirements/ci.txt
     #   tox
-wcwidth==0.8.2
+wcwidth==0.8.3
     # via
     #   -r requirements/quality.txt
     #   prompt-toolkit
