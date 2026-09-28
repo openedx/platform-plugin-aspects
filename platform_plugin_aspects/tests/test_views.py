@@ -4,14 +4,21 @@ Test views.
 
 from unittest.mock import Mock, patch
 
+import ddt
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.test import TestCase
 from opaque_keys.edx.keys import CourseKey
+from rest_framework import permissions
 from rest_framework.test import APIClient
 
-from ..views import DEFAULT_FILTERS_FORMAT, IsCourseStaffInstructor
+from ..views import (
+    DEFAULT_FILTERS_FORMAT,
+    IsCourseStaffInstructor,
+    SupersetInContextDashboardView,
+    SupersetTokenView,
+)
 
 COURSE_ID = "course-v1:org+course+run"
 User = get_user_model()
@@ -232,3 +239,140 @@ class ViewsTestCase(TestCase):
         data = response.json()
         self.assertEqual(data["dashboardId"], "00000000-0000-0000-0000-000000000000")
         self.assertEqual(data["defaultCourseRun"], "run")
+
+
+PERMISSION_TEST_URLS = (
+    f"/superset_guest_token/{COURSE_ID}",
+    f"/superset_in_context_dashboard/{COURSE_ID}",
+    (
+        "/superset_in_context_dashboard/"
+        "block-v1:org+course+run+type@problem+block@e25d8eac15224f91bd3aa22bfe28a602"
+    ),
+)
+
+
+@ddt.ddt
+class ViewPermissionsTestCase(TestCase):
+    """
+    Test that only global staff or course staff/instructors can access the views.
+    """
+
+    def setUp(self):
+        """
+        Set up data used by multiple tests.
+
+        The helpers are always given serializable return values: a bare
+        MagicMock in a response sends DRF's JSON encoder into an endless
+        tolist() chain, so a permission regression would exhaust memory
+        instead of failing the assertion.
+        """
+        super().setUp()
+        self.client = APIClient()
+        self.mock_generate_guest_token = self._patch(
+            "platform_plugin_aspects.views.generate_guest_token",
+            return_value="test-token",
+        )
+        self._patch(
+            "platform_plugin_aspects.views.get_localized_uuid",
+            return_value="00000000-0000-0000-0000-000000000000",
+        )
+
+    def _patch(self, target, **kwargs):
+        """
+        Patch target for the duration of the test and return the mock.
+        """
+        patcher = patch(target, **kwargs)
+        self.addCleanup(patcher.stop)
+        return patcher.start()
+
+    def _login(self, **user_kwargs):
+        """
+        Create a user with the given attributes and log them in.
+        """
+        user = User.objects.create(username="user", **user_kwargs)
+        user.set_password("password")
+        user.save()
+        self.client.login(username="user", password="password")
+        return user
+
+    def _set_course_role(self, has_role):
+        """
+        Mock whether the user is course staff or an instructor.
+        """
+        self._patch(
+            "platform_plugin_aspects.views.IsCourseStaffInstructor.has_object_permission",
+            return_value=has_role,
+        )
+
+    def _assert_denied(self, response):
+        """
+        Assert the request was refused before any guest token was generated.
+        """
+        self.assertEqual(response.status_code, 403)
+        self.mock_generate_guest_token.assert_not_called()
+
+    @ddt.data(*PERMISSION_TEST_URLS)
+    def test_global_staff_allowed(self, url):
+        """
+        Global staff can access every view without a course role.
+        """
+        self._login(is_staff=True)
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+    @ddt.data(*PERMISSION_TEST_URLS)
+    def test_course_staff_allowed(self, url):
+        """
+        Course staff/instructors who are not global staff can access every view.
+        """
+        self._login()
+        self._set_course_role(True)
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+    @ddt.data(*PERMISSION_TEST_URLS)
+    def test_non_staff_denied(self, url):
+        """
+        Authenticated users with no staff or course role are denied.
+        """
+        self._login()
+        self._set_course_role(False)
+
+        self._assert_denied(self.client.get(url))
+
+    @ddt.data(*PERMISSION_TEST_URLS)
+    def test_non_staff_head_denied(self, url):
+        """
+        Safe methods other than GET do not bypass the staff check.
+        """
+        self._login()
+        self._set_course_role(False)
+
+        self._assert_denied(self.client.head(url))
+
+    @ddt.data(*PERMISSION_TEST_URLS)
+    def test_superuser_without_staff_denied(self, url):
+        """
+        IsAdminUser only checks is_staff, so a superuser without it is denied.
+        """
+        self._login(is_superuser=True)
+        self._set_course_role(False)
+
+        self._assert_denied(self.client.get(url))
+
+    @ddt.data(
+        SupersetTokenView,
+        SupersetInContextDashboardView,
+    )
+    def test_permission_classes(self, view_class):
+        """
+        Guard against reintroducing a permission that allows any safe method.
+        """
+        is_authenticated, staff_or_course_staff = view_class.permission_classes
+        self.assertIs(is_authenticated, permissions.IsAuthenticated)
+        self.assertIs(staff_or_course_staff.op1_class, permissions.IsAdminUser)
+        self.assertIs(staff_or_course_staff.op2_class, IsCourseStaffInstructor)
