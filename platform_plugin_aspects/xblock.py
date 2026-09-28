@@ -34,6 +34,10 @@ from .utils import (
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
 
+# Course roles, as reported by edx-platform, that may access Superset dashboards.
+# Global staff are reported as "instructor".
+COURSE_STAFF_ROLES = ("staff", "instructor")
+
 
 @XBlock.needs("user")
 @XBlock.needs("i18n")
@@ -103,6 +107,17 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         Check if the user is a student.
         """
         return not user or user.opt_attrs.get("edx-platform.user_role") == "student"
+
+    def user_is_course_staff(self, user) -> bool:
+        """
+        Check if the user is course staff or an instructor.
+
+        Unlike user_is_student, a user with no role (e.g. anonymous) is not
+        considered course staff.
+        """
+        return bool(
+            user and user.opt_attrs.get("edx-platform.user_role") in COURSE_STAFF_ROLES
+        )
 
     def student_view(self, context=None):
         """
@@ -205,6 +220,9 @@ class SupersetXBlock(StudioEditableXBlockMixin, XBlock):
         """Return a guest token for Superset."""
         user_service = self.runtime.service(self, "user")
         user = user_service.get_current_user()
+
+        if not self.user_is_course_staff(user):
+            raise JsonHandlerError(403, _("Only course staff can access Superset."))
 
         try:
             guest_token = generate_guest_token(
