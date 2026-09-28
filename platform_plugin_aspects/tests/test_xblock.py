@@ -160,3 +160,68 @@ class TestRender(TestCase):
         assert data.get("error") == (
             "Unable to fetch Superset guest token, mostly likely due to invalid settings.SUPERSET_CONFIG"
         )
+
+
+class TestGuestTokenPermissions(TestCase):
+    """
+    Test that only course staff can get a guest token from the XBlock handler.
+    """
+
+    def setUp(self):
+        """
+        Mock guest token generation; it must never run for denied users.
+        """
+        super().setUp()
+        patcher = patch(
+            "platform_plugin_aspects.xblock.generate_guest_token",
+            return_value="test-token",
+        )
+        self.addCleanup(patcher.stop)
+        self.mock_generate_guest_token = patcher.start()
+
+    def _call_handler(self, xblock):
+        """
+        POST to the guest token handler and return the response.
+        """
+        request = Request.blank("/")
+        request.method = "POST"
+        request.body = b"{}"
+        return xblock.get_superset_guest_token(request)
+
+    def _assert_denied(self, xblock):
+        """
+        Assert the handler refused the request without generating a token.
+        """
+        response = self._call_handler(xblock)
+
+        assert response.status_code == 403
+        self.mock_generate_guest_token.assert_not_called()
+
+    def test_course_staff_allowed(self):
+        for role in ("staff", "instructor"):
+            with self.subTest(role=role):
+                response = self._call_handler(make_an_xblock(role))
+
+                assert response.status_code == 200
+                data = json.loads(response.body.decode("utf-8"))
+                assert data.get("guestToken") == "test-token"
+
+    def test_student_denied(self):
+        self._assert_denied(make_an_xblock("student"))
+
+    def test_no_role_denied(self):
+        # e.g. an anonymous user, whose opt_attrs has no role
+        xblock = make_an_xblock("student")
+        user = xblock.runtime.service(xblock, "user").get_current_user()
+        user.opt_attrs = {}
+        self._assert_denied(xblock)
+
+    def test_unknown_role_denied(self):
+        self._assert_denied(make_an_xblock("beta_tester"))
+
+    def test_no_user_denied(self):
+        xblock = make_an_xblock("instructor")
+        xblock.runtime.service = Mock(
+            return_value=Mock(get_current_user=Mock(return_value=None))
+        )
+        self._assert_denied(xblock)
