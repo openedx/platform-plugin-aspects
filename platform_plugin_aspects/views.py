@@ -29,25 +29,10 @@ from .utils import (
 try:
     from openedx.core.lib.api.permissions import (
         IsCourseStaffInstructor,
-        IsStaffOrReadOnly,
     )
 except ImportError:
 
     class IsCourseStaffInstructor(permissions.BasePermission):
-        """
-        Permission class to use during tests.
-
-        Importing from edx-platform doesn't work when running tests,
-        so we declare our own permission class here.
-        """
-
-        def has_object_permission(self, request, view, obj):
-            """
-            Return False for security; mock this out during tests.
-            """
-            return False
-
-    class IsStaffOrReadOnly(permissions.BasePermission):
         """
         Permission class to use during tests.
 
@@ -98,7 +83,7 @@ class SupersetTokenView(GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (
         permissions.IsAuthenticated,
-        IsStaffOrReadOnly | IsCourseStaffInstructor,
+        permissions.IsAdminUser | IsCourseStaffInstructor,
     )
 
     lookup_field = "course_id"
@@ -160,7 +145,7 @@ class SupersetInContextDashboardView(GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (
         permissions.IsAuthenticated,
-        IsStaffOrReadOnly | IsCourseStaffInstructor,
+        permissions.IsAdminUser | IsCourseStaffInstructor,
     )
 
     lookup_field = "usage_id"
@@ -263,7 +248,7 @@ class SupersetInstructorDashboardView(GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (
         permissions.IsAuthenticated,
-        IsStaffOrReadOnly | IsCourseStaffInstructor,
+        permissions.IsAdminUser | IsCourseStaffInstructor,
     )
 
     lookup_field = "course_id"
