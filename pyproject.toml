@@ -1,0 +1,171 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm>8.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "platform-plugin-aspects"
+description = "Aspects plugins for edx-platform"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE*"]
+authors = [
+    {name = "Open edX Project", email = "oscm@openedx.org"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Django",
+    "Framework :: Django :: 5.2",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = [
+    "Python",
+    "edx",
+]
+
+dynamic = ["readme", "version"]
+
+dependencies = [
+    "celery",
+    "Django",
+    "django_crum",
+    "djangorestframework",
+    "edx-django-utils",
+    "edx-opaque-keys",
+    "edx-toggles",
+    "openedx-atlas",
+    "openedx-filters",
+    "prison",
+    "redis",
+    "requests",
+    "superset-api-client",
+    "web_fragments",
+    "XBlock",
+]
+
+[project.entry-points."lms.djangoapp"]
+platform_plugin_aspects = "platform_plugin_aspects.apps:PlatformPluginAspectsConfig"
+
+[project.entry-points."cms.djangoapp"]
+platform_plugin_aspects = "platform_plugin_aspects.apps:PlatformPluginAspectsConfig"
+
+[project.entry-points."xblock.v1"]
+superset = "platform_plugin_aspects.xblock:SupersetXBlock"
+
+[project.urls]
+Homepage = "https://github.com/openedx/platform-plugin-aspects"
+Repository = "https://github.com/openedx/platform-plugin-aspects"
+
+[dependency-groups]
+test = [
+    "code-annotations",
+    "ddt",
+    "django-mock-queries",
+    "pytest-cov",
+    "pytest-django",
+    "responses",
+]
+quality = [
+    {include-group = "test"},
+    "black",
+    "edx-lint",
+    "isort",
+    "pycodestyle",
+    "pydocstyle",
+]
+doc = [
+    {include-group = "test"},
+    "build",
+    "doc8",
+    "Sphinx",
+    "sphinx-book-theme",
+    "twine",
+]
+ci = [
+    "tox",
+    "tox-uv",
+]
+dev = [
+    {include-group = "quality"},
+    {include-group = "ci"},
+    "diff-cover",
+    "edx-i18n-tools",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.rst"], content-type = "text/x-rst"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["*tests*"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["tests/*", "tests/**", "*/tests/*"]
+
+[tool.setuptools.package-data]
+"*" = [
+    "*.html",
+    "*.png",
+    "*.gif",
+    "*.js",
+    "*.css",
+    "*.jpg",
+    "*.jpeg",
+    "*.svg",
+]
+
+[tool.semantic_release]
+build_command = "pip install build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build"
+
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0.dev0"
+
+[tool.uv]
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+    "social-auth-app-django<6.0.0",
+    "social-auth-core<5.0.0",
+    "pip<26.2.1",
+]
+
+[tool.edx_lint]
+uv_constraints = []
+
+[tool.coverage.run]
+branch = true
+relative_files = true
+data_file = ".coverage"
+source = ["src"]
+omit = [
+    "test_settings.py",
+    "*/migrations/*",
+    "*admin.py",
+    "*/static/*",
+    "*/templates/*",
+    "**/tests/*",
+    "*/settings/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "test_settings"
+addopts = "--cov platform_plugin_aspects --cov-report term-missing --cov-report xml --log-level=INFO"
+norecursedirs = [".*", "docs", "site-packages"]
+
+[tool.isort]
+indent = "    "
+skip = ["migrations"]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+line_length = 88
