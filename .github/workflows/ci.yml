@@ -6,16 +6,23 @@ on:
   pull_request:
     branches:
       - "**"
+  workflow_call:
 
 jobs:
   run_tests:
-    name: tests
+    name: ${{ matrix.toxenv }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-24.04]
-        python-version: ["3.12"]
-        toxenv: [quality, docs, pii_check, django52]
+        os:
+          - ubuntu-24.04
+        python-version:
+          - "3.12"
+        toxenv:
+          - quality
+          - docs
+          - pii_check
+          - py
     permissions:
       # Gives the action the necessary permissions for publishing new
       # comments in pull requests.
@@ -26,25 +33,23 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: setup python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
         with:
+          enable-cache: true
           python-version: ${{ matrix.python-version }}
 
-      - name: Install pip
-        run: pip install -r requirements/pip.txt
+      - name: Install CI dependencies
+        run: uv sync --locked --group ci
 
-      - name: Install Dependencies
-        run: pip install -r requirements/ci.txt
-
-      - name: Run Tests
-        env:
-          TOXENV: ${{ matrix.toxenv }}
-        run: tox
+      - name: Run tox
+        run: uv run --locked tox -e ${{ matrix.toxenv }}
 
       - name: Run coverage
-        if: matrix.python-version == '3.12' && matrix.toxenv == 'django42'
+        if: matrix.python-version == '3.12' && matrix.toxenv == 'py'
         uses: py-cov-action/python-coverage-comment-action@e5fb2218463c3377f3504b0c5b5646ed53da7a2f # v4.5
         with:
           GITHUB_TOKEN: ${{ github.token }}

@@ -1,5 +1,10 @@
-include LICENSE.txt
-include README.rst
-include requirements/base.in
-include requirements/constraints.txt
-recursive-include platform_plugin_aspects *.html *.png *.gif *.js *.css *.jpg *.jpeg *.svg
+# Exclude development, test, and documentation folders
+prune .github
+prune docs
+prune tests
+
+# Exclude root level configuration and build files
+exclude Makefile
+exclude conftest.py
+exclude .gitignore
+exclude tox.ini
