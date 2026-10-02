@@ -2,34 +2,34 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/openedx/platform-plugin-aspects/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                                                                           |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
-|------------------------------------------------------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
-| platform\_plugin\_aspects/\_\_init\_\_.py                                      |        4 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/apps.py                                              |        9 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/extensions/\_\_init\_\_.py                           |        0 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/extensions/filters.py                                |       37 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/management/\_\_init\_\_.py                           |        0 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/management/commands/\_\_init\_\_.py                  |        0 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       64 |        0 |       16 |        0 |    100% |           |
-| platform\_plugin\_aspects/management/commands/load\_test\_tracking\_events.py  |      111 |        0 |        6 |        0 |    100% |           |
-| platform\_plugin\_aspects/management/commands/monitor\_load\_test\_tracking.py |      157 |        5 |       16 |        2 |     95% |158-\>162, 176-184 |
-| platform\_plugin\_aspects/signals.py                                           |       33 |        8 |        0 |        0 |     76% |87-103, 201, 239, 277 |
-| platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        7 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/base\_sink.py                                  |      156 |        2 |       36 |        1 |     98% |   365-368 |
-| platform\_plugin\_aspects/sinks/course\_enrollment\_sink.py                    |       11 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       96 |        0 |       20 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/external\_id\_sink.py                          |       11 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/serializers.py                                 |       82 |        7 |        6 |        2 |     88% |30, 32-35, 210, 234, 259 |
-| platform\_plugin\_aspects/sinks/tag\_sink.py                                   |       23 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/user\_profile\_sink.py                         |       11 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/sinks/user\_retire\_sink.py                          |       22 |        0 |        4 |        0 |    100% |           |
-| platform\_plugin\_aspects/tasks.py                                             |       21 |        0 |        2 |        0 |    100% |           |
-| platform\_plugin\_aspects/urls.py                                              |        6 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/utils.py                                             |      119 |        0 |       30 |        0 |    100% |           |
-| platform\_plugin\_aspects/views.py                                             |      122 |        0 |       18 |        2 |     99% |137-\>140, 236-\>241 |
-| platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
-| platform\_plugin\_aspects/xblock.py                                            |       74 |        2 |       12 |        2 |     95% |  146, 196 |
-| **TOTAL**                                                                      | **1177** |   **24** |  **166** |    **9** | **97%** |           |
+| Name                                                                               |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
+|----------------------------------------------------------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
+| src/platform\_plugin\_aspects/\_\_init\_\_.py                                      |        5 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/apps.py                                              |        9 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/extensions/\_\_init\_\_.py                           |        0 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/extensions/filters.py                                |       37 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/management/\_\_init\_\_.py                           |        0 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/management/commands/\_\_init\_\_.py                  |        0 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/management/commands/dump\_data\_to\_clickhouse.py    |       67 |        0 |       18 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/management/commands/load\_test\_tracking\_events.py  |      111 |        0 |        6 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/management/commands/monitor\_load\_test\_tracking.py |      157 |        5 |       16 |        2 |     95% |158-\>162, 176-184 |
+| src/platform\_plugin\_aspects/signals.py                                           |       33 |        8 |        0 |        0 |     76% |87-103, 201, 239, 277 |
+| src/platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        7 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/sinks/base\_sink.py                                  |      156 |        2 |       36 |        1 |     98% |   365-368 |
+| src/platform\_plugin\_aspects/sinks/course\_enrollment\_sink.py                    |       11 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       96 |        0 |       20 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/sinks/external\_id\_sink.py                          |       11 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/sinks/serializers.py                                 |       82 |        7 |        6 |        2 |     88% |30, 32-35, 210, 234, 259 |
+| src/platform\_plugin\_aspects/sinks/tag\_sink.py                                   |       23 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/sinks/user\_profile\_sink.py                         |       11 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/sinks/user\_retire\_sink.py                          |       22 |        0 |        4 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/tasks.py                                             |       21 |        0 |        2 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/urls.py                                              |        6 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/utils.py                                             |      119 |        0 |       30 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/views.py                                             |      119 |        0 |       18 |        2 |     99% |122-\>125, 221-\>226 |
+| src/platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/xblock.py                                            |       79 |        2 |       14 |        2 |     96% |  161, 211 |
+| **TOTAL**                                                                          | **1183** |   **24** |  **170** |    **9** | **97%** |           |
 
 
 ## Setup coverage badge
