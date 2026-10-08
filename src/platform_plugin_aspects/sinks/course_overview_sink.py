@@ -177,6 +177,14 @@ class XBlockSink(ModelBaseSink):
             "completion_mode": getattr(item, "completion_mode", ""),
         }
 
+        if block_type == "video":
+            json_data["video_start_time"] = XBlockSink.get_seconds(
+                getattr(item, "start_time", None)
+            )
+            json_data["video_end_time"] = XBlockSink.get_seconds(
+                getattr(item, "end_time", None)
+            )
+
         # Core table data, if things change here it's a big deal.
         serialized_block = {
             "org": course_key.org,
@@ -193,6 +201,18 @@ class XBlockSink(ModelBaseSink):
         }
 
         return serialized_block
+
+    @staticmethod
+    def get_seconds(value):
+        """
+        Convert a video RelativeTime field (a timedelta) to seconds.
+        Args:
+            value: a timedelta, or None if the field is not set.
+        Returns: the number of seconds as a float, 0.0 if not set.
+        """
+        if not value:
+            return 0.0
+        return value.total_seconds()
 
     @staticmethod
     def strip_branch_and_version(location):
