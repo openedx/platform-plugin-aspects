@@ -177,10 +177,6 @@ class XBlockSink(ModelBaseSink):
             "completion_mode": getattr(item, "completion_mode", ""),
         }
 
-        # Video blocks can be configured to play only a clip of the source
-        # video. Player events report positions relative to the full source
-        # video but durations relative to the clip, so reporting needs the
-        # offsets to line them up.
         if block_type == "video":
             json_data["video_start_time"] = XBlockSink.get_seconds(
                 getattr(item, "start_time", None)
