@@ -4,7 +4,7 @@ Tests for the course_overview_sink sinks.
 
 import json
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from unittest.mock import MagicMock, patch
 
 import pytest
