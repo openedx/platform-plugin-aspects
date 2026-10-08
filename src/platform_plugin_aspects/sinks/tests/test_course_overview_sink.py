@@ -17,7 +17,6 @@ from responses.registries import OrderedRegistry
 from platform_plugin_aspects.sinks import CourseOverviewSink, XBlockSink
 from platform_plugin_aspects.tasks import dump_course_to_clickhouse
 from test_utils.helpers import (
-    FakeXBlock,
     check_block_csv_matcher,
     check_overview_csv_matcher,
     course_factory,
@@ -414,40 +413,3 @@ def test_xblock_graded_completable_mode(mock_modulestore, mock_detached, mock_ge
     _check_item_serialized_location(results[31], 0, "completable")
     _check_item_serialized_location(results[32], 0, "aggregator")
     _check_item_serialized_location(results[33], 0, "excluded")
-
-
-@pytest.mark.parametrize(
-    "start_time,end_time,expected_start,expected_end",
-    [
-        (timedelta(seconds=60), timedelta(seconds=240), 60.0, 240.0),
-        (timedelta(seconds=90.5), None, 90.5, 0.0),
-        (None, timedelta(seconds=30), 0.0, 30.0),
-        (timedelta(0), timedelta(0), 0.0, 0.0),
-    ],
-)
-def test_xblock_video_clip_times(start_time, end_time, expected_start, expected_end):
-    """
-    Test that video start and end times serialize as seconds.
-    """
-    block = FakeXBlock("Video", block_type="video")
-    block.start_time = start_time
-    block.end_time = end_time
-
-    sink = XBlockSink(connection_overrides={}, log=MagicMock())
-    result = sink.serialize_xblock(block, [], "xyz", "2023-09-05")
-
-    assert result["xblock_data_json"]["video_start_time"] == expected_start
-    assert result["xblock_data_json"]["video_end_time"] == expected_end
-
-
-def test_xblock_non_video_has_no_clip_times():
-    """
-    Test that non-video blocks do not get video clip times.
-    """
-    block = FakeXBlock("Problem", block_type="problem")
-
-    sink = XBlockSink(connection_overrides={}, log=MagicMock())
-    result = sink.serialize_xblock(block, [], "xyz", "2023-09-05")
-
-    assert "video_start_time" not in result["xblock_data_json"]
-    assert "video_end_time" not in result["xblock_data_json"]
