@@ -17,7 +17,7 @@
 | src/platform\_plugin\_aspects/sinks/\_\_init\_\_.py                                |        7 |        0 |        0 |        0 |    100% |           |
 | src/platform\_plugin\_aspects/sinks/base\_sink.py                                  |      156 |        2 |       36 |        1 |     98% |   365-368 |
 | src/platform\_plugin\_aspects/sinks/course\_enrollment\_sink.py                    |       11 |        0 |        0 |        0 |    100% |           |
-| src/platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |       96 |        0 |       20 |        0 |    100% |           |
+| src/platform\_plugin\_aspects/sinks/course\_overview\_sink.py                      |      104 |        0 |       24 |        0 |    100% |           |
 | src/platform\_plugin\_aspects/sinks/external\_id\_sink.py                          |       11 |        0 |        0 |        0 |    100% |           |
 | src/platform\_plugin\_aspects/sinks/serializers.py                                 |       82 |        7 |        6 |        2 |     88% |30, 32-35, 210, 234, 259 |
 | src/platform\_plugin\_aspects/sinks/tag\_sink.py                                   |       23 |        0 |        0 |        0 |    100% |           |
@@ -29,7 +29,7 @@
 | src/platform\_plugin\_aspects/views.py                                             |      119 |        0 |       18 |        2 |     99% |122-\>125, 221-\>226 |
 | src/platform\_plugin\_aspects/waffle.py                                            |        1 |        0 |        0 |        0 |    100% |           |
 | src/platform\_plugin\_aspects/xblock.py                                            |       79 |        2 |       14 |        2 |     96% |  161, 211 |
-| **TOTAL**                                                                          | **1183** |   **24** |  **170** |    **9** | **97%** |           |
+| **TOTAL**                                                                          | **1191** |   **24** |  **174** |    **9** | **97%** |           |
 
 
 ## Setup coverage badge
