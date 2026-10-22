@@ -39,7 +39,7 @@ cachetools==6.2.1
     #   tox
 celery==5.5.3
     # via -r requirements/quality.txt
-certifi==2025.10.5
+certifi==2026.10.19
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -243,7 +243,7 @@ pathspec==0.12.1
     # via
     #   -r requirements/quality.txt
     #   black
-pip-tools==7.5.1
+pip-tools==7.6.2
     # via -r requirements/pip-tools.txt
 platformdirs==4.5.0
     # via
