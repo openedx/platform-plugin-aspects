@@ -22,7 +22,7 @@ billiard==4.2.2
     #   celery
 celery==5.5.3
     # via -r requirements/base.txt
-certifi==2025.10.5
+certifi==2026.10.19
     # via
     #   -r requirements/base.txt
     #   requests
