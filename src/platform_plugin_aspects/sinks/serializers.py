@@ -8,7 +8,11 @@ from django.utils import timezone
 from pytz import UTC
 from rest_framework import serializers
 
-from platform_plugin_aspects.utils import get_model, get_tags_for_block
+from platform_plugin_aspects.utils import (
+    get_model,
+    get_tags_for_block,
+    get_xapi_actor_id,
+)
 
 
 class DateTimeJSONEncoder(json.JSONEncoder):
@@ -233,6 +237,31 @@ class CatalogPathwaySerializer(BaseSinkSerializer, serializers.ModelSerializer):
             "dump_id",
             "time_last_dumped",
         ]
+
+
+class PathwayEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerializer):
+    """Serializer for the PathwayEnrollment model."""
+
+    actor_id = serializers.SerializerMethodField()
+
+    class Meta:
+        """Meta class for the PathwayEnrollmentSerializer"""
+
+        model = get_model("pathway_enrollment")
+        fields = [
+            "id",
+            "catalog_pathway_id",
+            "actor_id",
+            "created",
+            "modified",
+            "is_active",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_actor_id(self, instance):
+        """Return the learner's xAPI actor id instead of any user identifier."""
+        return get_xapi_actor_id(instance.user)
 
 
 class TagSerializer(BaseSinkSerializer, serializers.ModelSerializer):

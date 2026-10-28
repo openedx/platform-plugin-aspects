@@ -8,6 +8,7 @@ from platform_plugin_aspects.sinks.serializers import (
     BaseSinkSerializer,
     CourseOverviewSerializer,
     DateTimeJSONEncoder,
+    PathwayEnrollmentSerializer,
 )
 from test_utils.helpers import course_key_factory
 
@@ -94,3 +95,22 @@ class TestCourseOverviewSerializer(TestCase):
         mock_id = Mock()
         mock_overview = Mock(id=mock_id)
         self.assertEqual(self.serializer.get_course_key(mock_overview), str(mock_id))
+
+
+class TestPathwayEnrollmentSerializer(TestCase):
+    """
+    Test PathwayEnrollmentSerializer
+    """
+
+    @patch("platform_plugin_aspects.sinks.serializers.get_xapi_actor_id")
+    def test_get_actor_id(self, mock_get_xapi_actor_id):
+        """
+        Test that the learner is serialized as their xAPI actor id.
+        """
+        mock_get_xapi_actor_id.return_value = "29e5b22b-b457-49fa-9633-6c0123305d18"
+        enrollment = Mock()
+
+        actor_id = PathwayEnrollmentSerializer().get_actor_id(enrollment)
+
+        assert actor_id == "29e5b22b-b457-49fa-9633-6c0123305d18"
+        mock_get_xapi_actor_id.assert_called_once_with(enrollment.user)

@@ -311,6 +311,20 @@ def get_tags_for_block(usage_key) -> set:
     return list(serialized_tags)
 
 
+def get_xapi_actor_id(user):
+    """
+    Return the learner's xAPI actor id, creating it if the learner has none yet.
+
+    This is the id event-routing-backends sends as the xAPI actor (the
+    learner's ExternalId of type "xapi"), so sink rows keyed by it join the
+    xAPI tables and hold no PII.
+    """
+    external_id, _ = get_model("external_id").add_new_user_id(user, "xapi")
+    if not external_id:
+        raise ValueError("The 'xapi' ExternalIdType does not exist.")
+    return str(external_id.external_user_id)
+
+
 def get_user_dashboard_locale(user):
     """
 

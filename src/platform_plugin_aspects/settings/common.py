@@ -107,6 +107,10 @@ def plugin_settings(settings):
             "module": "openedx_catalog.models",
             "model": "CatalogPathway",
         },
+        "pathway_enrollment": {
+            "module": "openedx_catalog.models",
+            "model": "PathwayEnrollment",
+        },
     }
 
     # This is on by default here, off by default in tutor-contrib-aspects until we only
