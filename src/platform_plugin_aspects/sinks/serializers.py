@@ -210,6 +210,31 @@ class CourseEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerializer
         return str(obj.course_id)
 
 
+class CatalogPathwaySerializer(BaseSinkSerializer, serializers.ModelSerializer):
+    """Serializer for the CatalogPathway model."""
+
+    org = serializers.CharField(source="org.short_name")
+    category_code = serializers.CharField(source="category.category_code")
+    category_title = serializers.CharField(source="category.title")
+
+    class Meta:
+        """Meta class for the CatalogPathwaySerializer"""
+
+        model = get_model("catalog_pathway")
+        fields = [
+            "id",
+            "org",
+            "pathway_code",
+            "title",
+            "category_code",
+            "category_title",
+            "created",
+            "modified",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+
 class TagSerializer(BaseSinkSerializer, serializers.ModelSerializer):
     """Serializer for the Tag model."""
 

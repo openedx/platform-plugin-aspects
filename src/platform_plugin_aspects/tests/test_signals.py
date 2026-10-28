@@ -7,6 +7,7 @@ from unittest.mock import Mock, patch
 from django.test import TestCase
 
 from platform_plugin_aspects.signals import (
+    on_catalog_pathway_saved_txn,
     on_externalid_saved_txn,
     on_user_retirement,
     receive_course_publish,
@@ -38,6 +39,17 @@ class SignalHandlersTestCase(TestCase):
         instance = Mock()
         sender = Mock()
         on_externalid_saved_txn(sender, instance)
+
+        mock_transaction.on_commit.assert_called_once()
+
+    @patch("platform_plugin_aspects.signals.transaction")
+    def test_on_catalog_pathway_saved(self, mock_transaction):
+        """
+        Test that on_catalog_pathway_saved_txn defers the dump to on_commit.
+        """
+        instance = Mock()
+        sender = Mock()
+        on_catalog_pathway_saved_txn(sender, instance)
 
         mock_transaction.on_commit.assert_called_once()
 

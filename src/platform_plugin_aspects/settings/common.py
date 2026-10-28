@@ -103,6 +103,10 @@ def plugin_settings(settings):
             "module": "openedx_tagging.models.base",
             "model": "ObjectTag",
         },
+        "catalog_pathway": {
+            "module": "openedx_catalog.models",
+            "model": "CatalogPathway",
+        },
     }
 
     # This is on by default here, off by default in tutor-contrib-aspects until we only
