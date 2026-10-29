@@ -3,7 +3,7 @@ This module contains the sinks for the platform plugin aspects.
 """
 
 from .base_sink import BaseSink, ModelBaseSink
-from .catalog_pathway_sink import CatalogPathwaySink
+from .catalog_pathway_sink import CatalogPathwaySink, CatalogPathwayTombstoneSink
 from .course_enrollment_sink import CourseEnrollmentSink
 from .course_overview_sink import CourseOverviewSink, XBlockSink
 from .external_id_sink import ExternalIdSink

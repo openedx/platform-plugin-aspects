@@ -2,18 +2,19 @@
 Tests for signal handlers.
 """
 
-from unittest.mock import Mock, patch
+from unittest.mock import ANY, Mock, patch
 
 from django.test import TestCase
 
 from platform_plugin_aspects.signals import (
+    on_catalog_pathway_deleted,
     on_catalog_pathway_saved_txn,
     on_externalid_saved_txn,
     on_pathway_enrollment_saved_txn,
-    on_pathway_model_deleted,
     on_user_retirement,
     receive_course_publish,
 )
+from platform_plugin_aspects.sinks import CatalogPathwayTombstoneSink
 from platform_plugin_aspects.sinks.user_retire_sink import UserRetirementSink
 
 
@@ -66,14 +67,26 @@ class SignalHandlersTestCase(TestCase):
 
         mock_transaction.on_commit.assert_called_once()
 
-    @patch("platform_plugin_aspects.signals.logger")
-    def test_on_pathway_model_deleted(self, mock_logger):
+    @patch("platform_plugin_aspects.tasks.dump_data_to_clickhouse")
+    @patch("platform_plugin_aspects.signals.transaction")
+    def test_on_catalog_pathway_deleted(self, mock_transaction, mock_dump_task):
         """
-        Test that on_pathway_model_deleted only logs the deletion.
+        Test that on_catalog_pathway_deleted queues the tombstone sink on commit, with the id
+        read before Django clears it.
         """
-        on_pathway_model_deleted(Mock(__name__="PathwayEnrollment"), Mock(id=1))
+        instance = Mock(id=7)
+        on_catalog_pathway_deleted(Mock(), instance)
+        instance.id = None
 
-        mock_logger.warning.assert_called_once()
+        mock_dump_task.delay.assert_not_called()
+        mock_transaction.on_commit.assert_called_once_with(ANY, robust=True)
+        mock_transaction.on_commit.call_args.args[0]()
+
+        mock_dump_task.delay.assert_called_once_with(
+            sink_module=CatalogPathwayTombstoneSink.__module__,
+            sink_name="CatalogPathwayTombstoneSink",
+            object_id="7",
+        )
 
     @patch("platform_plugin_aspects.tasks.dump_data_to_clickhouse")
     def test_on_user_retirement(self, mock_dump_task):

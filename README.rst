@@ -38,6 +38,8 @@ Below are the existing sink names and their corresponding object names (as neede
   the course enrollment data. Object name: ``course_enrollment``
 - ``CatalogPathwaySink`` - Listens for the ``post_save`` Django signal on the openedx-core
   ``CatalogPathway`` model. Object name: ``catalog_pathway``
+- ``CatalogPathwayTombstoneSink`` - Listens for the ``post_delete`` Django signal on the
+  ``CatalogPathway`` model and marks the pathway deleted in ``catalog_pathway``.
 - ``PathwayEnrollmentSink`` - Listens for the ``post_save`` Django signal on the openedx-core
   ``PathwayEnrollment`` model. Object name: ``pathway_enrollment``
 - ``UserRetirementSink`` - Listen for the ``USER_RETIRE_LMS_MISC`` Django signal and

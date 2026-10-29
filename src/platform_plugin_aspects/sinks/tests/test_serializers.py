@@ -6,6 +6,7 @@ from django.test import TestCase
 
 from platform_plugin_aspects.sinks.serializers import (
     BaseSinkSerializer,
+    CatalogPathwaySerializer,
     CourseOverviewSerializer,
     DateTimeJSONEncoder,
     PathwayEnrollmentSerializer,
@@ -95,6 +96,21 @@ class TestCourseOverviewSerializer(TestCase):
         mock_id = Mock()
         mock_overview = Mock(id=mock_id)
         self.assertEqual(self.serializer.get_course_key(mock_overview), str(mock_id))
+
+
+class TestCatalogPathwaySerializer(TestCase):
+    """
+    Test CatalogPathwaySerializer
+    """
+
+    def test_is_deleted(self):
+        """
+        Test that saved pathways are written with is_deleted 0, in the last column.
+        """
+        serializer = CatalogPathwaySerializer()
+
+        self.assertEqual(serializer.get_is_deleted(Mock()), 0)
+        self.assertEqual(CatalogPathwaySerializer.Meta.fields[-1], "is_deleted")
 
 
 class TestPathwayEnrollmentSerializer(TestCase):

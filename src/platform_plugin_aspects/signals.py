@@ -2,8 +2,6 @@
 Signal handler functions, mapped to specific signals in apps.py.
 """
 
-import logging
-
 from django.db import transaction
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import Signal, receiver
@@ -11,6 +9,7 @@ from opaque_keys import InvalidKeyError
 
 from platform_plugin_aspects.sinks import (
     CatalogPathwaySink,
+    CatalogPathwayTombstoneSink,
     CourseEnrollmentSink,
     ExternalIdSink,
     ObjectTagSink,
@@ -27,8 +26,6 @@ try:
 except ImportError:
     # Tests don't have the platform installed
     USER_RETIRE_LMS_MISC = Signal()
-
-logger = logging.getLogger(__name__)
 
 
 def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cover
@@ -311,20 +308,29 @@ if _object_tag:  # pragma: no cover
     post_delete.connect(on_object_tag_deleted, sender=_object_tag)
 
 
-def on_pathway_model_deleted(sender, instance, **kwargs):
+def on_catalog_pathway_deleted(  # pylint: disable=unused-argument
+    sender, instance, **kwargs
+):
     """
-    Receives post delete signal for CatalogPathway and PathwayEnrollment.
+    Receives post delete signal for CatalogPathway and queues a tombstone dump on commit.
+    """
+    # Django clears instance.pk after post_delete, so the id is read now, not in on_commit.
+    object_id = str(instance.id)
 
-    TODO: how deletions reach ClickHouse is not yet decided. Deleting the rows there is not
-    wanted, so for now the deletion is only logged and the ClickHouse row is left as it was.
-    Raising here is not an option: PathwayEnrollment is CASCADE-deleted with its user, so an
-    exception would block user deletion.
-    """
-    logger.warning(
-        "%s %s was deleted; deletions are not propagated to ClickHouse yet.",
-        sender.__name__,
-        instance.id,
-    )
+    def queue_tombstone():
+        # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
+
+        sink = CatalogPathwayTombstoneSink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=object_id,
+        )
+
+    transaction.on_commit(queue_tombstone, robust=True)
 
 
 def on_catalog_pathway_saved_txn(*args, **kwargs):
@@ -363,7 +369,7 @@ def on_catalog_pathway_saved_txn(*args, **kwargs):
 _catalog_pathway = get_model("catalog_pathway")
 if _catalog_pathway:  # pragma: no cover
     post_save.connect(on_catalog_pathway_saved_txn, sender=_catalog_pathway)
-    post_delete.connect(on_pathway_model_deleted, sender=_catalog_pathway)
+    post_delete.connect(on_catalog_pathway_deleted, sender=_catalog_pathway)
 
 
 def on_pathway_enrollment_saved_txn(*args, **kwargs):
@@ -402,4 +408,3 @@ def on_pathway_enrollment_saved_txn(*args, **kwargs):
 _pathway_enrollment = get_model("pathway_enrollment")
 if _pathway_enrollment:  # pragma: no cover
     post_save.connect(on_pathway_enrollment_saved_txn, sender=_pathway_enrollment)
-    post_delete.connect(on_pathway_model_deleted, sender=_pathway_enrollment)

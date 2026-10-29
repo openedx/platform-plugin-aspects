@@ -220,6 +220,7 @@ class CatalogPathwaySerializer(BaseSinkSerializer, serializers.ModelSerializer):
     org = serializers.CharField(source="org.short_name")
     category_code = serializers.CharField(source="category.category_code")
     category_title = serializers.CharField(source="category.title")
+    is_deleted = serializers.SerializerMethodField()
 
     class Meta:
         """Meta class for the CatalogPathwaySerializer"""
@@ -236,7 +237,17 @@ class CatalogPathwaySerializer(BaseSinkSerializer, serializers.ModelSerializer):
             "modified",
             "dump_id",
             "time_last_dumped",
+            "is_deleted",
         ]
+
+    def get_is_deleted(self, instance):  # pylint: disable=unused-argument
+        """
+        Saved pathways are never deleted; CatalogPathwayTombstoneSink writes deletions.
+
+        0 rather than False: the column is the UInt8 is_deleted of a ReplacingMergeTree, and
+        ClickHouse won't parse a CSV "False" as a UInt8.
+        """
+        return 0
 
 
 class PathwayEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerializer):
