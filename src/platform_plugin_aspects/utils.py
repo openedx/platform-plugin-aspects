@@ -39,6 +39,9 @@ DEFAULT_FILTERS_FORMAT = [
 
 DEFAULT_USER_LANGUAGE = "en"
 
+# ExternalIdType name event-routing-backends uses for the xAPI actor id.
+XAPI_EXTERNAL_ID_TYPE = "xapi"
+
 
 def generate_superset_context(
     context,
@@ -309,6 +312,28 @@ def get_tags_for_block(usage_key) -> set:
             tag = tag.parent
 
     return list(serialized_tags)
+
+
+def get_or_create_xapi_actor_id(user):
+    """
+    Return the learner's xAPI actor id, creating it if the learner has none yet.
+
+    This is the id event-routing-backends sends as the xAPI actor (the
+    learner's ExternalId of type "xapi"), so sink rows keyed by it join the
+    xAPI tables and hold no PII. Creating the ExternalId fires its post_save,
+    which queues an ExternalIdSink dump.
+
+    Raises ValueError if the ExternalId model or the "xapi" ExternalIdType is missing.
+    """
+    ExternalId = get_model("external_id")
+    if not ExternalId:
+        raise ValueError("The ExternalId model could not be loaded.")
+    external_id, _ = ExternalId.add_new_user_id(user, XAPI_EXTERNAL_ID_TYPE)
+    if not external_id:
+        raise ValueError(
+            f"The '{XAPI_EXTERNAL_ID_TYPE}' ExternalIdType does not exist."
+        )
+    return str(external_id.external_user_id)
 
 
 def get_user_dashboard_locale(user):

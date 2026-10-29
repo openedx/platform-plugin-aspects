@@ -8,7 +8,11 @@ from django.utils import timezone
 from pytz import UTC
 from rest_framework import serializers
 
-from platform_plugin_aspects.utils import get_model, get_tags_for_block
+from platform_plugin_aspects.utils import (
+    get_model,
+    get_or_create_xapi_actor_id,
+    get_tags_for_block,
+)
 
 
 class DateTimeJSONEncoder(json.JSONEncoder):
@@ -208,6 +212,71 @@ class CourseEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerializer
     def get_course_key(self, obj):
         """Return the course key as a string."""
         return str(obj.course_id)
+
+
+class CatalogPathwaySerializer(BaseSinkSerializer, serializers.ModelSerializer):
+    """Serializer for the CatalogPathway model."""
+
+    org = serializers.CharField(source="org.short_name")
+    category_code = serializers.CharField(source="category.category_code")
+    category_title = serializers.CharField(source="category.title")
+    is_deleted = serializers.SerializerMethodField()
+
+    class Meta:
+        """Meta class for the CatalogPathwaySerializer"""
+
+        model = get_model("catalog_pathway")
+        fields = [
+            "id",
+            "org",
+            "pathway_code",
+            "title",
+            "category_code",
+            "category_title",
+            "created",
+            "modified",
+            "dump_id",
+            "time_last_dumped",
+            "is_deleted",
+        ]
+
+    def get_is_deleted(self, instance):  # pylint: disable=unused-argument
+        """
+        Saved pathways are never deleted; CatalogPathwayTombstoneSink writes deletions.
+
+        0 rather than False: the column is the UInt8 is_deleted of a ReplacingMergeTree, and
+        ClickHouse won't parse a CSV "False" as a UInt8.
+        """
+        return 0
+
+
+class PathwayEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerializer):
+    """
+    Serializer for the PathwayEnrollment model.
+
+    The learner is stored as their xAPI actor id instead of user_id to keep the table PII free.
+    """
+
+    actor_id = serializers.SerializerMethodField()
+
+    class Meta:
+        """Meta class for the PathwayEnrollmentSerializer"""
+
+        model = get_model("pathway_enrollment")
+        fields = [
+            "id",
+            "catalog_pathway_id",
+            "actor_id",
+            "created",
+            "modified",
+            "is_active",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_actor_id(self, instance):
+        """Return the learner's xAPI actor id instead of any user identifier."""
+        return get_or_create_xapi_actor_id(instance.user)
 
 
 class TagSerializer(BaseSinkSerializer, serializers.ModelSerializer):
