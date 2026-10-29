@@ -14,9 +14,9 @@ from platform_plugin_aspects.utils import (
     generate_superset_context,
     get_ccx_courses,
     get_model,
+    get_or_create_xapi_actor_id,
     get_tags_for_block,
     get_user_dashboard_locale,
-    get_xapi_actor_id,
 )
 from test_utils.helpers import course_factory
 
@@ -295,22 +295,32 @@ class TestUtils(TestCase):
         mock_get_model.assert_called_once()
 
     @patch("platform_plugin_aspects.utils.get_model")
-    def test_get_xapi_actor_id(self, mock_get_model):
-        """Test that get_xapi_actor_id returns the user's xapi ExternalId."""
+    def test_get_or_create_xapi_actor_id(self, mock_get_model):
+        """Test that get_or_create_xapi_actor_id returns the user's xapi ExternalId."""
         external_id = Mock(external_user_id="29e5b22b-b457-49fa-9633-6c0123305d18")
         mock_get_model.return_value.add_new_user_id.return_value = (external_id, True)
         user = Mock()
 
-        assert get_xapi_actor_id(user) == "29e5b22b-b457-49fa-9633-6c0123305d18"
+        assert (
+            get_or_create_xapi_actor_id(user) == "29e5b22b-b457-49fa-9633-6c0123305d18"
+        )
         mock_get_model.assert_called_once_with("external_id")
         mock_get_model.return_value.add_new_user_id.assert_called_once_with(
             user, "xapi"
         )
 
     @patch("platform_plugin_aspects.utils.get_model")
-    def test_get_xapi_actor_id_missing_type(self, mock_get_model):
-        """Test that get_xapi_actor_id fails loudly without the xapi ExternalIdType."""
+    def test_get_or_create_xapi_actor_id_missing_type(self, mock_get_model):
+        """Test that get_or_create_xapi_actor_id fails loudly without the xapi ExternalIdType."""
         mock_get_model.return_value.add_new_user_id.return_value = (None, False)
 
         with self.assertRaises(ValueError):
-            get_xapi_actor_id(Mock())
+            get_or_create_xapi_actor_id(Mock())
+
+    @patch("platform_plugin_aspects.utils.get_model")
+    def test_get_or_create_xapi_actor_id_missing_model(self, mock_get_model):
+        """Test that get_or_create_xapi_actor_id fails loudly without the ExternalId model."""
+        mock_get_model.return_value = None
+
+        with self.assertRaises(ValueError):
+            get_or_create_xapi_actor_id(Mock())

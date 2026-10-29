@@ -10,8 +10,8 @@ from rest_framework import serializers
 
 from platform_plugin_aspects.utils import (
     get_model,
+    get_or_create_xapi_actor_id,
     get_tags_for_block,
-    get_xapi_actor_id,
 )
 
 
@@ -240,7 +240,11 @@ class CatalogPathwaySerializer(BaseSinkSerializer, serializers.ModelSerializer):
 
 
 class PathwayEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerializer):
-    """Serializer for the PathwayEnrollment model."""
+    """
+    Serializer for the PathwayEnrollment model.
+
+    The learner is stored as their xAPI actor id instead of user_id to keep the table PII free.
+    """
 
     actor_id = serializers.SerializerMethodField()
 
@@ -261,7 +265,7 @@ class PathwayEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerialize
 
     def get_actor_id(self, instance):
         """Return the learner's xAPI actor id instead of any user identifier."""
-        return get_xapi_actor_id(instance.user)
+        return get_or_create_xapi_actor_id(instance.user)
 
 
 class TagSerializer(BaseSinkSerializer, serializers.ModelSerializer):

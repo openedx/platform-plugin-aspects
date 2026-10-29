@@ -36,6 +36,10 @@ Below are the existing sink names and their corresponding object names (as neede
   model and stores the user profile data in ClickHouse. Object name: ``user_profile``
 - ``CourseEnrollmentSink`` - Listen for the ``ENROLL_STATUS_CHANGE`` event and stores
   the course enrollment data. Object name: ``course_enrollment``
+- ``CatalogPathwaySink`` - Listens for the ``post_save`` Django signal on the openedx-core
+  ``CatalogPathway`` model. Object name: ``catalog_pathway``
+- ``PathwayEnrollmentSink`` - Listens for the ``post_save`` Django signal on the openedx-core
+  ``PathwayEnrollment`` model. Object name: ``pathway_enrollment``
 - ``UserRetirementSink`` - Listen for the ``USER_RETIRE_LMS_MISC`` Django signal and
   remove the user PII information from ClickHouse. This is a special sink with no assigned object name.
 

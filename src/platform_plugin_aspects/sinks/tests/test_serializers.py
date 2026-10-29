@@ -102,15 +102,17 @@ class TestPathwayEnrollmentSerializer(TestCase):
     Test PathwayEnrollmentSerializer
     """
 
-    @patch("platform_plugin_aspects.sinks.serializers.get_xapi_actor_id")
-    def test_get_actor_id(self, mock_get_xapi_actor_id):
+    @patch("platform_plugin_aspects.sinks.serializers.get_or_create_xapi_actor_id")
+    def test_get_actor_id(self, mock_get_or_create_xapi_actor_id):
         """
         Test that the learner is serialized as their xAPI actor id.
         """
-        mock_get_xapi_actor_id.return_value = "29e5b22b-b457-49fa-9633-6c0123305d18"
+        mock_get_or_create_xapi_actor_id.return_value = (
+            "29e5b22b-b457-49fa-9633-6c0123305d18"
+        )
         enrollment = Mock()
 
         actor_id = PathwayEnrollmentSerializer().get_actor_id(enrollment)
 
         assert actor_id == "29e5b22b-b457-49fa-9633-6c0123305d18"
-        mock_get_xapi_actor_id.assert_called_once_with(enrollment.user)
+        mock_get_or_create_xapi_actor_id.assert_called_once_with(enrollment.user)

@@ -10,6 +10,7 @@ from platform_plugin_aspects.signals import (
     on_catalog_pathway_saved_txn,
     on_externalid_saved_txn,
     on_pathway_enrollment_saved_txn,
+    on_pathway_model_deleted,
     on_user_retirement,
     receive_course_publish,
 )
@@ -64,6 +65,15 @@ class SignalHandlersTestCase(TestCase):
         on_pathway_enrollment_saved_txn(sender, instance)
 
         mock_transaction.on_commit.assert_called_once()
+
+    @patch("platform_plugin_aspects.signals.logger")
+    def test_on_pathway_model_deleted(self, mock_logger):
+        """
+        Test that on_pathway_model_deleted only logs the deletion.
+        """
+        on_pathway_model_deleted(Mock(__name__="PathwayEnrollment"), Mock(id=1))
+
+        mock_logger.warning.assert_called_once()
 
     @patch("platform_plugin_aspects.tasks.dump_data_to_clickhouse")
     def test_on_user_retirement(self, mock_dump_task):
