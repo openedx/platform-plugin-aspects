@@ -8,9 +8,12 @@ from django.dispatch import Signal, receiver
 from opaque_keys import InvalidKeyError
 
 from platform_plugin_aspects.sinks import (
+    CatalogPathwaySink,
+    CatalogPathwayTombstoneSink,
     CourseEnrollmentSink,
     ExternalIdSink,
     ObjectTagSink,
+    PathwayEnrollmentSink,
     TagSink,
     TaxonomySink,
     UserProfileSink,
@@ -303,3 +306,105 @@ _object_tag = get_model("object_tag")
 if _object_tag:  # pragma: no cover
     post_save.connect(on_object_tag_saved_txn, sender=_object_tag)
     post_delete.connect(on_object_tag_deleted, sender=_object_tag)
+
+
+def on_catalog_pathway_deleted(  # pylint: disable=unused-argument
+    sender, instance, **kwargs
+):
+    """
+    Receives post delete signal for CatalogPathway and queues a tombstone dump on commit.
+    """
+    # Django clears instance.pk after post_delete, so the id is read now, not in on_commit.
+    object_id = str(instance.id)
+
+    def queue_tombstone():
+        # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
+
+        sink = CatalogPathwayTombstoneSink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=object_id,
+        )
+
+    transaction.on_commit(queue_tombstone, robust=True)
+
+
+def on_catalog_pathway_saved_txn(*args, **kwargs):
+    """
+    Handle catalog_pathway saves in the middle of a transaction.
+
+    Handle saves in the middle of a transaction.
+    If this gets fired before the transaction commits, the task may try to
+    query an id that doesn't exist yet and throw an error. This should postpone
+    queuing the Celery task until after the transaction is committed.
+    """
+
+    def on_catalog_pathway_saved(  # pylint: disable=unused-argument  # pragma: no cover
+        sender, instance, **kwargs
+    ):
+        """
+        Receives post save signal and queues the dump job.
+        """
+        # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
+
+        sink = CatalogPathwaySink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=str(instance.id),
+        )
+
+    transaction.on_commit(lambda: on_catalog_pathway_saved(*args, **kwargs))
+
+
+# Connect the CatalogPathway.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_catalog_pathway = get_model("catalog_pathway")
+if _catalog_pathway:  # pragma: no cover
+    post_save.connect(on_catalog_pathway_saved_txn, sender=_catalog_pathway)
+    post_delete.connect(on_catalog_pathway_deleted, sender=_catalog_pathway)
+
+
+def on_pathway_enrollment_saved_txn(*args, **kwargs):
+    """
+    Handle pathway_enrollment saves in the middle of a transaction.
+
+    Handle saves in the middle of a transaction.
+    If this gets fired before the transaction commits, the task may try to
+    query an id that doesn't exist yet and throw an error. This should postpone
+    queuing the Celery task until after the transaction is committed.
+    """
+
+    def on_pathway_enrollment_saved(  # pylint: disable=unused-argument  # pragma: no cover
+        sender, instance, **kwargs
+    ):
+        """
+        Receives post save signal and queues the dump job.
+        """
+        # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
+
+        sink = PathwayEnrollmentSink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=str(instance.id),
+        )
+
+    transaction.on_commit(lambda: on_pathway_enrollment_saved(*args, **kwargs))
+
+
+# Connect the PathwayEnrollment.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_pathway_enrollment = get_model("pathway_enrollment")
+if _pathway_enrollment:  # pragma: no cover
+    post_save.connect(on_pathway_enrollment_saved_txn, sender=_pathway_enrollment)
