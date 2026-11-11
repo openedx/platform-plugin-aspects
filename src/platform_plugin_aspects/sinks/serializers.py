@@ -279,6 +279,105 @@ class PathwayEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerialize
         return get_or_create_xapi_actor_id(instance.user)
 
 
+class StudentCompetencyStatusSerializer(
+    BaseSinkSerializer, serializers.ModelSerializer
+):
+    """
+    Serializer for the openedx-core StudentCompetencyStatus model.
+
+    Statuses only rise, so ``created`` is when the learner first got a status for the
+    competency and ``modified`` on a Demonstrated row is when they demonstrated it.
+    """
+
+    actor_id = serializers.SerializerMethodField()
+    taxonomy_id = serializers.IntegerField(source="tag.taxonomy_id")
+    status = serializers.CharField(source="status.status")
+
+    class Meta:
+        """Meta class for the StudentCompetencyStatusSerializer"""
+
+        model = get_model("student_competency_status")
+        fields = [
+            "id",
+            "actor_id",
+            "tag_id",
+            "taxonomy_id",
+            "status_id",
+            "status",
+            "created",
+            "modified",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_actor_id(self, instance):
+        """Return the learner's xAPI actor id instead of any user identifier."""
+        return get_or_create_xapi_actor_id(instance.user)
+
+
+class StudentCompetencyCriteriaGroupStatusSerializer(
+    BaseSinkSerializer, serializers.ModelSerializer
+):
+    """
+    Serializer for the openedx-core StudentCompetencyCriteriaGroupStatus model.
+
+    The group's competency, course and level are denormalized so ClickHouse needs no
+    criteria-group table: ``group_level`` is ``root`` (no parent), ``course`` (the
+    group scoping a competency to one course run) or ``leaf`` (below a course group).
+    ``course_key`` is the group's own course run, or for a leaf, its course group's.
+    """
+
+    actor_id = serializers.SerializerMethodField()
+    group_id = serializers.IntegerField(source="group.id")
+    parent_group_id = serializers.IntegerField(source="group.parent_id", allow_null=True)
+    tag_id = serializers.IntegerField(source="group.tag_id")
+    taxonomy_id = serializers.IntegerField(source="group.tag.taxonomy_id")
+    course_key = serializers.SerializerMethodField()
+    group_level = serializers.SerializerMethodField()
+    status = serializers.CharField(source="status.status")
+
+    class Meta:
+        """Meta class for the StudentCompetencyCriteriaGroupStatusSerializer"""
+
+        model = get_model("student_competency_criteria_group_status")
+        fields = [
+            "id",
+            "actor_id",
+            "group_id",
+            "parent_group_id",
+            "tag_id",
+            "taxonomy_id",
+            "course_key",
+            "group_level",
+            "status_id",
+            "status",
+            "created",
+            "modified",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_actor_id(self, instance):
+        """Return the learner's xAPI actor id instead of any user identifier."""
+        return get_or_create_xapi_actor_id(instance.user)
+
+    def get_group_level(self, instance):
+        """Return root, course or leaf for the group."""
+        group = instance.group
+        if group.parent_id is None:
+            return "root"
+        if group.course_id is not None:
+            return "course"
+        return "leaf"
+
+    def get_course_key(self, instance):
+        """Return the course key of the group's course run, or its nearest ancestor's; empty for a root."""
+        group = instance.group
+        while group is not None and group.course_id is None:
+            group = group.parent
+        return str(group.course.course_key) if group is not None else ""
+
+
 class TagSerializer(BaseSinkSerializer, serializers.ModelSerializer):
     """Serializer for the Tag model."""
 

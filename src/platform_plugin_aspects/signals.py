@@ -14,6 +14,8 @@ from platform_plugin_aspects.sinks import (
     ExternalIdSink,
     ObjectTagSink,
     PathwayEnrollmentSink,
+    StudentCompetencyCriteriaGroupStatusSink,
+    StudentCompetencyStatusSink,
     TagSink,
     TaxonomySink,
     UserProfileSink,
@@ -408,3 +410,89 @@ def on_pathway_enrollment_saved_txn(*args, **kwargs):
 _pathway_enrollment = get_model("pathway_enrollment")
 if _pathway_enrollment:  # pragma: no cover
     post_save.connect(on_pathway_enrollment_saved_txn, sender=_pathway_enrollment)
+
+
+def on_student_competency_status_saved_txn(*args, **kwargs):
+    """
+    Handle student_competency_status saves in the middle of a transaction.
+
+    The status is written inside the LMS grade transaction, so queuing the dump
+    before the commit could read a row that doesn't exist yet. This postpones
+    queuing the Celery task until after the transaction is committed.
+
+    openedx-core raises a stored status with a bulk UPDATE and sends post_save
+    itself, so raises arrive here as well as creates.
+    """
+
+    def on_student_competency_status_saved(  # pylint: disable=unused-argument  # pragma: no cover
+        sender, instance, **kwargs
+    ):
+        """
+        Receives post save signal and queues the dump job.
+        """
+        # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
+
+        sink = StudentCompetencyStatusSink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=str(instance.id),
+        )
+
+    transaction.on_commit(lambda: on_student_competency_status_saved(*args, **kwargs))
+
+
+# Connect the StudentCompetencyStatus.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_student_competency_status = get_model("student_competency_status")
+if _student_competency_status:  # pragma: no cover
+    post_save.connect(
+        on_student_competency_status_saved_txn, sender=_student_competency_status
+    )
+
+
+def on_student_competency_criteria_group_status_saved_txn(*args, **kwargs):
+    """
+    Handle student_competency_criteria_group_status saves in the middle of a transaction.
+
+    Group statuses are written by the rollup, inside a transaction per level, so
+    queuing the dump before the commit could read a row that doesn't exist yet.
+    openedx-core sends post_save itself when it raises a stored status.
+    """
+
+    def on_student_competency_criteria_group_status_saved(  # pylint: disable=unused-argument  # pragma: no cover
+        sender, instance, **kwargs
+    ):
+        """
+        Receives post save signal and queues the dump job.
+        """
+        # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
+
+        sink = StudentCompetencyCriteriaGroupStatusSink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=str(instance.id),
+        )
+
+    transaction.on_commit(
+        lambda: on_student_competency_criteria_group_status_saved(*args, **kwargs)
+    )
+
+
+# Connect the StudentCompetencyCriteriaGroupStatus.post_save signal handler only if we have a
+# model to attach to. (prevents celery errors during tests)
+_student_competency_criteria_group_status = get_model(
+    "student_competency_criteria_group_status"
+)
+if _student_competency_criteria_group_status:  # pragma: no cover
+    post_save.connect(
+        on_student_competency_criteria_group_status_saved_txn,
+        sender=_student_competency_criteria_group_status,
+    )

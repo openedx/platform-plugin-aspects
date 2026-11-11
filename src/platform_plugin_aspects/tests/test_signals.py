@@ -11,6 +11,8 @@ from platform_plugin_aspects.signals import (
     on_catalog_pathway_saved_txn,
     on_externalid_saved_txn,
     on_pathway_enrollment_saved_txn,
+    on_student_competency_criteria_group_status_saved_txn,
+    on_student_competency_status_saved_txn,
     on_user_retirement,
     receive_course_publish,
 )
@@ -87,6 +89,28 @@ class SignalHandlersTestCase(TestCase):
             sink_name="CatalogPathwayTombstoneSink",
             object_id="7",
         )
+
+    @patch("platform_plugin_aspects.signals.transaction")
+    def test_on_student_competency_status_saved(self, mock_transaction):
+        """
+        Test that on_student_competency_status_saved_txn defers the dump to on_commit.
+        """
+        instance = Mock()
+        sender = Mock()
+        on_student_competency_status_saved_txn(sender, instance)
+
+        mock_transaction.on_commit.assert_called_once()
+
+    @patch("platform_plugin_aspects.signals.transaction")
+    def test_on_student_competency_criteria_group_status_saved(self, mock_transaction):
+        """
+        Test that on_student_competency_criteria_group_status_saved_txn defers the dump to on_commit.
+        """
+        instance = Mock()
+        sender = Mock()
+        on_student_competency_criteria_group_status_saved_txn(sender, instance)
+
+        mock_transaction.on_commit.assert_called_once()
 
     @patch("platform_plugin_aspects.tasks.dump_data_to_clickhouse")
     def test_on_user_retirement(self, mock_dump_task):
