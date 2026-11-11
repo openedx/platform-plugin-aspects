@@ -8,6 +8,10 @@ from .course_enrollment_sink import CourseEnrollmentSink
 from .course_overview_sink import CourseOverviewSink, XBlockSink
 from .external_id_sink import ExternalIdSink
 from .pathway_enrollment_sink import PathwayEnrollmentSink
+from .student_competency_status_sink import (
+    StudentCompetencyCriteriaGroupStatusSink,
+    StudentCompetencyStatusSink,
+)
 from .tag_sink import ObjectTagSink, TagSink, TaxonomySink
 from .user_profile_sink import UserProfileSink
 from .user_retire_sink import UserRetirementSink

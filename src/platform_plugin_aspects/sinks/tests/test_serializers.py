@@ -10,6 +10,8 @@ from platform_plugin_aspects.sinks.serializers import (
     CourseOverviewSerializer,
     DateTimeJSONEncoder,
     PathwayEnrollmentSerializer,
+    StudentCompetencyCriteriaGroupStatusSerializer,
+    StudentCompetencyStatusSerializer,
 )
 from test_utils.helpers import course_key_factory
 
@@ -132,3 +134,78 @@ class TestPathwayEnrollmentSerializer(TestCase):
 
         assert actor_id == "29e5b22b-b457-49fa-9633-6c0123305d18"
         mock_get_or_create_xapi_actor_id.assert_called_once_with(enrollment.user)
+
+
+class TestStudentCompetencyStatusSerializer(TestCase):
+    """
+    Test StudentCompetencyStatusSerializer
+    """
+
+    @patch("platform_plugin_aspects.sinks.serializers.get_or_create_xapi_actor_id")
+    def test_get_actor_id(self, mock_get_xapi_actor_id):
+        """
+        Test that the learner is serialized as their xAPI actor id.
+        """
+        mock_get_xapi_actor_id.return_value = "29e5b22b-b457-49fa-9633-6c0123305d18"
+        status = Mock()
+
+        actor_id = StudentCompetencyStatusSerializer().get_actor_id(status)
+
+        assert actor_id == "29e5b22b-b457-49fa-9633-6c0123305d18"
+        mock_get_xapi_actor_id.assert_called_once_with(status.user)
+
+
+class TestStudentCompetencyCriteriaGroupStatusSerializer(TestCase):
+    """
+    Test StudentCompetencyCriteriaGroupStatusSerializer
+    """
+
+    def setUp(self):
+        self.serializer = StudentCompetencyCriteriaGroupStatusSerializer()
+        # "parent" is a Mock constructor argument, so it is set as an attribute.
+        self.root = Mock(parent_id=None, course_id=None)
+        self.root.parent = None
+        self.course_group = Mock(parent_id=1, course_id=7)
+        self.course_group.parent = self.root
+        self.course_group.course.course_key = "course-v1:Org+Course+Run"
+        self.leaf = Mock(parent_id=2, course_id=None)
+        self.leaf.parent = self.course_group
+
+    def test_group_level(self):
+        """
+        Test that groups are serialized as root, course or leaf.
+        """
+        levels = [
+            self.serializer.get_group_level(Mock(group=group))
+            for group in (self.root, self.course_group, self.leaf)
+        ]
+
+        assert levels == ["root", "course", "leaf"]
+
+    def test_course_key(self):
+        """
+        Test that a leaf takes its course group's course key and a root has none.
+        """
+        assert (
+            self.serializer.get_course_key(Mock(group=self.course_group))
+            == "course-v1:Org+Course+Run"
+        )
+        assert (
+            self.serializer.get_course_key(Mock(group=self.leaf))
+            == "course-v1:Org+Course+Run"
+        )
+        assert self.serializer.get_course_key(Mock(group=self.root)) == ""
+
+    @patch("platform_plugin_aspects.sinks.serializers.get_or_create_xapi_actor_id")
+    def test_get_actor_id(self, mock_get_or_create_xapi_actor_id):
+        """
+        Test that the learner is serialized as their xAPI actor id.
+        """
+        mock_get_or_create_xapi_actor_id.return_value = "29e5b22b-b457-49fa-9633-6c0123305d18"
+        status = Mock()
+
+        assert (
+            self.serializer.get_actor_id(status)
+            == "29e5b22b-b457-49fa-9633-6c0123305d18"
+        )
+        mock_get_or_create_xapi_actor_id.assert_called_once_with(status.user)

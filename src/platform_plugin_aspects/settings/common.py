@@ -111,6 +111,14 @@ def plugin_settings(settings):
             "module": "openedx_catalog.models",
             "model": "PathwayEnrollment",
         },
+        "student_competency_status": {
+            "module": "openedx_learning.models",
+            "model": "StudentCompetencyStatus",
+        },
+        "student_competency_criteria_group_status": {
+            "module": "openedx_learning.models",
+            "model": "StudentCompetencyCriteriaGroupStatus",
+        },
     }
 
     # This is on by default here, off by default in tutor-contrib-aspects until we only
