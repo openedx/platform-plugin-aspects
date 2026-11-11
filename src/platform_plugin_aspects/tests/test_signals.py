@@ -11,6 +11,8 @@ from platform_plugin_aspects.signals import (
     on_catalog_pathway_saved_txn,
     on_externalid_saved_txn,
     on_pathway_enrollment_saved_txn,
+    on_student_competency_course_status_saved_txn,
+    on_student_competency_status_saved_txn,
     on_user_retirement,
     receive_course_publish,
 )
@@ -85,6 +87,60 @@ class SignalHandlersTestCase(TestCase):
         mock_dump_task.delay.assert_called_once_with(
             sink_module=CatalogPathwayTombstoneSink.__module__,
             sink_name="CatalogPathwayTombstoneSink",
+            object_id="7",
+        )
+
+    @patch("platform_plugin_aspects.signals.transaction")
+    def test_on_student_competency_status_saved(self, mock_transaction):
+        """
+        Test that on_student_competency_status_saved_txn defers the dump to a robust on_commit.
+        """
+        instance = Mock()
+        sender = Mock()
+        on_student_competency_status_saved_txn(sender, instance)
+
+        mock_transaction.on_commit.assert_called_once()
+        assert mock_transaction.on_commit.call_args.kwargs == {"robust": True}
+
+    @patch("platform_plugin_aspects.signals.transaction")
+    def test_on_student_competency_course_status_saved(self, mock_transaction):
+        """
+        Test that on_student_competency_course_status_saved_txn defers the dump to a robust on_commit.
+        """
+        instance = Mock()
+        sender = Mock()
+        on_student_competency_course_status_saved_txn(sender, instance)
+
+        mock_transaction.on_commit.assert_called_once()
+        assert mock_transaction.on_commit.call_args.kwargs == {"robust": True}
+
+    @patch("platform_plugin_aspects.tasks.dump_data_to_clickhouse")
+    @patch(
+        "platform_plugin_aspects.signals.StudentCompetencyCourseStatusSink.is_enabled"
+    )
+    @patch("platform_plugin_aspects.signals.transaction")
+    def test_course_status_queues_only_enabled_course_level_rows(
+        self, mock_transaction, mock_is_enabled, mock_dump_task
+    ):
+        """
+        Test that a course status is queued only when the sink is enabled and the group is course-level.
+        """
+        mock_transaction.on_commit.side_effect = lambda fn, robust: fn()
+        course_row = Mock(id=7, group=Mock(course_id=3))
+        root_row = Mock(id=8, group=Mock(course_id=None))
+
+        mock_is_enabled.return_value = False
+        on_student_competency_course_status_saved_txn(Mock(), course_row)
+        mock_dump_task.delay.assert_not_called()
+
+        mock_is_enabled.return_value = True
+        on_student_competency_course_status_saved_txn(Mock(), root_row)
+        mock_dump_task.delay.assert_not_called()
+
+        on_student_competency_course_status_saved_txn(Mock(), course_row)
+        mock_dump_task.delay.assert_called_once_with(
+            sink_module="platform_plugin_aspects.sinks.student_competency_status_sink",
+            sink_name="StudentCompetencyCourseStatusSink",
             object_id="7",
         )
 

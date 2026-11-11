@@ -42,6 +42,13 @@ Below are the existing sink names and their corresponding object names (as neede
   ``CatalogPathway`` model and marks the pathway deleted in ``catalog_pathway``.
 - ``PathwayEnrollmentSink`` - Listens for the ``post_save`` Django signal on the openedx-core
   ``PathwayEnrollment`` model. Object name: ``pathway_enrollment``
+- ``StudentCompetencyStatusSink`` - Listens for the ``post_save`` Django signal on the openedx-core
+  ``StudentCompetencyStatus`` model (a learner's mastery status for one competency). Object name:
+  ``student_competency_status``
+- ``StudentCompetencyCourseStatusSink`` - Listens for the ``post_save`` Django signal on the
+  openedx-core ``StudentCompetencyCriteriaGroupStatus`` model, course-level groups only (a learner's
+  mastery status for one competency in one course run, with the competency and course key). Object name:
+  ``student_competency_course_status``
 - ``UserRetirementSink`` - Listen for the ``USER_RETIRE_LMS_MISC`` Django signal and
   remove the user PII information from ClickHouse. This is a special sink with no assigned object name.
 

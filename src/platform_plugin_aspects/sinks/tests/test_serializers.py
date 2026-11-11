@@ -10,6 +10,8 @@ from platform_plugin_aspects.sinks.serializers import (
     CourseOverviewSerializer,
     DateTimeJSONEncoder,
     PathwayEnrollmentSerializer,
+    StudentCompetencyCourseStatusSerializer,
+    StudentCompetencyStatusSerializer,
 )
 from test_utils.helpers import course_key_factory
 
@@ -132,3 +134,58 @@ class TestPathwayEnrollmentSerializer(TestCase):
 
         assert actor_id == "29e5b22b-b457-49fa-9633-6c0123305d18"
         mock_get_or_create_xapi_actor_id.assert_called_once_with(enrollment.user)
+
+
+class TestStudentCompetencyStatusSerializer(TestCase):
+    """
+    Test StudentCompetencyStatusSerializer
+    """
+
+    @patch("platform_plugin_aspects.sinks.serializers.get_or_create_xapi_actor_id")
+    def test_get_actor_id(self, mock_get_xapi_actor_id):
+        """
+        Test that the learner is serialized as their xAPI actor id.
+        """
+        mock_get_xapi_actor_id.return_value = "29e5b22b-b457-49fa-9633-6c0123305d18"
+        status = Mock()
+
+        actor_id = StudentCompetencyStatusSerializer().get_actor_id(status)
+
+        assert actor_id == "29e5b22b-b457-49fa-9633-6c0123305d18"
+        mock_get_xapi_actor_id.assert_called_once_with(status.user)
+
+
+class TestStudentCompetencyCourseStatusSerializer(TestCase):
+    """
+    Test StudentCompetencyCourseStatusSerializer
+    """
+
+    def setUp(self):
+        self.serializer = StudentCompetencyCourseStatusSerializer()
+
+    def test_fields(self):
+        """
+        Test that the row carries the group's competency and course, and no group tree.
+        """
+        fields = self.serializer.Meta.fields
+
+        assert "course_key" in fields
+        assert "tag_id" in fields
+        assert "parent_group_id" not in fields
+        assert "group_level" not in fields
+
+    @patch("platform_plugin_aspects.sinks.serializers.get_or_create_xapi_actor_id")
+    def test_get_actor_id(self, mock_get_or_create_xapi_actor_id):
+        """
+        Test that the learner is serialized as their xAPI actor id.
+        """
+        mock_get_or_create_xapi_actor_id.return_value = (
+            "29e5b22b-b457-49fa-9633-6c0123305d18"
+        )
+        status = Mock()
+
+        assert (
+            self.serializer.get_actor_id(status)
+            == "29e5b22b-b457-49fa-9633-6c0123305d18"
+        )
+        mock_get_or_create_xapi_actor_id.assert_called_once_with(status.user)

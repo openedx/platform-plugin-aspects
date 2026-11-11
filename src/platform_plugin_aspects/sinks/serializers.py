@@ -279,6 +279,85 @@ class PathwayEnrollmentSerializer(BaseSinkSerializer, serializers.ModelSerialize
         return get_or_create_xapi_actor_id(instance.user)
 
 
+class StudentCompetencyStatusSerializer(
+    BaseSinkSerializer, serializers.ModelSerializer
+):
+    """
+    Serializer for the openedx-core StudentCompetencyStatus model.
+
+    ``created`` is when the learner first got a status for the competency. openedx-core
+    only raises statuses today, so ``modified`` on a Demonstrated row is when they
+    demonstrated it. That is current behavior, not a promise: a later staff edit or
+    recalculation could move it.
+    """
+
+    actor_id = serializers.SerializerMethodField()
+    taxonomy_id = serializers.IntegerField(source="tag.taxonomy_id")
+    status_name = serializers.CharField(source="status.status")
+
+    class Meta:
+        """Meta class for the StudentCompetencyStatusSerializer"""
+
+        model = get_model("student_competency_status")
+        fields = [
+            "id",
+            "actor_id",
+            "tag_id",
+            "taxonomy_id",
+            "status_id",
+            "status_name",
+            "created",
+            "modified",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_actor_id(self, instance):
+        """Return the learner's xAPI actor id instead of any user identifier."""
+        return get_or_create_xapi_actor_id(instance.user)
+
+
+class StudentCompetencyCourseStatusSerializer(
+    BaseSinkSerializer, serializers.ModelSerializer
+):
+    """
+    Serializer for the openedx-core StudentCompetencyCriteriaGroupStatus model.
+
+    Only course-level groups are sunk (see StudentCompetencyCourseStatusSink): a
+    row is the learner's status for one competency in one course run. The group's
+    competency and course key are denormalized so ClickHouse needs no criteria-group table.
+    """
+
+    actor_id = serializers.SerializerMethodField()
+    tag_id = serializers.IntegerField(source="group.tag_id")
+    taxonomy_id = serializers.IntegerField(source="group.tag.taxonomy_id")
+    course_key = serializers.CharField(source="group.course.course_key")
+    status_name = serializers.CharField(source="status.status")
+
+    class Meta:
+        """Meta class for the StudentCompetencyCourseStatusSerializer"""
+
+        model = get_model("student_competency_course_status")
+        fields = [
+            "id",
+            "actor_id",
+            "group_id",
+            "tag_id",
+            "taxonomy_id",
+            "course_key",
+            "status_id",
+            "status_name",
+            "created",
+            "modified",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
+    def get_actor_id(self, instance):
+        """Return the learner's xAPI actor id instead of any user identifier."""
+        return get_or_create_xapi_actor_id(instance.user)
+
+
 class TagSerializer(BaseSinkSerializer, serializers.ModelSerializer):
     """Serializer for the Tag model."""
 
