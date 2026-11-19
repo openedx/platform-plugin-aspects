@@ -94,7 +94,7 @@ class TestUtils(TestCase):
 
         mock_model.objects.filter.assert_called_once_with(course_id="dummy_key")
 
-    @patch.object(settings, "FEATURES", {"CUSTOM_COURSES_EDX": False})
+    @patch.object(settings, "CUSTOM_COURSES_EDX", False)
     def test_get_ccx_courses_feature_disabled(self):
         courses = get_ccx_courses("dummy_key")
 
