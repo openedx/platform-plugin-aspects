@@ -9,6 +9,7 @@ from pytz import UTC
 from rest_framework import serializers
 
 from platform_plugin_aspects.utils import (
+    get_competency_api,
     get_model,
     get_or_create_xapi_actor_id,
     get_tags_for_block,
@@ -408,7 +409,17 @@ class ObjectTagSerializer(BaseSinkSerializer, serializers.ModelSerializer):
 
 
 class TaxonomySerializer(BaseSinkSerializer, serializers.ModelSerializer):
-    """Serializer for the Taxonomy model."""
+    """
+    Serializer for the Taxonomy model.
+
+    ``taxonomy_type`` is ``competency`` for a taxonomy backed by an openedx-core
+    CompetencyTaxonomy row and ``tags`` otherwise, computed the way the platform's
+    taxonomy REST serializer does it (openedx_tagging ADR 0013,
+    competency-taxonomy-detection). It is the last field
+    because sink inserts are positional CSV and the column was added last.
+    """
+
+    taxonomy_type = serializers.SerializerMethodField()
 
     class Meta:
         """Meta class for the TaxonomySerializer."""
@@ -419,4 +430,12 @@ class TaxonomySerializer(BaseSinkSerializer, serializers.ModelSerializer):
             "name",
             "dump_id",
             "time_last_dumped",
+            "taxonomy_type",
         ]
+
+    def get_taxonomy_type(self, instance):
+        """Return ``competency`` or ``tags``, through openedx-core's public CBE API."""
+        competency_api = get_competency_api()
+        if competency_api and competency_api.is_competency_taxonomy(instance):
+            return "competency"
+        return "tags"

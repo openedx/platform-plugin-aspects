@@ -244,11 +244,20 @@ def on_taxonomy_saved_txn(*args, **kwargs):
     transaction.on_commit(lambda: on_taxonomy_saved(*args, **kwargs))
 
 
-# Connect the ExternalId.post_save signal handler only if we have a model to attach to.
+# Connect the Taxonomy.post_save signal handler only if we have a model to attach to.
 # (prevents celery errors during tests)
 _taxonomy = get_model("taxonomy")
 if _taxonomy:
     post_save.connect(on_taxonomy_saved_txn, sender=_taxonomy)  # pragma: no cover
+
+# A competency taxonomy is saved once, as openedx-core's CompetencyTaxonomy (a
+# multi-table-inheritance child of Taxonomy), and Django sends that post_save with the
+# child class only. This is the only signal that dumps a competency taxonomy.
+_competency_taxonomy = get_model("competency_taxonomy")
+if _competency_taxonomy:
+    post_save.connect(  # pragma: no cover
+        on_taxonomy_saved_txn, sender=_competency_taxonomy
+    )
 
 
 def on_object_tag_saved_txn(*args, **kwargs):

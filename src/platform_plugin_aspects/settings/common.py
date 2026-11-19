@@ -99,6 +99,10 @@ def plugin_settings(settings):
             "module": "openedx_tagging.models.base",
             "model": "Taxonomy",
         },
+        "competency_taxonomy": {
+            "module": "openedx_learning.models",
+            "model": "CompetencyTaxonomy",
+        },
         "object_tag": {
             "module": "openedx_tagging.models.base",
             "model": "ObjectTag",

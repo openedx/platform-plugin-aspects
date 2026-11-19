@@ -12,6 +12,7 @@ from platform_plugin_aspects.sinks.serializers import (
     PathwayEnrollmentSerializer,
     StudentCompetencyCourseStatusSerializer,
     StudentCompetencyStatusSerializer,
+    TaxonomySerializer,
 )
 from test_utils.helpers import course_key_factory
 
@@ -141,6 +142,23 @@ class TestStudentCompetencyStatusSerializer(TestCase):
     Test StudentCompetencyStatusSerializer
     """
 
+    def test_fields(self):
+        """
+        Test the exact field order: sink inserts are positional, so it is the ClickHouse column order.
+        """
+        assert StudentCompetencyStatusSerializer.Meta.fields == [
+            "id",
+            "actor_id",
+            "tag_id",
+            "taxonomy_id",
+            "status_id",
+            "status_name",
+            "created",
+            "modified",
+            "dump_id",
+            "time_last_dumped",
+        ]
+
     @patch("platform_plugin_aspects.sinks.serializers.get_or_create_xapi_actor_id")
     def test_get_actor_id(self, mock_get_xapi_actor_id):
         """
@@ -165,14 +183,25 @@ class TestStudentCompetencyCourseStatusSerializer(TestCase):
 
     def test_fields(self):
         """
-        Test that the row carries the group's competency and course, and no group tree.
-        """
-        fields = self.serializer.Meta.fields
+        Test the exact field order: sink inserts are positional, so it is the ClickHouse column order.
 
-        assert "course_key" in fields
-        assert "tag_id" in fields
-        assert "parent_group_id" not in fields
-        assert "group_level" not in fields
+        The row carries the group's competency and course, and no group tree
+        (no parent_group_id or group_level).
+        """
+        assert self.serializer.Meta.fields == [
+            "id",
+            "actor_id",
+            "group_id",
+            "tag_id",
+            "taxonomy_id",
+            "course_key",
+            "status_id",
+            "status_name",
+            "created",
+            "modified",
+            "dump_id",
+            "time_last_dumped",
+        ]
 
     @patch("platform_plugin_aspects.sinks.serializers.get_or_create_xapi_actor_id")
     def test_get_actor_id(self, mock_get_or_create_xapi_actor_id):
@@ -189,3 +218,36 @@ class TestStudentCompetencyCourseStatusSerializer(TestCase):
             == "29e5b22b-b457-49fa-9633-6c0123305d18"
         )
         mock_get_or_create_xapi_actor_id.assert_called_once_with(status.user)
+
+
+class TestTaxonomySerializer(TestCase):
+    """
+    Test TaxonomySerializer
+    """
+
+    def test_taxonomy_type_is_last(self):
+        """
+        Test that taxonomy_type is the last field, matching the ClickHouse column order.
+        """
+        assert TaxonomySerializer.Meta.fields[-1] == "taxonomy_type"
+
+    @patch("platform_plugin_aspects.sinks.serializers.get_competency_api")
+    def test_taxonomy_type(self, mock_get_competency_api):
+        """
+        Test that the type comes from openedx-core's is_competency_taxonomy.
+        """
+        api = mock_get_competency_api.return_value
+        api.is_competency_taxonomy.return_value = True
+        assert TaxonomySerializer().get_taxonomy_type(Mock()) == "competency"
+        api.is_competency_taxonomy.return_value = False
+        assert TaxonomySerializer().get_taxonomy_type(Mock()) == "tags"
+
+    @patch(
+        "platform_plugin_aspects.sinks.serializers.get_competency_api",
+        return_value=None,
+    )
+    def test_taxonomy_type_without_cbe(self, _):
+        """
+        Test that every taxonomy is "tags" when openedx-core has no competency taxonomies.
+        """
+        assert TaxonomySerializer().get_taxonomy_type(Mock()) == "tags"
