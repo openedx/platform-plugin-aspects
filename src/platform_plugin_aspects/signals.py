@@ -14,6 +14,8 @@ from platform_plugin_aspects.sinks import (
     ExternalIdSink,
     ObjectTagSink,
     PathwayEnrollmentSink,
+    StudentCompetencyCourseStatusSink,
+    StudentCompetencyStatusSink,
     TagSink,
     TaxonomySink,
     UserProfileSink,
@@ -242,11 +244,20 @@ def on_taxonomy_saved_txn(*args, **kwargs):
     transaction.on_commit(lambda: on_taxonomy_saved(*args, **kwargs))
 
 
-# Connect the ExternalId.post_save signal handler only if we have a model to attach to.
+# Connect the Taxonomy.post_save signal handler only if we have a model to attach to.
 # (prevents celery errors during tests)
 _taxonomy = get_model("taxonomy")
 if _taxonomy:
     post_save.connect(on_taxonomy_saved_txn, sender=_taxonomy)  # pragma: no cover
+
+# A competency taxonomy is saved once, as openedx-core's CompetencyTaxonomy (a
+# multi-table-inheritance child of Taxonomy), and Django sends that post_save with the
+# child class only. This is the only signal that dumps a competency taxonomy.
+_competency_taxonomy = get_model("competency_taxonomy")
+if _competency_taxonomy:
+    post_save.connect(  # pragma: no cover
+        on_taxonomy_saved_txn, sender=_competency_taxonomy
+    )
 
 
 def on_object_tag_saved_txn(*args, **kwargs):
@@ -408,3 +419,93 @@ def on_pathway_enrollment_saved_txn(*args, **kwargs):
 _pathway_enrollment = get_model("pathway_enrollment")
 if _pathway_enrollment:  # pragma: no cover
     post_save.connect(on_pathway_enrollment_saved_txn, sender=_pathway_enrollment)
+
+
+def on_student_competency_status_saved_txn(*args, **kwargs):
+    """
+    Handle student_competency_status saves in the middle of a transaction.
+
+    openedx-core sends post_save for a raise before its transaction commits, so a
+    dump queued right away could read the old status. A rolled-back raise is never
+    queued. If queuing fails, the error is logged and the row needs a backfill.
+    """
+
+    def on_student_competency_status_saved(  # pylint: disable=unused-argument  # pragma: no cover
+        sender, instance, **kwargs
+    ):
+        """
+        Receives post save signal and queues the dump job.
+        """
+        # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
+
+        sink = StudentCompetencyStatusSink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=str(instance.id),
+        )
+
+    transaction.on_commit(
+        lambda: on_student_competency_status_saved(*args, **kwargs), robust=True
+    )
+
+
+# Connect the StudentCompetencyStatus.post_save signal handler only if we have a model to attach to.
+# (prevents celery errors during tests)
+_student_competency_status = get_model("student_competency_status")
+if _student_competency_status:  # pragma: no cover
+    post_save.connect(
+        on_student_competency_status_saved_txn, sender=_student_competency_status
+    )
+
+
+def on_student_competency_course_status_saved_txn(*args, **kwargs):
+    """
+    Handle student_competency_course_status saves in the middle of a transaction.
+
+    Deferred to the commit for the same reasons as student_competency_status saves.
+    Only rows the sink dumps (course-level groups) are queued.
+    """
+
+    def on_student_competency_course_status_saved(  # pylint: disable=unused-argument
+        sender, instance, **kwargs
+    ):
+        """
+        Receives post save signal and queues the dump job.
+        """
+        # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
+        from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
+            dump_data_to_clickhouse,
+        )
+
+        # The rollup saves every group level; checking the sink first spares the group
+        # lookup, and the broker message, on installs that don't sink these rows.
+        if not StudentCompetencyCourseStatusSink.is_enabled():
+            return
+        if not StudentCompetencyCourseStatusSink.is_course_level(instance):
+            return
+
+        sink = StudentCompetencyCourseStatusSink(None, None)
+        dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=str(instance.id),
+        )
+
+    transaction.on_commit(
+        lambda: on_student_competency_course_status_saved(*args, **kwargs),
+        robust=True,
+    )
+
+
+# Connect the StudentCompetencyCriteriaGroupStatus (course status) post_save signal handler only if we have a
+# model to attach to. (prevents celery errors during tests)
+_student_competency_course_status = get_model("student_competency_course_status")
+if _student_competency_course_status:  # pragma: no cover
+    post_save.connect(
+        on_student_competency_course_status_saved_txn,
+        sender=_student_competency_course_status,
+    )

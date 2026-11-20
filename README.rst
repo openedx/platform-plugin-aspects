@@ -42,8 +42,24 @@ Below are the existing sink names and their corresponding object names (as neede
   ``CatalogPathway`` model and marks the pathway deleted in ``catalog_pathway``.
 - ``PathwayEnrollmentSink`` - Listens for the ``post_save`` Django signal on the openedx-core
   ``PathwayEnrollment`` model. Object name: ``pathway_enrollment``
+- ``StudentCompetencyStatusSink`` - Listens for the ``post_save`` Django signal on the openedx-core
+  ``StudentCompetencyStatus`` model (a learner's mastery status for one competency). Object name:
+  ``student_competency_status``
+- ``StudentCompetencyCourseStatusSink`` - Listens for the ``post_save`` Django signal on the
+  openedx-core ``StudentCompetencyCriteriaGroupStatus`` model, course-level groups only (a learner's
+  mastery status for one competency in one course run, with the competency and course key). Object name:
+  ``student_competency_course_status``
 - ``UserRetirementSink`` - Listen for the ``USER_RETIRE_LMS_MISC`` Django signal and
   remove the user PII information from ClickHouse. This is a special sink with no assigned object name.
+
+The competency sinks need an openedx-core with competency-based education (the
+``CompetencyTaxonomy`` model). Without it they stay inactive and ``TaxonomySink`` writes every
+taxonomy's ``taxonomy_type`` as ``tags``. Their ``EVENT_SINK_CLICKHOUSE_MODEL_CONFIG`` keys are
+``student_competency_status``, ``student_competency_course_status`` and ``competency_taxonomy``.
+
+Apply the matching tutor-contrib-aspects ClickHouse migrations before upgrading to a version that
+adds sink columns, such as ``taxonomy_type`` on ``taxonomy``. Sink inserts are positional CSV and
+tolerate one bad row, so a single-row dump against the old schema is dropped without an error.
 
 Commands
 ========

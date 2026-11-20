@@ -99,6 +99,10 @@ def plugin_settings(settings):
             "module": "openedx_tagging.models.base",
             "model": "Taxonomy",
         },
+        "competency_taxonomy": {
+            "module": "openedx_learning.models",
+            "model": "CompetencyTaxonomy",
+        },
         "object_tag": {
             "module": "openedx_tagging.models.base",
             "model": "ObjectTag",
@@ -110,6 +114,14 @@ def plugin_settings(settings):
         "pathway_enrollment": {
             "module": "openedx_catalog.models",
             "model": "PathwayEnrollment",
+        },
+        "student_competency_status": {
+            "module": "openedx_learning.models",
+            "model": "StudentCompetencyStatus",
+        },
+        "student_competency_course_status": {
+            "module": "openedx_learning.models",
+            "model": "StudentCompetencyCriteriaGroupStatus",
         },
     }
 

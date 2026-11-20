@@ -4,6 +4,7 @@ Test utils.
 
 from unittest.mock import Mock, patch
 
+import pytest
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
@@ -13,6 +14,7 @@ from platform_plugin_aspects.utils import (
     generate_guest_token,
     generate_superset_context,
     get_ccx_courses,
+    get_competency_api,
     get_model,
     get_or_create_xapi_actor_id,
     get_tags_for_block,
@@ -324,3 +326,38 @@ class TestUtils(TestCase):
 
         with self.assertRaises(ValueError):
             get_or_create_xapi_actor_id(Mock())
+
+
+@patch("platform_plugin_aspects.utils.import_module")
+@patch("platform_plugin_aspects.utils.apps.get_model")
+def test_get_competency_api(mock_get_model, mock_import_module):
+    """
+    Test the CBE API is imported once openedx-core has the CompetencyTaxonomy model.
+    """
+    assert get_competency_api() == mock_import_module.return_value
+
+    mock_get_model.assert_called_once_with("openedx_learning", "CompetencyTaxonomy")
+    mock_import_module.assert_called_once_with("openedx_learning.api")
+
+
+@patch("platform_plugin_aspects.utils.import_module")
+@patch("platform_plugin_aspects.utils.apps.get_model", side_effect=LookupError)
+def test_get_competency_api_without_cbe(_, mock_import_module):
+    """
+    Test there is no CBE API when openedx-core has no CompetencyTaxonomy model.
+    """
+    assert get_competency_api() is None
+    mock_import_module.assert_not_called()
+
+
+@patch(
+    "platform_plugin_aspects.utils.import_module",
+    side_effect=ImportError("broken"),
+)
+@patch("platform_plugin_aspects.utils.apps.get_model")
+def test_get_competency_api_raises_a_broken_import(_, __):
+    """
+    Test an import error with the model present is raised, not reported as "no CBE".
+    """
+    with pytest.raises(ImportError):
+        get_competency_api()

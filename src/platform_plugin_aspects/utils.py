@@ -11,6 +11,7 @@ import uuid
 from importlib import import_module
 from urllib.parse import urljoin
 
+from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
@@ -210,6 +211,20 @@ def _superset_user_data(user: XBlockUser) -> dict:
     return {
         "username": username,
     }
+
+
+def get_competency_api():
+    """
+    Return ``openedx_learning.api`` if this openedx-core has competency taxonomies, else None.
+
+    Only a missing CompetencyTaxonomy model means "no CBE". Once the model exists, an
+    import error is a real breakage and is raised, not reported as "no competencies".
+    """
+    try:
+        apps.get_model("openedx_learning", "CompetencyTaxonomy")
+    except LookupError:
+        return None
+    return import_module("openedx_learning.api")
 
 
 def get_model(model_setting):
